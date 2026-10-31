@@ -1,0 +1,161 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "Titik Koordinat Terverifikasi Kampus Unair, Unesa, Ubaya di Surabaya",
+    "target_universities": [
+      "Universitas Airlangga (Unair)",
+      "Universitas Negeri Surabaya (Unesa)",
+      "Universitas Surabaya (Ubaya)"
+    ],
+    "crs_original": "EPSG:4326",
+    "verified_at": "2026-10-31",
+    "total_features": 8,
+    "methodology": "Empirical verification via OpenStreetMap Overpass & Nominatim API; no fictitious coordinates."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7585415,
+          -7.2647041
+        ]
+      },
+      "properties": {
+        "id": "UNAIR-KAMPUS-A",
+        "institution": "UNAIR",
+        "university_name": "Universitas Airlangga",
+        "campus_name": "Kampus A Universitas Airlangga",
+        "source": "https://www.openstreetmap.org/way/448790949",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7585213,
+          -7.2722888
+        ]
+      },
+      "properties": {
+        "id": "UNAIR-KAMPUS-B",
+        "institution": "UNAIR",
+        "university_name": "Universitas Airlangga",
+        "campus_name": "Kampus B Universitas Airlangga",
+        "source": "https://www.openstreetmap.org/way/448790950",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7859648,
+          -7.2662955
+        ]
+      },
+      "properties": {
+        "id": "UNAIR-KAMPUS-C",
+        "institution": "UNAIR",
+        "university_name": "Universitas Airlangga",
+        "campus_name": "Kampus C Universitas Airlangga",
+        "source": "https://www.openstreetmap.org/way/320182776",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7270644,
+          -7.3140718
+        ]
+      },
+      "properties": {
+        "id": "UNESA-KETINTANG",
+        "institution": "UNESA",
+        "university_name": "Universitas Negeri Surabaya",
+        "campus_name": "Universitas Negeri Surabaya Kampus Ketintang",
+        "source": "https://www.openstreetmap.org/way/689258419",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.669028,
+          -7.3019099
+        ]
+      },
+      "properties": {
+        "id": "UNESA-LIDAH-WETAN",
+        "institution": "UNESA",
+        "university_name": "Universitas Negeri Surabaya",
+        "campus_name": "Universitas Negeri Surabaya Kampus Lidah Wetan",
+        "source": "https://www.openstreetmap.org/way/344131999",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7558422,
+          -7.2557551
+        ]
+      },
+      "properties": {
+        "id": "UNESA-TERATAI",
+        "institution": "UNESA",
+        "university_name": "Universitas Negeri Surabaya",
+        "campus_name": "FIP Universitas Negeri Surabaya Kampus Teratai",
+        "source": "https://www.openstreetmap.org/way/467339097",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7613302,
+          -7.2931149
+        ]
+      },
+      "properties": {
+        "id": "UBAYA-NGAGEL",
+        "institution": "UBAYA",
+        "university_name": "Universitas Surabaya",
+        "campus_name": "Universitas Surabaya Kampus Ngagel",
+        "source": "https://www.openstreetmap.org/way/429131451",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7678489,
+          -7.3203962
+        ]
+      },
+      "properties": {
+        "id": "UBAYA-TENGGILIS",
+        "institution": "UBAYA",
+        "university_name": "Universitas Surabaya",
+        "campus_name": "Universitas Surabaya Kampus Tenggilis",
+        "source": "https://www.openstreetmap.org/way/463579114",
+        "verified_at": "2026-10-31"
+      }
+    }
+  ]
+}

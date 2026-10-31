@@ -1,0 +1,376 @@
+{
+  "metadata": {
+    "extraction_timestamp": "2026-10-31T16:58:00+07:00",
+    "osm_overpass_query_files": [
+      "data/raw/osm_downloads/overpass_target_unis.json",
+      "data/raw/osm_downloads/overpass_surabaya_universities.json"
+    ],
+    "bounding_box_surabaya": {
+      "south": -7.38,
+      "west": 112.58,
+      "north": -7.18,
+      "east": 112.85
+    },
+    "target_institutions": [
+      "UNAIR",
+      "UNESA",
+      "UBAYA"
+    ],
+    "crs": "EPSG:4326",
+    "coordinate_order": "[longitude, latitude]",
+    "methodology": "Strict empirical extraction from OpenStreetMap Overpass payload. Ground-truth validation without fabricating points."
+  },
+  "verified_campuses": [
+    {
+      "id": "UNAIR-KAMPUS-A",
+      "institution": "UNAIR",
+      "university_name": "Universitas Airlangga",
+      "campus_name": "Kampus A Universitas Airlangga",
+      "osm_ref": "way/448790949",
+      "source_url": "https://www.openstreetmap.org/way/448790949",
+      "coordinates_wgs84": {
+        "lat": -7.2647041,
+        "lon": 112.7585415
+      },
+      "geojson_point": [
+        112.7585415,
+        -7.2647041
+      ],
+      "osm_tags": {
+        "amenity": "university",
+        "name": "Kampus A Universitas Airlangga",
+        "name:en": "Airlangga University Campus A",
+        "operator": "Universitas Airlangga",
+        "operator:type": "government",
+        "operator:wikidata": "Q1494353",
+        "addr:city": "Surabaya",
+        "addr:street": "Jalan Professor Dokter Mustopo"
+      },
+      "clustered_sub_elements": [
+        {
+          "osm_ref": "relation/18917424",
+          "name": "Fakultas Kedokteran Gigi Universitas Airlangga",
+          "distance_m": 130
+        }
+      ],
+      "verified_at": "2026-10-31"
+    },
+    {
+      "id": "UNAIR-KAMPUS-B",
+      "institution": "UNAIR",
+      "university_name": "Universitas Airlangga",
+      "campus_name": "Kampus B Universitas Airlangga",
+      "osm_ref": "way/448790950",
+      "source_url": "https://www.openstreetmap.org/way/448790950",
+      "coordinates_wgs84": {
+        "lat": -7.2722888,
+        "lon": 112.7585213
+      },
+      "geojson_point": [
+        112.7585213,
+        -7.2722888
+      ],
+      "osm_tags": {
+        "amenity": "university",
+        "name": "Kampus B Universitas Airlangga",
+        "name:en": "Airlangga University Campus B",
+        "operator": "Universitas Airlangga",
+        "operator:type": "government",
+        "operator:wikidata": "Q1494353",
+        "addr:city": "Surabaya",
+        "addr:street": "Jalan Airlangga"
+      },
+      "clustered_sub_elements": [
+        {
+          "osm_ref": "node/4473248887",
+          "name": "Kampus B (Bus Stop Platform)",
+          "distance_m": 160
+        },
+        {
+          "osm_ref": "way/461332370",
+          "name": "Gedung A Fakultas Vokasi",
+          "distance_m": 158
+        },
+        {
+          "osm_ref": "way/155884317",
+          "name": "Perpustakaan Kampus B",
+          "distance_m": 80
+        }
+      ],
+      "verified_at": "2026-10-31"
+    },
+    {
+      "id": "UNAIR-KAMPUS-C",
+      "institution": "UNAIR",
+      "university_name": "Universitas Airlangga",
+      "campus_name": "Kampus C Universitas Airlangga",
+      "osm_ref": "way/320182776",
+      "source_url": "https://www.openstreetmap.org/way/320182776",
+      "coordinates_wgs84": {
+        "lat": -7.2662955,
+        "lon": 112.7859648
+      },
+      "geojson_point": [
+        112.7859648,
+        -7.2662955
+      ],
+      "osm_tags": {
+        "amenity": "university",
+        "name": "Kampus C Universitas Airlangga",
+        "name:en": "Airlangga University Campus C",
+        "operator": "Universitas Airlangga",
+        "operator:wikidata": "Q1494353",
+        "addr:city": "Surabaya",
+        "addr:street": "Jl. Mulyorejo"
+      },
+      "clustered_sub_elements": [
+        {
+          "osm_ref": "node/14310395514",
+          "name": "FTMM",
+          "distance_m": 167,
+          "note": "Merged via spatial clustering < 300m as specified in proposal"
+        },
+        {
+          "osm_ref": "way/119517919",
+          "name": "Gedung Rektorat Universitas Airlangga",
+          "distance_m": 300
+        },
+        {
+          "osm_ref": "way/257897278",
+          "name": "Rumah Sakit Universitas Airlangga",
+          "distance_m": 400
+        }
+      ],
+      "verified_at": "2026-10-31"
+    },
+    {
+      "id": "UNESA-KETINTANG",
+      "institution": "UNESA",
+      "university_name": "Universitas Negeri Surabaya",
+      "campus_name": "Universitas Negeri Surabaya Kampus Ketintang",
+      "osm_ref": "way/689258419",
+      "source_url": "https://www.openstreetmap.org/way/689258419",
+      "coordinates_wgs84": {
+        "lat": -7.3140718,
+        "lon": 112.7270644
+      },
+      "geojson_point": [
+        112.7270644,
+        -7.3140718
+      ],
+      "osm_tags": {
+        "amenity": "university",
+        "name": "Universitas Negeri Surabaya"
+      },
+      "clustered_sub_elements": [
+        {
+          "osm_ref": "way/453651723",
+          "name": "Pusat Bahasa Universitas Negeri Surabaya",
+          "distance_m": 148
+        },
+        {
+          "osm_ref": "node/12724564687",
+          "name": "Gedung A10 Teknik Informatika UNESA",
+          "distance_m": 295
+        },
+        {
+          "osm_ref": "way/466563624",
+          "name": "Fakultas Matematika Dan Ilmu Pengetahuan Alam Unesa",
+          "distance_m": 145
+        },
+        {
+          "osm_ref": "way/478992926",
+          "name": "UKM Center Universitas Negeri Surabaya",
+          "distance_m": 180
+        }
+      ],
+      "verified_at": "2026-10-31"
+    },
+    {
+      "id": "UNESA-LIDAH-WETAN",
+      "institution": "UNESA",
+      "university_name": "Universitas Negeri Surabaya",
+      "campus_name": "Universitas Negeri Surabaya Kampus Lidah Wetan",
+      "osm_ref": "way/344131999",
+      "source_url": "https://www.openstreetmap.org/way/344131999",
+      "coordinates_wgs84": {
+        "lat": -7.3019099,
+        "lon": 112.669028
+      },
+      "geojson_point": [
+        112.669028,
+        -7.3019099
+      ],
+      "osm_tags": {
+        "amenity": "university",
+        "name": "Universitas Negeri Surabaya",
+        "name:en": "Surabaya State University",
+        "alt_name": "Unesa",
+        "operator:type": "government",
+        "website": "https://www.unesa.ac.id/",
+        "wikidata": "Q18941968"
+      },
+      "clustered_sub_elements": [
+        {
+          "osm_ref": "way/685495162",
+          "name": "Graha Unesa",
+          "distance_m": 460
+        },
+        {
+          "osm_ref": "way/350820460",
+          "name": "Fakultas Ilmu Keolahragaan",
+          "distance_m": 230
+        },
+        {
+          "osm_ref": "way/350820462",
+          "name": "Fakultas Ilmu Pendidikan",
+          "distance_m": 210
+        },
+        {
+          "osm_ref": "way/350820489",
+          "name": "Fakultas Bahasa dan Seni",
+          "distance_m": 75
+        }
+      ],
+      "verified_at": "2026-10-31"
+    },
+    {
+      "id": "UNESA-TERATAI",
+      "institution": "UNESA",
+      "university_name": "Universitas Negeri Surabaya",
+      "campus_name": "FIP Universitas Negeri Surabaya Kampus Teratai",
+      "osm_ref": "way/467339097",
+      "source_url": "https://www.openstreetmap.org/way/467339097",
+      "coordinates_wgs84": {
+        "lat": -7.2557551,
+        "lon": 112.7558422
+      },
+      "geojson_point": [
+        112.7558422,
+        -7.2557551
+      ],
+      "osm_tags": {
+        "amenity": "university",
+        "name": "FIP Universitas Negeri Surabaya",
+        "addr:full": "Jalan Teratai",
+        "operator:type": "government"
+      },
+      "clustered_sub_elements": [],
+      "verified_at": "2026-10-31"
+    },
+    {
+      "id": "UBAYA-NGAGEL",
+      "institution": "UBAYA",
+      "university_name": "Universitas Surabaya",
+      "campus_name": "Universitas Surabaya Kampus Ngagel",
+      "osm_ref": "way/429131451",
+      "source_url": "https://www.openstreetmap.org/way/429131451",
+      "coordinates_wgs84": {
+        "lat": -7.2931149,
+        "lon": 112.7613302
+      },
+      "geojson_point": [
+        112.7613302,
+        -7.2931149
+      ],
+      "osm_tags": {
+        "amenity": "university",
+        "name": "Universitas Surabaya",
+        "alt_name": "Kampus Ngagel Universitas Surabaya",
+        "addr:full": "Jalan Ngagel Jaya Selatan 149",
+        "operator:type": "government"
+      },
+      "clustered_sub_elements": [
+        {
+          "osm_ref": "node/10791269170",
+          "name": "UBAYA Ngagel A (Bus stop)",
+          "distance_m": 50
+        },
+        {
+          "osm_ref": "node/12365098380",
+          "name": "UBAYA Ngagel B (Bus stop)",
+          "distance_m": 80
+        }
+      ],
+      "verified_at": "2026-10-31"
+    },
+    {
+      "id": "UBAYA-TENGGILIS",
+      "institution": "UBAYA",
+      "university_name": "Universitas Surabaya",
+      "campus_name": "Universitas Surabaya Kampus Tenggilis",
+      "osm_ref": "way/463579114",
+      "source_url": "https://www.openstreetmap.org/way/463579114",
+      "coordinates_wgs84": {
+        "lat": -7.3203962,
+        "lon": 112.7678489
+      },
+      "geojson_point": [
+        112.7678489,
+        -7.3203962
+      ],
+      "osm_tags": {
+        "amenity": "university",
+        "name": "Universitas Surabaya",
+        "addr:full": "Jalan Raya Kalirungkut",
+        "operator:type": "private"
+      },
+      "clustered_sub_elements": [
+        {
+          "osm_ref": "way/80563251",
+          "name": "Perpustakaan Universitas Surabaya",
+          "distance_m": 50
+        },
+        {
+          "osm_ref": "way/461265440",
+          "name": "Fakultas Kedokteran Ubaya",
+          "distance_m": 130
+        },
+        {
+          "osm_ref": "node/4188693225",
+          "name": "Halte 1 Universitas Surabaya",
+          "distance_m": 80
+        }
+      ],
+      "verified_at": "2026-10-31"
+    }
+  ],
+  "unresolved_and_excluded_entities": [
+    {
+      "entity_name": "Politeknik Perkapalan Negeri Surabaya (PPNS)",
+      "osm_ref": "node/9832072676",
+      "status": "EXCLUDED",
+      "reason": "Lembaga politeknik vokasi independen (eks-ITS), bukan bagian dari Universitas Negeri Surabaya (UNESA)."
+    },
+    {
+      "entity_name": "Politeknik Elektronika Negeri Surabaya (PENS)",
+      "osm_ref": "way/683503528",
+      "status": "EXCLUDED",
+      "reason": "Lembaga politeknik independen berstatus PTN-BH vokasi, bukan bagian dari UNESA."
+    },
+    {
+      "entity_name": "MA Negeri Surabaya",
+      "osm_ref": "way/461268917",
+      "status": "EXCLUDED",
+      "reason": "Madrasah Aliyah (jenjang SLTA), bukan perguruan tinggi."
+    },
+    {
+      "entity_name": "UBAYA Kampus III (Integrated Outdoor Campus - UTC Trawas)",
+      "osm_ref": "UNRESOLVED_IN_SURABAYA_BBOX",
+      "status": "UNRESOLVED_OUT_OF_BOUNDS",
+      "reason": "Terletak di Desa Trawas, Kecamatan Trawas, Kabupaten Mojokerto (koordinat ~ -7.66, 112.59), berada di luar wilayah administratif dan bounding box Kota Surabaya. Tidak dapat dimasukkan ke peta Surabaya."
+    },
+    {
+      "entity_name": "UNESA Kampus Magetan",
+      "osm_ref": "UNRESOLVED_IN_SURABAYA_BBOX",
+      "status": "UNRESOLVED_OUT_OF_BOUNDS",
+      "reason": "Terletak di Kabupaten Magetan, Jawa Timur, di luar wilayah Kota Surabaya."
+    },
+    {
+      "entity_name": "UNAIR PSDKU Banyuwangi / Gresik",
+      "osm_ref": "UNRESOLVED_IN_SURABAYA_BBOX",
+      "status": "UNRESOLVED_OUT_OF_BOUNDS",
+      "reason": "Terletak di luar wilayah administratif Kota Surabaya."
+    }
+  ]
+}
