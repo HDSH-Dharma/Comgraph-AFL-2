@@ -13,6 +13,10 @@ Thumbs.db
 .env.*.local
 *.env
 
+# Private planning notes and worker reports
+*.md
+reports/
+
 # Python
 __pycache__/
 *.py[cod]
