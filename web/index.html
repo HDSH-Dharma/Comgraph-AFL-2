@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buka Kafe — Peta Kandidat Lahan Sekitar Kampus Surabaya</title>
+    <meta name="description" content="Peta interaktif kandidat lahan kafe dalam radius 1 km dari kampus di Surabaya." />
+    <link rel="stylesheet" href="css/map.css" />
+    <!--
+      Jalankan dari ROOT repo supaya ../data/processed bisa diakses:
+        python3 -m http.server 8000
+      lalu buka http://localhost:8000/web/
+    -->
+    <script type="module" src="js/main.js"></script>
+    <!-- Modul planner (milik anggota lain) dimuat di sini dan mendefinisikan
+         window.handleLandMarkerClick(landData). Peta tetap jalan tanpanya. -->
+  </head>
+  <body>
+    <a class="skip-link" href="#controls">Lompat ke kontrol peta</a>
+
+    <header class="app-header">
+      <div class="brand">
+        <h1>Buka Kafe</h1>
+        <p class="tagline">Kandidat lahan kafe dalam radius 1 km dari kampus di Surabaya</p>
+      </div>
+      <p class="data-notice" id="data-notice" role="note">
+        Data lahan bisa berupa data demo atau belum terverifikasi. Cek label jenis data di tiap lokasi.
+      </p>
+    </header>
+
+    <main class="app-main">
+      <section class="map-panel" aria-label="Peta">
+        <div class="map-stage" id="map-stage">
+          <canvas
+            id="map-canvas"
+            tabindex="0"
+            aria-label="Peta kandidat lahan, buffer 1 km, dan titik kampus"
+            aria-describedby="map-help"
+          >
+            Browser ini tidak mendukung Canvas. Gunakan daftar kandidat di panel kontrol.
+          </canvas>
+
+          <div class="map-toolbar" role="toolbar" aria-label="Navigasi peta">
+            <button type="button" id="zoom-in" class="icon-button" aria-label="Perbesar peta" title="Perbesar">
+              <span aria-hidden="true">+</span>
+            </button>
+            <button type="button" id="zoom-out" class="icon-button" aria-label="Perkecil peta" title="Perkecil">
+              <span aria-hidden="true">−</span>
+            </button>
+            <button type="button" id="zoom-fit" class="icon-button" aria-label="Tampilkan semua data" title="Tampilkan semua">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <a class="icon-button controls-link" href="#controls" aria-label="Buka lapisan dan filter" title="Lapisan & filter">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                <path d="M4 7h16M7 12h10M10 17h4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+              </svg>
+            </a>
+          </div>
+
+          <details class="legend" id="legend" open>
+            <summary>Legenda</summary>
+            <div id="legend-body"></div>
+          </details>
+
+          <div class="map-message" id="map-message" role="status" hidden></div>
+          <div class="map-tooltip" id="map-tooltip" hidden></div>
+
+          <aside class="inspector" id="inspector" aria-labelledby="inspector-title" hidden>
+            <div class="inspector-head">
+              <h2 id="inspector-title">Detail lokasi</h2>
+              <button type="button" id="inspector-close" class="icon-button small" aria-label="Tutup detail lokasi">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div id="inspector-body"></div>
+          </aside>
+        </div>
+
+        <div class="map-footer">
+          <div class="scale-bar" aria-hidden="true">
+            <span class="scale-line" id="scale-line"></span>
+            <span class="scale-label" id="scale-label"></span>
+          </div>
+          <p class="basemap-note" id="basemap-note" role="status" hidden></p>
+          <p class="attribution">
+            <span>Titik kampus</span><span id="attribution-basemap"> &amp; basemap</span>
+            © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.
+            Buffer &amp; jarak: pipeline GIS tim (EPSG:32749).
+          </p>
+        </div>
+        <p id="map-help" class="visually-hidden">
+          Fokus ke peta lalu gunakan tombol panah untuk menggeser, plus dan minus untuk zoom, nol untuk menampilkan semua
+          data, dan Escape untuk menutup detail. Untuk memilih lokasi dengan keyboard, gunakan daftar kandidat di panel kontrol.
+        </p>
+      </section>
+
+      <aside class="sidebar" id="controls" aria-label="Kontrol peta" tabindex="-1">
+        <div id="data-errors" class="alert" role="alert" hidden></div>
+
+        <section class="control-group" aria-labelledby="qj-title">
+          <h2 id="qj-title">Lompat ke kampus</h2>
+          <div class="chip-row" id="quick-jump">
+            <span class="muted">Memuat…</span>
+          </div>
+        </section>
+
+        <fieldset class="control-group">
+          <legend>Lapisan</legend>
+          <label class="check-row">
+            <input type="checkbox" data-layer="buffers" checked />
+            <span class="check-label">Buffer 1 km</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" data-layer="campuses" checked />
+            <span class="check-label">Titik kampus</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" data-layer="candidates" checked />
+            <span class="check-label">Kandidat lahan</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" data-layer="basemap" checked />
+            <span class="check-label">Basemap OpenStreetMap</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="control-group">
+          <legend>Universitas</legend>
+          <div id="filter-institutions"><span class="muted">Memuat…</span></div>
+        </fieldset>
+
+        <fieldset class="control-group">
+          <legend>Status lahan</legend>
+          <div id="filter-statuses"></div>
+          <button type="button" class="link-button" id="reset-filters">Reset semua filter</button>
+        </fieldset>
+
+        <section class="control-group" aria-labelledby="list-title">
+          <h2 id="list-title">Kandidat terlihat <span class="count" id="candidate-count"></span></h2>
+          <ul class="candidate-list" id="candidate-list">
+            <li class="muted">Memuat…</li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+
+    <div id="live-region" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
