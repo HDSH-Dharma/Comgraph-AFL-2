@@ -7,20 +7,115 @@
     "dataset_kind": "survey_field_observation",
     "is_survey_dataset": true,
     "evaluation_rules": {
+      "baseline_radius_meters": 500.0,
+      "scenario_radius_meters": 1000.0,
+      "supported_radii_meters": [
+        500.0,
+        1000.0
+      ],
       "buffer_threshold_meters": 1000.0,
       "eligible_statuses": [
-        "Lahan kosong",
-        "Lahan yang tersedia untuk disewakan"
+        "Lahan yang tersedia untuk disewakan",
+        "Lahan kosong"
       ],
       "rentable_or_sale_statuses": [
-        "Lahan kosong",
-        "Lahan yang tersedia untuk disewakan"
+        "Lahan yang tersedia untuk disewakan",
+        "Lahan kosong"
       ],
       "non_rentable_or_sale_statuses": [
         "Rumah atau bangunan tempat tinggal",
-        "Lahan yang statusnya belum terverifikasi",
-        "Bangunan yang telah digunakan untuk fungsi lain"
+        "Bangunan yang telah digunakan untuk fungsi lain",
+        "Lahan yang statusnya belum terverifikasi"
       ]
+    },
+    "scoring_assumptions": {
+      "version": "1.0.0",
+      "description": "Asumsi parameter penilaian kelayakan kafe terpusat tim AFL 2 Computer Graphics",
+      "weights": {
+        "proximity": 40.0,
+        "space": 30.0,
+        "cost_efficiency": 30.0
+      },
+      "proximity_thresholds_m": {
+        "scenario_1km": {
+          "excellent": [
+            300.0,
+            40.0
+          ],
+          "good": [
+            600.0,
+            30.0
+          ],
+          "fair": [
+            1000.0,
+            20.0
+          ],
+          "unsuitable": [
+            null,
+            0.0
+          ]
+        },
+        "baseline_500m": {
+          "excellent": [
+            150.0,
+            40.0
+          ],
+          "good": [
+            300.0,
+            30.0
+          ],
+          "fair": [
+            500.0,
+            20.0
+          ],
+          "unsuitable": [
+            null,
+            0.0
+          ]
+        }
+      },
+      "space_thresholds_sqm": {
+        "optimal_range": [
+          [
+            80.0,
+            250.0
+          ],
+          30.0
+        ],
+        "moderate_ranges": [
+          [
+            [
+              50.0,
+              80.0
+            ],
+            20.0
+          ],
+          [
+            [
+              250.0,
+              400.0
+            ],
+            20.0
+          ]
+        ],
+        "acceptable_fallback": 10.0
+      },
+      "cost_efficiency_thresholds_idr_per_sqm_yr": {
+        "efficient": [
+          400000.0,
+          30.0
+        ],
+        "moderate": [
+          700000.0,
+          20.0
+        ],
+        "high": [
+          null,
+          10.0
+        ]
+      },
+      "anti_fabrication_rule": "Dilarang keras menebak harga sewa (never guess rent); jika rental_price_yr tidak terverifikasi maka bernilai null dan komponen sewa dinormalisasi secara transparan.",
+      "renormalization_method": "Komponen yang bernilai null dikeluarkan dari pembagi bobot; skor dihitung ulang ke skala 0-100 secara proporsional."
     },
     "open_data_policy": {
       "defensible_basis": "Empirical Field Survey via Google Street View & Google Maps (Observasi Tim Mahasiswa)",
@@ -29,9 +124,17 @@
     "summary": {
       "total_candidates": 16,
       "in_buffer_count": 16,
+      "in_buffer_500m_count": 15,
+      "in_buffer_1000m_count": 16,
       "out_of_buffer_count": 0,
+      "out_of_buffer_500m_count": 1,
+      "out_of_buffer_1000m_count": 0,
       "eligible_count": 4,
+      "eligible_500m_count": 4,
+      "eligible_1000m_count": 4,
       "ineligible_count": 12,
+      "ineligible_500m_count": 12,
+      "ineligible_1000m_count": 12,
       "rentable_or_sale_count": 4,
       "non_rentable_or_sale_count": 12,
       "status_counts": {
@@ -64,12 +167,93 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 370.8190719814539,
         "distance_to_polygon_meters": 162.08,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "feasibility_score_normalized": 75.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 370.82,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 50.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 370.82,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -117,12 +301,93 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 426.87616405600926,
         "distance_to_polygon_meters": 173.53,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "feasibility_score_normalized": 75.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 426.88,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 50.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 426.88,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -170,12 +435,93 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 178.2038132241632,
         "distance_to_polygon_meters": 9.3,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "feasibility_score_normalized": 100.0,
+        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_scoring": {
+          "score_normalized": 100.0,
+          "grade": "Sangat Strategis ★★★",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 40.0,
+              "max_weight": 40.0,
+              "distance_meters": 178.2,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 178.2,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -223,12 +569,93 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 540.9661082264948,
         "distance_to_polygon_meters": 110.71,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "feasibility_score_normalized": 75.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 540.97,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 0.0,
+          "grade": "Kurang Layak",
+          "raw_earned_points": 0.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 0.0,
+              "max_weight": 40.0,
+              "distance_meters": 540.97,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -276,12 +703,93 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 465.7668366621384,
         "distance_to_polygon_meters": 94.96,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": true,
+        "is_eligible_500m": true,
+        "is_eligible_1000m": true,
         "is_rentable_or_sale": true,
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
+        "feasibility_score_normalized": 75.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 465.77,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 50.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 465.77,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "rentable_or_usable",
           "planning_permission": "clickable_modal_trigger",
@@ -329,12 +837,93 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "distance_meters": 258.5781260437213,
         "distance_to_polygon_meters": 126.81,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": true,
+        "is_eligible_500m": true,
+        "is_eligible_1000m": true,
         "is_rentable_or_sale": true,
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
+        "feasibility_score_normalized": 100.0,
+        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_scoring": {
+          "score_normalized": 100.0,
+          "grade": "Sangat Strategis ★★★",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 40.0,
+              "max_weight": 40.0,
+              "distance_meters": 258.58,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 258.58,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "rentable_or_usable",
           "planning_permission": "clickable_modal_trigger",
@@ -382,12 +971,93 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "distance_meters": 474.42607954667153,
         "distance_to_polygon_meters": 381.24,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": true,
+        "is_eligible_500m": true,
+        "is_eligible_1000m": true,
         "is_rentable_or_sale": true,
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
+        "feasibility_score_normalized": 75.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 474.43,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 50.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 474.43,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "rentable_or_usable",
           "planning_permission": "clickable_modal_trigger",
@@ -435,12 +1105,93 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 238.6623940099135,
         "distance_to_polygon_meters": 83.51,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": true,
+        "is_eligible_500m": true,
+        "is_eligible_1000m": true,
         "is_rentable_or_sale": true,
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
+        "feasibility_score_normalized": 100.0,
+        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_scoring": {
+          "score_normalized": 100.0,
+          "grade": "Sangat Strategis ★★★",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 40.0,
+              "max_weight": 40.0,
+              "distance_meters": 238.66,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 238.66,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "rentable_or_usable",
           "planning_permission": "clickable_modal_trigger",
@@ -488,12 +1239,93 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 330.12045499012663,
         "distance_to_polygon_meters": 104.34,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "feasibility_score_normalized": 75.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 330.12,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 50.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 330.12,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -541,12 +1373,93 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 169.5909847279269,
         "distance_to_polygon_meters": 23.62,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "feasibility_score_normalized": 100.0,
+        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_scoring": {
+          "score_normalized": 100.0,
+          "grade": "Sangat Strategis ★★★",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 40.0,
+              "max_weight": 40.0,
+              "distance_meters": 169.59,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 169.59,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -594,12 +1507,93 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 241.47947796966434,
         "distance_to_polygon_meters": 178.82,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "feasibility_score_normalized": 100.0,
+        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_scoring": {
+          "score_normalized": 100.0,
+          "grade": "Sangat Strategis ★★★",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 40.0,
+              "max_weight": 40.0,
+              "distance_meters": 241.48,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 241.48,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -647,12 +1641,93 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 471.8654383038802,
         "distance_to_polygon_meters": 409.56,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
+        "feasibility_score_normalized": 75.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 471.87,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 50.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 471.87,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -700,12 +1775,93 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 374.0767395427662,
         "distance_to_polygon_meters": 298.81,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "feasibility_score_normalized": 75.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 374.08,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 50.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 374.08,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -753,12 +1909,93 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 476.554205314441,
         "distance_to_polygon_meters": 422.01,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "feasibility_score_normalized": 75.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 476.55,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 50.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 476.55,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -806,12 +2043,93 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 273.4001075004105,
         "distance_to_polygon_meters": 36.73,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "feasibility_score_normalized": 100.0,
+        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_scoring": {
+          "score_normalized": 100.0,
+          "grade": "Sangat Strategis ★★★",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 40.0,
+              "max_weight": 40.0,
+              "distance_meters": 273.4,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 75.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 273.4,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",
@@ -859,12 +2177,93 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "distance_meters": 145.67733279045748,
         "distance_to_polygon_meters": 19.75,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
         "is_eligible": false,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": false,
         "is_rentable_or_sale": false,
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "feasibility_score_normalized": 100.0,
+        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_scoring": {
+          "score_normalized": 100.0,
+          "grade": "Sangat Strategis ★★★",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 40.0,
+              "max_weight": 40.0,
+              "distance_meters": 145.68,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 100.0,
+          "grade": "Sangat Strategis ★★★",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "proximity"
+          ],
+          "null_components": [
+            "space",
+            "cost_efficiency"
+          ],
+          "breakdown": {
+            "proximity": {
+              "score": 40.0,
+              "max_weight": 40.0,
+              "distance_meters": 145.68,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unmeasured area)"
+            },
+            "cost_efficiency": {
+              "score": null,
+              "max_weight": 30.0,
+              "status": "NULL (Unobserved rent (never guessed))"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+        },
         "status_classification": {
           "category": "non_rentable_or_sale",
           "planning_permission": "disabled_not_selectable",

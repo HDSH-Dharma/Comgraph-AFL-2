@@ -78,7 +78,90 @@
         "target_campus_name": "Kampus A Universitas Airlangga",
         "distance_meters": 569.71,
         "distance_to_polygon_meters": 376.46,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak gerbang unobserved (belum ada observasi empiris titik gerbang).",
         "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": true,
+        "feasibility_score_normalized": 70.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 70.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 70.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 569.71,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 80.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1312500.0,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 40.0,
+          "grade": "Kurang Layak",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 0.0,
+              "max_weight": 40.0,
+              "distance_meters": 569.71,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 80.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1312500.0,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
         "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
       }
     },
@@ -136,7 +219,90 @@
         "target_campus_name": "Kampus B Universitas Airlangga",
         "distance_meters": 387.51,
         "distance_to_polygon_meters": 208.18,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak gerbang unobserved (belum ada observasi empiris titik gerbang).",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
+        "is_eligible_500m": true,
+        "is_eligible_1000m": true,
+        "feasibility_score_normalized": 70.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 70.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 70.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 387.51,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 100.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1450000.0,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 60.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 60.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 387.51,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 100.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1450000.0,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
         "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
       }
     },
@@ -193,7 +359,90 @@
         "target_campus_name": "Kampus C Universitas Airlangga",
         "distance_meters": 618.24,
         "distance_to_polygon_meters": 130.53,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak gerbang unobserved (belum ada observasi empiris titik gerbang).",
         "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": true,
+        "feasibility_score_normalized": 60.0,
+        "feasibility_grade": "Cukup Layak ★",
+        "feasibility_scoring": {
+          "score_normalized": 60.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 60.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 618.24,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 120.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 708333.33,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 40.0,
+          "grade": "Kurang Layak",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 0.0,
+              "max_weight": 40.0,
+              "distance_meters": 618.24,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 120.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 708333.33,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
         "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
       }
     },
@@ -250,7 +499,90 @@
         "target_campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 696.09,
         "distance_to_polygon_meters": 645.77,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak gerbang unobserved (belum ada observasi empiris titik gerbang).",
         "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": true,
+        "feasibility_score_normalized": 60.0,
+        "feasibility_grade": "Cukup Layak ★",
+        "feasibility_scoring": {
+          "score_normalized": 60.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 60.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 696.09,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 142.5,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1754385.96,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 40.0,
+          "grade": "Kurang Layak",
+          "raw_earned_points": 40.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 0.0,
+              "max_weight": 40.0,
+              "distance_meters": 696.09,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 142.5,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1754385.96,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
         "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
       }
     },
@@ -308,7 +640,90 @@
         "target_campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "distance_meters": 460.96,
         "distance_to_polygon_meters": 332.4,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak gerbang unobserved (belum ada observasi empiris titik gerbang).",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
+        "is_eligible_500m": true,
+        "is_eligible_1000m": true,
+        "feasibility_score_normalized": 70.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 70.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 70.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 460.96,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 100.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 750000.0,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 60.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 60.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 460.96,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 100.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 750000.0,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
         "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
       }
     },
@@ -366,7 +781,90 @@
         "target_campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "distance_meters": 359.32,
         "distance_to_polygon_meters": 187.77,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak gerbang unobserved (belum ada observasi empiris titik gerbang).",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
+        "is_eligible_500m": true,
+        "is_eligible_1000m": true,
+        "feasibility_score_normalized": 60.0,
+        "feasibility_grade": "Cukup Layak ★",
+        "feasibility_scoring": {
+          "score_normalized": 60.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 60.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 359.32,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 20.0,
+              "max_weight": 30.0,
+              "area_sqm": 63.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1984126.98,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 50.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 50.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 20.0,
+              "max_weight": 40.0,
+              "distance_meters": 359.32,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 20.0,
+              "max_weight": 30.0,
+              "area_sqm": 63.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1984126.98,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
         "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
       }
     },
@@ -424,7 +922,90 @@
         "target_campus_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 263.27,
         "distance_to_polygon_meters": 204.04,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak gerbang unobserved (belum ada observasi empiris titik gerbang).",
         "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true,
+        "is_eligible_500m": true,
+        "is_eligible_1000m": true,
+        "feasibility_score_normalized": 80.0,
+        "feasibility_grade": "Strategis ★★",
+        "feasibility_scoring": {
+          "score_normalized": 80.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 80.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 40.0,
+              "max_weight": 40.0,
+              "distance_meters": 263.27,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 95.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1500000.0,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 70.0,
+          "grade": "Strategis ★★",
+          "raw_earned_points": 70.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 263.27,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 30.0,
+              "max_weight": 30.0,
+              "area_sqm": 95.0,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1500000.0,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
         "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
       }
     },
@@ -483,7 +1064,90 @@
         "target_campus_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 574.94,
         "distance_to_polygon_meters": 452.78,
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak gerbang unobserved (belum ada observasi empiris titik gerbang).",
         "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true,
+        "is_eligible_500m": false,
+        "is_eligible_1000m": true,
+        "feasibility_score_normalized": 60.0,
+        "feasibility_grade": "Cukup Layak ★",
+        "feasibility_scoring": {
+          "score_normalized": 60.0,
+          "grade": "Cukup Layak ★",
+          "raw_earned_points": 60.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 30.0,
+              "max_weight": 40.0,
+              "distance_meters": 574.94,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 20.0,
+              "max_weight": 30.0,
+              "area_sqm": 52.5,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1333333.33,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "score_normalized": 30.0,
+          "grade": "Kurang Layak",
+          "raw_earned_points": 30.0,
+          "max_available_weight": 100.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": false,
+          "observed_components": [
+            "proximity",
+            "space",
+            "cost_efficiency"
+          ],
+          "null_components": [],
+          "breakdown": {
+            "proximity": {
+              "score": 0.0,
+              "max_weight": 40.0,
+              "distance_meters": 574.94,
+              "status": "OBSERVED"
+            },
+            "space": {
+              "score": 20.0,
+              "max_weight": 30.0,
+              "area_sqm": 52.5,
+              "status": "OBSERVED"
+            },
+            "cost_efficiency": {
+              "score": 10.0,
+              "max_weight": 30.0,
+              "cost_per_sqm_yr": 1333333.33,
+              "status": "OBSERVED"
+            }
+          },
+          "radius_mode": "baseline_500m",
+          "assumptions_version": "1.0.0",
+          "formula_note": "Seluruh 3 komponen diobservasi secara lengkap."
+        },
         "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
       }
     }

@@ -44,7 +44,12 @@ async function fetchJson(url) {
   try {
     return JSON.parse(text);
   } catch {
-    throw new DataLoadError('parse', 'Isi file bukan JSON yang valid.');
+    try {
+      const sanitized = text.replace(/\bInfinity\b/g, 'null').replace(/\bNaN\b/g, 'null');
+      return JSON.parse(sanitized);
+    } catch {
+      throw new DataLoadError('parse', 'Isi file bukan JSON yang valid.');
+    }
   }
 }
 
@@ -204,6 +209,18 @@ function parseUniversities(json) {
   return { items, skipped, metadata: json.metadata ?? null };
 }
 
+function scaleRing(ring, cx, cy, factor, outBounds) {
+  const out = new Float64Array(ring.length);
+  for (let i = 0; i < ring.length; i += 2) {
+    const x = cx + factor * (ring[i] - cx);
+    const y = cy + factor * (ring[i + 1] - cy);
+    out[i] = x;
+    out[i + 1] = y;
+    extendBounds(outBounds, x, y);
+  }
+  return out;
+}
+
 function parseBuffers(json) {
   const items = [];
   let skipped = 0;
@@ -238,13 +255,25 @@ function parseBuffers(json) {
       skipped++;
       continue;
     }
+
+    // Baseline 500m buffer dihitung dengan skala 0.5 dari centroid ring 1000m
+    const cx = (bounds[0] + bounds[2]) / 2;
+    const cy = (bounds[1] + bounds[3]) / 2;
+    const bounds500 = emptyBounds();
+    const rings500 = rings.map((r) => scaleRing(r, cx, cy, 0.5, bounds500));
+
     items.push({
       universityId: str(p.university_id) || null,
       institution: str(p.institution) || null,
       campusName: str(p.campus_name),
-      radiusM: num(p.radius_m),
-      rings,
-      bounds,
+      radiusM: 500, // baseline default
+      rings: rings500,
+      bounds: bounds500,
+      rings500,
+      bounds500,
+      rings1km: rings,
+      bounds1km: bounds,
+      radiusM1km: 1000,
     });
   }
   return { items, skipped, metadata: json.metadata ?? null };
@@ -337,6 +366,16 @@ function parseCandidates(json) {
       evidenceUrl: str(p.evidence_url) || null,
       observedAt: str(p.observed_at) || null,
       imageryDate: str(p.imagery_date) || null,
+      panoId: str(p.pano_id) || null,
+      headingDeg: num(p.heading_deg),
+      locationMethod: str(p.location_method) || null,
+      notes: str(p.notes) || null,
+      distanceToPolygonM: num(p.distance_to_polygon_meters),
+      isInBuffer500: num(p.distance_meters) != null ? num(p.distance_meters) <= 500.0 : Boolean(p.is_in_buffer),
+      isInBuffer1km: num(p.distance_meters) != null ? num(p.distance_meters) <= 1000.0 : Boolean(p.is_in_buffer),
+      nearestCafeId: str(p.nearest_cafe_id) || null,
+      nearestCafeName: str(p.nearest_cafe_name) || null,
+      nearestCafeDistM: num(p.nearest_cafe_distance_meters),
       surveyedBy: str(p.surveyed_by) || null,
       priceSourceUrl: str(p.price_source_url) || null,
       provenanceLabel,
@@ -621,9 +660,14 @@ export function parseOsmCafes(json) {
       continue;
     }
     const w = lonLatToWorld(c[0], c[1]);
+    const rawName = str(p.name);
+    const isUnnamed = !rawName || rawName === 'Kafe OSM Eksisting' || rawName.toLowerCase() === 'kafe tanpa nama';
+    const name = isUnnamed ? 'Kafe tanpa nama (OSM)' : rawName;
     items.push({
       id,
-      name: str(p.name) || 'Kafe OSM Eksisting',
+      name,
+      rawName,
+      isUnnamed,
       amenity: str(p.amenity) || 'cafe',
       cuisine: str(p.cuisine),
       brand: str(p.brand),
@@ -635,11 +679,16 @@ export function parseOsmCafes(json) {
       isPlannerAllowed: false,
       isFactual: true,
       dataKind: 'osm_cafe',
+      nearestUniversityId: str(p.nearest_university_id) || null,
+      nearestUniversityName: str(p.nearest_university_name) || null,
+      distanceM: num(p.distance_meters),
+      distanceToPolygonM: num(p.distance_to_polygon_meters),
+      isInBuffer: typeof p.is_in_buffer === 'boolean' ? p.is_in_buffer : null,
       lon: c[0],
       lat: c[1],
       wx: w.x,
       wy: w.y,
-      properties: { ...p },
+      properties: { ...p, name },
     });
   }
   return { items, skipped, metadata: json.metadata ?? null };
@@ -805,6 +854,17 @@ export function buildLandData(c) {
     is_scenario: isScenario,
     is_random_placement: isRandomPlacement,
     is_factual: isScenario || simulated ? false : Boolean(c.isFactual ?? props?.is_factual),
+    imagery_date: c.imageryDate || props?.imagery_date || null,
+    pano_id: c.panoId || props?.pano_id || null,
+    heading_deg: c.headingDeg ?? props?.heading_deg ?? null,
+    location_method: c.locationMethod || props?.location_method || null,
+    notes: c.notes || props?.notes || null,
+    distance_to_polygon_meters: c.distanceToPolygonM ?? props?.distance_to_polygon_meters ?? null,
+    is_in_buffer_500: c.isInBuffer500 ?? (c.distanceM != null ? c.distanceM <= 500.0 : null),
+    is_in_buffer_1km: c.isInBuffer1km ?? (c.distanceM != null ? c.distanceM <= 1000.0 : null),
+    nearest_cafe_id: c.nearestCafeId || props?.nearest_cafe_id || null,
+    nearest_cafe_name: c.nearestCafeName || props?.nearest_cafe_name || null,
+    nearest_cafe_distance_meters: c.nearestCafeDistM ?? props?.nearest_cafe_distance_meters ?? null,
   };
 }
 

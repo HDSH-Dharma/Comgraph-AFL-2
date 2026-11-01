@@ -1,12 +1,54 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "title": "Factual OpenStreetMap Buildings & Cafes around Surabaya Campuses",
-    "extraction_timestamp": "2026-11-01T11:40:00+07:00",
-    "source": "OpenStreetMap (Nominatim & API v0.6)",
-    "licence": "ODbL 1.0 (OpenStreetMap contributors)",
-    "total_features": 33,
-    "methodology": "Empirical spatial query of real buildings, cafes, shops, and residences in Surabaya campus buffer zones. Strictly factual; zero synthetic fixtures or fabricated claims."
+    "title": "Dataset Observasi Street View Lahan Kandidat Buka Kafe Surabaya",
+    "version": "2.0.0",
+    "status": "SURVEY_COMPLETED",
+    "description": "Observasi nyata lewat Google Street View oleh agen AI (Claude) atas permintaan anggota tim (Dharma), dilakukan 1 Nov 2026. Setiap titik dibuka dan dilihat langsung; status dicatat sesuai yang terlihat di gambar. Menggantikan 50 titik versi 1.0.0 yang dibuat agen tanpa observasi (masih ada di riwayat git).",
+    "protocol_guidelines": {
+      "collection_rule": "Catat titik yang benar-benar diobservasi langsung via Google Street View dan Google Maps. Dilarang mengarang koordinat atau alamat.",
+      "null_field_rule": "Jika harga sewa tidak tertera pada papan sewa terverifikasi, wajib diisi null (bukan 0 atau estimasi).",
+      "required_fields": [
+        "id",
+        "name",
+        "address",
+        "status",
+        "survey_method",
+        "evidence_url",
+        "observed_at",
+        "surveyed_by",
+        "notes",
+        "area_sqm",
+        "rental_price_yr",
+        "price_source_url",
+        "data_kind"
+      ],
+      "valid_statuses": [
+        "Lahan kosong",
+        "Lahan yang tersedia untuk disewakan",
+        "Rumah atau bangunan tempat tinggal",
+        "Bangunan yang telah digunakan untuk fungsi lain",
+        "Lahan yang statusnya belum terverifikasi"
+      ],
+      "valid_survey_methods": [
+        "street_view",
+        "google_maps",
+        "lapangan"
+      ],
+      "valid_data_kinds": [
+        "survey_google_maps",
+        "survey_lapangan"
+      ]
+    },
+    "limitations": [
+      "Koordinat = posisi kamera Street View (pano), bukan titik tengah lahan; selisih sekitar 10-30 m.",
+      "Status mencerminkan kondisi pada tanggal pengambilan gambar Street View (imagery_date), bukan kondisi hari ini.",
+      "Ketersediaan sewa/kepemilikan tidak diverifikasi kecuali ada papan 'disewakan' yang terbaca.",
+      "Luas dan harga sewa tidak diukur (null).",
+      "Cakupan terbatas: 16 titik; titik tanpa gambar Street View atau yang tidak jelas tidak dicatat.",
+      "Wajib ditinjau anggota tim dengan membuka evidence_url sebelum dipakai di laporan."
+    ],
+    "observed_on": "2026-11-01"
   },
   "features": [
     {
@@ -14,27 +56,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7549532,
-          -7.2933468
+          112.7615137,
+          -7.2662639
         ]
       },
       "properties": {
-        "id": "OSM-WAY-36007554",
-        "name": "Cafe Glass",
-        "address": "Cafe Glass, Jalan Ngagel Jaya, RW 02, Pucang Sewu, Gubeng, Surabaya, Jawa Timur, 60284, Indonesia",
-        "osm_id": 36007554,
-        "osm_type": "way",
-        "osm_tags": {
-          "building": "yes",
-          "name": "Cafe Glass",
-          "shop": "kitchen"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2009-06-15T23:22:36Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UNAIR-A-01",
+        "name": "Rumah tinggal Jl. Kedung Tarukan Baru I",
+        "address": "Jl. Kedung Tarukan Baru I, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2662639,112.7615137,3a,75y,90h,90t/data=!3m6!1e1!3m4!1smwLkdUHagJ_QqnU2evtIKg!2e0!7i16384!8i8192",
+        "pano_id": "mwLkdUHagJ_QqnU2evtIKg",
+        "heading_deg": 90,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UNAIR-KAMPUS-A",
+        "notes": "Rumah tinggal di gang; papan nama jalan terlihat di foto; tidak ada tanda disewakan/dijual.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -42,28 +86,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7721519,
-          -7.2772403
+          112.7564189,
+          -7.26905
         ]
       },
       "properties": {
-        "id": "OSM-WAY-448081972",
-        "name": "Strike Pool & Cafe",
-        "address": "Strike Pool & Cafe, Jalan Dharmahusada Indah Barat VI, RW 04, Mojo, Gubeng, Surabaya, Jawa Timur, 60116, Indonesia",
-        "osm_id": 448081972,
-        "osm_type": "way",
-        "osm_tags": {
-          "building": "yes",
-          "leisure": "sports_centre",
-          "name": "Strike Pool & Cafe",
-          "sport": "billiards"
-        },
-        "osm_version": 3,
-        "osm_timestamp": "2022-06-14T05:14:51Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UNAIR-A-02",
+        "name": "Lapangan olahraga berpagar Jl. Dharmawangsa",
+        "address": "Jl. Dharmawangsa, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.26905,112.7564189,3a,75y,270h,90t/data=!3m6!1e1!3m4!1sQLLedWYGWLsnGHUE5Ao3Mg!2e0!7i16384!8i8192",
+        "pano_id": "QLLedWYGWLsnGHUE5Ao3Mg",
+        "heading_deg": 270,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UNAIR-KAMPUS-A",
+        "notes": "Lapangan olahraga berpagar di balik trotoar; terpakai, bukan lahan kosong untuk usaha.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -71,29 +116,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7572188,
-          -7.2940318
+          112.759752,
+          -7.2657695
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4260143149",
-        "name": "Otoclassic Cafe",
-        "address": "Otoclassic Cafe, Jalan Krukah Timur, RW 07, Baratajaya, Gubeng, Surabaya, Jawa Timur, 60284, Indonesia",
-        "osm_id": 4260143149,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Surabaya",
-          "addr:postcode": "60284",
-          "addr:street": "Jalan Krukah Timur",
-          "amenity": "cafe",
-          "name": "Otoclassic Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-06-23T09:38:27Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UNAIR-A-03",
+        "name": "Gedung aktif Jl. Prof. Dr. Moestopo",
+        "address": "Jl. Prof. Dr. Moestopo, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2657695,112.759752,3a,75y,0h,90t/data=!3m6!1e1!3m4!1scO08ZfzK6yim8eqXhWTMGA!2e0!7i16384!8i8192",
+        "pano_id": "cO08ZfzK6yim8eqXhWTMGA",
+        "heading_deg": 0,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UNAIR-KAMPUS-A",
+        "notes": "Gedung berpagar dengan papan usaha, terlihat aktif; tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -101,26 +146,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7646912,
-          -7.2661303
+          112.7904722,
+          -7.2682101
         ]
       },
       "properties": {
-        "id": "OSM-NODE-415826789",
-        "name": "Cafe Glass",
-        "address": "Cafe Glass, Jalan Dharmahusada, RW 05, Mojo, Gubeng, Surabaya, Jawa Timur, 61315, Indonesia",
-        "osm_id": 415826789,
-        "osm_type": "node",
-        "osm_tags": {
-          "amenity": "cafe",
-          "name": "Cafe Glass"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2017-04-17T05:31:57Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UNAIR-C-01",
+        "name": "Permukiman Jl. Sutorejo Timur IV",
+        "address": "Jl. Sutorejo Timur IV, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2682101,112.7904722,3a,75y,90h,90t/data=!3m6!1e1!3m4!1sGGwyMtSGD2Yt3CYr1sF4oQ!2e0!7i16384!8i8192",
+        "pano_id": "GGwyMtSGD2Yt3CYr1sF4oQ",
+        "heading_deg": 90,
+        "imagery_date": "2024-03",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UNAIR-KAMPUS-C",
+        "notes": "Jalan permukiman, deretan rumah tinggal di balik pepohonan; tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -128,29 +176,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7618885,
-          -7.3037377
+          112.7861111,
+          -7.2620868
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4191179831",
-        "name": "Cafe Glass",
-        "address": "Cafe Glass, Jalan Raya Nginden, RW 03, Baratajaya, Gubeng, Surabaya, Jawa Timur, 60284, Indonesia",
-        "osm_id": 4191179831,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Baratajaya, Gubeng, Surabaya, East Java",
-          "addr:postcode": "60284",
-          "addr:street": "Jl. Raya Nginden No.72-A",
-          "amenity": "cafe",
-          "name": "Cafe Glass"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-17T06:58:36Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UNAIR-C-02",
+        "name": "Lahan berpagar disewakan Jl. Mulyorejo Utara 221",
+        "address": "Jl. Mulyorejo Utara No. 221, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2620868,112.7861111,3a,75y,0h,90t/data=!3m6!1e1!3m4!1saxuDfMvoxSFQUquRPNTw9A!2e0!7i16384!8i8192",
+        "pano_id": "axuDfMvoxSFQUquRPNTw9A",
+        "heading_deg": 0,
+        "imagery_date": "2024-06",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UNAIR-KAMPUS-C",
+        "notes": "Pagar bertuliskan 'Jl. Mulyorejo Utara 221' dan papan 'DISEWAKAN' dengan keterangan luas tanah (angka kurang terbaca, sekitar 1.0xx m2) dan daya listrik. Nomor kontak tidak dicatat.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -158,30 +206,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7506084,
-          -7.2692876
+          112.8094685,
+          -7.2699262
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4191074244",
-        "name": "Layali Shisha Cafe and Lounge",
-        "address": "Layali Shisha Cafe and Lounge, 31, Jalan Sumatera, RW 04, Gubeng, Surabaya, Jawa Timur, 60281, Indonesia",
-        "osm_id": 4191074244,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "RT.002/RW.05, Gubeng, Kota Surabaya, Jawa Timur, Indonesia",
-          "addr:housenumber": "31",
-          "addr:postcode": "60281",
-          "addr:street": "Jalan Sumatra",
-          "amenity": "cafe",
-          "name": "Layali Shisha Cafe and Lounge"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-17T05:13:25Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UKWMS-PAKUWON-01",
+        "name": "Lahan terbuka bertembok barat UKWMS Pakuwon City",
+        "address": "jalan di barat Kampus UKWMS Pakuwon City, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2699262,112.8094685,3a,75y,90h,90t/data=!3m6!1e1!3m4!1sTVaYBWVuh8laZfloweA2ag!2e0!7i16384!8i8192",
+        "pano_id": "TVaYBWVuh8laZfloweA2ag",
+        "heading_deg": 90,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UKWMS-PAKUWON",
+        "notes": "Street View: tembok batas beton dengan vegetasi di belakangnya, tidak terlihat bangunan. Citra satelit Google Maps (dilihat 1 Nov 2026) menunjukkan tanah terbuka di area ini. Kepemilikan/ketersediaan sewa tidak diketahui (kemungkinan lahan cadangan pengembang).",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -189,39 +236,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7476864,
-          -7.2729017
+          112.8086573,
+          -7.2675471
         ]
       },
       "properties": {
-        "id": "OSM-NODE-13534220354",
-        "name": "Toko Kopi TUKU - SPBU bp Gubeng",
-        "address": "Toko Kopi TUKU - SPBU bp Gubeng, Jalan Sumatera, RW 04, Gubeng, Surabaya, Jawa Timur, 60281, Indonesia",
-        "osm_id": 13534220354,
-        "osm_type": "node",
-        "osm_tags": {
-          "air_conditioning": "yes",
-          "amenity": "cafe",
-          "cuisine": "coffee_shop",
-          "name": "Toko Kopi TUKU - SPBU bp Gubeng",
-          "opening_hours": "Mo-Su 07:00-21:00",
-          "outdoor_seating": "yes",
-          "payment:cash": "yes",
-          "payment:contactless": "yes",
-          "payment:credit_cards": "yes",
-          "payment:debit_cards": "yes",
-          "payment:mastercard": "yes",
-          "payment:visa": "yes",
-          "smoking": "no",
-          "takeaway": "yes",
-          "website": "https://tuku.coffee"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2026-02-08T14:02:44Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UKWMS-PAKUWON-02",
+        "name": "Lahan terbuka berumput barat laut UKWMS Pakuwon City",
+        "address": "jalan di barat laut Kampus UKWMS Pakuwon City, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2675471,112.8086573,3a,75y,45h,90t/data=!3m6!1e1!3m4!1smBCxYcHyQBRJri7Oz0I4BQ!2e0!7i16384!8i8192",
+        "pano_id": "mBCxYcHyQBRJri7Oz0I4BQ",
+        "heading_deg": 45,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UKWMS-PAKUWON",
+        "notes": "Street View: hamparan rumput terbuka luas tanpa bangunan, hanya pepohonan di tepi jalan. Cocok dengan tanah terbuka di citra satelit. Tidak terlihat papan sewa/jual; kepemilikan tidak diketahui.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -229,30 +266,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7527206,
-          -7.2654319
+          112.769571,
+          -7.3190923
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4192912669",
-        "name": "Surabaya CAFÈ",
-        "address": "Surabaya CAFÈ, No.2, Jalan Gubeng Masjid, RW 07, Pacar Keling, Tambaksari, Surabaya, Jawa Timur, 60131, Indonesia",
-        "osm_id": 4192912669,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Pacar Keling, Tambaksari, Surabaya, East Java",
-          "addr:housenumber": "No.2",
-          "addr:postcode": "60131",
-          "addr:street": "Jl. Gubeng Masjid",
-          "amenity": "cafe",
-          "name": "Surabaya CAFÈ"
-        },
-        "osm_version": 3,
-        "osm_timestamp": "2016-10-18T08:47:26Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UBAYA-TENGGILIS-01",
+        "name": "Lahan berpagar ditumbuhi semak Jl. Raya Kalirungkut",
+        "address": "Jl. Raya Kalirungkut, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.3190923,112.769571,3a,75y,90h,90t/data=!3m6!1e1!3m4!1sLtHbBYRcFXzeHL-Nn7AfwA!2e0!7i16384!8i8192",
+        "pano_id": "LtHbBYRcFXzeHL-Nn7AfwA",
+        "heading_deg": 90,
+        "imagery_date": "2026-03",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UBAYA-TENGGILIS",
+        "notes": "Lahan berpagar di sisi timur Jl. Raya Kalirungkut, tertutup pohon dan semak lebat, tidak terlihat bangunan aktif. Ada spanduk di pagar yang tidak terbaca pada resolusi ini. Ketersediaan sewa tidak diketahui.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -260,29 +296,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7545594,
-          -7.2874262
+          112.7694986,
+          -7.317907
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4193313272",
-        "name": "Pondok Asri Family Guest House",
-        "address": "Pondok Asri Family Guest House, Jalan Kalibokor Selatan, RW 02, Pucang Sewu, Gubeng, Surabaya, Jawa Timur, 60283, Indonesia",
-        "osm_id": 4193313272,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Pucangsewu, Gubeng, Surabaya, Jawa Timur, Indonesia",
-          "addr:postcode": "60283",
-          "addr:street": "Jalan Kalibokor Selatan",
-          "name": "Pondok Asri Family Guest House",
-          "tourism": "hostel"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2016-05-18T10:41:22Z",
-        "query_used": "house Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UBAYA-TENGGILIS-02",
+        "name": "Deretan ruko aktif Jl. Raya Kalirungkut",
+        "address": "Jl. Raya Kalirungkut, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.317907,112.7694986,3a,75y,270h,90t/data=!3m6!1e1!3m4!1sz6SzMpbAye4fcSVDVXbzvA!2e0!7i16384!8i8192",
+        "pano_id": "z6SzMpbAye4fcSVDVXbzvA",
+        "heading_deg": 270,
+        "imagery_date": "2026-03",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UBAYA-TENGGILIS",
+        "notes": "Deretan ruko/toko dengan papan nama usaha, terlihat beroperasi; tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -290,29 +326,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7582453,
-          -7.2800878
+          112.7671317,
+          -7.3190403
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4193081880",
-        "name": "Family Guest House Surabaya",
-        "address": "Family Guest House Surabaya, Jalan Kertajaya VIII C, RW 04, Kertajaya, Gubeng, Surabaya, Jawa Timur, 60286, Indonesia",
-        "osm_id": 4193081880,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kertajaya, Gubeng, Surabaya",
-          "addr:postcode": "60286",
-          "addr:street": "Jalan Gubeng Kertajaya 8C / 15",
-          "name": "Family Guest House Surabaya",
-          "tourism": "hotel"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-18T08:09:10Z",
-        "query_used": "house Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UBAYA-TENGGILIS-03",
+        "name": "Rumah berpagar Jl. Tenggilis Mejoyo",
+        "address": "Jl. Tenggilis Mejoyo, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.3190403,112.7671317,3a,75y,270h,90t/data=!3m6!1e1!3m4!1sNBRssu7uOTLmdCh6p6SqtA!2e0!7i16384!8i8192",
+        "pano_id": "NBRssu7uOTLmdCh6p6SqtA",
+        "heading_deg": 270,
+        "imagery_date": "2026-02",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UBAYA-TENGGILIS",
+        "notes": "Rumah tinggal berpagar dengan motor terparkir di halaman; tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -320,26 +356,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7985602,
-          -7.2701491
+          112.7624695,
+          -7.2949785
         ]
       },
       "properties": {
-        "id": "OSM-WAY-447125931",
-        "name": "SAS Cafe & Resto",
-        "address": "SAS Cafe & Resto, Jalan Bhaskara Sawah, RW 03, Kalisari, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
-        "osm_id": 447125931,
-        "osm_type": "way",
-        "osm_tags": {
-          "amenity": "cafe",
-          "name": "SAS Cafe & Resto"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2018-10-30T21:51:47Z",
-        "query_used": "cafe Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UBAYA-NGAGEL-01",
+        "name": "Deretan toko aktif ujung Jl. Pumpungan I",
+        "address": "Jl. Pumpungan I, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2949785,112.7624695,3a,75y,0h,90t/data=!3m6!1e1!3m4!1sGVjCPLNxIMyNzu7yshMzQw!2e0!7i16384!8i8192",
+        "pano_id": "GVjCPLNxIMyNzu7yshMzQw",
+        "heading_deg": 0,
+        "imagery_date": "2026-02",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UBAYA-NGAGEL",
+        "notes": "Toko/usaha dengan papan nama di sudut jalan, terlihat beroperasi; tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -347,29 +386,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7954887,
-          -7.2737522
+          112.757143,
+          -7.2939651
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4193187205",
-        "name": "Teras Rumah Cafe",
-        "address": "Teras Rumah Cafe, Jalan Wisma Permai I, Wisma Permai, RW 05, Mulyorejo, Surabaya, Jawa Timur, 60115, Indonesia",
-        "osm_id": 4193187205,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Mulyorejo, Surabaya, East Java",
-          "addr:postcode": "60115",
-          "addr:street": "Jl. Wisma Permai 1",
-          "amenity": "cafe",
-          "name": "Teras Rumah Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-18T09:17:42Z",
-        "query_used": "cafe Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UBAYA-NGAGEL-02",
+        "name": "Bangunan berpintu harmonika tertutup Jl. Krukah Timur",
+        "address": "Jl. Krukah Timur, Surabaya",
+        "status": "Lahan yang statusnya belum terverifikasi",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2939651,112.757143,3a,75y,93h,90t/data=!3m6!1e1!3m4!1siqlhdr3NbYZ8Jm4EUza-jw!2e0!7i16384!8i8192",
+        "pano_id": "iqlhdr3NbYZ8Jm4EUza-jw",
+        "heading_deg": 93,
+        "imagery_date": "2026-02",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UBAYA-NGAGEL",
+        "notes": "Bangunan dengan pintu harmonika tertutup saat foto diambil; tidak terlihat papan nama usaha maupun papan disewakan. Status pemakaian tidak bisa dipastikan dari Street View.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -377,26 +416,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7710077,
-          -7.2808237
+          112.7434599,
+          -7.2784097
         ]
       },
       "properties": {
-        "id": "OSM-NODE-5897591882",
-        "name": "Resto Park Cafe",
-        "address": "Resto Park Cafe, Jalan Manyar Kertoarjo, RW 06, Manyar Sabrangan, Mulyorejo, Surabaya, Jawa Timur, 60231, Indonesia",
-        "osm_id": 5897591882,
-        "osm_type": "node",
-        "osm_tags": {
-          "amenity": "food_court",
-          "name": "Resto Park Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2018-09-10T21:49:24Z",
-        "query_used": "cafe Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UKWMS-DINOYO-01",
+        "name": "Lapak pasar/kios aktif Jl. Dinoyo",
+        "address": "Jl. Dinoyo, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2784097,112.7434599,3a,75y,270h,90t/data=!3m6!1e1!3m4!1szyxzsn0VvugUm_rKg9KMtA!2e0!7i16384!8i8192",
+        "pano_id": "zyxzsn0VvugUm_rKg9KMtA",
+        "heading_deg": 270,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UKWMS-DINOYO",
+        "notes": "Bangunan lama dengan lapak pedagang (daging, sayur, peti buah) yang aktif berjualan; tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -404,30 +446,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7986184,
-          -7.2704261
+          112.7466284,
+          -7.277535
         ]
       },
       "properties": {
-        "id": "OSM-NODE-2106536258",
-        "name": "SAS Cafe & Resto",
-        "address": "SAS Cafe & Resto, No.30, Jalan Bhaskara Sawah, RW 03, Kalisari, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
-        "osm_id": 2106536258,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kalisari, Mulyorejo, Surabaya, East Java",
-          "addr:housenumber": "No.30",
-          "addr:postcode": "60112",
-          "addr:street": "Jl. Baskara Sawah",
-          "amenity": "restaurant",
-          "name": "SAS Cafe & Resto"
-        },
-        "osm_version": 3,
-        "osm_timestamp": "2016-05-17T04:51:41Z",
-        "query_used": "cafe Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UKWMS-DINOYO-02",
+        "name": "Rumah berpagar Jl. Bawean",
+        "address": "Jl. Bawean, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.277535,112.7466284,3a,75y,0h,90t/data=!3m6!1e1!3m4!1s4LUzXr8SLtl4Kw7gY26Xaw!2e0!7i16384!8i8192",
+        "pano_id": "4LUzXr8SLtl4Kw7gY26Xaw",
+        "heading_deg": 0,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UKWMS-DINOYO",
+        "notes": "Rumah tinggal berpagar dengan halaman berumput dan mobil di carport; tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -435,28 +476,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.8054411,
-          -7.2770046
+          112.7609297,
+          -7.2717167
         ]
       },
       "properties": {
-        "id": "OSM-NODE-12902684499",
-        "name": "Cafe Goede",
-        "address": "Cafe Goede, Jalan Laguna Kejawan Putih Tambak, Pakuwon City, RW 03, Kejawen Putih Tambak, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
-        "osm_id": 12902684499,
-        "osm_type": "node",
-        "osm_tags": {
-          "amenity": "restaurant",
-          "cuisine": "coffee_shop;burger;pizza",
-          "name": "Cafe Goede",
-          "phone": "+62 811-3334-7816"
-        },
-        "osm_version": 3,
-        "osm_timestamp": "2026-06-15T16:38:16Z",
-        "query_used": "cafe Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UNAIR-B-01",
+        "name": "Hotel aktif Jl. Bunga Lou",
+        "address": "Jl. Bunga Lou, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2717167,112.7609297,3a,75y,270h,90t/data=!3m6!1e1!3m4!1s5rMmz4MAc7t1CBe94FTm1g!2e0!7i16384!8i8192",
+        "pano_id": "5rMmz4MAc7t1CBe94FTm1g",
+        "heading_deg": 270,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UNAIR-KAMPUS-B",
+        "notes": "Gedung bertingkat dengan papan nama hotel, terlihat beroperasi (mobil di depan); tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     },
     {
@@ -464,544 +506,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.8039428,
-          -7.2801993
+          112.7720956,
+          -7.2590922
         ]
       },
       "properties": {
-        "id": "OSM-WAY-1042902659",
-        "name": "Virginia Club house",
-        "address": "Virginia Club house, Jalan Kejawan Putih Indah 1, Pakuwon City, RW 03, Kejawen Putih Tambak, Mulyorejo, Surabaya, Jawa Timur, 60111, Indonesia",
-        "osm_id": 1042902659,
-        "osm_type": "way",
-        "osm_tags": {
-          "leisure": "swimming_pool",
-          "name": "Virginia Club house"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2022-03-23T10:52:24Z",
-        "query_used": "house Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.8044214,
-          -7.2710724
-        ]
-      },
-      "properties": {
-        "id": "OSM-WAY-308896511",
-        "name": "arditay house's",
-        "address": "arditay house's, Jalan Kalisari Dharma IX, Pakuwon City, RW 08, Kalisari, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
-        "osm_id": 308896511,
-        "osm_type": "way",
-        "osm_tags": {
-          "building": "yes",
-          "name": "arditay house's"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2017-01-30T04:58:17Z",
-        "query_used": "house Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7950557,
-          -7.2653238
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4189288044",
-        "name": "House of Darmawan",
-        "address": "House of Darmawan, Nomor 24, Jalan Sutorejo Utara Baru, Perum Sutorejo Indah, RW 09, Dukuh Sutorejo, Mulyorejo, Surabaya, Jawa Timur, 60113, Indonesia",
-        "osm_id": 4189288044,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Mulyorejo",
-          "addr:housenumber": "Nomor 24",
-          "addr:postcode": "60113",
-          "addr:street": "Jl. Sutorejo Utara Blok B",
-          "name": "House of Darmawan",
-          "tourism": "guest_house"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2016-05-16T10:34:16Z",
-        "query_used": "house Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.8083284,
-          -7.26463
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4191370315",
-        "name": "Club House Long Beach",
-        "address": "Club House Long Beach, Jalan Main Boulevard Pakuwon City, Pakuwon City, RW 08, Kalisari, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
-        "osm_id": 4191370315,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kalisari, Mulyorejo, Surabaya",
-          "addr:postcode": "60112",
-          "addr:street": "Main Boulevard Pakuwon City",
-          "building": "residential",
-          "name": "Club House Long Beach"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-17T09:07:10Z",
-        "query_used": "house Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7398709,
-          -7.2664268
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4270975190",
-        "name": "Noach Cafe & Bistro",
-        "address": "Noach Cafe & Bistro, 4, Jalan Pregolan, RW 02, Tegalsari, Surabaya, Jawa Timur, 60262, Indonesia",
-        "osm_id": 4270975190,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:housenumber": "4",
-          "addr:street": "Jalan Pregolan",
-          "amenity": "cafe",
-          "cuisine": "sandwich;tea;cake;coffee_shop;asian;american;pasta;pizza",
-          "internet_access": "wlan",
-          "name": "Noach Cafe & Bistro",
-          "opening_hours": "Mo-Th 11:00-22:00; Fr-Sa 11:00-22:00"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2016-06-29T04:59:20Z",
-        "query_used": "cafe Tegalsari Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7399656,
-          -7.2661781
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4191121303",
-        "name": "Le Cafe Gourmand",
-        "address": "Le Cafe Gourmand, 2, Jalan Pregolan, RW 02, Tegalsari, Surabaya, Jawa Timur, 60262, Indonesia",
-        "osm_id": 4191121303,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Tegalsari, Kota SBY, Jawa Timur",
-          "addr:housenumber": "2",
-          "addr:postcode": "60262",
-          "addr:street": "Jalan Pregolan",
-          "amenity": "cafe",
-          "cuisine": "sandwich;breakfast;ice_cream;cake;coffee_shop",
-          "internet_access": "wlan",
-          "name": "Le Cafe Gourmand",
-          "opening_hours": "Mo-Su 08:00-22:00"
-        },
-        "osm_version": 4,
-        "osm_timestamp": "2026-06-22T00:03:54Z",
-        "query_used": "cafe Tegalsari Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.740487,
-          -7.2633233
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4187553284",
-        "name": "A Cafe",
-        "address": "A Cafe, No.8-13, Jalan Jenderal Basuki Rachmat, RW 10, Kedungdoro, Tegalsari, Surabaya, Jawa Timur, 60261, Indonesia",
-        "osm_id": 4187553284,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kedungdoro, Tegalsari, Surabaya",
-          "addr:housenumber": "No.8-13",
-          "addr:postcode": "60261",
-          "addr:street": "Jl. Basuki Rahmat",
-          "amenity": "restaurant",
-          "name": "A Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-15T16:16:29Z",
-        "query_used": "cafe Tegalsari Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.744151,
-          -7.2797792
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4191265215",
-        "name": "Shizuka Pet Shop",
-        "address": "Shizuka Pet Shop, No. 29, Jalan Sunda, RW 03, Keputran, Tegalsari, Surabaya, Jawa Timur, 60265, Indonesia",
-        "osm_id": 4191265215,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Keputran, Tegalsari, Surabaya, East Java",
-          "addr:housenumber": "No. 29",
-          "addr:postcode": "60265",
-          "addr:street": "Jl. Dinoyo",
-          "name": "Shizuka Pet Shop",
-          "shop": "pet"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-17T08:04:35Z",
-        "query_used": "shop Dinoyo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7735091,
-          -7.2636423
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-7137828085",
-        "name": "Warkop Pojok Kalijudan",
-        "address": "Warkop Pojok Kalijudan, Jalan Kalijudan, RW 05, Pacar Kembang, Tambaksari, Surabaya, Jawa Timur, 60114, Indonesia",
-        "osm_id": 7137828085,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:street": "Jalan Kalijudan",
-          "amenity": "cafe",
-          "cuisine": "friture;coffee_shop",
-          "name": "Warkop Pojok Kalijudan",
-          "opening_hours": "Mo-Su 05:00-21:00"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2026-03-17T06:46:03Z",
-        "query_used": "cafe Kalijudan Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7465567,
-          -7.2907982
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4260149093",
-        "name": "One Dollar Cafe",
-        "address": "One Dollar Cafe, 6, Jalan Bung Tomo, RW 01, Ngagel, Wonokromo, Surabaya, Jawa Timur, 60246, Indonesia",
-        "osm_id": 4260149093,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Surabaya",
-          "addr:housenumber": "6",
-          "addr:postcode": "60246",
-          "addr:street": "Jalan Bung Tomo",
-          "amenity": "cafe",
-          "name": "One Dollar Cafe"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2016-06-23T09:45:48Z",
-        "query_used": "cafe Ngagel Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.746638,
-          -7.2773927
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4267809700",
-        "name": "Shae Cafe and Eatery",
-        "address": "Shae Cafe and Eatery, 5, Jalan Bawean, RW 04, Ngagel, Wonokromo, Surabaya, Jawa Timur, 60246, Indonesia",
-        "osm_id": 4267809700,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Surabaya",
-          "addr:housenumber": "5",
-          "addr:postcode": "60246",
-          "addr:street": "Jalan Bawean",
-          "amenity": "cafe",
-          "name": "Shae Cafe and Eatery"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-06-27T09:35:46Z",
-        "query_used": "cafe Ngagel Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7461441,
-          -7.2944924
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4192787118",
-        "name": "STMJ Bu Nunuk Pojok Ngagel",
-        "address": "STMJ Bu Nunuk Pojok Ngagel, Jalan Ngagel Rejo Utara VI, RW 01, Ngagelrejo, Wonokromo, Surabaya, Jawa Timur, 60245, Indonesia",
-        "osm_id": 4192787118,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Ngagelrejo, Wonokromo, Surabaya",
-          "addr:postcode": "60245",
-          "addr:street": "Jl. Ngagel Redjo",
-          "amenity": "cafe",
-          "name": "STMJ Bu Nunuk Pojok Ngagel"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-18T04:25:22Z",
-        "query_used": "cafe Ngagel Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7495072,
-          -7.2923125
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4260144465",
-        "name": "GR Café (Gue Rasa ini Café)",
-        "address": "GR Café (Gue Rasa ini Café), 30, Jalan Bung Tomo, RW 10, Ngagelrejo, Wonokromo, Surabaya, Jawa Timur, 60245, Indonesia",
-        "osm_id": 4260144465,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Surabaya",
-          "addr:housenumber": "30",
-          "addr:postcode": "60245",
-          "addr:street": "Jalan Bung Tomo",
-          "amenity": "cafe",
-          "name": "GR Café (Gue Rasa ini Café)"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-06-23T09:40:33Z",
-        "query_used": "cafe Ngagel Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7665288,
-          -7.3129609
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-6422282317",
-        "name": "X Gate Cafe",
-        "address": "X Gate Cafe, Jalan Panjangjiwo Permai Selatan, Panjang Jiwo Permai, RW 05, Panjang Jiwo, Tenggilis Mejoyo, Surabaya, Jawa Timur, 60299, Indonesia",
-        "osm_id": 6422282317,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kota Surabaya, East Java, Indonesia",
-          "addr:postcode": "60299",
-          "addr:street": "Jalan Panjangjiwo Permai Selatan",
-          "leisure": "amusement_arcade",
-          "name": "X Gate Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2019-04-23T03:36:24Z",
-        "query_used": "cafe Tenggilis Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7463631,
-          -7.3219722
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4193096146",
-        "name": "Feliz Guest House & Cafe",
-        "address": "Feliz Guest House & Cafe, No.80, Jalan Raya Kendangsari, RW 07, Jemur Wonosari, Wonocolo, Surabaya, Jawa Timur, 60237, Indonesia",
-        "osm_id": 4193096146,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "emur Wonosari, Rungkut, Surabaya",
-          "addr:housenumber": "No.80",
-          "addr:postcode": "60237",
-          "addr:street": "Jl. Raya Kendangsari",
-          "amenity": "cafe",
-          "name": "Feliz Guest House & Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-18T08:17:58Z",
-        "query_used": "cafe Tenggilis Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7388901,
-          -7.337004
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4188777124",
-        "name": "High Point Cafe Speciality",
-        "address": "High Point Cafe Speciality, Nomor 161-165, Jalan Siwalankerto, RW 05, SiwalanKerto, Wonocolo, Surabaya, Jawa Timur, 60236, Indonesia",
-        "osm_id": 4188777124,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "East Java, Surabaya",
-          "addr:housenumber": "Nomor 161-165",
-          "addr:postcode": "60236",
-          "addr:street": "Jalan Siwalankerto",
-          "amenity": "cafe",
-          "name": "High Point Cafe Speciality"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-16T05:18:30Z",
-        "query_used": "cafe Tenggilis Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.760198,
-          -7.3193996
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-9821338600",
-        "name": "Bali House Spa",
-        "address": "Bali House Spa, Jalan Tenggilis Permai, RW 03, Tenggilis Mejoyo, Surabaya, Jawa Timur, 60292, Indonesia",
-        "osm_id": 9821338600,
-        "osm_type": "node",
-        "osm_tags": {
-          "leisure": "spa",
-          "name": "Bali House Spa"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2022-06-16T01:40:48Z",
-        "query_used": "house Tenggilis Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7657075,
-          -7.3220745
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4191140696",
-        "name": "Lestari Board House",
-        "address": "Lestari Board House, Jalan Tenggilis Mejoyo, RW 01, Kali Rungkut, Rungkut, Surabaya, Jawa Timur, 60293, Indonesia",
-        "osm_id": 4191140696,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Tenggilis Mejoyo Ak6, Surabaya, Jawa Timur, Indonesia.",
-          "addr:postcode": "60293",
-          "addr:street": "Jalan Tenggilis Mejoyo",
-          "building": "residential",
-          "name": "Lestari Board House"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2016-12-30T03:47:13Z",
-        "query_used": "house Tenggilis Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "data_kind": "osm_factual_open_data"
+        "id": "SV-UKWMS-KALIJUDAN-01",
+        "name": "Rumah bertingkat Jl. Bronggalan 2 H",
+        "address": "Jl. Bronggalan 2 H, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2590922,112.7720956,3a,75y,270h,90t/data=!3m6!1e1!3m4!1sRVz4ER9aPo-g0gKgzNDS8A!2e0!7i16384!8i8192",
+        "pano_id": "RVz4ER9aPo-g0gKgzNDS8A",
+        "heading_deg": 270,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UKWMS-KALIJUDAN",
+        "notes": "Rumah tinggal bertingkat berpagar hijau di gang permukiman; tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
       }
     }
   ]

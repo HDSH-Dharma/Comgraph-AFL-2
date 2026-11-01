@@ -67,6 +67,224 @@ ELIGIBLE_STATUSES = RENTABLE_OR_SALE_STATUSES
 VALID_SURVEY_METHODS = {"street_view", "google_maps", "lapangan"}
 VALID_SURVEY_DATA_KINDS = {"survey_google_maps", "survey_lapangan"}
 
+# ==============================================================================
+# KONFIGURASI RADIUS TERPUSAT (GIS TASK 2: BASELINE 500M & SCENARIO 1KM)
+# ==============================================================================
+BASELINE_RADIUS_METERS: float = 500.0
+SCENARIO_RADIUS_METERS: float = 1000.0
+SUPPORTED_RADII_METERS: List[float] = [500.0, 1000.0]
+
+RADIUS_CONFIG: Dict[str, Dict[str, Any]] = {
+    "baseline": {
+        "radius_m": 500.0,
+        "name": "baseline_500m",
+        "label": "Radius Pejalan Kaki 500m (Standar Proposal)",
+        "description": "Radius jalan kaki standar proposal Bab 1.1 dan Bab 3 (500 meter / 0.5 km)"
+    },
+    "scenario": {
+        "radius_m": 1000.0,
+        "name": "scenario_1km",
+        "label": "Radius Jangkauan Strategis 1.000m (Skenario Perencanaan)",
+        "description": "Zona jangkauan strategis perencanaan kafe Bab 2.2 (1.000 meter / 1 km)"
+    }
+}
+
+# ==============================================================================
+# ASUMSI PENILAIAN SKOR KELAYAKAN TERPUSAT (GIS TASK 8: TRANSPARENT SCORING)
+# ==============================================================================
+TEAM_SCORING_ASSUMPTIONS: Dict[str, Any] = {
+    "version": "1.0.0",
+    "description": "Asumsi parameter penilaian kelayakan kafe terpusat tim AFL 2 Computer Graphics",
+    "weights": {
+        "proximity": 40.0,
+        "space": 30.0,
+        "cost_efficiency": 30.0
+    },
+    "proximity_thresholds_m": {
+        "scenario_1km": {
+            "excellent": (300.0, 40.0),
+            "good": (600.0, 30.0),
+            "fair": (1000.0, 20.0),
+            "unsuitable": (None, 0.0)
+        },
+        "baseline_500m": {
+            "excellent": (150.0, 40.0),
+            "good": (300.0, 30.0),
+            "fair": (500.0, 20.0),
+            "unsuitable": (None, 0.0)
+        }
+    },
+    "space_thresholds_sqm": {
+        "optimal_range": ([80.0, 250.0], 30.0),
+        "moderate_ranges": [([50.0, 80.0], 20.0), ([250.0, 400.0], 20.0)],
+        "acceptable_fallback": 10.0
+    },
+    "cost_efficiency_thresholds_idr_per_sqm_yr": {
+        "efficient": (400000.0, 30.0),
+        "moderate": (700000.0, 20.0),
+        "high": (None, 10.0)
+    },
+    "anti_fabrication_rule": "Dilarang keras menebak harga sewa (never guess rent); jika rental_price_yr tidak terverifikasi maka bernilai null dan komponen sewa dinormalisasi secara transparan.",
+    "renormalization_method": "Komponen yang bernilai null dikeluarkan dari pembagi bobot; skor dihitung ulang ke skala 0-100 secara proporsional."
+}
+
+
+def calculate_transparent_feasibility_score(
+    distance_meters: Optional[float],
+    area_sqm: Optional[float] = None,
+    rental_price_yr: Optional[float] = None,
+    radius_mode: str = "scenario_1km",
+    assumptions: Optional[Dict[str, Any]] = None
+) -> Dict[str, Any]:
+    """
+    Menghitung skor kelayakan kafe transparan dengan renormalisasi komponen null (GIS Task 8):
+    - Komponen 1: Proximity (maks 40 poin)
+    - Komponen 2: Space / Luas (maks 30 poin)
+    - Komponen 3: Cost Efficiency / Sewa per m2 (maks 30 poin)
+    - Sesuai mandat anti-fabrikasi: TIDAK PERNAH menebak harga sewa (never guess rent).
+    - Jika komponen bernilai null (misal sewa/luas belum diobservasi), bobot komponen tersebut
+      dikeluarkan dari penyebut, dan skor di-renormalisasi ke skala 0-100 secara proporsional.
+    """
+    if assumptions is None:
+        assumptions = TEAM_SCORING_ASSUMPTIONS
+
+    weights = assumptions["weights"]
+    breakdown: Dict[str, Any] = {}
+    observed_components: List[str] = []
+    null_components: List[str] = []
+    raw_earned_points = 0.0
+    max_available_weight = 0.0
+
+    # 1. Proksimitas Kampus
+    if distance_meters is not None and math.isfinite(distance_meters) and distance_meters >= 0.0:
+        observed_components.append("proximity")
+        max_available_weight += weights["proximity"]
+        p_thresholds = assumptions["proximity_thresholds_m"].get(
+            radius_mode,
+            assumptions["proximity_thresholds_m"]["scenario_1km"]
+        )
+        if p_thresholds["excellent"][0] is not None and distance_meters <= p_thresholds["excellent"][0]:
+            p_score = p_thresholds["excellent"][1]
+        elif p_thresholds["good"][0] is not None and distance_meters <= p_thresholds["good"][0]:
+            p_score = p_thresholds["good"][1]
+        elif p_thresholds["fair"][0] is not None and distance_meters <= p_thresholds["fair"][0]:
+            p_score = p_thresholds["fair"][1]
+        else:
+            p_score = p_thresholds["unsuitable"][1]
+        raw_earned_points += p_score
+        breakdown["proximity"] = {
+            "score": p_score,
+            "max_weight": weights["proximity"],
+            "distance_meters": round(distance_meters, 2),
+            "status": "OBSERVED"
+        }
+    else:
+        null_components.append("proximity")
+        breakdown["proximity"] = {
+            "score": None,
+            "max_weight": weights["proximity"],
+            "status": "NULL"
+        }
+
+    # 2. Kesesuaian Luas Lahan (Space)
+    if area_sqm is not None and math.isfinite(area_sqm) and area_sqm > 0.0:
+        observed_components.append("space")
+        max_available_weight += weights["space"]
+        opt_range = assumptions["space_thresholds_sqm"]["optimal_range"][0]
+        if opt_range[0] <= area_sqm <= opt_range[1]:
+            s_score = assumptions["space_thresholds_sqm"]["optimal_range"][1]
+        else:
+            in_mod = False
+            for m_rng, m_val in assumptions["space_thresholds_sqm"]["moderate_ranges"]:
+                if m_rng[0] <= area_sqm <= m_rng[1]:
+                    s_score = m_val
+                    in_mod = True
+                    break
+            if not in_mod:
+                s_score = assumptions["space_thresholds_sqm"]["acceptable_fallback"]
+        raw_earned_points += s_score
+        breakdown["space"] = {
+            "score": s_score,
+            "max_weight": weights["space"],
+            "area_sqm": round(area_sqm, 2),
+            "status": "OBSERVED"
+        }
+    else:
+        null_components.append("space")
+        breakdown["space"] = {
+            "score": None,
+            "max_weight": weights["space"],
+            "status": "NULL (Unmeasured area)"
+        }
+
+    # 3. Efisiensi Biaya Sewa (Cost Efficiency)
+    # Mandat: Never guess rent! Jika rental_price_yr is None, maka NULL.
+    if (rental_price_yr is not None and math.isfinite(rental_price_yr) and rental_price_yr > 0.0 and
+            area_sqm is not None and math.isfinite(area_sqm) and area_sqm > 0.0):
+        observed_components.append("cost_efficiency")
+        max_available_weight += weights["cost_efficiency"]
+        cost_per_sqm = rental_price_yr / area_sqm
+        c_th = assumptions["cost_efficiency_thresholds_idr_per_sqm_yr"]
+        if c_th["efficient"][0] is not None and cost_per_sqm <= c_th["efficient"][0]:
+            c_score = c_th["efficient"][1]
+        elif c_th["moderate"][0] is not None and cost_per_sqm <= c_th["moderate"][0]:
+            c_score = c_th["moderate"][1]
+        else:
+            c_score = c_th["high"][1]
+        raw_earned_points += c_score
+        breakdown["cost_efficiency"] = {
+            "score": c_score,
+            "max_weight": weights["cost_efficiency"],
+            "cost_per_sqm_yr": round(cost_per_sqm, 2),
+            "status": "OBSERVED"
+        }
+    else:
+        null_components.append("cost_efficiency")
+        reason = "Unobserved rent (never guessed)" if rental_price_yr is None else "Missing area for per-sqm calculation"
+        breakdown["cost_efficiency"] = {
+            "score": None,
+            "max_weight": weights["cost_efficiency"],
+            "status": f"NULL ({reason})"
+        }
+
+    # Renormalisasi ke skala 0-100
+    is_renormalized = len(null_components) > 0
+    if max_available_weight > 0.0:
+        score_normalized = round((raw_earned_points / max_available_weight) * 100.0, 2)
+    else:
+        score_normalized = None
+
+    # Penentuan Predikat (Grade)
+    if score_normalized is None:
+        grade = "Data Belum Lengkap"
+    elif score_normalized >= 85.0:
+        grade = "Sangat Strategis ★★★"
+    elif score_normalized >= 70.0:
+        grade = "Strategis ★★"
+    elif score_normalized >= 50.0:
+        grade = "Cukup Layak ★"
+    else:
+        grade = "Kurang Layak"
+
+    return {
+        "score_normalized": score_normalized,
+        "grade": grade,
+        "raw_earned_points": raw_earned_points,
+        "max_available_weight": max_available_weight,
+        "theoretical_max_weight": 100.0,
+        "is_renormalized": is_renormalized,
+        "observed_components": observed_components,
+        "null_components": null_components,
+        "breakdown": breakdown,
+        "radius_mode": radius_mode,
+        "assumptions_version": assumptions.get("version", "1.0.0"),
+        "formula_note": (
+            f"Skor dinormalisasi dari {len(observed_components)} komponen yang diobservasi "
+            f"(bobot tersedia {max_available_weight}/100.0). Komponen null: {null_components}."
+            if is_renormalized else "Seluruh 3 komponen diobservasi secara lengkap."
+        )
+    }
+
 
 # Boundary geografis terpercaya kawasan Surabaya & sekitarnya
 SURABAYA_BBOX = {
@@ -832,8 +1050,10 @@ class GISPipeline:
             raise ValueError(f"File {universities_path} tidak memuat fitur universitas.")
 
         processed_campuses: List[Dict[str, Any]] = []
-        buffer_features: List[Dict[str, Any]] = []
-        polygon_buffer_features: List[Dict[str, Any]] = []
+        buffer_features_500m: List[Dict[str, Any]] = []
+        buffer_features_1000m: List[Dict[str, Any]] = []
+        polygon_buffer_features_500m: List[Dict[str, Any]] = []
+        polygon_buffer_features_1000m: List[Dict[str, Any]] = []
         campus_polygon_features: List[Dict[str, Any]] = []
         uni_ids_seen = set()
 
@@ -907,37 +1127,78 @@ class GISPipeline:
             }
             processed_campuses.append(campus_entry)
 
-            # Buat poligon buffer radial 1000m (dari titik referensi)
-            radial_buffer_ring = self.create_radial_buffer_polygon(lon, lat, radius_m=1000.0, num_segments=128)
-            buffer_features.append({
+            # 1. Buat poligon buffer radial 500m (baseline) dari titik referensi
+            radial_ring_500 = self.create_radial_buffer_polygon(lon, lat, radius_m=BASELINE_RADIUS_METERS, num_segments=128)
+            buffer_features_500m.append({
                 "type": "Feature",
                 "geometry": {
                     "type": "Polygon",
-                    "coordinates": [radial_buffer_ring]
+                    "coordinates": [radial_ring_500]
                 },
                 "properties": {
                     "university_id": cid,
                     "institution": institution,
                     "campus_name": campus_name,
-                    "radius_m": 1000,
+                    "radius_m": int(BASELINE_RADIUS_METERS),
+                    "radius_mode": "baseline_500m",
                     "buffer_type": "radial_from_reference_centroid",
                     "crs_calculated": "EPSG:32749"
                 }
             })
 
-            # Buat poligon buffer 1000m dari batas poligon perimeter kampus
-            poly_buffer_ring = self.create_polygon_buffer_metric(poly_ring, radius_m=1000.0, num_arc_pts=8)
-            polygon_buffer_features.append({
+            # 2. Buat poligon buffer radial 1000m (skenario) dari titik referensi
+            radial_ring_1000 = self.create_radial_buffer_polygon(lon, lat, radius_m=SCENARIO_RADIUS_METERS, num_segments=128)
+            buffer_features_1000m.append({
                 "type": "Feature",
                 "geometry": {
                     "type": "Polygon",
-                    "coordinates": [poly_buffer_ring]
+                    "coordinates": [radial_ring_1000]
                 },
                 "properties": {
                     "university_id": cid,
                     "institution": institution,
                     "campus_name": campus_name,
-                    "radius_m": 1000,
+                    "radius_m": int(SCENARIO_RADIUS_METERS),
+                    "radius_mode": "scenario_1km",
+                    "buffer_type": "radial_from_reference_centroid",
+                    "crs_calculated": "EPSG:32749"
+                }
+            })
+
+            # 3. Buat poligon buffer dilatasi 500m (baseline) dari batas poligon perimeter kampus
+            poly_ring_500 = self.create_polygon_buffer_metric(poly_ring, radius_m=BASELINE_RADIUS_METERS, num_arc_pts=8)
+            polygon_buffer_features_500m.append({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [poly_ring_500]
+                },
+                "properties": {
+                    "university_id": cid,
+                    "institution": institution,
+                    "campus_name": campus_name,
+                    "radius_m": int(BASELINE_RADIUS_METERS),
+                    "radius_mode": "baseline_500m",
+                    "buffer_type": "dilation_from_campus_polygon_boundary",
+                    "campus_area_ha": area_ha,
+                    "crs_calculated": "EPSG:32749"
+                }
+            })
+
+            # 4. Buat poligon buffer dilatasi 1000m (skenario) dari batas poligon perimeter kampus
+            poly_ring_1000 = self.create_polygon_buffer_metric(poly_ring, radius_m=SCENARIO_RADIUS_METERS, num_arc_pts=8)
+            polygon_buffer_features_1000m.append({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [poly_ring_1000]
+                },
+                "properties": {
+                    "university_id": cid,
+                    "institution": institution,
+                    "campus_name": campus_name,
+                    "radius_m": int(SCENARIO_RADIUS_METERS),
+                    "radius_mode": "scenario_1km",
                     "buffer_type": "dilation_from_campus_polygon_boundary",
                     "campus_area_ha": area_ha,
                     "crs_calculated": "EPSG:32749"
@@ -991,9 +1252,17 @@ class GISPipeline:
         stats = {
             "total_candidates": len(cand_features),
             "in_buffer_count": 0,
+            "in_buffer_500m_count": 0,
+            "in_buffer_1000m_count": 0,
             "out_of_buffer_count": 0,
+            "out_of_buffer_500m_count": 0,
+            "out_of_buffer_1000m_count": 0,
             "eligible_count": 0,
+            "eligible_500m_count": 0,
+            "eligible_1000m_count": 0,
             "ineligible_count": 0,
+            "ineligible_500m_count": 0,
+            "ineligible_1000m_count": 0,
             "rentable_or_sale_count": 0,
             "non_rentable_or_sale_count": 0,
             "status_counts": {s: 0 for s in VALID_LAND_STATUSES}
@@ -1075,12 +1344,16 @@ class GISPipeline:
             if nearest_campus is None:
                 raise RuntimeError("Gagal menentukan kampus terdekat.")
 
-            # Batas inklusif <= 1000 meter dari titik referensi
-            is_in_buffer = bool(min_dist <= 1000.0)
+            # Batas inklusif buffer (GIS Task 2 & 3: Dual radius 500m baseline & 1000m scenario)
+            is_in_buffer_500m = bool(min_dist <= BASELINE_RADIUS_METERS)
+            is_in_buffer_1000m = bool(min_dist <= SCENARIO_RADIUS_METERS)
+            is_in_buffer = is_in_buffer_1000m
 
             # Klasifikasi peruntukan komersial / sewa vs tempat tinggal / fungsi lain
             is_rentable = bool(status in RENTABLE_OR_SALE_STATUSES)
-            is_eligible = bool(is_in_buffer and is_rentable)
+            is_eligible_500m = bool(is_in_buffer_500m and is_rentable)
+            is_eligible_1000m = bool(is_in_buffer_1000m and is_rentable)
+            is_eligible = is_eligible_1000m
             is_clickable = is_eligible
 
             # Deskripsi alasan kelayakan
@@ -1089,7 +1362,7 @@ class GISPipeline:
                 unavail_reason = None
             else:
                 planning_label = "Tidak dapat dipilih"
-                if not is_in_buffer:
+                if not is_in_buffer_1000m:
                     unavail_reason = f"Lokasi berada di luar radius buffer 1 km ({round(min_dist, 1)} m > 1.000 m)."
                 elif status == "Rumah atau bangunan tempat tinggal":
                     unavail_reason = "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe."
@@ -1098,22 +1371,57 @@ class GISPipeline:
                 else:
                     unavail_reason = "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik)."
 
+            # GIS Task 5: Gate distance strictly null until observed gate data exists
+            distance_to_nearest_gate_meters = None
+            gate_observation_status = "UNOBSERVED"
+            gate_notes = "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan."
+
+            # GIS Task 8: Transparent feasibility scoring with null components renormalized and centralized team assumptions
+            feasibility_scoring_1km = calculate_transparent_feasibility_score(
+                distance_meters=min_dist,
+                area_sqm=area_sqm,
+                rental_price_yr=rental_price_yr,
+                radius_mode="scenario_1km",
+                assumptions=TEAM_SCORING_ASSUMPTIONS
+            )
+            feasibility_scoring_500m = calculate_transparent_feasibility_score(
+                distance_meters=min_dist,
+                area_sqm=area_sqm,
+                rental_price_yr=rental_price_yr,
+                radius_mode="baseline_500m",
+                assumptions=TEAM_SCORING_ASSUMPTIONS
+            )
+
             # Update statistik
             stats["status_counts"][status] += 1
-            if is_in_buffer:
+            if is_in_buffer_1000m:
                 stats["in_buffer_count"] += 1
+                stats["in_buffer_1000m_count"] += 1
             else:
                 stats["out_of_buffer_count"] += 1
+                stats["out_of_buffer_1000m_count"] += 1
+
+            if is_in_buffer_500m:
+                stats["in_buffer_500m_count"] += 1
+            else:
+                stats["out_of_buffer_500m_count"] += 1
 
             if is_rentable:
                 stats["rentable_or_sale_count"] += 1
             else:
                 stats["non_rentable_or_sale_count"] += 1
 
-            if is_eligible:
+            if is_eligible_1000m:
                 stats["eligible_count"] += 1
+                stats["eligible_1000m_count"] += 1
             else:
                 stats["ineligible_count"] += 1
+                stats["ineligible_1000m_count"] += 1
+
+            if is_eligible_500m:
+                stats["eligible_500m_count"] += 1
+            else:
+                stats["ineligible_500m_count"] += 1
 
             status_class_info = {
                 "category": "rentable_or_usable" if is_rentable else "non_rentable_or_sale",
@@ -1142,12 +1450,23 @@ class GISPipeline:
                     "nearest_university_name": nearest_campus["campus_name"],
                     "distance_meters": min_dist,  # unrounded float presisi penuh ke titik referensi
                     "distance_to_polygon_meters": round(min_dist_poly, 2),  # jarak metrik ke batas poligon kampus
+                    "distance_to_nearest_gate_meters": distance_to_nearest_gate_meters,
+                    "gate_observation_status": gate_observation_status,
+                    "gate_notes": gate_notes,
                     "is_in_buffer": is_in_buffer,
+                    "is_in_buffer_500m": is_in_buffer_500m,
+                    "is_in_buffer_1000m": is_in_buffer_1000m,
                     "is_eligible": is_eligible,
+                    "is_eligible_500m": is_eligible_500m,
+                    "is_eligible_1000m": is_eligible_1000m,
                     "is_rentable_or_sale": is_rentable,
                     "is_clickable_for_planning": is_clickable,
                     "planning_eligibility_status": planning_label,
                     "unavailability_reason": unavail_reason,
+                    "feasibility_score_normalized": feasibility_scoring_1km["score_normalized"],
+                    "feasibility_grade": feasibility_scoring_1km["grade"],
+                    "feasibility_scoring": feasibility_scoring_1km,
+                    "feasibility_scoring_baseline_500m": feasibility_scoring_500m,
                     "status_classification": status_class_info,
                     "data_kind": data_kind,
                     "source": source,
@@ -1209,7 +1528,7 @@ class GISPipeline:
             ]
         }
         with open(universities_out_path, "w", encoding="utf-8") as f:
-            json.dump(exported_unis, f, indent=2, ensure_ascii=False)
+            json.dump(exported_unis, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         # 4. Export Processed Universities as Polygons (Dedicated Polygon Layer)
         universities_polygons_out_path = os.path.join(output_dir, "universities_polygons.geojson")
@@ -1224,39 +1543,79 @@ class GISPipeline:
             "features": campus_polygon_features
         }
         with open(universities_polygons_out_path, "w", encoding="utf-8") as f:
-            json.dump(exported_unis_polygons, f, indent=2, ensure_ascii=False)
+            json.dump(exported_unis_polygons, f, indent=2, ensure_ascii=False, allow_nan=False)
 
-        # 5. Export Processed Buffer 1km (Radial from Reference Point)
+        # 5. Export Processed Buffer Radial (Baseline 500m & Scenario 1000m / 1km)
+        buffer_500m_out_path = os.path.join(output_dir, "buffer_500m.geojson")
+        exported_buffer_500m = {
+            "type": "FeatureCollection",
+            "metadata": {
+                "title": "Poligon Buffer Radial 500m (Baseline) Kampus Surabaya",
+                "radius_m": int(BASELINE_RADIUS_METERS),
+                "radius_mode": "baseline_500m",
+                "total_features": len(buffer_features_500m),
+                "crs": "EPSG:4326",
+                "calculated_crs": "EPSG:32749"
+            },
+            "features": buffer_features_500m
+        }
+        with open(buffer_500m_out_path, "w", encoding="utf-8") as f:
+            json.dump(exported_buffer_500m, f, indent=2, ensure_ascii=False, allow_nan=False)
+
+        buffer_1000m_out_path = os.path.join(output_dir, "buffer_1000m.geojson")
         buffer_out_path = os.path.join(output_dir, "buffer_1km.geojson")
-        exported_buffer = {
+        exported_buffer_1000m = {
             "type": "FeatureCollection",
             "metadata": {
-                "title": "Poligon Buffer Radial 1.000m Kampus Surabaya",
-                "radius_m": 1000,
-                "total_features": len(buffer_features),
+                "title": "Poligon Buffer Radial 1.000m (Skenario) Kampus Surabaya",
+                "radius_m": int(SCENARIO_RADIUS_METERS),
+                "radius_mode": "scenario_1km",
+                "total_features": len(buffer_features_1000m),
                 "crs": "EPSG:4326",
                 "calculated_crs": "EPSG:32749"
             },
-            "features": buffer_features
+            "features": buffer_features_1000m
         }
+        with open(buffer_1000m_out_path, "w", encoding="utf-8") as f:
+            json.dump(exported_buffer_1000m, f, indent=2, ensure_ascii=False, allow_nan=False)
         with open(buffer_out_path, "w", encoding="utf-8") as f:
-            json.dump(exported_buffer, f, indent=2, ensure_ascii=False)
+            json.dump(exported_buffer_1000m, f, indent=2, ensure_ascii=False, allow_nan=False)
 
-        # 6. Export Processed Buffer Polygon 1km (Dilation from Polygon Boundary)
-        buffer_polygon_out_path = os.path.join(output_dir, "buffer_polygon_1km.geojson")
-        exported_buffer_polygon = {
+        # 6. Export Processed Buffer Polygon (Baseline 500m & Scenario 1000m / 1km Dilation)
+        buffer_polygon_500m_out_path = os.path.join(output_dir, "buffer_polygon_500m.geojson")
+        exported_buffer_polygon_500m = {
             "type": "FeatureCollection",
             "metadata": {
-                "title": "Poligon Buffer Dilatasi 1.000m dari Batas Perimeter Kampus Surabaya",
-                "radius_m": 1000,
-                "total_features": len(polygon_buffer_features),
+                "title": "Poligon Buffer Dilatasi 500m (Baseline) dari Batas Perimeter Kampus Surabaya",
+                "radius_m": int(BASELINE_RADIUS_METERS),
+                "radius_mode": "baseline_500m",
+                "total_features": len(polygon_buffer_features_500m),
                 "crs": "EPSG:4326",
                 "calculated_crs": "EPSG:32749"
             },
-            "features": polygon_buffer_features
+            "features": polygon_buffer_features_500m
         }
+        with open(buffer_polygon_500m_out_path, "w", encoding="utf-8") as f:
+            json.dump(exported_buffer_polygon_500m, f, indent=2, ensure_ascii=False, allow_nan=False)
+
+        buffer_polygon_1000m_out_path = os.path.join(output_dir, "buffer_polygon_1000m.geojson")
+        buffer_polygon_out_path = os.path.join(output_dir, "buffer_polygon_1km.geojson")
+        exported_buffer_polygon_1000m = {
+            "type": "FeatureCollection",
+            "metadata": {
+                "title": "Poligon Buffer Dilatasi 1.000m (Skenario) dari Batas Perimeter Kampus Surabaya",
+                "radius_m": int(SCENARIO_RADIUS_METERS),
+                "radius_mode": "scenario_1km",
+                "total_features": len(polygon_buffer_features_1000m),
+                "crs": "EPSG:4326",
+                "calculated_crs": "EPSG:32749"
+            },
+            "features": polygon_buffer_features_1000m
+        }
+        with open(buffer_polygon_1000m_out_path, "w", encoding="utf-8") as f:
+            json.dump(exported_buffer_polygon_1000m, f, indent=2, ensure_ascii=False, allow_nan=False)
         with open(buffer_polygon_out_path, "w", encoding="utf-8") as f:
-            json.dump(exported_buffer_polygon, f, indent=2, ensure_ascii=False)
+            json.dump(exported_buffer_polygon_1000m, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         # 7. Export Processed Land Candidates
         candidates_out_path = os.path.join(output_dir, "land_candidates.geojson")
@@ -1279,11 +1638,15 @@ class GISPipeline:
                 "dataset_kind": "survey_field_observation" if is_survey_dataset else "osm_factual_open_data",
                 "is_survey_dataset": is_survey_dataset,
                 "evaluation_rules": {
-                    "buffer_threshold_meters": 1000.0,
+                    "baseline_radius_meters": BASELINE_RADIUS_METERS,
+                    "scenario_radius_meters": SCENARIO_RADIUS_METERS,
+                    "supported_radii_meters": SUPPORTED_RADII_METERS,
+                    "buffer_threshold_meters": SCENARIO_RADIUS_METERS,
                     "eligible_statuses": list(ELIGIBLE_STATUSES),
                     "rentable_or_sale_statuses": list(RENTABLE_OR_SALE_STATUSES),
                     "non_rentable_or_sale_statuses": list(NON_RENTABLE_OR_SALE_STATUSES)
                 },
+                "scoring_assumptions": TEAM_SCORING_ASSUMPTIONS,
                 "open_data_policy": {
                     "defensible_basis": defensible_basis,
                     "honest_fallback": honest_fallback
@@ -1293,7 +1656,7 @@ class GISPipeline:
             "features": processed_candidates
         }
         with open(candidates_out_path, "w", encoding="utf-8") as f:
-            json.dump(exported_candidates, f, indent=2, ensure_ascii=False)
+            json.dump(exported_candidates, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         # 8. Export Processed OSM Existing Cafes (ODbL Context Layer)
         raw_cafes_path = "data/raw/osm/overpass_cafes_raw.json"
@@ -1302,7 +1665,11 @@ class GISPipeline:
         outputs = {
             "universities": universities_out_path,
             "universities_polygons": universities_polygons_out_path,
+            "buffer_500m": buffer_500m_out_path,
+            "buffer_1000m": buffer_1000m_out_path,
             "buffer_1km": buffer_out_path,
+            "buffer_polygon_500m": buffer_polygon_500m_out_path,
+            "buffer_polygon_1000m": buffer_polygon_1000m_out_path,
             "buffer_polygon_1km": buffer_polygon_out_path,
             "land_candidates": candidates_out_path
         }
@@ -1311,11 +1678,17 @@ class GISPipeline:
 
         return {
             "universities_count": len(processed_campuses),
-            "buffers_count": len(buffer_features),
-            "polygon_buffers_count": len(polygon_buffer_features),
+            "buffers_count": len(buffer_features_1000m),
+            "buffers_500m_count": len(buffer_features_500m),
+            "buffers_1000m_count": len(buffer_features_1000m),
+            "polygon_buffers_count": len(polygon_buffer_features_1000m),
+            "polygon_buffers_500m_count": len(polygon_buffer_features_500m),
+            "polygon_buffers_1000m_count": len(polygon_buffer_features_1000m),
             "candidates_count": len(processed_candidates),
             "cafes_count": cafes_res["total_cafes"],
             "cafes_in_buffer_count": cafes_res["in_buffer_count"],
+            "cafes_in_buffer_500m_count": cafes_res.get("in_buffer_500m_count", 0),
+            "cafes_in_buffer_1000m_count": cafes_res.get("in_buffer_1000m_count", 0),
             "stats": stats,
             "outputs": outputs
         }
@@ -1329,18 +1702,19 @@ class GISPipeline:
     ) -> Dict[str, Any]:
         """
         Memproses kafe OSM eksisting dari payload mentah Overpass API (data/raw/osm/overpass_cafes_raw.json).
-        Menghasilkan data/processed/osm_cafes.geojson dengan metrik jarak, ODbL attribution,
-        is_existing_cafe=True, dan is_planner_allowed=False.
+        Menghasilkan data/processed/osm_cafes.geojson dengan metrik jarak baseline 500m dan skenario 1000m,
+        ODbL attribution, is_existing_cafe=True, is_planner_allowed=False, dan status gerbang null (UNOBSERVED).
         """
         if not os.path.exists(raw_overpass_path):
-            return {"total_cafes": 0, "in_buffer_count": 0, "output_path": None}
+            return {"total_cafes": 0, "in_buffer_count": 0, "in_buffer_500m_count": 0, "in_buffer_1000m_count": 0, "output_path": None}
 
         with open(raw_overpass_path, "r", encoding="utf-8") as f:
             raw_data = json.load(f)
 
         elements = raw_data.get("elements", [])
         cafe_features: List[Dict[str, Any]] = []
-        in_buf_count = 0
+        in_buf_500_count = 0
+        in_buf_1000_count = 0
 
         for el in elements:
             osm_id = el.get("id")
@@ -1380,9 +1754,12 @@ class GISPipeline:
             if nearest_camp is None:
                 continue
 
-            is_in_buf = bool(min_dist <= 1000.0)
-            if is_in_buf:
-                in_buf_count += 1
+            is_in_buf_500 = bool(min_dist <= BASELINE_RADIUS_METERS)
+            is_in_buf_1000 = bool(min_dist <= SCENARIO_RADIUS_METERS)
+            if is_in_buf_500:
+                in_buf_500_count += 1
+            if is_in_buf_1000:
+                in_buf_1000_count += 1
 
             cafe_name = tags.get("name") or "Kafe OSM Eksisting"
 
@@ -1415,7 +1792,12 @@ class GISPipeline:
                     "nearest_university_name": nearest_camp["campus_name"],
                     "distance_meters": round(min_dist, 2),
                     "distance_to_polygon_meters": round(min_poly_dist, 2),
-                    "is_in_buffer": is_in_buf
+                    "distance_to_nearest_gate_meters": None,
+                    "gate_observation_status": "UNOBSERVED",
+                    "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+                    "is_in_buffer": is_in_buf_1000,
+                    "is_in_buffer_500m": is_in_buf_500,
+                    "is_in_buffer_1000m": is_in_buf_1000
                 }
             })
 
@@ -1426,7 +1808,9 @@ class GISPipeline:
                 "source": "OpenStreetMap (Overpass API amenity=cafe)",
                 "licence": "ODbL 1.0 (OpenStreetMap contributors)",
                 "total_features": len(cafe_features),
-                "in_buffer_1km_count": in_buf_count,
+                "in_buffer_500m_count": in_buf_500_count,
+                "in_buffer_1000m_count": in_buf_1000_count,
+                "in_buffer_1km_count": in_buf_1000_count,
                 "downloaded_at": raw_data.get("osm3s", {}).get("timestamp_osm_base", "2026-11-01T09:42:01Z"),
                 "verified_at": "2026-11-01"
             },
@@ -1436,15 +1820,17 @@ class GISPipeline:
         if raw_geojson_path:
             os.makedirs(os.path.dirname(raw_geojson_path), exist_ok=True)
             with open(raw_geojson_path, "w", encoding="utf-8") as f:
-                json.dump(fc, f, indent=2, ensure_ascii=False)
+                json.dump(fc, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         proc_path = os.path.join(output_dir, "osm_cafes.geojson")
         with open(proc_path, "w", encoding="utf-8") as f:
-            json.dump(fc, f, indent=2, ensure_ascii=False)
+            json.dump(fc, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         return {
             "total_cafes": len(cafe_features),
-            "in_buffer_count": in_buf_count,
+            "in_buffer_count": in_buf_1000_count,
+            "in_buffer_500m_count": in_buf_500_count,
+            "in_buffer_1000m_count": in_buf_1000_count,
             "output_path": proc_path
         }
 
@@ -1535,6 +1921,25 @@ def generate_synthetic_scenario_fixture(
         rent_yr = basis.get("rental_price_yr", 100000000.0)
         rent_label = f"Rp {rent_yr:,.0f} / tahun (Estimasi Simulasi Hipotetis)"
 
+        is_in_buf_500 = bool(dist_ref <= BASELINE_RADIUS_METERS)
+        is_in_buf_1000 = bool(dist_ref <= SCENARIO_RADIUS_METERS)
+        is_in_buf = is_in_buf_1000
+
+        feasibility_1km = calculate_transparent_feasibility_score(
+            distance_meters=dist_ref,
+            area_sqm=basis.get("area_sqm", 100.0),
+            rental_price_yr=rent_yr,
+            radius_mode="scenario_1km",
+            assumptions=TEAM_SCORING_ASSUMPTIONS
+        )
+        feasibility_500m = calculate_transparent_feasibility_score(
+            distance_meters=dist_ref,
+            area_sqm=basis.get("area_sqm", 100.0),
+            rental_price_yr=rent_yr,
+            radius_mode="baseline_500m",
+            assumptions=TEAM_SCORING_ASSUMPTIONS
+        )
+
         scenario_features.append({
             "type": "Feature",
             "geometry": {
@@ -1584,10 +1989,22 @@ def generate_synthetic_scenario_fixture(
                 "nearest_university_name": cname,
                 "target_campus_id": cid,
                 "target_campus_name": cname,
-                # Metrik spasial
+                # Metrik spasial dual-radius (GIS Task 2 & 3)
                 "distance_meters": round(dist_ref, 2),
                 "distance_to_polygon_meters": round(dist_poly, 2),
-                "is_in_buffer": bool(dist_ref <= 1000.0),
+                "distance_to_nearest_gate_meters": None,
+                "gate_observation_status": "UNOBSERVED",
+                "gate_notes": "Jarak gerbang unobserved (belum ada observasi empiris titik gerbang).",
+                "is_in_buffer": is_in_buf,
+                "is_in_buffer_500m": is_in_buf_500,
+                "is_in_buffer_1000m": is_in_buf_1000,
+                "is_eligible_500m": is_in_buf_500,
+                "is_eligible_1000m": is_in_buf_1000,
+                # Skor kelayakan transparan (GIS Task 8)
+                "feasibility_score_normalized": feasibility_1km["score_normalized"],
+                "feasibility_grade": feasibility_1km["grade"],
+                "feasibility_scoring": feasibility_1km,
+                "feasibility_scoring_baseline_500m": feasibility_500m,
                 "disclaimer": (
                     "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial "
                     "dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang "
@@ -1628,7 +2045,7 @@ def generate_synthetic_scenario_fixture(
 
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(fc, f, indent=2, ensure_ascii=False)
+        json.dump(fc, f, indent=2, ensure_ascii=False, allow_nan=False)
 
     return {
         "status": "SUCCESS",
@@ -1725,12 +2142,24 @@ def audit_synthetic_scenario_fixture(fixture_path: str = "data/fixtures/syntheti
         if not isinstance(p.get("source_range"), list) or len(p["source_range"]) != 2:
             raise AssertionError(f"{fid}: source_range wajib list [min, max]")
 
-        # Spasial buffer 1km
+        # Spasial buffer & metrik dual-radius (GIS Task 2 & 3)
         dist = p.get("distance_meters")
         if dist is None or dist > 1000.0:
             raise AssertionError(f"{fid}: distance_meters ({dist}) harus <= 1000.0m")
         if p.get("is_in_buffer") is not True:
             raise AssertionError(f"{fid}: is_in_buffer harus True")
+        if "is_in_buffer_500m" not in p or "is_in_buffer_1000m" not in p:
+            raise AssertionError(f"{fid}: wajib memiliki bendera is_in_buffer_500m dan is_in_buffer_1000m")
+
+        # Gerbang kampus null (GIS Task 5)
+        if p.get("distance_to_nearest_gate_meters") is not None:
+            raise AssertionError(f"{fid}: distance_to_nearest_gate_meters wajib bernilai null/None")
+        if p.get("gate_observation_status") != "UNOBSERVED":
+            raise AssertionError(f"{fid}: gate_observation_status wajib 'UNOBSERVED'")
+
+        # Skor kelayakan transparan (GIS Task 8)
+        if not p.get("feasibility_scoring") or not isinstance(p.get("feasibility_scoring"), dict):
+            raise AssertionError(f"{fid}: feasibility_scoring wajib berupa objek breakdown skor kelayakan")
 
     return {
         "status": "PASSED",

@@ -25,10 +25,11 @@ export class MapViewModel {
     };
     this.layers = {
       basemap: true,
-      buffers: true,
+      buffers: true, // Buffer 500 m (baseline) default ON
+      buffer1km: false, // Skenario buffer 1 km default OFF (opsional)
       campuses: true,
-      candidates: false, // Kandidat disembunyikan secara default saat inisialisasi awal
-      scenarios: false, // Skenario sintetis eksplisit dinyalakan pengguna
+      candidates: true, // Kandidat observasi default ON (Task 2)
+      scenarios: false, // Skenario sintetis acak eksplisit dinyalakan pengguna
       listings: true,
       osmBuildings: true,
       osmCafes: true,
@@ -161,7 +162,22 @@ export class MapViewModel {
       campuses: this.layers.campuses
         ? universities.items.filter((u) => this.institutionEnabled(u.institution))
         : [],
-      buffers: this.layers.buffers ? buffers.items.filter((b) => this.institutionEnabled(b.institution)) : [],
+      buffers: this.layers.buffers
+        ? buffers.items.filter((b) => this.institutionEnabled(b.institution)).map((b) => ({
+            ...b,
+            radiusM: 500,
+            rings: b.rings500 || b.rings,
+            bounds: b.bounds500 || b.bounds,
+          }))
+        : [],
+      buffers1km: this.layers.buffer1km
+        ? buffers.items.filter((b) => this.institutionEnabled(b.institution)).map((b) => ({
+            ...b,
+            radiusM: 1000,
+            rings: b.rings1km || b.rings,
+            bounds: b.bounds1km || b.bounds,
+          }))
+        : [],
       candidates: this.layers.candidates
         ? candidates.items.filter(
             (c) => this.institutionEnabled(c.institution) && this.statusEnabled.get(c.status.key)

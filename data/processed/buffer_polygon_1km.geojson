@@ -1,8 +1,9 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "title": "Poligon Buffer Dilatasi 1.000m dari Batas Perimeter Kampus Surabaya",
+    "title": "Poligon Buffer Dilatasi 1.000m (Skenario) dari Batas Perimeter Kampus Surabaya",
     "radius_m": 1000,
+    "radius_mode": "scenario_1km",
     "total_features": 8,
     "crs": "EPSG:4326",
     "calculated_crs": "EPSG:32749"
@@ -326,6 +327,7 @@
         "institution": "UNAIR",
         "campus_name": "Kampus A Universitas Airlangga",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "dilation_from_campus_polygon_boundary",
         "campus_area_ha": 7.1,
         "crs_calculated": "EPSG:32749"
@@ -1069,6 +1071,7 @@
         "institution": "UNAIR",
         "campus_name": "Kampus B Universitas Airlangga",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "dilation_from_campus_polygon_boundary",
         "campus_area_ha": 15.74,
         "crs_calculated": "EPSG:32749"
@@ -5064,6 +5067,7 @@
         "institution": "UNAIR",
         "campus_name": "Kampus C Universitas Airlangga",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "dilation_from_campus_polygon_boundary",
         "campus_area_ha": 60.9,
         "crs_calculated": "EPSG:32749"
@@ -5771,6 +5775,7 @@
         "institution": "UKWMS",
         "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "dilation_from_campus_polygon_boundary",
         "campus_area_ha": 1.42,
         "crs_calculated": "EPSG:32749"
@@ -7386,6 +7391,7 @@
         "institution": "UKWMS",
         "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "dilation_from_campus_polygon_boundary",
         "campus_area_ha": 2.28,
         "crs_calculated": "EPSG:32749"
@@ -7941,6 +7947,7 @@
         "institution": "UKWMS",
         "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "dilation_from_campus_polygon_boundary",
         "campus_area_ha": 5.02,
         "crs_calculated": "EPSG:32749"
@@ -8240,6 +8247,7 @@
         "institution": "UBAYA",
         "campus_name": "Universitas Surabaya Kampus Ngagel",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "dilation_from_campus_polygon_boundary",
         "campus_area_ha": 0.83,
         "crs_calculated": "EPSG:32749"
@@ -10527,6 +10535,7 @@
         "institution": "UBAYA",
         "campus_name": "Universitas Surabaya Kampus Tenggilis",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "dilation_from_campus_polygon_boundary",
         "campus_area_ha": 8.79,
         "crs_calculated": "EPSG:32749"

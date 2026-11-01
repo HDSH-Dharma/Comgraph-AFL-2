@@ -4,6 +4,7 @@
 
 import {
   BUFFER_STYLE,
+  BUFFER_1KM_STYLE,
   CAMPUS_STYLE,
   MARKER_RADIUS,
   OUT_OF_BUFFER_ALPHA,
@@ -71,7 +72,8 @@ export class MapRenderer {
     if (!basemapUsable) this.drawGraticule();
 
     const visible = this.vm.visible;
-    this.drawBuffers(visible.buffers);
+    if (visible.buffers1km?.length) this.drawBuffers(visible.buffers1km, BUFFER_1KM_STYLE);
+    this.drawBuffers(visible.buffers, BUFFER_STYLE);
     this.drawOsmBuildings(visible.osmBuildings);
     this.drawCampuses(visible.campuses);
     this.drawOsmCafes(visible.osmCafes);
@@ -142,19 +144,19 @@ export class MapRenderer {
     return !(bounds[2] < minX - m || bounds[0] > maxX + m || bounds[3] < minY - m || bounds[1] > maxY + m);
   }
 
-  drawBuffers(buffers) {
-    if (!buffers.length) return;
+  drawBuffers(buffers, style = BUFFER_STYLE) {
+    if (!buffers || !buffers.length) return;
     const { ctx } = this;
     ctx.save();
-    ctx.fillStyle = BUFFER_STYLE.fill;
+    ctx.fillStyle = style.fill;
     for (const b of buffers) {
       if (!this.inView(b.bounds)) continue;
       this.tracePolygon(b.rings);
       ctx.fill('evenodd');
     }
-    ctx.strokeStyle = BUFFER_STYLE.stroke;
-    ctx.lineWidth = BUFFER_STYLE.lineWidth;
-    ctx.setLineDash(BUFFER_STYLE.dash);
+    ctx.strokeStyle = style.stroke;
+    ctx.lineWidth = style.lineWidth;
+    ctx.setLineDash(style.dash);
     for (const b of buffers) {
       if (!this.inView(b.bounds)) continue;
       this.tracePolygon(b.rings);
