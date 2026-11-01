@@ -768,8 +768,10 @@ export class PlannerUI {
       landData?.is_scenario === true ||
       /(scenario|skenario)/.test(rawKind);
 
+    const isSurveyObservation = /^survey/.test(rawKind);
     const isDemo =
       !isScenario &&
+      !isSurveyObservation &&
       (landData?.is_synthetic_demo === true ||
       landData?.is_factual === false ||
       /(demo|synthetic|simulasi|dummy|sample)/.test(rawKind) ||

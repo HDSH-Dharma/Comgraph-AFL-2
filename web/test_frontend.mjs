@@ -728,7 +728,8 @@ test('13. Verifikasi Komprehensif Seluruh Kandidat Dataset Terproses & Benchmark
   const canPath = path.join(rootDir, 'data/processed/land_candidates.geojson');
   const canJson = JSON.parse(fs.readFileSync(canPath, 'utf8'));
 
-  assert.ok(canJson.features.length >= 20, 'Harus ada fitur kandidat lahan yang diproses');
+  // Ambang disamakan dengan tes GIS (>= 16 observasi Street View nyata).
+  assert.ok(canJson.features.length >= 16, 'Harus ada fitur kandidat lahan yang diproses');
 
   let eligibleCount = 0;
   let ineligibleCount = 0;
