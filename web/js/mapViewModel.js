@@ -17,11 +17,23 @@ export class MapViewModel {
       universities: { ok: false, items: [] },
       buffers: { ok: false, items: [] },
       candidates: { ok: false, items: [] },
+      listings: { ok: false, items: [] },
+      areaSummary: { ok: false, summaries: [], metadata: null },
+      osmBuildings: { ok: false, items: [] },
+      osmCafes: { ok: false, items: [] },
     };
-    this.layers = { basemap: true, buffers: true, campuses: true, candidates: true };
+    this.layers = {
+      basemap: true,
+      buffers: true,
+      campuses: true,
+      candidates: false, // Kandidat sintetis disembunyikan secara default
+      listings: true,
+      osmBuildings: true,
+      osmCafes: true,
+    };
     this.institutions = new Map(); // code → { code, label, enabled, campusCount, candidateCount }
     this.statusEnabled = new Map(LAND_STATUSES.map((s) => [s.key, true]));
-    this.selection = null; // { kind: 'land' | 'campus', id }
+    this.selection = null; // { kind: 'land' | 'campus' | 'listing' | 'osm_building' | 'osm_cafe', id }
     this.hover = null; // { kind, id }
     this.loading = true;
     this.listeners = new Set();
@@ -58,6 +70,12 @@ export class MapViewModel {
     for (const u of data.universities.items) ensure(u.institution).campusCount++;
     for (const b of data.buffers.items) ensure(b.institution);
     for (const c of data.candidates.items) ensure(c.institution).candidateCount++;
+    if (data.listings?.items) {
+      for (const l of data.listings.items) ensure(l.institution);
+    }
+    if (data.osmBuildings?.items) {
+      for (const ob of data.osmBuildings.items) if (ob.institution) ensure(ob.institution);
+    }
     this.emit('data');
   }
 
@@ -66,6 +84,9 @@ export class MapViewModel {
     this.layers[name] = on;
     if (!on && name === 'candidates' && this.selection?.kind === 'land') this.selection = null;
     if (!on && name === 'campuses' && this.selection?.kind === 'campus') this.selection = null;
+    if (!on && name === 'listings' && this.selection?.kind === 'listing') this.selection = null;
+    if (!on && name === 'osmBuildings' && this.selection?.kind === 'osm_building') this.selection = null;
+    if (!on && name === 'osmCafes' && this.selection?.kind === 'osm_cafe') this.selection = null;
     this.emit('layers');
   }
 
@@ -111,12 +132,23 @@ export class MapViewModel {
     const sel = this.selection;
     if (!sel) return;
     const visible = this.computeDerived();
-    const list = sel.kind === 'land' ? visible.candidates : visible.campuses;
+    const list =
+      sel.kind === 'land'
+        ? visible.candidates
+        : sel.kind === 'campus'
+          ? visible.campuses
+          : sel.kind === 'listing'
+            ? visible.listings
+            : sel.kind === 'osm_building'
+              ? visible.osmBuildings
+              : sel.kind === 'osm_cafe'
+                ? visible.osmCafes
+                : [];
     if (!list.some((x) => x.id === sel.id)) this.selection = null;
   }
 
   computeDerived() {
-    const { universities, buffers, candidates } = this.data;
+    const { universities, buffers, candidates, listings, osmBuildings, osmCafes } = this.data;
     return {
       campuses: this.layers.campuses
         ? universities.items.filter((u) => this.institutionEnabled(u.institution))
@@ -127,6 +159,18 @@ export class MapViewModel {
             (c) => this.institutionEnabled(c.institution) && this.statusEnabled.get(c.status.key)
           )
         : [],
+      listings:
+        this.layers.listings && listings?.items
+          ? listings.items.filter((l) => this.institutionEnabled(l.institution))
+          : [],
+      osmBuildings:
+        this.layers.osmBuildings && osmBuildings?.items
+          ? osmBuildings.items.filter((b) => !b.institution || this.institutionEnabled(b.institution))
+          : [],
+      osmCafes:
+        this.layers.osmCafes && osmCafes?.items
+          ? osmCafes.items
+          : [],
     };
   }
 
@@ -142,6 +186,28 @@ export class MapViewModel {
 
   findCampus(id) {
     return this.data.universities.items.find((u) => u.id === id) ?? null;
+  }
+
+  findListing(id) {
+    return this.data.listings?.items?.find((l) => l.id === id) ?? null;
+  }
+
+  findOsmCafe(id) {
+    return this.data.osmCafes?.items?.find((c) => c.id === id) ?? null;
+  }
+
+  findOsmBuilding(id) {
+    return this.data.osmBuildings?.items?.find((b) => b.id === id) ?? null;
+  }
+
+  findAreaSummary(areaCluster) {
+    if (!areaCluster || !this.data.areaSummary?.summaries) return null;
+    const norm = String(areaCluster).toLowerCase().trim();
+    return (
+      this.data.areaSummary.summaries.find(
+        (s) => s.area_cluster && s.area_cluster.toLowerCase().trim() === norm
+      ) ?? null
+    );
   }
 
   statusCounts() {
