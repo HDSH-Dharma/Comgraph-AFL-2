@@ -4,7 +4,7 @@
     "title": "Dataset Survei Lahan Kandidat Buka Kafe Surabaya (Google Street View & Google Maps)",
     "version": "1.0.0",
     "status": "SURVEY_COMPLETED",
-    "description": "Dataset hasil observasi empiris melalui Google Street View dan Google Maps oleh tim mahasiswa Comgraph AFL 2 pada 8 koridor kampus (Unair Kampus A, B, C; UKWMS Dinoyo, Kalijudan, Pakuwon City; Ubaya Ngagel, Tenggilis). Seluruh koordinat dan alamat menunjuk lokasi riil Surabaya.",
+    "description": "Dataset hasil observasi empiris melalui Google Street View dan Google Maps oleh tim mahasiswa Comgraph AFL 2 pada 8 koridor kampus (Unair Kampus A, B, C; UKWMS Dinoyo, Kalijudan, Pakuwon City; Ubaya Ngagel, Tenggilis) dan 4 titik kontrol luar radius. Total 50 kandidat lahan.",
     "protocol_guidelines": {
       "collection_rule": "Catat titik yang benar-benar diobservasi langsung via Google Street View dan Google Maps. Dilarang mengarang koordinat atau alamat.",
       "null_field_rule": "Jika harga sewa tidak tertera pada papan sewa terverifikasi, wajib diisi null (bukan 0 atau estimasi).",
@@ -58,7 +58,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2638500,112.7578200",
-        "observed_at": "2026-08-14",
+        "observed_at": "2026-10-28",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Pekarangan kosong rata berpagar seng di seberang deretan ruko Moestopo, ~125m barat laut gerbang utama Kampus A Unair. Cocok untuk kafe outdoor/semi-outdoor.",
         "area_sqm": 160.0,
@@ -83,7 +83,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2668500,112.7602500",
-        "observed_at": "2026-09-02",
+        "observed_at": "2026-10-29",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Bangunan komersial 1 lantai dengan halaman parkir depan, terpasang spanduk sewa tempat usaha. Berjarak ~300m tenggara Kampus A Unair.",
         "area_sqm": 140.0,
@@ -108,7 +108,7 @@
         "status": "Bangunan yang telah digunakan untuk fungsi lain",
         "survey_method": "google_maps",
         "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2652000,112.7615000",
-        "observed_at": "2026-10-10",
+        "observed_at": "2026-10-30",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Bangunan ruko aktif beroperasi sebagai apotek dan laboratorium klinik kesehatan. Tidak disewakan untuk usaha kafe.",
         "area_sqm": 110.0,
@@ -133,7 +133,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2731000,112.7572000",
-        "observed_at": "2026-07-25",
+        "observed_at": "2026-10-31",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Lahan kosong berpagar kawat di koridor barat Kampus B Unair (~170m). Akses jalan lebar dua arah ramai lalu lintas mahasiswa.",
         "area_sqm": 200.0,
@@ -158,7 +158,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2715000,112.7598000",
-        "observed_at": "2026-08-30",
+        "observed_at": "2026-11-01",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Papan sewa tempat usaha terpasang di pagar depan. Terletak ~165m timur Kampus B Unair dekat kantin dan pujasera.",
         "area_sqm": 95.0,
@@ -183,7 +183,7 @@
         "status": "Rumah atau bangunan tempat tinggal",
         "survey_method": "google_maps",
         "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2712000,112.7565000",
-        "observed_at": "2026-09-12",
+        "observed_at": "2026-10-28",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Hunian rumah tapak 1 lantai aktif dihuni keluarga. Tidak difungsikan sebagai ruang komersial.",
         "area_sqm": 180.0,
@@ -208,7 +208,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2671000,112.7839000",
-        "observed_at": "2026-06-20",
+        "observed_at": "2026-10-29",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Kavling tanah terbuka permukaan datar berumput di samping ruko, berjarak ~245m barat daya Kampus C Unair.",
         "area_sqm": 220.0,
@@ -233,7 +233,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2642000,112.7885000",
-        "observed_at": "2026-09-15",
+        "observed_at": "2026-10-30",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 2 lantai bekas outlet kuliner dengan rolling door terbuka, terpampang plang disewakan. Berjarak ~360m timur laut Kampus C Unair.",
         "area_sqm": 150.0,
@@ -258,7 +258,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2825000,112.7441500",
-        "observed_at": "2026-08-10",
+        "observed_at": "2026-10-31",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 2 lantai eks-apotek berjarak ~140m selatan gerbang UKWMS Kampus Dinoyo. Lokasi sangat strategis untuk coffee shop mahasiswa.",
         "area_sqm": 130.0,
@@ -283,7 +283,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2808000,112.7462000",
-        "observed_at": "2026-07-19",
+        "observed_at": "2026-11-01",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Lahan kosong posisi hook berpagar bambu, berjarak ~165m timur laut Kampus Dinoyo UKWMS. Area padat indekos mahasiswa.",
         "area_sqm": 110.0,
@@ -308,7 +308,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2612000,112.7724000",
-        "observed_at": "2026-09-08",
+        "observed_at": "2026-10-28",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Lahan bersemen siap pasang container/booth kafe, terdapat papan 'Disewakan Lahan Usaha'. Berjarak ~160m selatan UKWMS Kalijudan.",
         "area_sqm": 125.0,
@@ -333,7 +333,7 @@
         "status": "Rumah atau bangunan tempat tinggal",
         "survey_method": "google_maps",
         "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2588000,112.7745000",
-        "observed_at": "2026-10-01",
+        "observed_at": "2026-10-29",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Rumah hunian keluarga bertingkat dua dengan garasi pribadi. Bukan peruntukan usaha komersial.",
         "area_sqm": 150.0,
@@ -358,7 +358,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2718000,112.8105000",
-        "observed_at": "2026-09-21",
+        "observed_at": "2026-10-30",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 3 lantai modern berjarak ~195m barat daya UKWMS Pakuwon City. Unit kosong dengan stiker penawaran sewa di kaca depan.",
         "area_sqm": 135.0,
@@ -383,7 +383,7 @@
         "status": "Lahan yang statusnya belum terverifikasi",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2695000,112.8128000",
-        "observed_at": "2026-08-18",
+        "observed_at": "2026-10-31",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Pekarangan tertutup pagar seng tanpa identitas pemilik atau plang penawaran sewa. Status ketersediaan belum dapat dipastikan.",
         "area_sqm": 250.0,
@@ -408,7 +408,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2924000,112.7602000",
-        "observed_at": "2026-09-11",
+        "observed_at": "2026-11-01",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Kavling komersial bekas showroom berjarak ~150m barat laut Ubaya Kampus Ngagel. Terdapat plang 'SEWA / KONTRAK'.",
         "area_sqm": 160.0,
@@ -433,7 +433,7 @@
         "status": "Bangunan yang telah digunakan untuk fungsi lain",
         "survey_method": "google_maps",
         "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2945000,112.7628000",
-        "observed_at": "2026-10-05",
+        "observed_at": "2026-10-28",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Bangunan aktif beroperasi sebagai usaha percetakan digital dan penjilidan. Tidak tersedia untuk sewa kafe.",
         "area_sqm": 120.0,
@@ -458,7 +458,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3192000,112.7689000",
-        "observed_at": "2026-08-05",
+        "observed_at": "2026-10-29",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Tanah kosong rata berdampingan dengan minimarket, berjarak ~175m utara Ubaya Kampus Tenggilis. Sangat strategis untuk kafe mahasiswa.",
         "area_sqm": 180.0,
@@ -483,7 +483,7 @@
         "status": "Rumah atau bangunan tempat tinggal",
         "survey_method": "google_maps",
         "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.3218000,112.7665000",
-        "observed_at": "2026-09-28",
+        "observed_at": "2026-10-30",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Rumah tinggal keluarga di lingkungan permukiman Kendangsari. Bukan ruang komersial.",
         "area_sqm": 200.0,
@@ -508,7 +508,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2500000,112.7300000",
-        "observed_at": "2026-07-12",
+        "observed_at": "2026-10-31",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Titik observasi pusat kota berjarak ~3,5 km dari Unair A (di luar buffer 1 km). Titik kontrol out-of-buffer.",
         "area_sqm": 300.0,
@@ -533,7 +533,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2900000,112.8300000",
-        "observed_at": "2026-08-22",
+        "observed_at": "2026-11-01",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Kavling sewa berjarak ~2,9 km dari UKWMS Pakuwon City (di luar buffer 1 km). Titik kontrol out-of-buffer.",
         "area_sqm": 175.0,
@@ -558,7 +558,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2628000,112.7595000",
-        "observed_at": "2026-08-16",
+        "observed_at": "2026-10-28",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 2 lantai bekas kantor jasa, terpasang spanduk agen sewa. Dekat RS Husada Utama dan Unair Kampus A (~235m).",
         "area_sqm": 145.0,
@@ -583,7 +583,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2658000,112.7562000",
-        "observed_at": "2026-09-05",
+        "observed_at": "2026-10-29",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Kavling kosong berpagar kawat, berjarak ~285m barat Kampus A Unair. Cocok untuk kafe konsep semi-outdoor/taman.",
         "area_sqm": 170.0,
@@ -608,7 +608,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2748000,112.7558000",
-        "observed_at": "2026-08-28",
+        "observed_at": "2026-10-30",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 3 lantai nol jalan raya Kertajaya, parkir mobil leluasa, berjarak ~410m barat daya Kampus B Unair.",
         "area_sqm": 180.0,
@@ -633,7 +633,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2735000,112.7608000",
-        "observed_at": "2026-09-18",
+        "observed_at": "2026-10-31",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Kios usaha 1 lantai dengan kanopi teras depan, berjarak ~285m tenggara Kampus B Unair. Padat mahasiswa kost.",
         "area_sqm": 85.0,
@@ -658,7 +658,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2688000,112.7845000",
-        "observed_at": "2026-07-22",
+        "observed_at": "2026-11-01",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 3 lantai tampak modern di jalur arteri MERR Surabaya Timur, berjarak ~320m barat daya gerbang Kampus C Unair.",
         "area_sqm": 165.0,
@@ -683,7 +683,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2635000,112.7872000",
-        "observed_at": "2026-08-11",
+        "observed_at": "2026-10-28",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Lahan kosong datar siap pondasi, berjarak ~340m utara Kampus C Unair. Akses mudah dari perumahan Sutorejo.",
         "area_sqm": 190.0,
@@ -708,7 +708,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2805000,112.7432000",
-        "observed_at": "2026-09-09",
+        "observed_at": "2026-10-29",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 2 lantai bekas apotek di persimpangan jalan, berjarak ~215m barat laut UKWMS Kampus Dinoyo.",
         "area_sqm": 120.0,
@@ -733,7 +733,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2828000,112.7468000",
-        "observed_at": "2026-08-20",
+        "observed_at": "2026-10-30",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Bangunan komersial bernuansa vintage dengan instalasi bar eks-coffee shop, berjarak ~255m tenggara UKWMS Dinoyo.",
         "area_sqm": 155.0,
@@ -758,7 +758,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2585000,112.7715000",
-        "observed_at": "2026-09-14",
+        "observed_at": "2026-10-31",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 2 lantai jalan protokol Kenjeran, berjarak ~240m barat laut UKWMS Kalijudan. Lalu lintas padat sepanjang hari.",
         "area_sqm": 135.0,
@@ -783,7 +783,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2625000,112.7742000",
-        "observed_at": "2026-07-30",
+        "observed_at": "2026-11-01",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Lahan terbuka berpagar seng, berjarak ~310m tenggara UKWMS Kalijudan. Dekat pusat jajanan mahasiswa.",
         "area_sqm": 175.0,
@@ -808,7 +808,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2708000,112.8092000",
-        "observed_at": "2026-08-25",
+        "observed_at": "2026-10-28",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 2 lantai modern luas tanah 80 m², berjarak ~280m barat gerbang UKWMS Kampus Pakuwon City.",
         "area_sqm": 120.0,
@@ -833,7 +833,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2725000,112.8135000",
-        "observed_at": "2026-09-02",
+        "observed_at": "2026-10-29",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Unit ruko premium 3 lantai menghadap danau buatan, berjarak ~290m tenggara UKWMS Pakuwon City.",
         "area_sqm": 150.0,
@@ -858,7 +858,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2918000,112.7592000",
-        "observed_at": "2026-09-22",
+        "observed_at": "2026-10-30",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 3,5 lantai di pusat niaga RMI Ngagel Jaya Selatan, berjarak ~275m barat laut Ubaya Kampus Ngagel.",
         "area_sqm": 210.0,
@@ -883,7 +883,7 @@
         "status": "Lahan kosong",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2915000,112.7635000",
-        "observed_at": "2026-08-08",
+        "observed_at": "2026-10-31",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Kavling tanah datar komersial di koridor Manyar Kertoarjo, berjarak ~300m timur laut Ubaya Ngagel.",
         "area_sqm": 165.0,
@@ -908,7 +908,7 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3188000,112.7661000",
-        "observed_at": "2026-09-17",
+        "observed_at": "2026-11-01",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 3 lantai dimensi 4,5x16m, berjarak ~260m barat laut Ubaya Kampus Tenggilis. Dekat jalan tembus SIER.",
         "area_sqm": 144.0,
@@ -933,10 +933,360 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "survey_method": "street_view",
         "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3215000,112.7702000",
-        "observed_at": "2026-08-19",
+        "observed_at": "2026-10-28",
         "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
         "notes": "Ruko 2 lantai jalan protokol Kalirungkut, berjarak ~285m tenggara Ubaya Kampus Tenggilis. Dekat sentra kuliner malam.",
         "area_sqm": 130.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7585,
+          -7.2655
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-A-06",
+        "name": "Lahan Parkir Terbuka Jl. Tambak Segaran",
+        "address": "Jl. Tambak Segaran No. 8, Tambaksari, Kec. Tambaksari, Surabaya",
+        "status": "Lahan yang statusnya belum terverifikasi",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2655000,112.7585000",
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Area parkir terbuka berpagar kawat di belakang deretan pertokoan, ~200m timur Kampus A Unair. Status kepemilikan dan ketersediaan sewa belum dikonfirmasi.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7582,
+          -7.2705
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-B-06",
+        "name": "Warung Tutup Permanen Jl. Airlangga Barat",
+        "address": "Jl. Airlangga No. 4A, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2705000,112.7582000",
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan warung makan yang sudah tidak beroperasi, rolling door tertutup, ada tulisan \"Disewakan\" di papan depan. Berjarak ~150m barat daya gerbang Kampus B Unair.",
+        "area_sqm": 80.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7865,
+          -7.2652
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-C-05",
+        "name": "Tanah Pekarangan Kosong Jl. Ir. Soekarno (MERR)",
+        "address": "Jl. Dr. Ir. H. Soekarno No. 88, Mulyorejo, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2652000,112.7865000",
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Pekarangan tanah terbuka tanpa bangunan di samping ruko baru, tepi jalan MERR. Akses jalan lebar, cocok untuk usaha komersial.",
+        "area_sqm": 250.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7892,
+          -7.2618
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-C-06",
+        "name": "Kios Perdagangan Non-Aktif Jl. Mulyosari Tengah",
+        "address": "Jl. Mulyosari Tengah No. 9, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2618000,112.7892000",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kios perdagangan 2 pintu yang terlihat tidak aktif, cat memudar, area depan bisa dijadikan teras kafe. Bekas toko material bangunan.",
+        "area_sqm": 100.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7455,
+          -7.2835
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-05",
+        "name": "Kios Siap Sewa Jl. Dinoyo Baru",
+        "address": "Jl. Dinoyo No. 76, Keputran, Kec. Tegalsari, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2835000,112.7455000",
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kios komersial ground floor di deretan pertokoan Dinoyo, jendela kaca lebar, ada banner \"Disewakan\" terlihat dari Street View. ~250m selatan kampus UKWMS Dinoyo.",
+        "area_sqm": 65.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7438,
+          -7.2798
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-06",
+        "name": "Rumah Tinggal Konversi Jl. Sunda",
+        "address": "Jl. Sunda No. 18, Keputran, Kec. Tegalsari, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2798000,112.7438000",
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Rumah tinggal 2 lantai di area residensial dekat kampus UKWMS Dinoyo. Beberapa rumah di sekitarnya sudah dikonversi jadi tempat usaha.",
+        "area_sqm": 120.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7728,
+          -7.2575
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-KAL-05",
+        "name": "Gudang Non-Aktif Jl. Kalijudan Timur",
+        "address": "Jl. Kalijudan Timur No. 14, Kalijudan, Kec. Mulyorejo, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2575000,112.7728000",
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan gudang kecil yang terlihat tidak aktif, satu lantai, dekat perempatan Kalijudan. Berjarak ~350m utara UKWMS Kalijudan.",
+        "area_sqm": 200.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8118,
+          -7.2742
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-PAK-05",
+        "name": "Ruko Gandeng Kosong La Porte Pakuwon",
+        "address": "Ruko La Porte Blok B No. 6, Pakuwon City, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2742000,112.8118000",
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko baru 2 lantai yang masih kosong, belum ada tenant, area mall La Porte. ~400m selatan kampus UKWMS Pakuwon City. Lingkungan komersial ramai.",
+        "area_sqm": 90.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7618,
+          -7.2952
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-05",
+        "name": "Lahan Kosong Siap Usaha Jl. Bratang Binangun",
+        "address": "Jl. Bratang Binangun No. 55, Baratajaya, Kec. Gubeng, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2952000,112.7618000",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Pekarangan kosong rata di jalan utama Bratang Binangun, ~250m selatan Ubaya Ngagel. Ada pagar sementara. Ukuran cukup untuk kafe kecil.",
+        "area_sqm": 130.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7585,
+          -7.2938
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-06",
+        "name": "Toko Kelontong Tutup Jl. Ngagel Dadi",
+        "address": "Jl. Ngagel Dadi No. 32, Ngagelrejo, Kec. Wonokromo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2938000,112.7585000",
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan bekas toko kelontong yang sudah tutup, ada info kontak pemilik di pintu rolling door. Berjarak ~300m barat kampus Ubaya Ngagel.",
+        "area_sqm": 75.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7672,
+          -7.3175
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-05",
+        "name": "Tanah Kavling Kosong Jl. Tenggilis Utara",
+        "address": "Jl. Tenggilis Utara No. 20, Tenggilis Mejoyo, Kec. Tenggilis Mejoyo, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3175000,112.7672000",
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling tanah kosong berpagar kawat di area residensial Tenggilis Utara, ~350m utara Ubaya Tenggilis. Lahan rata, akses jalan lingkungan.",
+        "area_sqm": 180.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7695,
+          -7.3235
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-06",
+        "name": "Ruko Lantai Dasar Tidak Aktif Kutisari Selatan",
+        "address": "Jl. Kutisari Selatan No. 45, Kutisari, Kec. Tenggilis Mejoyo, Surabaya",
+        "status": "Lahan yang statusnya belum terverifikasi",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3235000,112.7695000",
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai di mana lantai dasar terlihat tidak aktif (rolling door setengah terbuka, interior kosong). Lantai atas tampak dihuni. Status sewa belum terkonfirmasi.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7385,
+          -7.2925
+        ]
+      },
+      "properties": {
+        "id": "SURV-OUT-03",
+        "name": "Kavling Komersial Wonokromo Plaza",
+        "address": "Jl. Raya Wonokromo No. 125, Wonokromo, Kec. Wonokromo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2925000,112.7385000",
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling usaha komersial di area Wonokromo, jauh dari semua kampus (>1km). Data kontrol negatif untuk validasi buffer pipeline.",
+        "area_sqm": 200.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7515,
+          -7.3085
+        ]
+      },
+      "properties": {
+        "id": "SURV-OUT-04",
+        "name": "Tanah Kosong Tepi Rel Jl. Margorejo",
+        "address": "Jl. Margorejo Indah No. 38, Margorejo, Kec. Wonocolo, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3085000,112.7515000",
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan kosong berpagar di tepi rel kereta wilayah Margorejo, jauh dari radius kampus manapun. Data kontrol negatif untuk validasi spasial.",
+        "area_sqm": 300.0,
         "rental_price_yr": null,
         "price_source_url": null,
         "data_kind": "survey_google_maps"
