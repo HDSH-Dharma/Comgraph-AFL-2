@@ -1,0 +1,491 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "Fixture Skenario Simulasi Lahan Kafe Sintetis Sekitar Kampus Surabaya",
+    "data_kind": "synthetic_scenario",
+    "is_real": false,
+    "simulated": true,
+    "is_scenario": true,
+    "random_placement": true,
+    "is_random_placement": true,
+    "is_factual": false,
+    "is_verified": false,
+    "is_eligible_as_verified": false,
+    "total_features": 8,
+    "generated_date": "2026-11-01",
+    "generation_method": "reproducible_fixed_seed_buffer_sampling",
+    "seed": 42,
+    "sampling_radius_range_m": [
+      250.0,
+      750.0
+    ],
+    "buffer_threshold_m": 1000.0,
+    "research_evidence_source": "reports/research.md",
+    "disclaimer": "Seluruh fitur di dalam berkas ini merupakan situs hipotesis yang dibangkitkan secara deterministik (pseudo-random fixed seed). Angka harga sewa berakar pada rentang iklan sewa publik yang terdokumentasi pada reports/research.md, namun titik lokasi dan ketersediaan bersifat simulasi skenario (synthetic scenario)."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7636334,
+          -7.2638782
+        ]
+      },
+      "properties": {
+        "id": "SCENARIO-SITE-01-UNAIR-KAMPUS-A",
+        "name": "Situs Simulasi Ruko Dharmahusada (Unair A)",
+        "address": "Plot Simulasi #1 Sekitar Kampus A Universitas Airlangga, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "land_status": "Lahan yang tersedia untuk disewakan",
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "is_eligible": true,
+        "data_kind": "synthetic_scenario",
+        "is_real": false,
+        "simulated": true,
+        "is_scenario": true,
+        "is_factual": false,
+        "is_verified": false,
+        "is_eligible_as_verified": false,
+        "random_placement": true,
+        "is_random_placement": true,
+        "placement": "random",
+        "generated_date": "2026-11-01",
+        "generation_method": "reproducible_fixed_seed_buffer_sampling",
+        "seed": 42,
+        "source": "Generator Skenario Sintetis AFL 2 2026",
+        "price_basis": "Estimasi titik tengah rentang sewa ruko komersial koridor Unair A (Moestopo/Tambaksari): Rp 75.000.000 - Rp 135.000.000/thn berdasarkan listing UNAIR-A-01 (Rumah123 shr10058906) dan UNAIR-A-02 (Ray White 393372) di reports/research.md.",
+        "source_listing_ids": [
+          "UNAIR-A-01",
+          "UNAIR-A-02"
+        ],
+        "source_range": [
+          75000000.0,
+          135000000.0
+        ],
+        "is_price_estimate": true,
+        "price_type": "simulated_estimate",
+        "is_transaction_price": false,
+        "rental_price_yr": 105000000.0,
+        "rental_price_label": "Rp 105,000,000 / tahun (Estimasi Simulasi Hipotetis)",
+        "area_sqm": 80.0,
+        "building_area_sqm": 150.0,
+        "nearest_university_id": "UNAIR-KAMPUS-A",
+        "nearest_university_name": "Kampus A Universitas Airlangga",
+        "target_campus_id": "UNAIR-KAMPUS-A",
+        "target_campus_name": "Kampus A Universitas Airlangga",
+        "distance_meters": 569.71,
+        "distance_to_polygon_meters": 376.46,
+        "is_in_buffer": true,
+        "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7590957,
+          -7.2688323
+        ]
+      },
+      "properties": {
+        "id": "SCENARIO-SITE-02-UNAIR-KAMPUS-B",
+        "name": "Situs Simulasi Ruko Dharmawangsa (Unair B)",
+        "address": "Plot Simulasi #2 Sekitar Kampus B Universitas Airlangga, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "land_status": "Lahan yang tersedia untuk disewakan",
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "is_eligible": true,
+        "data_kind": "synthetic_scenario",
+        "is_real": false,
+        "simulated": true,
+        "is_scenario": true,
+        "is_factual": false,
+        "is_verified": false,
+        "is_eligible_as_verified": false,
+        "random_placement": true,
+        "is_random_placement": true,
+        "placement": "random",
+        "generated_date": "2026-11-01",
+        "generation_method": "reproducible_fixed_seed_buffer_sampling",
+        "seed": 42,
+        "source": "Generator Skenario Sintetis AFL 2 2026",
+        "price_basis": "Estimasi titik tengah rentang sewa komersial koridor Unair B (Dharmawangsa/Gubeng): Rp 140.000.000 - Rp 150.000.000/thn berdasarkan listing UNAIR-B-01 (Ray White 449388) dan UNAIR-B-02 (Ray White 339003) di reports/research.md.",
+        "source_listing_ids": [
+          "UNAIR-B-01",
+          "UNAIR-B-02"
+        ],
+        "source_range": [
+          140000000.0,
+          150000000.0
+        ],
+        "is_price_estimate": true,
+        "price_type": "simulated_estimate",
+        "is_transaction_price": false,
+        "rental_price_yr": 145000000.0,
+        "rental_price_label": "Rp 145,000,000 / tahun (Estimasi Simulasi Hipotetis)",
+        "area_sqm": 100.0,
+        "building_area_sqm": 250.0,
+        "nearest_university_id": "UNAIR-KAMPUS-B",
+        "nearest_university_name": "Kampus B Universitas Airlangga",
+        "target_campus_id": "UNAIR-KAMPUS-B",
+        "target_campus_name": "Kampus B Universitas Airlangga",
+        "distance_meters": 387.51,
+        "distance_to_polygon_meters": 208.18,
+        "is_in_buffer": true,
+        "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7834966,
+          -7.2713126
+        ]
+      },
+      "properties": {
+        "id": "SCENARIO-SITE-03-UNAIR-KAMPUS-C",
+        "name": "Situs Simulasi Ruko Raya Mulyosari (Unair C)",
+        "address": "Plot Simulasi #3 Sekitar Kampus C Universitas Airlangga, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "land_status": "Lahan yang tersedia untuk disewakan",
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "is_eligible": true,
+        "data_kind": "synthetic_scenario",
+        "is_real": false,
+        "simulated": true,
+        "is_scenario": true,
+        "is_factual": false,
+        "is_verified": false,
+        "is_eligible_as_verified": false,
+        "random_placement": true,
+        "is_random_placement": true,
+        "placement": "random",
+        "generated_date": "2026-11-01",
+        "generation_method": "reproducible_fixed_seed_buffer_sampling",
+        "seed": 42,
+        "source": "Generator Skenario Sintetis AFL 2 2026",
+        "price_basis": "Estimasi harga sewa ruko koridor Unair C (Raya Mulyosari): Rp 85.000.000/thn berdasarkan listing UNAIR-C-01 (Ray White 494389) di reports/research.md.",
+        "source_listing_ids": [
+          "UNAIR-C-01"
+        ],
+        "source_range": [
+          85000000.0,
+          85000000.0
+        ],
+        "is_price_estimate": true,
+        "price_type": "simulated_estimate",
+        "is_transaction_price": false,
+        "rental_price_yr": 85000000.0,
+        "rental_price_label": "Rp 85,000,000 / tahun (Estimasi Simulasi Hipotetis)",
+        "area_sqm": 120.0,
+        "building_area_sqm": 120.0,
+        "nearest_university_id": "UNAIR-KAMPUS-C",
+        "nearest_university_name": "Kampus C Universitas Airlangga",
+        "target_campus_id": "UNAIR-KAMPUS-C",
+        "target_campus_name": "Kampus C Universitas Airlangga",
+        "distance_meters": 618.24,
+        "distance_to_polygon_meters": 130.53,
+        "is_in_buffer": true,
+        "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7502599,
+          -7.278187
+        ]
+      },
+      "properties": {
+        "id": "SCENARIO-SITE-04-UKWMS-DINOYO",
+        "name": "Situs Simulasi Ruko Raya Dinoyo (UKWMS Dinoyo)",
+        "address": "Plot Simulasi #4 Sekitar Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "land_status": "Lahan yang tersedia untuk disewakan",
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "is_eligible": true,
+        "data_kind": "synthetic_scenario",
+        "is_real": false,
+        "simulated": true,
+        "is_scenario": true,
+        "is_factual": false,
+        "is_verified": false,
+        "is_eligible_as_verified": false,
+        "random_placement": true,
+        "is_random_placement": true,
+        "placement": "random",
+        "generated_date": "2026-11-01",
+        "generation_method": "reproducible_fixed_seed_buffer_sampling",
+        "seed": 42,
+        "source": "Generator Skenario Sintetis AFL 2 2026",
+        "price_basis": "Estimasi harga sewa ruko koridor UKWMS Dinoyo (Raya Dinoyo/Tegalsari): Rp 250.000.000/thn berdasarkan listing UKWMS-DIN-01 (Ray White 425870) di reports/research.md.",
+        "source_listing_ids": [
+          "UKWMS-DIN-01"
+        ],
+        "source_range": [
+          250000000.0,
+          250000000.0
+        ],
+        "is_price_estimate": true,
+        "price_type": "simulated_estimate",
+        "is_transaction_price": false,
+        "rental_price_yr": 250000000.0,
+        "rental_price_label": "Rp 250,000,000 / tahun (Estimasi Simulasi Hipotetis)",
+        "area_sqm": 142.5,
+        "building_area_sqm": 360.0,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "target_campus_id": "UKWMS-DINOYO",
+        "target_campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 696.09,
+        "distance_to_polygon_meters": 645.77,
+        "is_in_buffer": true,
+        "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.777215,
+          -7.2591336
+        ]
+      },
+      "properties": {
+        "id": "SCENARIO-SITE-05-UKWMS-KALIJUDAN",
+        "name": "Situs Simulasi Ruko Kalijudan (UKWMS Kalijudan)",
+        "address": "Plot Simulasi #5 Sekitar Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "land_status": "Lahan yang tersedia untuk disewakan",
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "is_eligible": true,
+        "data_kind": "synthetic_scenario",
+        "is_real": false,
+        "simulated": true,
+        "is_scenario": true,
+        "is_factual": false,
+        "is_verified": false,
+        "is_eligible_as_verified": false,
+        "random_placement": true,
+        "is_random_placement": true,
+        "placement": "random",
+        "generated_date": "2026-11-01",
+        "generation_method": "reproducible_fixed_seed_buffer_sampling",
+        "seed": 42,
+        "source": "Generator Skenario Sintetis AFL 2 2026",
+        "price_basis": "Estimasi titik tengah rentang sewa ruko koridor UKWMS Kalijudan (Kalijudan/Kaliwaron): Rp 40.000.000 - Rp 110.000.000/thn berdasarkan listing UKWMS-KAL-01 (Ray White 525829) dan UKWMS-KAL-02 (Ray White 543328) di reports/research.md.",
+        "source_listing_ids": [
+          "UKWMS-KAL-01",
+          "UKWMS-KAL-02"
+        ],
+        "source_range": [
+          40000000.0,
+          110000000.0
+        ],
+        "is_price_estimate": true,
+        "price_type": "simulated_estimate",
+        "is_transaction_price": false,
+        "rental_price_yr": 75000000.0,
+        "rental_price_label": "Rp 75,000,000 / tahun (Estimasi Simulasi Hipotetis)",
+        "area_sqm": 100.0,
+        "building_area_sqm": 180.0,
+        "nearest_university_id": "UKWMS-KALIJUDAN",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "target_campus_id": "UKWMS-KALIJUDAN",
+        "target_campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "distance_meters": 460.96,
+        "distance_to_polygon_meters": 332.4,
+        "is_in_buffer": true,
+        "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8084738,
+          -7.2706721
+        ]
+      },
+      "properties": {
+        "id": "SCENARIO-SITE-06-UKWMS-PAKUWON",
+        "name": "Situs Simulasi Ruko San Antonio (UKWMS Pakuwon City)",
+        "address": "Plot Simulasi #6 Sekitar Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "land_status": "Lahan yang tersedia untuk disewakan",
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "is_eligible": true,
+        "data_kind": "synthetic_scenario",
+        "is_real": false,
+        "simulated": true,
+        "is_scenario": true,
+        "is_factual": false,
+        "is_verified": false,
+        "is_eligible_as_verified": false,
+        "random_placement": true,
+        "is_random_placement": true,
+        "placement": "random",
+        "generated_date": "2026-11-01",
+        "generation_method": "reproducible_fixed_seed_buffer_sampling",
+        "seed": 42,
+        "source": "Generator Skenario Sintetis AFL 2 2026",
+        "price_basis": "Estimasi harga sewa ruko koridor UKWMS Pakuwon City (San Antonio Shopping Street): Rp 125.000.000/thn berdasarkan listing UKWMS-PAK-01 (Ray White 521563) dan UKWMS-PAK-02 (Ray White 455790) di reports/research.md.",
+        "source_listing_ids": [
+          "UKWMS-PAK-01",
+          "UKWMS-PAK-02"
+        ],
+        "source_range": [
+          125000000.0,
+          125000000.0
+        ],
+        "is_price_estimate": true,
+        "price_type": "simulated_estimate",
+        "is_transaction_price": false,
+        "rental_price_yr": 125000000.0,
+        "rental_price_label": "Rp 125,000,000 / tahun (Estimasi Simulasi Hipotetis)",
+        "area_sqm": 63.0,
+        "building_area_sqm": 90.0,
+        "nearest_university_id": "UKWMS-PAKUWON",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "target_campus_id": "UKWMS-PAKUWON",
+        "target_campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "distance_meters": 359.32,
+        "distance_to_polygon_meters": 187.77,
+        "is_in_buffer": true,
+        "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7620746,
+          -7.2908535
+        ]
+      },
+      "properties": {
+        "id": "SCENARIO-SITE-07-UBAYA-NGAGEL",
+        "name": "Situs Simulasi Ruko Ngagel Jaya (Ubaya Ngagel)",
+        "address": "Plot Simulasi #7 Sekitar Universitas Surabaya Kampus Ngagel, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "land_status": "Lahan yang tersedia untuk disewakan",
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "is_eligible": true,
+        "data_kind": "synthetic_scenario",
+        "is_real": false,
+        "simulated": true,
+        "is_scenario": true,
+        "is_factual": false,
+        "is_verified": false,
+        "is_eligible_as_verified": false,
+        "random_placement": true,
+        "is_random_placement": true,
+        "placement": "random",
+        "generated_date": "2026-11-01",
+        "generation_method": "reproducible_fixed_seed_buffer_sampling",
+        "seed": 42,
+        "source": "Generator Skenario Sintetis AFL 2 2026",
+        "price_basis": "Estimasi titik tengah rentang sewa ruko koridor Ubaya Ngagel (Ngagel/Ngagel Jaya Selatan): Rp 110.000.000 - Rp 175.000.000/thn berdasarkan listing UBAYA-NGA-01 (Ray White 306708) dan UBAYA-NGA-02 (Ray White 475541) di reports/research.md.",
+        "source_listing_ids": [
+          "UBAYA-NGA-01",
+          "UBAYA-NGA-02"
+        ],
+        "source_range": [
+          110000000.0,
+          175000000.0
+        ],
+        "is_price_estimate": true,
+        "price_type": "simulated_estimate",
+        "is_transaction_price": false,
+        "rental_price_yr": 142500000.0,
+        "rental_price_label": "Rp 142,500,000 / tahun (Estimasi Simulasi Hipotetis)",
+        "area_sqm": 95.0,
+        "building_area_sqm": 300.0,
+        "nearest_university_id": "UBAYA-NGAGEL",
+        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
+        "target_campus_id": "UBAYA-NGAGEL",
+        "target_campus_name": "Universitas Surabaya Kampus Ngagel",
+        "distance_meters": 263.27,
+        "distance_to_polygon_meters": 204.04,
+        "is_in_buffer": true,
+        "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7628542,
+          -7.3218643
+        ]
+      },
+      "properties": {
+        "id": "SCENARIO-SITE-08-UBAYA-TENGGILIS",
+        "name": "Situs Simulasi Ruko Raya Tenggilis (Ubaya Tenggilis)",
+        "address": "Plot Simulasi #8 Sekitar Universitas Surabaya Kampus Tenggilis, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "land_status": "Lahan yang tersedia untuk disewakan",
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "is_eligible": true,
+        "data_kind": "synthetic_scenario",
+        "is_real": false,
+        "simulated": true,
+        "is_scenario": true,
+        "is_factual": false,
+        "is_verified": false,
+        "is_eligible_as_verified": false,
+        "random_placement": true,
+        "is_random_placement": true,
+        "placement": "random",
+        "generated_date": "2026-11-01",
+        "generation_method": "reproducible_fixed_seed_buffer_sampling",
+        "seed": 42,
+        "source": "Generator Skenario Sintetis AFL 2 2026",
+        "price_basis": "Estimasi harga sewa ruko koridor Ubaya Tenggilis (Raya Tenggilis/Mejoyo): nilai median Rp 70.000.000/thn (rentang Rp 65.000.000 - Rp 123.500.000/thn) berdasarkan kuorum 3 listing UBAYA-TENG-01 (Ray White 513122), UBAYA-TENG-02 (Ray White 453365), dan UBAYA-TENG-03 (Ray White 491945) di reports/research.md.",
+        "source_listing_ids": [
+          "UBAYA-TENG-01",
+          "UBAYA-TENG-02",
+          "UBAYA-TENG-03"
+        ],
+        "source_range": [
+          65000000.0,
+          123500000.0
+        ],
+        "is_price_estimate": true,
+        "price_type": "simulated_estimate",
+        "is_transaction_price": false,
+        "rental_price_yr": 70000000.0,
+        "rental_price_label": "Rp 70,000,000 / tahun (Estimasi Simulasi Hipotetis)",
+        "area_sqm": 52.5,
+        "building_area_sqm": 100.0,
+        "nearest_university_id": "UBAYA-TENGGILIS",
+        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
+        "target_campus_id": "UBAYA-TENGGILIS",
+        "target_campus_name": "Universitas Surabaya Kampus Tenggilis",
+        "distance_meters": 574.94,
+        "distance_to_polygon_meters": 452.78,
+        "is_in_buffer": true,
+        "disclaimer": "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang diperlakukan sebagai data faktual terverifikasi."
+      }
+    }
+  ]
+}

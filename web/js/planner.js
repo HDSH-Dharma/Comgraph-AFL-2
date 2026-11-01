@@ -570,6 +570,8 @@ export class PlannerUI {
       modalDownloadBtn: document.getElementById('modal-download-btn'),
       form: document.getElementById('planner-form'),
       guardAlert: document.getElementById('planner-guard-alert'),
+      scenarioWarning: document.getElementById('planner-scenario-warning'),
+      scenarioWarningText: document.getElementById('planner-scenario-warning-text'),
       demoWarning: document.getElementById('planner-demo-warning'),
       statusBadge: document.getElementById('planner-status-badge'),
       landName: document.getElementById('planner-land-name'),
@@ -758,13 +760,33 @@ export class PlannerUI {
       this.els.guardAlert.hidden = true;
     }
 
-    // Evaluasi Banner Peringatan Data Demo (Prompt B)
+    // Evaluasi Banner Peringatan Skenario Sintetis & Data Demo
     const rawKind = String(landData?.data_kind || landData?.source || '').toLowerCase();
+    const isScenario =
+      landData?.data_kind === 'synthetic_scenario' ||
+      landData?.simulated === true ||
+      landData?.is_scenario === true ||
+      /(scenario|skenario)/.test(rawKind);
+
     const isDemo =
-      landData?.is_synthetic_demo === true ||
+      !isScenario &&
+      (landData?.is_synthetic_demo === true ||
       landData?.is_factual === false ||
       /(demo|synthetic|simulasi|dummy|sample)/.test(rawKind) ||
-      !landData?.is_verified_public;
+      !landData?.is_verified_public);
+
+    if (this.els.scenarioWarning) {
+      this.els.scenarioWarning.hidden = !isScenario;
+      if (isScenario && this.els.scenarioWarningText) {
+        if (landData?.random_placement || landData?.is_random_placement) {
+          this.els.scenarioWarningText.innerHTML =
+            '<strong>Peringatan Skenario Sintetis (Penempatan Spasial Acak):</strong> Lokasi ini ditempatkan secara acak untuk keperluan simulasi skenario (bukan listing properti faktual maupun survei riil). Angka sewa dan luas adalah nilai hipotetis yang wajib disesuaikan pada formulir di bawah.';
+        } else {
+          this.els.scenarioWarningText.innerHTML =
+            '<strong>Peringatan Skenario Sintetis (Simulasi Hipotetis):</strong> Lokasi ini merupakan titik simulasi skenario (bukan listing properti faktual maupun survei riil). Angka sewa dan luas adalah nilai hipotetis yang wajib disesuaikan pada formulir di bawah.';
+        }
+      }
+    }
 
     if (this.els.demoWarning) {
       this.els.demoWarning.hidden = !isDemo;
@@ -785,7 +807,15 @@ export class PlannerUI {
       this.els.landDistance.textContent = d != null ? `${d} meter dari kampus` : 'Dalam radius buffer 1 km';
     }
     if (this.els.statusBadge) {
-      this.els.statusBadge.textContent = landData.status?.label || landData.status || 'Memenuhi Syarat';
+      if (isScenario) {
+        this.els.statusBadge.textContent = landData?.is_random_placement
+          ? 'Skenario (Penempatan Acak)'
+          : 'Skenario Sintetis (Simulasi)';
+        this.els.statusBadge.className = 'badge-eligible badge-scenario';
+      } else {
+        this.els.statusBadge.textContent = landData.status?.label || landData.status || 'Memenuhi Syarat';
+        this.els.statusBadge.className = 'badge-eligible';
+      }
     }
 
     // Isi form default atau dari existingPlan
@@ -983,6 +1013,10 @@ export class PlannerUI {
         is_in_buffer: this.currentLand.is_in_buffer,
         institution: this.currentLand.institution,
         coordinates: this.currentLand.coordinates,
+        data_kind: this.currentLand.data_kind || null,
+        simulated: this.currentLand.simulated === true,
+        is_scenario: Boolean(this.currentLand.is_scenario),
+        is_random_placement: Boolean(this.currentLand.is_random_placement),
       },
       params,
       calculation,
@@ -1022,6 +1056,10 @@ export class PlannerUI {
         is_in_buffer: this.currentLand.is_in_buffer,
         institution: this.currentLand.institution,
         coordinates: this.currentLand.coordinates,
+        data_kind: this.currentLand.data_kind || null,
+        simulated: this.currentLand.simulated === true,
+        is_scenario: Boolean(this.currentLand.is_scenario),
+        is_random_placement: Boolean(this.currentLand.is_random_placement),
       },
       params,
       calculation,
@@ -1077,9 +1115,18 @@ export class PlannerUI {
         year: 'numeric',
       }) : '—';
 
+      const isScenarioPlan = Boolean(
+        p.land?.is_scenario ||
+        p.land?.simulated === true ||
+        p.land?.data_kind === 'synthetic_scenario'
+      );
+      const scenarioTag = isScenarioPlan
+        ? `<span class="tag-scenario">${p.land?.is_random_placement ? '🎲 Acak' : '🧪 Skenario'}</span>`
+        : '';
+
       li.innerHTML = `
         <div class="saved-plan-header">
-          <strong class="saved-plan-title">${escapeHtml(p.cafe_name)}</strong>
+          <strong class="saved-plan-title">${escapeHtml(p.cafe_name)}${scenarioTag}</strong>
           <span class="saved-plan-date">${dateStr}</span>
         </div>
         <div class="saved-plan-meta">

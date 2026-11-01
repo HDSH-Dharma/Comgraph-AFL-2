@@ -60,7 +60,7 @@ export function traceShape(ctx, shape, x, y, r) {
  * @param {object} opts { alpha, outOfBuffer }
  */
 export function drawStatusMarker(ctx, status, x, y, r, opts = {}) {
-  const { alpha = 1, outOfBuffer = false } = opts;
+  const { alpha = 1, outOfBuffer = false, isScenario = false } = opts;
   ctx.save();
   ctx.globalAlpha = alpha;
   ctx.lineJoin = 'round';
@@ -81,6 +81,17 @@ export function drawStatusMarker(ctx, status, x, y, r, opts = {}) {
     ctx.setLineDash([2.5, 2.5]);
     ctx.lineWidth = 1.25;
     ctx.strokeStyle = status.ink;
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  if (isScenario) {
+    // Penanda skenario sintetis: cincin halo putus-putus ungu khas simulasi
+    ctx.beginPath();
+    ctx.arc(x, y, r + 4, 0, TAU);
+    ctx.setLineDash([3, 3]);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#9333EA';
     ctx.stroke();
     ctx.setLineDash([]);
   }

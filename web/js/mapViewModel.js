@@ -17,6 +17,7 @@ export class MapViewModel {
       universities: { ok: false, items: [] },
       buffers: { ok: false, items: [] },
       candidates: { ok: false, items: [] },
+      scenarios: { ok: false, items: [] },
       listings: { ok: false, items: [] },
       areaSummary: { ok: false, summaries: [], metadata: null },
       osmBuildings: { ok: false, items: [] },
@@ -27,6 +28,7 @@ export class MapViewModel {
       buffers: true,
       campuses: true,
       candidates: false, // Kandidat sintetis disembunyikan secara default
+      scenarios: false, // Skenario sintetis eksplisit dinyalakan pengguna
       listings: true,
       osmBuildings: true,
       osmCafes: true,
@@ -70,6 +72,7 @@ export class MapViewModel {
     for (const u of data.universities.items) ensure(u.institution).campusCount++;
     for (const b of data.buffers.items) ensure(b.institution);
     for (const c of data.candidates.items) ensure(c.institution).candidateCount++;
+    for (const c of data.scenarios?.items || []) ensure(c.institution).candidateCount++;
     if (data.listings?.items) {
       for (const l of data.listings.items) ensure(l.institution);
     }
@@ -82,7 +85,12 @@ export class MapViewModel {
   setLayer(name, on) {
     if (!(name in this.layers) || this.layers[name] === on) return;
     this.layers[name] = on;
-    if (!on && name === 'candidates' && this.selection?.kind === 'land') this.selection = null;
+    if (!on && (name === 'candidates' || name === 'scenarios') && this.selection?.kind === 'land') {
+      const derived = this.computeDerived();
+      const stillVisible = derived.candidates.some((x) => x.id === this.selection.id) ||
+                           derived.scenarios.some((x) => x.id === this.selection.id);
+      if (!stillVisible) this.selection = null;
+    }
     if (!on && name === 'campuses' && this.selection?.kind === 'campus') this.selection = null;
     if (!on && name === 'listings' && this.selection?.kind === 'listing') this.selection = null;
     if (!on && name === 'osmBuildings' && this.selection?.kind === 'osm_building') this.selection = null;
@@ -134,7 +142,7 @@ export class MapViewModel {
     const visible = this.computeDerived();
     const list =
       sel.kind === 'land'
-        ? visible.candidates
+        ? [...visible.candidates, ...(visible.scenarios || [])]
         : sel.kind === 'campus'
           ? visible.campuses
           : sel.kind === 'listing'
@@ -159,6 +167,9 @@ export class MapViewModel {
             (c) => this.institutionEnabled(c.institution) && this.statusEnabled.get(c.status.key)
           )
         : [],
+      scenarios: this.layers.scenarios
+        ? (this.data.scenarios?.items || []).filter((c) => this.institutionEnabled(c.institution) && this.statusEnabled.get(c.status.key))
+        : [],
       listings:
         this.layers.listings && listings?.items
           ? listings.items.filter((l) => this.institutionEnabled(l.institution))
@@ -181,7 +192,11 @@ export class MapViewModel {
   }
 
   findCandidate(id) {
-    return this.data.candidates.items.find((c) => c.id === id) ?? null;
+    return (
+      this.data.candidates.items.find((c) => c.id === id) ??
+      this.data.scenarios?.items?.find((c) => c.id === id) ??
+      null
+    );
   }
 
   findCampus(id) {

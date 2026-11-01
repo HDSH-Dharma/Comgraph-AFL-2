@@ -47,6 +47,9 @@ import {
   PlannerUI,
   initPlanner,
 } from './js/planner.js';
+import { MapRenderer } from './js/renderer.js';
+import { Viewport } from './js/viewport.js';
+import { drawStatusMarker } from './js/symbols.js';
 
 test('1. Konfigurasi Institusi Sasaran & Eliminasi Mismatch Unesa', () => {
   // Target institusi resmi proyek adalah tripartit: UNAIR, UKWMS, UBAYA.
@@ -1664,7 +1667,12 @@ test('24. Provenans Sintetis vs Faktual, Pelabelan Harga Estimasi vs Riil, & Sta
       value: '',
       placeholder: '',
       textContent: '',
-      innerHTML: '',
+      _innerHTML: '',
+      get innerHTML() { return this._innerHTML; },
+      set innerHTML(val) {
+        this._innerHTML = val;
+        this.textContent = String(val).replace(/<[^>]*>/g, ' ');
+      },
       dataset: {},
       style: {},
       attributes: {},
@@ -1853,4 +1861,451 @@ test('24. Provenans Sintetis vs Faktual, Pelabelan Harga Estimasi vs Riil, & Sta
   }
 });
 
+test('25. Skenario Sintetis & Penempatan Acak: Pembedaan UI Mutlak, Penolakan Listing Riil, & Peringatan Perencana', () => {
+  // A. Koordinasi Skema Backend: data_kind=synthetic_scenario, simulated=true, random_placement=true
+  const scenarioFeatures = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [112.785, -7.265] },
+        properties: {
+          id: 'SCENARIO-RANDOM-01',
+          name: 'Plot Acak Skenario Mulyorejo',
+          address: 'Jl. Mulyorejo Simulasi No. 99, Surabaya',
+          status: 'Lahan kosong',
+          area_sqm: 180,
+          rental_price_yr: 55_000_000,
+          nearest_university_id: 'UNAIR-KAMPUS-C',
+          nearest_university_name: 'Kampus C Unair',
+          distance_meters: 320,
+          is_in_buffer: true,
+          is_eligible: true,
+          data_kind: 'synthetic_scenario',
+          simulated: true,
+          random_placement: true,
+          source: 'Generator Skenario Sintetis AFL 2 2026',
+        },
+      },
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [112.752, -7.288] },
+        properties: {
+          id: 'SCENARIO-FIXED-02',
+          name: 'Plot Hipotetis Ngagel',
+          address: 'Jl. Ngagel Simulasi No. 12, Surabaya',
+          status: 'Lahan yang tersedia untuk disewakan',
+          area_sqm: 210,
+          rental_price_yr: 70_000_000,
+          nearest_university_id: 'UBAYA-NGAGEL',
+          nearest_university_name: 'Ubaya Ngagel',
+          distance_meters: 450,
+          is_in_buffer: true,
+          is_eligible: true,
+          data_kind: 'synthetic_scenario',
+          simulated: true,
+          random_placement: false,
+          source: 'Generator Skenario Sintetis AFL 2 2026',
+        },
+      },
+    ],
+  };
+
+  const parseCandFn = PARSERS.candidates;
+  const parsed = parseCandFn(scenarioFeatures);
+  assert.equal(parsed.items.length, 2);
+
+  const [randItem, fixedItem] = parsed.items;
+
+  // 1. Verifikasi klasifikasi skenario & non-faktual
+  assert.equal(randItem.isScenario, true, 'Fitur wajib berstatus isScenario');
+  assert.equal(randItem.simulated, true, 'Fitur wajib berstatus simulated=true');
+  assert.equal(randItem.isRandomPlacement, true, 'Fitur acak wajib berstatus isRandomPlacement=true');
+  assert.equal(randItem.dataKind, 'scenario', 'dataKind wajib diidentifikasi sebagai scenario');
+  assert.equal(randItem.isFactual, false, 'Fitur skenario DILARANG berstatus isFactual=true');
+  assert.equal(randItem.isSurvey, false, 'Fitur skenario DILARANG berstatus isSurvey=true');
+  assert.ok(
+    randItem.provenanceLabel.includes('Skenario Sintetis (Penempatan Spasial Acak)'),
+    'Label provenans wajib mencantumkan penempatan acak'
+  );
+
+  assert.equal(fixedItem.isRandomPlacement, false);
+  assert.ok(
+    fixedItem.provenanceLabel.includes('Skenario Sintetis (Simulasi Hipotetis)'),
+    'Label provenans skenario tetap mencantumkan simulasi hipotetis'
+  );
+
+  // 2. Verifikasi Penolakan Mutlak terhadap Listing Riil Publik (isValidEvidenceListing)
+  assert.equal(
+    isValidEvidenceListing({
+      ...randItem.properties,
+      is_verified_public: true,
+      source_url: 'https://olx.co.id/item/ruko-valid-1234',
+    }),
+    false,
+    'Fitur dengan data_kind=synthetic_scenario atau simulated=true WAJIB DITOLAK oleh isValidEvidenceListing'
+  );
+
+  // 3. Verifikasi payload buildLandData untuk modul perencana
+  const landDataRand = buildLandData(randItem);
+  assert.equal(landDataRand.data_kind, 'synthetic_scenario');
+  assert.equal(landDataRand.simulated, true);
+  assert.equal(landDataRand.is_scenario, true);
+  assert.equal(landDataRand.is_random_placement, true);
+  assert.equal(landDataRand.is_factual, false);
+
+  // 4. Uji DOM & UI: Inspector, Candidate List, dan Modal Planner
+  const mockElements = {};
+  const createMockEl = (tag, id) => {
+    const listeners = {};
+    const childrenList = [];
+    const el = {
+      tagName: tag.toUpperCase(),
+      id,
+      className: '',
+      hidden: false,
+      value: '',
+      placeholder: '',
+      textContent: '',
+      _innerHTML: '',
+      get innerHTML() { return this._innerHTML; },
+      set innerHTML(val) {
+        this._innerHTML = val;
+        this.textContent = String(val).replace(/<[^>]*>/g, ' ');
+      },
+      dataset: {},
+      style: {},
+      attributes: {},
+      children: childrenList,
+      setAttribute(k, v) {
+        el.attributes[k] = v;
+        if (k === 'id') el.id = v;
+      },
+      removeAttribute(k) { delete el.attributes[k]; },
+      getAttribute(k) { return el.attributes[k]; },
+      addEventListener(evt, fn) {
+        listeners[evt] = listeners[evt] || [];
+        listeners[evt].push(fn);
+      },
+      trigger(evt, eventObj = {}) {
+        (listeners[evt] || []).forEach((fn) => fn(eventObj));
+      },
+      append(...nodes) {
+        for (const n of nodes.flat(Infinity)) {
+          if (n != null && n !== false) {
+            childrenList.push(n);
+            if (typeof n === 'string') el.textContent += n;
+            else if (n.textContent) el.textContent += ' ' + n.textContent;
+          }
+        }
+      },
+      replaceChildren(...nodes) {
+        childrenList.length = 0;
+        el.textContent = '';
+        el.append(...nodes);
+      },
+      focus() { el.isFocused = true; },
+      getContext() {
+        return new Proxy({}, {
+          get: (target, prop) => {
+            if (prop in target) return target[prop];
+            return () => {};
+          },
+          set: (target, prop, value) => {
+            target[prop] = value;
+            return true;
+          },
+        });
+      },
+      classList: {
+        add(c) { el.className = (el.className + ' ' + c).trim(); },
+        remove(c) { el.className = el.className.replace(c, '').trim(); },
+        toggle(c, force) { if (force) el.classList.add(c); else el.classList.remove(c); },
+      },
+    };
+    if (id) mockElements[id] = el;
+    return el;
+  };
+
+  const origDoc = global.document;
+  const origWindow = global.window;
+
+  try {
+    global.document = {
+      getElementById: (id) => mockElements[id] || createMockEl('div', id),
+      querySelector: () => null,
+      querySelectorAll: () => [],
+      createElement: (tag) => createMockEl(tag),
+      activeElement: null,
+    };
+    global.window = {
+      handleLandMarkerClick: null,
+      matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
+    };
+
+    createMockEl('section', 'inspector');
+    createMockEl('h2', 'inspector-title');
+    const inspBody = createMockEl('div', 'inspector-body');
+    const candList = createMockEl('ul', 'candidate-list');
+    const candCount = createMockEl('span', 'candidate-count');
+
+    // UI Map
+    const vm = new MapViewModel();
+    vm.data.candidates = { ok: true, items: parsed.items, metadata: null };
+    vm.visible.candidates = [...parsed.items];
+    vm.layers.candidates = true;
+
+    const mapUi = new MapUI(vm, {
+      selectCandidate: () => {},
+      resetFilters: () => {},
+    });
+
+    // 4.1 Uji Inspector Skenario Penempatan Acak
+    mapUi.showLandInspector(randItem);
+    assert.ok(
+      inspBody.textContent.includes('Skenario Sintetis (Penempatan Acak)'),
+      'Callout inspector wajib menjelaskan skenario dengan penempatan acak'
+    );
+    assert.ok(
+      inspBody.textContent.includes('Estimasi sewa skenario'),
+      'Harga sewa skenario wajib dilabeli estimasi sewa skenario'
+    );
+    assert.ok(
+      inspBody.textContent.includes('(nilai skenario simulasi, bukan harga pasar)'),
+      'Harga sewa skenario wajib menegaskan bukan harga pasar'
+    );
+    assert.ok(
+      inspBody.textContent.includes('Koordinat acak (Random Placement untuk simulasi)'),
+      'Penempatan spasial acak wajib dicatat eksplisit'
+    );
+    assert.ok(
+      inspBody.textContent.includes('Rencanakan Modal Kafe (Skenario Sintetis)'),
+      'Tombol perencana wajib melabeli skenario sintetis'
+    );
+
+    // 4.2 Uji Daftar Kandidat Skenario
+    mapUi.renderCandidateList();
+    assert.ok(
+      candList.textContent.includes('Acak') || candList.textContent.includes('Skenario'),
+      'Daftar kandidat wajib menampilkan tag skenario'
+    );
+    assert.ok(
+      candList.textContent.includes('(harga skenario)'),
+      'Harga di daftar kandidat wajib memuat anotasi (harga skenario)'
+    );
+
+    // 4.3 Uji Modal Perencana (PlannerUI) Memunculkan Banner Peringatan Skenario
+    createMockEl('dialog', 'planner-modal');
+    const scenarioWarnEl = createMockEl('div', 'planner-scenario-warning');
+    const scenarioWarnTextEl = createMockEl('span', 'planner-scenario-warning-text');
+    const demoWarnEl = createMockEl('div', 'planner-demo-warning');
+    const statusBadgeEl = createMockEl('span', 'planner-status-badge');
+    createMockEl('input', 'input-area-sqm');
+    createMockEl('input', 'input-rental-price');
+
+    const mockStorage = {
+      getItem: () => '[]',
+      setItem: () => {},
+      removeItem: () => {},
+    };
+    const plannerUi = new PlannerUI({ storage: new PlanStorage(mockStorage) });
+
+    plannerUi.openModal(landDataRand);
+    assert.equal(
+      plannerUi.els.scenarioWarning.hidden,
+      false,
+      'Modal planner WAJIB menampilkan banner peringatan skenario sintetis'
+    );
+    assert.equal(
+      plannerUi.els.demoWarning.hidden,
+      true,
+      'Banner demo biasa harus disembunyikan agar tidak tumpang tindih'
+    );
+    assert.ok(
+      plannerUi.els.scenarioWarningText.textContent.includes('Peringatan Skenario Sintetis'),
+      'Teks peringatan skenario wajib memuat judul peringatan skenario'
+    );
+    assert.ok(
+      plannerUi.els.statusBadge.textContent.includes('Skenario (Penempatan Acak)'),
+      'Badge status planner wajib mencantumkan penempatan acak'
+    );
+    assert.ok(
+      plannerUi.els.statusBadge.className.includes('badge-scenario'),
+      'Badge status wajib memiliki kelas styling khusus badge-scenario'
+    );
+
+    // 5. Verifikasi Pemisahan Dataset OSM: Bangunan & Kafe OSM tidak terkontaminasi skenario
+    const osmCafeFn = PARSERS.osmCafes;
+    const osmCafeData = osmCafeFn({
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [112.79, -7.27] },
+          properties: { id: 'CAFE-01', name: 'Kafe Riil Faktual', data_kind: 'osm_factual_open_data' },
+        },
+      ],
+    });
+    assert.equal(osmCafeData.items[0].dataKind, 'osm_cafe');
+    assert.equal(osmCafeData.items[0].isScenario, undefined);
+    assert.equal(osmCafeData.items[0].simulated, undefined);
+  } finally {
+    global.document = origDoc;
+    global.window = origWindow;
+  }
+});
+
+test('26. Integrasi Opt-in Skenario Sintetis: Checkbox Default-Off, Hit-Test, Hidden Selection, & Schema Coordination', () => {
+  // 1. Verifikasi Checkbox Layer Skenario Default-Off
+  const vm = new MapViewModel();
+  assert.equal(
+    vm.layers.scenarios,
+    false,
+    'Layer skenario sintetis WAJIB bernilai false (default-off) demi kejujuran data'
+  );
+
+  // 2. Pemuatan Fixture Skenario Sintetis Nyata dari Disk (data/fixtures/synthetic_scenario_candidates.geojson)
+  const fixturePath = path.join(__dirname, '../data/fixtures/synthetic_scenario_candidates.geojson');
+  assert.ok(fs.existsSync(fixturePath), 'Berkas fixture skenario sintetis wajib ada di disk');
+  const fixtureJson = JSON.parse(fs.readFileSync(fixturePath, 'utf-8'));
+  const parsed = PARSERS.scenarios(fixtureJson);
+
+  assert.equal(parsed.items.length, 8, 'Fixture skenario wajib memuat 8 situs kafe simulasi');
+  for (const item of parsed.items) {
+    assert.equal(item.isScenario, true, 'Setiap item skenario wajib berstatus isScenario=true');
+    assert.equal(item.simulated, true, 'Setiap item skenario wajib berstatus simulated=true');
+    assert.equal(item.isFactual, false, 'Skenario tidak boleh berstatus faktual');
+    assert.equal(item.isSurvey, false, 'Skenario tidak boleh berstatus survei');
+    assert.equal(item.dataKind, 'scenario', 'dataKind wajib berupa scenario');
+    assert.equal(item.properties.is_price_estimate, true, 'Harga wajib bertipe estimasi');
+    assert.equal(item.properties.is_transaction_price, false, 'Harga bukan transaksi riil');
+  }
+
+  // 3. Koordinasi Skema Backend: target_campus_id -> nearest_university_id
+  const sampleScenario = parsed.items[0];
+  assert.equal(sampleScenario.nearestUniversityId, 'UNAIR-KAMPUS-A');
+  assert.equal(sampleScenario.nearestUniversityName, 'Kampus A Universitas Airlangga');
+
+  // Uji fallback mutual jika properti backend hanya memuat target_campus_id / target_campus_name
+  const backendFeaturePayload = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [112.75, -7.27] },
+        properties: {
+          id: 'TEST-BACKEND-SCHEMA-01',
+          name: 'Situs Hipotetis Dinoyo',
+          status: 'Lahan yang tersedia untuk disewakan',
+          target_campus_id: 'UKWMS-DINOYO',
+          target_campus_name: 'Kampus Dinoyo UKWMS',
+          data_kind: 'synthetic_scenario',
+          simulated: true,
+          distance_meters: 350,
+          is_in_buffer: true,
+          rental_price_yr: 120_000_000,
+          rental_price_label: 'Rp 120,000,000 / tahun (Estimasi Simulasi Hipotetis)',
+          is_price_estimate: true,
+        },
+      },
+    ],
+  };
+  const parsedBackendFeature = PARSERS.scenarios(backendFeaturePayload);
+  const parsedBackendItem = parsedBackendFeature.items[0];
+  assert.equal(parsedBackendItem.nearestUniversityId, 'UKWMS-DINOYO');
+  assert.equal(parsedBackendItem.nearestUniversityName, 'Kampus Dinoyo UKWMS');
+
+  const landData = buildLandData(parsedBackendItem);
+  assert.equal(landData.nearest_university_id, 'UKWMS-DINOYO', 'buildLandData wajib memetakan target_campus_id ke nearest_university_id');
+  assert.equal(landData.nearest_university_name, 'Kampus Dinoyo UKWMS', 'buildLandData wajib memetakan target_campus_name ke nearest_university_name');
+  assert.equal(landData.data_kind, 'synthetic_scenario');
+  assert.equal(landData.simulated, true);
+  assert.equal(landData.is_scenario, true);
+
+  // 4. Hit-Test Kanvas & Gambar Marker Skenario (Halo Ungu Putus-Putus)
+  const vp = new Viewport();
+  vp.setSize(800, 600);
+  vp.cx = sampleScenario.wx;
+  vp.cy = sampleScenario.wy;
+  vp.zoom = 15;
+  const [screenX, screenY] = vp.worldToScreen(sampleScenario.wx, sampleScenario.wy);
+
+  let drawnHalo = false;
+  let drawnStrokeStyle = null;
+  const mockCtx = new Proxy(
+    {
+      arc(x, y, r) {
+        if (r > 12) drawnHalo = true;
+      },
+      setLineDash(dash) {
+        if (Array.isArray(dash) && dash.length === 2 && dash[0] === 3 && dash[1] === 3) {
+          drawnHalo = true;
+        }
+      },
+      set strokeStyle(val) {
+        drawnStrokeStyle = val;
+      },
+      get strokeStyle() {
+        return drawnStrokeStyle;
+      },
+    },
+    {
+      get(target, prop) {
+        if (prop in target) return target[prop];
+        return () => {};
+      },
+    }
+  );
+
+  // Uji pemanggilan drawStatusMarker dengan isScenario: true
+  drawStatusMarker(mockCtx, sampleScenario.status, screenX, screenY, 10, { isScenario: true });
+  assert.equal(drawnHalo, true, 'Marker skenario wajib menggambar halo putus-putus');
+  assert.equal(drawnStrokeStyle, '#9333EA', 'Warna halo skenario wajib ungu #9333EA');
+
+  // Uji Hit-Test melalui MapRenderer
+  const mockCanvas = {
+    getContext: () => mockCtx,
+  };
+  const renderer = new MapRenderer(mockCanvas, vp, vm);
+  vm.data.scenarios = { ok: true, items: parsed.items };
+  vm.data.candidates = { ok: true, items: [] };
+
+  // 4.1 Saat layer skenario default OFF -> hitTest mengembalikan null
+  assert.equal(vm.layers.scenarios, false);
+  const hitOff = renderer.hitTest(screenX, screenY);
+  assert.equal(hitOff, null, 'Saat layer skenario OFF, marker skenario tidak boleh merespons hit-test');
+
+  // 4.2 Saat layer skenario dihidupkan (ON) -> hitTest mendeteksi skenario
+  vm.setLayer('scenarios', true);
+  const hitOn = renderer.hitTest(screenX, screenY);
+  assert.ok(hitOn, 'Saat layer skenario ON, hit-test wajib mendeteksi marker skenario');
+  assert.equal(hitOn.kind, 'land');
+  assert.equal(hitOn.item.id, sampleScenario.id);
+
+  // 5. Perilaku Hidden-Selection (Selection Terbuang Saat Layer Dimatikan)
+  // 5.1 Pilih marker skenario
+  vm.select({ kind: 'land', id: sampleScenario.id });
+  assert.equal(vm.selection?.id, sampleScenario.id, 'Seleksi aktif pada skenario');
+
+  // 5.2 Matikan layer skenario -> seleksi harus otomatis di-drop (null)
+  vm.setLayer('scenarios', false);
+  assert.equal(
+    vm.selection,
+    null,
+    'Mematikan layer skenario WAJIB menghapus seleksi skenario aktif (hidden-selection behavior)'
+  );
+
+  // 5.3 Nyalakan kembali layer skenario & pilih lagi
+  vm.setLayer('scenarios', true);
+  vm.select({ kind: 'land', id: sampleScenario.id });
+  assert.equal(vm.selection?.id, sampleScenario.id);
+
+  // 5.4 Matikan filter status lahan skenario terkait -> dropHiddenSelection wajib membuang seleksi
+  vm.setStatus(sampleScenario.status.key, false);
+  assert.equal(
+    vm.selection,
+    null,
+    'Menonaktifkan status filter yang menyembunyikan skenario terpilih WAJIB mengosongkan seleksi'
+  );
+});
 
