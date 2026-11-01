@@ -2,6 +2,9 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Poligon Buffer Dilatasi 500m (Baseline) dari Batas Perimeter Kampus Surabaya",
+    "source": "Dihitung dari geometri perimeter kampus asli OSM di EPSG:32749",
+    "captured_date": "2026-11-01",
+    "generated_date": "2026-11-01",
     "radius_m": 500,
     "radius_mode": "baseline_500m",
     "total_features": 8,

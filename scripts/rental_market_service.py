@@ -45,6 +45,8 @@ from scripts.gis_pipeline import (
     RADIUS_CONFIG,
     TEAM_SCORING_ASSUMPTIONS,
     calculate_transparent_feasibility_score,
+    evaluate_candidate_feasibility,
+    load_and_validate_campus_gates,
 )
 
 MIN_COMPARABLE_LISTINGS = 3
@@ -86,6 +88,30 @@ class RentalMarketService:
     def __init__(self):
         self.transformer_fwd = pyproj.Transformer.from_crs("EPSG:4326", "EPSG:32749", always_xy=True)
         self.transformer_inv = pyproj.Transformer.from_crs("EPSG:32749", "EPSG:4326", always_xy=True)
+
+    def evaluate_candidate(
+        self,
+        candidate_props: Dict[str, Any],
+        user_rent_yr: Optional[float] = None,
+        user_area_sqm: Optional[float] = None,
+        radius_mode: str = "baseline_500m",
+        assumptions: Optional[Dict[str, Any]] = None,
+        nearby_cafes_count: Optional[int] = None,
+        distance_to_nearest_gate_meters: Optional[float] = None,
+    ) -> Dict[str, Any]:
+        """
+        Evaluator kelayakan transparan terbagi untuk modul Planner & Backend Service.
+        Menggunakan evaluator 7-komponen tunggal tanpa memfabrikasi variabel spasial.
+        """
+        return evaluate_candidate_feasibility(
+            candidate_props=candidate_props,
+            user_rent_yr=user_rent_yr,
+            user_area_sqm=user_area_sqm,
+            radius_mode=radius_mode,
+            assumptions=assumptions,
+            nearby_cafes_count=nearby_cafes_count,
+            distance_to_nearest_gate_meters=distance_to_nearest_gate_meters,
+        )
 
     def is_source_specific_url(self, url: str) -> bool:
         """

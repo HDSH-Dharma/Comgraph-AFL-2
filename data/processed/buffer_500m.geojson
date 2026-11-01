@@ -2,6 +2,9 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Poligon Buffer Radial 500m (Baseline) Kampus Surabaya",
+    "source": "Dihitung dari titik koordinat kampus terverifikasi di EPSG:32749",
+    "captured_date": "2026-11-01",
+    "generated_date": "2026-11-01",
     "radius_m": 500,
     "radius_mode": "baseline_500m",
     "total_features": 8,

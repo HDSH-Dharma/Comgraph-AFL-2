@@ -24,6 +24,8 @@ import {
   DATA_FILES,
   DATA_LABELS,
   LISTING_STYLE,
+  GATE_STYLE,
+  TEAM_SCORING_ASSUMPTIONS,
   QUICK_JUMP_TARGETS,
   INSTITUTION_LABELS,
   LAND_STATUSES,
@@ -47,6 +49,7 @@ import {
   canPlanForLand,
   calculateInitialCapital,
   calculateFeasibilityPoints,
+  calculateTransparentFeasibilityScore,
   formatRupiah,
   downloadJsonFile,
   ELIGIBLE_LAND_STATUSES,
@@ -59,7 +62,7 @@ import {
 } from './js/planner.js';
 import { MapRenderer } from './js/renderer.js';
 import { Viewport } from './js/viewport.js';
-import { drawStatusMarker } from './js/symbols.js';
+import { drawStatusMarker, drawGateMarker } from './js/symbols.js';
 
 test('1. Konfigurasi Institusi Sasaran & Eliminasi Mismatch Unesa', () => {
   // Target institusi resmi proyek adalah tripartit: UNAIR, UKWMS, UBAYA.
@@ -1665,7 +1668,10 @@ test('24. Provenans Sintetis vs Faktual, Pelabelan Harga Estimasi vs Riil, & Sta
   assert.equal(surveyItem.surveyMethod, 'street_view');
   assert.equal(surveyItem.observedAt, '2026-11-01');
   assert.equal(surveyItem.evidenceUrl, 'https://maps.google.com/?cbll=-7.28,112.75');
-  assert.equal(surveyItem.provenanceLabel, 'Survei Lapangan Empiris (street_view)');
+  assert.equal(
+    surveyItem.provenanceLabel,
+    'Observasi Street View (Diobservasi oleh Claude AI di peramban desktop Dharma 2026-11-01; peninjauan tim tertunda; observasi Street View, bukan survei fisik lapangan)'
+  );
 
   // B. Simulasi Mock DOM untuk Pengujian UI Inspector & Pelabelan Harga Jujur
   const mockElements = {};
@@ -2569,6 +2575,9 @@ test('27. Web Tasks 2 & 7: Baseline 500m & 1km Scenario, Observed Candidates Def
         listeners[evt] = listeners[evt] || [];
         listeners[evt].push(fn);
       },
+      focus() {
+        el.isFocused = true;
+      },
       click() {
         if (typeof el.onclick === 'function') el.onclick({ target: el });
         (listeners['click'] || []).forEach((fn) => fn({ target: el }));
@@ -2763,6 +2772,295 @@ test('27. Web Tasks 2 & 7: Baseline 500m & 1km Scenario, Observed Candidates Def
     assert.ok(nearestCafeBtn, 'Tombol kafe OSM terdekat wajib ada di inspector');
     nearestCafeBtn.click();
     assert.ok(selectedOsmCafeId != null, 'Mengklik kafe terdekat wajib memanggil selectOsmCafe dengan ID kafe');
+  } finally {
+    global.document = origDoc;
+    global.window = origWin;
+  }
+});
+
+test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapisan Gerbang Kampus, & Atribusi Observasi Faktual', () => {
+  // 1. Asumsi Skoring Terpusat Tim & Rumus Bersama Backend (Task 8 reports/backend.md)
+  assert.equal(TEAM_SCORING_ASSUMPTIONS.weights.proximity, 40.0);
+  assert.equal(TEAM_SCORING_ASSUMPTIONS.weights.space, 30.0);
+  assert.equal(TEAM_SCORING_ASSUMPTIONS.weights.cost_efficiency, 30.0);
+  assert.ok(TEAM_SCORING_ASSUMPTIONS.anti_fabrication_rule.includes('never guess rent'));
+
+  // 1.1 Algoritma Renormalisasi Bobot Dinamis & Supresi Bintang jika Cakupan < 60%
+  // Kasus Observasi Street View Tipikal: Jarak 370.82 m (baseline 500m), Sewa & Luas null
+  const streetViewScore500m = calculateTransparentFeasibilityScore({
+    distance_meters: 370.82,
+    area_sqm: null,
+    rental_price_yr: null,
+    radius_mode: 'baseline_500m',
+  });
+  assert.equal(streetViewScore500m.raw_earned_points, 20.0);
+  assert.equal(streetViewScore500m.max_available_weight, 40.0);
+  assert.equal(streetViewScore500m.coverage_pct, 40); // 40% < 60%
+  assert.equal(streetViewScore500m.score_normalized, 50); // (20 / 40) * 100 = 50
+  assert.equal(streetViewScore500m.suppress_stars, true);
+  assert.equal(streetViewScore500m.grade, 'Cukup Layak ★');
+  assert.equal(
+    streetViewScore500m.display_grade,
+    'Cukup Layak (bintang ditangguhkan: cakupan < 60%)',
+    'Bintang wajib disupresi secara transparan jika cakupan data < 60%'
+  );
+  assert.deepEqual(streetViewScore500m.null_components, ['space', 'cost_efficiency']);
+
+  // 1.2 Rekalkulasi Ketika Pengguna Memasukkan Nilai Luas & Sewa
+  const recalculated = calculateTransparentFeasibilityScore({
+    distance_meters: 370.82,
+    area_sqm: 150,
+    rental_price_yr: 45_000_000,
+    radius_mode: 'baseline_500m',
+  });
+  assert.equal(recalculated.coverage_pct, 100);
+  assert.equal(recalculated.suppress_stars, false);
+  assert.ok(recalculated.display_grade.includes('★'), 'Bintang muncul ketika cakupan 100%');
+
+  // 2. Verifikasi Data Produksi Kandidat Lahan & Koordinasi Skema Backend
+  const candPath = path.join(__dirname, '../data/processed/land_candidates.geojson');
+  assert.ok(fs.existsSync(candPath), 'Berkas land_candidates.geojson wajib ada');
+  const candJson = readJson(candPath);
+  const parsedCands = PARSERS.candidates(candJson);
+
+  assert.ok(parsedCands.items.length > 0);
+  for (const c of parsedCands.items) {
+    // Mandat Task 5: Jarak gerbang strictly null dengan status UNOBSERVED
+    assert.equal(c.distanceToNearestGateM, null, 'Jarak gerbang pada kandidat wajib strictly null');
+    assert.equal(c.gateObservationStatus, 'UNOBSERVED', 'Status observasi gerbang wajib UNOBSERVED');
+    // Mandat Task 8: Objek scoring backend ada
+    assert.ok(c.feasibilityScoring, 'Objek feasibilityScoring backend wajib ada');
+    assert.ok(c.feasibilityScoring500m, 'Objek feasibilityScoring500m baseline backend wajib ada');
+    // Atribusi Observasi Faktual (bukan survei lapangan fisik manusia)
+    assert.ok(
+      c.provenanceLabel.includes('Observasi Street View') &&
+      c.provenanceLabel.includes('Claude AI') &&
+      c.provenanceLabel.includes('bukan survei fisik lapangan'),
+      'Label provenans wajib menggunakan observasi Street View oleh Claude AI dan bukan survei fisik lapangan'
+    );
+  }
+
+  // 2.1 Verifikasi buildLandData Menyertakan Properti Skema Baru untuk Interop Planner
+  const sampleCandidate = parsedCands.items[0];
+  const landDataPayload = buildLandData(sampleCandidate);
+  assert.equal(landDataPayload.distance_to_nearest_gate_meters, null);
+  assert.equal(landDataPayload.gate_observation_status, 'UNOBSERVED');
+  assert.equal(
+    landDataPayload.feasibility_scoring_baseline_500m.score_normalized,
+    sampleCandidate.feasibilityScoring500m.score_normalized
+  );
+  assert.equal(landDataPayload.unavailability_reason, sampleCandidate.unavailabilityReason);
+
+  // 3. Verifikasi Lapisan Gerbang Kampus (Opsional, Default-OFF, Simbol Khusus, & Legenda)
+  const vm = new MapViewModel();
+  assert.equal(vm.layers.gates, false, 'Lapisan gerbang kampus wajib berstatus default false (default-off)');
+  assert.equal(GATE_STYLE.glyph, '🚪', 'Gaya gerbang wajib memiliki glyph pintu');
+  assert.equal(DATA_LABELS.gates, 'Gerbang kampus (status: belum diobservasi / unobserved)');
+
+  // Pemeriksaan HTML Lapisan Gerbang
+  const htmlPath = path.join(__dirname, 'index.html');
+  const htmlContent = fs.readFileSync(htmlPath, 'utf8');
+  assert.ok(htmlContent.includes('data-layer="gates"'), 'index.html wajib memuat checkbox data-layer="gates"');
+  assert.ok(htmlContent.includes('layer-gates-label'), 'index.html wajib memuat id layer-gates-label');
+
+  // 4. Pengujian UI Ranking Panel & Inspector dengan Mock DOM
+  const mockEls = {};
+  const createMock = (tag = 'div', id = '') => {
+    const children = [];
+    const attrs = {};
+    const dataset = {};
+    const listeners = {};
+    const el = {
+      tagName: tag.toUpperCase(),
+      id,
+      className: '',
+      textContent: '',
+      value: '',
+      placeholder: '',
+      hidden: false,
+      children,
+      dataset,
+      attributes: attrs,
+      setAttribute(k, v) { attrs[k] = v; if (k === 'id') el.id = v; },
+      getAttribute(k) { return attrs[k]; },
+      removeAttribute(k) { delete attrs[k]; },
+      addEventListener(evt, fn) {
+        listeners[evt] = listeners[evt] || [];
+        listeners[evt].push(fn);
+      },
+      focus() {
+        el.isFocused = true;
+      },
+      click() {
+        if (typeof el.onclick === 'function') el.onclick({ target: el });
+        (listeners['click'] || []).forEach((fn) => fn({ target: el }));
+      },
+      append(...nodes) {
+        for (const n of nodes.flat(Infinity)) {
+          if (n != null && n !== false) {
+            children.push(n);
+            if (typeof n === 'string') el.textContent += n;
+            else if (n.textContent) el.textContent += ' ' + n.textContent;
+          }
+        }
+      },
+      replaceChildren(...nodes) {
+        children.length = 0;
+        el.textContent = '';
+        el.append(...nodes);
+      },
+      querySelectorAll(sel) {
+        const matches = [];
+        const check = (node) => {
+          if (!node || typeof node !== 'object') return;
+          if (sel.startsWith('.') && (node.className || '').includes(sel.slice(1))) matches.push(node);
+          else if (sel === 'button' && node.tagName === 'BUTTON') matches.push(node);
+          if (Array.isArray(node.children)) node.children.forEach(check);
+        };
+        check(this);
+        return matches;
+      },
+      querySelector(sel) {
+        const res = this.querySelectorAll(sel);
+        return res.length ? res[0] : null;
+      },
+      getContext() {
+        return new Proxy({}, {
+          get: (t, p) => (p in t ? t[p] : () => {}),
+          set: (t, p, v) => { t[p] = v; return true; },
+        });
+      },
+    };
+    if (id) mockEls[id] = el;
+    return el;
+  };
+
+  const origDoc = global.document;
+  const origWin = global.window;
+  try {
+    global.window = {
+      devicePixelRatio: 1,
+      matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
+    };
+    global.document = {
+      createElement: (t) => createMock(t),
+      getElementById: (id) => mockEls[id] || createMock('div', id),
+    };
+
+    const rankingListEl = createMock('ol', 'ranking-list');
+    const rankingCountEl = createMock('span', 'ranking-count');
+    const inspBody = createMock('div', 'inspector-body');
+    const inspTitle = createMock('h2', 'inspector-title');
+    const legendEl = createMock('div', 'legend');
+
+    const mockUI = {
+      vm,
+      actions: {
+        selectCandidate: () => {},
+        setLayer: () => {},
+      },
+      els: {
+        rankingList: rankingListEl,
+        rankingCount: rankingCountEl,
+        inspectorBody: inspBody,
+        inspectorTitle: inspTitle,
+        legend: legendEl,
+      },
+      openInspector() {},
+      detailList: MapUI.prototype.detailList,
+      eligibilityBlock: MapUI.prototype.eligibilityBlock,
+    };
+
+    // 4.1 Legenda Peta Menyertakan Swatch Gerbang Kampus
+    MapUI.prototype.buildLegend.call(mockUI);
+    assert.ok(
+      legendEl.textContent.includes('Gerbang kampus (status: belum diobservasi / unobserved)'),
+      'Legenda wajib menampilkan entri gerbang kampus'
+    );
+
+    // 4.2 Ranking Panel: Menampilkan Skor Backend Langsung & Per-Component Breakdown
+    vm.visible.candidates = [sampleCandidate];
+    vm.data.candidates = { ok: true, items: [sampleCandidate] };
+    vm.layers.candidates = true;
+
+    MapUI.prototype.renderRankingPanel.call(mockUI);
+    const rankButtons = rankingListEl.querySelectorAll('.ranking-item');
+    assert.equal(rankButtons.length, 1);
+    const expectedScore = sampleCandidate.feasibilityScoring500m.score_normalized;
+    assert.ok(rankButtons[0].textContent.includes(`${expectedScore} poin`), 'Ranking item wajib menampilkan skor poin langsung dari skor backend');
+    assert.ok(rankButtons[0].textContent.includes('Cakupan 40%'), 'Ranking item wajib menampilkan cakupan data 40%');
+    assert.ok(rankButtons[0].textContent.includes('Kedekatan: 12 pt') || rankButtons[0].textContent.includes('Kedekatan: 20 pt'), 'Ranking item wajib merinci komponen kedekatan');
+
+    // 4.3 Inspector: Menampilkan Skor MCDA, Komponen Null, Tipe Jalan Jujur, Alasan, Indikator Siswa, & Gerbang Null
+    MapUI.prototype.showLandInspector.call(mockUI, sampleCandidate);
+    assert.ok(inspBody.textContent.includes('Skor kelayakan MCDA'), 'Inspector wajib memuat baris Skor kelayakan MCDA');
+    assert.ok(inspBody.textContent.includes(`${expectedScore} / 100 poin`), 'Inspector wajib memuat skor normalisasi');
+    assert.ok(inspBody.textContent.includes('Tanpa Bintang') || inspBody.textContent.includes('bintang ditangguhkan'), 'Bintang wajib disupresi');
+    assert.ok(inspBody.textContent.includes('Cakupan data skoring'));
+    assert.ok(inspBody.textContent.includes('40%'));
+    assert.ok(inspBody.textContent.includes('null (Tipe jalan belum diobservasi / tidak ada data OSM highway)'), 'Tipe jalan wajib jujur null');
+    assert.ok(inspBody.textContent.includes('null (Indikator mobilitas mahasiswa belum disurvei lapangan)'), 'Indikator mahasiswa wajib jujur null');
+    assert.ok(inspBody.textContent.includes('null (UNOBSERVED - koordinat gerbang belum diobservasi empiris)'), 'Jarak gerbang wajib jujur null');
+    assert.ok(inspBody.textContent.includes('Observasi Street View (Bukan Survei Fisik Lapangan)'), 'Callout wajib menyatakan bukan survei fisik lapangan');
+
+    // 5. Perencana (PlannerUI): Skor Backend Langsung vs Rekalkulasi Saat Pengguna Mengedit Luas/Sewa
+    const modalEl = createMock('dialog', 'planner-modal');
+    const areaInput = createMock('input', 'input-area-sqm');
+    const rentInput = createMock('input', 'input-rental-price');
+    const outPoints = createMock('span', 'calc-feasibility-points');
+    const outGrade = createMock('span', 'calc-feasibility-grade');
+    const outTotalCapital = createMock('span', 'calc-total-capital');
+
+    const mockStorage = { getItem: () => '[]', setItem: () => {}, removeItem: () => {} };
+    const planner = new PlannerUI({ storage: new PlanStorage(mockStorage) });
+
+    // Lahan dengan status rumah/non-actionable akan diblokir guard; gunakan lahan eligible sewa untuk tes planner
+    const eligibleLand = {
+      id: 'SV-UNAIR-C-02',
+      name: 'Lahan Sewa Mulyorejo',
+      status: { value: 'Lahan yang tersedia untuk disewakan', label: 'Tersedia Disewakan' },
+      distance_meters: 370.82,
+      area_sqm: null,
+      rental_price_yr: null,
+      is_in_buffer: true,
+      is_eligible: true,
+      feasibility_scoring_baseline_500m: {
+        score_normalized: 50.0,
+        grade: 'Cukup Layak ★',
+        max_available_weight: 40.0,
+        theoretical_max_weight: 100.0,
+      },
+    };
+
+    // Buka modal: Awalnya userEditedRentOrArea = false -> Skor backend ditampilkan langsung!
+    planner.openModal(eligibleLand);
+    assert.equal(planner.userEditedRentOrArea, false);
+    assert.ok(
+      planner.els.outFeasibilityPoints.textContent.includes('50 / 100 Poin (Skor Backend, Cakupan: 40%)'),
+      'Sebelum diedit, planner wajib menampilkan skor backend langsung dan cakupan 40%'
+    );
+    assert.equal(
+      planner.els.outFeasibilityGrade.textContent,
+      'Cukup Layak (bintang ditangguhkan: cakupan < 60%)',
+      'Sebelum diedit, bintang ditangguhkan karena cakupan < 60%'
+    );
+
+    // Pengguna mengedit luas lahan dan harga sewa
+    planner.els.areaInput.value = '150';
+    planner.els.rentalPriceInput.value = '45000000';
+    // Memicu rekalkulasi
+    planner.userEditedRentOrArea = true;
+    planner.updateCalculator();
+
+    // Sekarang planner menghitung ulang dengan shared backend formula!
+    assert.ok(
+      planner.els.outFeasibilityPoints.textContent.includes('Cakupan: 100%'),
+      'Setelah diedit, cakupan data menjadi 100%'
+    );
+    assert.ok(
+      planner.els.outFeasibilityGrade.textContent.includes('★'),
+      'Setelah diedit lengkap, predikat memiliki bintang tanpa penangguhan'
+    );
   } finally {
     global.document = origDoc;
     global.window = origWin;

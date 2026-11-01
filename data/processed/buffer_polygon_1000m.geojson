@@ -2,6 +2,9 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Poligon Buffer Dilatasi 1.000m (Skenario) dari Batas Perimeter Kampus Surabaya",
+    "source": "Dihitung dari geometri perimeter kampus asli OSM di EPSG:32749",
+    "captured_date": "2026-11-01",
+    "generated_date": "2026-11-01",
     "radius_m": 1000,
     "radius_mode": "scenario_1km",
     "total_features": 8,

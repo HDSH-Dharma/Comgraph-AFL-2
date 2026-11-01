@@ -14,6 +14,7 @@ export const DATA_FILES = Object.freeze({
   osmBuildings: '../data/processed/universities_polygons.geojson',
   osmCafes: '../data/processed/osm_cafes.geojson',
   scenarios: '../data/fixtures/synthetic_scenario_candidates.geojson',
+  gates: '../data/processed/campus_gates.geojson',
 });
 
 // Radius buffer spasial:
@@ -33,6 +34,7 @@ export const DATA_LABELS = Object.freeze({
   listings: 'Listing sewa riil publik',
   osmBuildings: 'Perimeter kampus/bangunan (OSM faktual)',
   osmCafes: 'Kafe eksisting (OSM faktual)',
+  gates: 'Gerbang kampus (status: belum diobservasi / unobserved)',
 });
 
 export const LISTING_STYLE = Object.freeze({
@@ -170,6 +172,62 @@ export const BUFFER_1KM_STYLE = Object.freeze({
   lineWidth: 1.25,
   dash: [8, 6],
   label: 'Skenario buffer 1 km',
+});
+
+// Gaya visual gerbang kampus (lapisan opsional; status belum diobservasi empiris).
+export const GATE_STYLE = Object.freeze({
+  color: '#E11D48',
+  stroke: '#9F1239',
+  fill: 'rgba(225, 29, 72, 0.25)',
+  lineWidth: 1.5,
+  glyph: '🚪',
+  radius: 7,
+  label: 'Gerbang kampus (status: belum diobservasi / unobserved)',
+});
+
+// Asumsi Penilaian Skor Kelayakan Terpusat (Shared Backend Formula - reports/backend.md Task 8)
+export const TEAM_SCORING_ASSUMPTIONS = Object.freeze({
+  version: '1.0.0',
+  description: 'Asumsi parameter penilaian kelayakan kafe terpusat tim AFL 2 Computer Graphics',
+  weights: {
+    proximity: 40.0,
+    space: 30.0,
+    cost_efficiency: 30.0,
+    campus_proximity: 25.0,
+    gate_proximity: 15.0,
+    osm_cafe_competition: 15.0,
+    road_type: 10.0,
+    student_indicators: 10.0,
+    rent: 15.0,
+    area: 10.0,
+  },
+  min_coverage_for_stars: 60.0,
+  proximity_thresholds_m: {
+    scenario_1km: {
+      excellent: [300.0, 40.0],
+      good: [600.0, 30.0],
+      fair: [1000.0, 20.0],
+      unsuitable: [null, 0.0],
+    },
+    baseline_500m: {
+      excellent: [150.0, 40.0],
+      good: [300.0, 30.0],
+      fair: [500.0, 20.0],
+      unsuitable: [null, 0.0],
+    },
+  },
+  space_thresholds_sqm: {
+    optimal_range: [[80.0, 250.0], 30.0],
+    moderate_ranges: [[[50.0, 80.0], 20.0], [[250.0, 400.0], 20.0]],
+    acceptable_fallback: 10.0,
+  },
+  cost_efficiency_thresholds_idr_per_sqm_yr: {
+    efficient: [400000.0, 30.0],
+    moderate: [700000.0, 20.0],
+    high: [null, 10.0],
+  },
+  anti_fabrication_rule: 'Dilarang keras menebak harga sewa (never guess rent); jika rental_price_yr tidak terverifikasi maka bernilai null dan komponen sewa dinormalisasi secara transparan.',
+  renormalization_method: 'Komponen yang bernilai null dikeluarkan dari pembagi bobot; skor dihitung ulang ke skala 0-100 secara proporsional.',
 });
 
 export const CAMPUS_STYLE = Object.freeze({

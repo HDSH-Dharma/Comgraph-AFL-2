@@ -38,7 +38,9 @@ from scripts.gis_pipeline import (
     SUPPORTED_RADII_METERS,
     RADIUS_CONFIG,
     TEAM_SCORING_ASSUMPTIONS,
-    calculate_transparent_feasibility_score
+    calculate_transparent_feasibility_score,
+    evaluate_candidate_feasibility,
+    load_and_validate_campus_gates,
 )
 from scripts.rental_market_service import (
     RentalMarketService,
@@ -1017,12 +1019,13 @@ class TestGISPipeline(unittest.TestCase):
                 self.assertLessEqual(props["distance_meters"], 500.0)
                 self.assertTrue(props["is_in_buffer_1000m"], "Titik di dalam 500m wajib juga berada di dalam 1000m")
 
-        # Verifikasi konsistensi metadata dan rekonsiliasi cacah kafe proposal:
-        # Tepat 23 kafe berada dalam radius 500m (Bab 1.1) dan 59 kafe dalam radius 1km (Bab 2.2)
-        expected_1000m = cafes_data.get("metadata", {}).get("in_buffer_1000m_count", 59)
-        expected_500m = cafes_data.get("metadata", {}).get("in_buffer_500m_count", 23)
+        # Verifikasi konsistensi metadata dan relasi subset spasial:
+        expected_1000m = cafes_data.get("metadata", {}).get("in_buffer_1000m_count")
+        expected_500m = cafes_data.get("metadata", {}).get("in_buffer_500m_count")
         self.assertEqual(in_buffer_count, expected_1000m, "Cacah kafe 1km harus cocok dengan metadata")
         self.assertEqual(in_buffer_500m_count, expected_500m, "Cacah kafe 500m harus cocok dengan metadata")
+        self.assertGreater(in_buffer_500m_count, 0, "Cacah kafe baseline 500m harus positif")
+        self.assertLessEqual(in_buffer_500m_count, in_buffer_count, "Kafe 500m harus merupakan subset dari 1000m")
 
     def test_17_genuine_osm_campus_perimeter_polygons_and_cadastral_areas(self):
         """
@@ -1440,7 +1443,7 @@ class TestGISPipeline(unittest.TestCase):
             self.assertEqual(p["is_in_buffer"], p["is_in_buffer_1000m"])
             self.assertEqual(p["is_eligible"], p["is_eligible_1000m"])
 
-        # B. Evaluasi Kafe OSM: Verifikasi rekonsiliasi cacah kafe proposal
+        # B. Evaluasi Kafe OSM: Verifikasi konsistensi cacah kafe dan relasi subset spasial
         with open("data/processed/osm_cafes.geojson", "r", encoding="utf-8") as f:
             cafes_data = json.load(f)
 
@@ -1448,14 +1451,14 @@ class TestGISPipeline(unittest.TestCase):
         count_500 = sum(1 for cf in cafe_feats if cf["properties"]["is_in_buffer_500m"])
         count_1000 = sum(1 for cf in cafe_feats if cf["properties"]["is_in_buffer_1000m"])
 
-        # Konsistensi dengan narasi proposal: 23 kafe pejalan kaki (Bab 1.1) vs 59 kafe skenario (Bab 2.2)
-        self.assertEqual(count_500, 23, "Tepat 23 kafe eksisting OSM berada di dalam baseline 500m")
-        self.assertEqual(count_1000, 59, "Tepat 59 kafe eksisting OSM berada di dalam skenario 1000m")
+        self.assertGreater(count_500, 0, "Harus ada kafe eksisting OSM berada di dalam baseline 500m")
+        self.assertGreaterEqual(count_1000, count_500, "Kafe 1000m harus lebih besar atau sama dengan 500m")
         self.assertLessEqual(count_500, count_1000)
 
         meta = cafes_data.get("metadata", {})
-        self.assertEqual(meta.get("in_buffer_500m_count"), 23)
-        self.assertEqual(meta.get("in_buffer_1000m_count"), 59)
+        self.assertEqual(meta.get("in_buffer_500m_count"), count_500)
+        self.assertEqual(meta.get("in_buffer_1000m_count"), count_1000)
+        self.assertEqual(meta.get("total_cafes"), len(cafe_feats))
 
     def test_24_gate_distance_null_provenance(self):
         """
@@ -1493,61 +1496,91 @@ class TestGISPipeline(unittest.TestCase):
 
     def test_25_transparent_scoring_renormalization_and_assumptions(self):
         """
-        GIS Task 8: Skor Kelayakan Transparan dengan Renormalisasi Komponen Null & Asumsi Tim Terpusat:
-        1. Parameter asumsi tim terpusat (bobot: 40 proksimitas, 30 luas, 30 efisiensi sewa).
+        GIS Task 8 & Perbaikan 1: Skor Kelayakan Multi-Komponen Transparan & Asumsi Tim:
+        1. 7 Komponen Penilaian Terpusat (Total Bobot 100.0).
         2. Mandat anti-fabrikasi sewa: Never guess rent (harga sewa null tidak boleh ditebak).
-        3. Komponen null dikeluarkan dari pembagi bobot; skor direnormalisasi ke skala 0-100 secara proporsional.
-        4. Kandidat dari survei lapangan Street View (luas & sewa null) menghasilkan skor ternormalisasi jujur.
-        5. Mode radius 500m dan 1000m menggunakan ambang jarak yang disesuaikan secara transparan.
+        3. Komponen null dikeluarkan dari pembagi bobot; skor direnormalisasi secara transparan.
+        4. Kandidat Street View (luas & sewa null) menghasilkan cakupan jujur dan predikat tanpa bintang bila < 60%.
+        5. Mode radius 500m dan 1000m menggunakan ambang proksimitas yang disesuaikan secara transparan.
         """
-        # 1. Verifikasi Asumsi Terpusat (Bobot 40/30/30 dan mandat anti-fabrikasi)
+        # 1. Verifikasi Asumsi Terpusat (7 Komponen Bobot Total 100.0)
         assumptions = TEAM_SCORING_ASSUMPTIONS
-        self.assertEqual(assumptions["weights"]["proximity"], 40.0)
-        self.assertEqual(assumptions["weights"]["space"], 30.0)
-        self.assertEqual(assumptions["weights"]["cost_efficiency"], 30.0)
-        self.assertIn("never guess rent", assumptions["anti_fabrication_rule"].lower(), "Mandat anti-fabrikasi wajib ada")
+        w = assumptions["weights"]
+        self.assertEqual(w["campus_proximity"], 25.0)
+        self.assertEqual(w["gate_proximity"], 15.0)
+        self.assertEqual(w["osm_cafe_competition"], 15.0)
+        self.assertEqual(w["road_type"], 10.0)
+        self.assertEqual(w["student_indicators"], 10.0)
+        self.assertEqual(w["rent"], 15.0)
+        self.assertEqual(w["area"], 10.0)
+        total_w = sum([w["campus_proximity"], w["gate_proximity"], w["osm_cafe_competition"],
+                       w["road_type"], w["student_indicators"], w["rent"], w["area"]])
+        self.assertEqual(total_w, 100.0)
+        self.assertEqual(assumptions["min_coverage_for_stars"], 60.0)
+        self.assertIn("never guess rent", assumptions["anti_fabrication_rule"].lower())
 
-        # 2. Kasus Ideal: Seluruh 3 komponen diobservasi lengkap (tanpa renormalisasi)
+        # 2. Kasus Ideal: Seluruh 7 komponen diobservasi lengkap (cakupan 100%, 3 bintang)
         res_full = calculate_transparent_feasibility_score(
             distance_meters=200.0,
             area_sqm=120.0,
-            rental_price_yr=36000000.0,  # 300.000 / m2 -> efisien (30 poin)
-            radius_mode="scenario_1km"
+            rental_price_yr=36000000.0,  # 300.000 / m2 -> efisien (15 poin)
+            radius_mode="scenario_1km",
+            distance_to_nearest_gate_meters=80.0,  # <=100m -> 15 poin
+            nearby_cafes_count=3,  # 2-5 -> optimal cluster (15 poin)
+            road_type="primary",  # 10 poin
+            student_indicators="high"  # 10 poin
         )
-        self.assertEqual(res_full["score_normalized"], 100.0)
+        self.assertEqual(res_full["feasibility_score"], 100.0)
+        self.assertEqual(res_full["coverage"], 100.0)
         self.assertFalse(res_full["is_renormalized"])
-        self.assertEqual(len(res_full["observed_components"]), 3)
-        self.assertEqual(len(res_full["null_components"]), 0)
+        self.assertEqual(len(res_full["observed_components"]), 7)
+        self.assertEqual(len(res_full["missing"]), 0)
+        self.assertTrue(res_full["has_stars"])
+        self.assertEqual(res_full["stars"], "★★★")
         self.assertEqual(res_full["grade"], "Sangat Strategis ★★★")
 
-        # 3. Kasus Realistis Street View (Mandat Anti-Fabrikasi: rent & space NULL)
-        # Hanya jarak 200m yang diobservasi (40 poin dari total bobot tersedia 40):
-        # Renormalisasi proporsional: (40.0 / 40.0) * 100.0 = 100.0
+        # 3. Kasus Realistis Street View (Hanya jarak kampus & kafe teramati, sewa/luas/gerbang NULL)
+        # Bobot teramati: 25 (campus) + 15 (cafes) = 40.0. Cakupan: 40.0% (< 60% -> Tanpa Bintang)
         res_renorm = calculate_transparent_feasibility_score(
             distance_meters=200.0,
             area_sqm=None,
             rental_price_yr=None,
-            radius_mode="scenario_1km"
+            radius_mode="scenario_1km",
+            distance_to_nearest_gate_meters=None,
+            nearby_cafes_count=3,
+            road_type=None,
+            student_indicators=None
         )
         self.assertTrue(res_renorm["is_renormalized"])
         self.assertEqual(res_renorm["max_available_weight"], 40.0)
+        self.assertEqual(res_renorm["coverage"], 40.0)
         self.assertEqual(res_renorm["raw_earned_points"], 40.0)
-        self.assertEqual(res_renorm["score_normalized"], 100.0)  # (40 / 40) * 100 = 100.0
-        self.assertIn("space", res_renorm["null_components"])
-        self.assertIn("cost_efficiency", res_renorm["null_components"])
+        self.assertEqual(res_renorm["feasibility_score"], 100.0)
+        # Aturan cakupan < 60%: tanpa bintang!
+        self.assertFalse(res_renorm["has_stars"])
+        self.assertEqual(res_renorm["stars"], "")
+        self.assertIn("Tanpa Bintang", res_renorm["grade"])
+        self.assertIn("rent", res_renorm["missing"])
+        self.assertIn("area", res_renorm["missing"])
+        self.assertIn("gate_proximity", res_renorm["missing"])
+        self.assertIn("road_type", res_renorm["missing"])
+        self.assertIn("student_indicators", res_renorm["missing"])
 
         # 4. Mode Radius Baseline 500m vs Scenario 1km
-        # Jarak 250m: Pada 1km (<=300m) dapat 40 poin; Pada 500m (<=300m) dapat 30 poin:
-        # Renormalisasi proporsional: (30.0 / 40.0) * 100.0 = 75.0 (Strategis ★★)
         res_500m = calculate_transparent_feasibility_score(
             distance_meters=250.0,
             area_sqm=None,
             rental_price_yr=None,
-            radius_mode="baseline_500m"
+            radius_mode="baseline_500m",
+            distance_to_nearest_gate_meters=None,
+            nearby_cafes_count=3,
+            road_type=None,
+            student_indicators=None
         )
-        self.assertEqual(res_500m["raw_earned_points"], 30.0)
-        self.assertEqual(res_500m["score_normalized"], 75.0)  # (30 / 40) * 100 = 75.0
-        self.assertEqual(res_500m["grade"], "Strategis ★★")
+        # 18.0 (campus <=300m) + 15.0 (cafes) = 33.0 poin dari pembagi 40.0 -> 82.5
+        self.assertEqual(res_500m["raw_earned_points"], 33.0)
+        self.assertEqual(res_500m["feasibility_score"], 82.5)
+        self.assertFalse(res_500m["has_stars"])  # coverage 40% < 60%
 
         # 5. Verifikasi Data Kandidat Riil di land_candidates.geojson
         with open("data/processed/land_candidates.geojson", "r", encoding="utf-8") as f:
@@ -1555,14 +1588,25 @@ class TestGISPipeline(unittest.TestCase):
 
         for cf in proc_cands:
             p = cf["properties"]
-            self.assertIn("feasibility_score_normalized", p)
+            self.assertIn("feasibility_score", p)
+            self.assertIn("coverage", p)
             self.assertIn("feasibility_grade", p)
+            self.assertIn("has_stars", p)
+            self.assertIn("stars", p)
+            self.assertIn("missing", p)
+            self.assertIn("breakdown", p)
+            self.assertIn("hard_gate_passed", p)
+            self.assertIn("road_type", p)
+            self.assertIn("student_indicators", p)
+            self.assertIn("distance_to_nearest_gate_meters", p)
+            self.assertIn("gate_observation_status", p)
+            self.assertIn("nearby_cafes_count", p)
             self.assertIn("feasibility_scoring", p)
             self.assertIn("feasibility_scoring_baseline_500m", p)
 
-            # Jika harga sewa null, sewa tidak boleh ditebak dan wajib masuk null_components
+            # Jika harga sewa null, sewa tidak boleh ditebak dan wajib masuk missing
             if p["rental_price_yr"] is None:
-                self.assertIn("cost_efficiency", p["feasibility_scoring"]["null_components"])
+                self.assertIn("rent", p["feasibility_scoring"]["missing"])
                 self.assertTrue(p["feasibility_scoring"]["is_renormalized"])
 
     def test_26_strict_rfc8259_json_compliance_and_no_nonfinite_floats(self):
@@ -1623,6 +1667,316 @@ class TestGISPipeline(unittest.TestCase):
                     self.fail(f"Strict JSON parser gagal mem-parse {fpath}: {e}")
 
         self.assertGreaterEqual(files_verified, 10, "Minimal 10 berkas GeoJSON/JSON produksi wajib teruji.")
+
+    def test_27_multi_component_scoring_coverage_and_star_thresholds(self):
+        """
+        Perbaikan 1: Validasi Aturan Cakupan (Coverage) & Ambang Batas Bintang:
+        - Cakupan < 60%: tidak mendapat bintang (has_stars=False, stars=""), grade melabeli cakupan.
+        - Cakupan >= 60%: bintang diberikan berdasarkan skor kelayakan ternormalisasi:
+          * Skor >= 85: 3 bintang (★★★, "Sangat Strategis ★★★")
+          * Skor >= 70: 2 bintang (★★, "Strategis ★★")
+          * Skor >= 50: 1 bintang (★, "Cukup Layak ★")
+          * Skor < 50 : 0 bintang ("", "Kurang Layak")
+        - Daftar missing memuat seluruh nama komponen yang unobserved.
+        """
+        # A. Kasus cakupan 55% (< 60%): skor tinggi 100 tetap TIDAK mendapat bintang
+        # Bobot: campus (25) + gate (15) + competition (15) = 55.0
+        res_low_cov = calculate_transparent_feasibility_score(
+            distance_meters=100.0,  # 25 poin
+            distance_to_nearest_gate_meters=50.0,  # 15 poin
+            nearby_cafes_count=3,  # 15 poin
+            # road_type, student_indicators, rent, area = None
+            radius_mode="scenario_1km"
+        )
+        self.assertEqual(res_low_cov["coverage"], 55.0)
+        self.assertEqual(res_low_cov["feasibility_score"], 100.0)
+        self.assertFalse(res_low_cov["has_stars"], "Cakupan di bawah 60% wajib has_stars=False")
+        self.assertEqual(res_low_cov["stars"], "")
+        self.assertIn("Data Terbatas (55% Cakupan - Tanpa Bintang)", res_low_cov["grade"])
+        self.assertEqual(set(res_low_cov["missing"]), {"road_type", "student_indicators", "rent", "area"})
+
+        # B. Kasus cakupan 65% (>= 60%): membuka evaluasi bintang
+        # Bobot: campus (25) + competition (15) + rent (15) + area (10) = 65.0
+        # Nilai: campus 200m (25), cafes 3 (15), sewa 300k/m2 (15), area 100m2 (10) -> 65.0 / 65.0 = 100.0 -> ★★★
+        res_3_stars = calculate_transparent_feasibility_score(
+            distance_meters=200.0,
+            nearby_cafes_count=3,
+            rental_price_yr=30000000.0,
+            area_sqm=100.0,
+            radius_mode="scenario_1km"
+        )
+        self.assertEqual(res_3_stars["coverage"], 65.0)
+        self.assertEqual(res_3_stars["feasibility_score"], 100.0)
+        self.assertTrue(res_3_stars["has_stars"])
+        self.assertEqual(res_3_stars["stars"], "★★★")
+        self.assertEqual(res_3_stars["grade"], "Sangat Strategis ★★★")
+
+        # C. Kasus 2 bintang: skor 70.0 - 84.9
+        # campus 500m (18 poin), cafes 1 (11 poin), sewa 500k/m2 (10 poin), area 100m2 (10) -> 49.0 / 65.0 = 75.38 -> ★★
+        res_2_stars = calculate_transparent_feasibility_score(
+            distance_meters=500.0,
+            nearby_cafes_count=1,
+            rental_price_yr=50000000.0,
+            area_sqm=100.0,
+            radius_mode="scenario_1km"
+        )
+        self.assertEqual(res_2_stars["coverage"], 65.0)
+        self.assertEqual(res_2_stars["feasibility_score"], 75.38)
+        self.assertTrue(res_2_stars["has_stars"])
+        self.assertEqual(res_2_stars["stars"], "★★")
+        self.assertEqual(res_2_stars["grade"], "Strategis ★★")
+
+        # D. Kasus 1 bintang: skor 50.0 - 69.9
+        # campus 500m (18 poin), cafes 0 (5 poin), sewa 800k/m2 (5 poin), area 80m2 (10 poin) -> 38.0 / 65.0 = 58.46 -> ★
+        res_1_star = calculate_transparent_feasibility_score(
+            distance_meters=500.0,
+            nearby_cafes_count=0,
+            rental_price_yr=80000000.0,
+            area_sqm=80.0,
+            radius_mode="scenario_1km"
+        )
+        self.assertEqual(res_1_star["coverage"], 65.0)
+        self.assertEqual(res_1_star["feasibility_score"], 58.46)
+        self.assertTrue(res_1_star["has_stars"])
+        self.assertEqual(res_1_star["stars"], "★")
+        self.assertEqual(res_1_star["grade"], "Cukup Layak ★")
+
+    def test_28_planner_evaluator_reuse_with_user_overrides(self):
+        """
+        Perbaikan 1 & 4: Modul Planner Menggunakan Kembali Evaluator yang Sama:
+        - Planner hanya meng-override rent dan area yang diinput pengguna.
+        - Variabel spasial yang diamati (distance, road_type, student_indicators, cafes) TIDAK dimodifikasi.
+        - Penambahan rent dan area oleh pengguna meningkatkan coverage (dari 40% ke 65%),
+          sehingga membuka kelayakan bintang (>= 60%).
+        """
+        candidate_props = {
+            "id": "CAND-TEST-PLANNER-01",
+            "name": "Kandidat Uji Planner",
+            "distance_meters": 220.0,
+            "nearby_cafes_count": 3,
+            "road_type": None,
+            "student_indicators": None,
+            "distance_to_nearest_gate_meters": None,
+            "rental_price_yr": None,
+            "area_sqm": None
+        }
+
+        # 1. Tanpa input pengguna: sewa & luas null -> cakupan 40% (tanpa bintang)
+        eval_initial = evaluate_candidate_feasibility(candidate_props, radius_mode="scenario_1km")
+        self.assertEqual(eval_initial["coverage"], 40.0)
+        self.assertFalse(eval_initial["has_stars"])
+        self.assertEqual(eval_initial["stars"], "")
+
+        # 2. Pengguna memasukkan sewa dan luas di modal planner
+        user_rent = 35000000.0
+        user_area = 100.0
+        eval_with_input = evaluate_candidate_feasibility(
+            candidate_props=candidate_props,
+            user_rent_yr=user_rent,
+            user_area_sqm=user_area,
+            radius_mode="scenario_1km"
+        )
+
+        # Cakupan bertambah: 40% + 15% (rent) + 10% (area) = 65% (>= 60%)
+        self.assertEqual(eval_with_input["coverage"], 65.0)
+        self.assertTrue(eval_with_input["has_stars"], "Input sewa & luas wajib membuka evaluasi bintang")
+        self.assertEqual(eval_with_input["stars"], "★★★")
+        self.assertEqual(eval_with_input["feasibility_score"], 100.0)
+        self.assertEqual(eval_with_input["breakdown"]["rent"]["raw"], 350000.0)
+        self.assertEqual(eval_with_input["breakdown"]["area"]["raw"], 100.0)
+
+        # Variabel spasial tetap utuh
+        self.assertEqual(eval_with_input["breakdown"]["campus_proximity"]["raw"], 220.0)
+
+    def test_29_campus_gates_validation_and_nearest_campus_matching(self):
+        """
+        Perbaikan 1 & GIS Task 5: Validasi Gerbang Kampus Opsional & Pencocokan Kampus Terdekat:
+        - Menggunakan fixture sementara (tempfile) tanpa memfabrikasi data riil di data/raw/.
+        - File tidak ada / None: mengembalikan (None, 'ABSENT').
+        - File ada: divalidasi sebagai GeoJSON Point, ditransformasikan ke EPSG:32749.
+        - Pencocokan nearest gate strictly berdasarkan kampus terdekat kandidat (nearest_university_id).
+        """
+        # 1. Verifikasi penanganan absent
+        gates_none, status_none = load_and_validate_campus_gates(None)
+        self.assertIsNone(gates_none)
+        self.assertEqual(status_none, "ABSENT")
+
+        gates_nonexist, status_nonexist = load_and_validate_campus_gates("nonexistent_gates_file.geojson")
+        self.assertIsNone(gates_nonexist)
+        self.assertEqual(status_nonexist, "ABSENT")
+
+        # 2. Buat fixture gerbang kampus sementara
+        with tempfile.TemporaryDirectory() as tmpdir:
+            temp_gates_path = os.path.join(tmpdir, "test_campus_gates.geojson")
+            gates_geojson = {
+                "type": "FeatureCollection",
+                "metadata": {
+                    "title": "Uji Gerbang Kampus Sementara",
+                    "crs": "EPSG:4326"
+                },
+                "features": [
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [112.7580, -7.2650]
+                        },
+                        "properties": {
+                            "id": "GATE-UNAIR-A-01",
+                            "name": "Gerbang Utama Kampus A Unair Jl. Prof. Moestopo",
+                            "campus_id": "UNAIR-KAMPUS-A",
+                            "gate_type": "main_gate"
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [112.7680, -7.3190]
+                        },
+                        "properties": {
+                            "id": "GATE-UBAYA-TENGGILIS-01",
+                            "name": "Gerbang Utama Ubaya Tenggilis Jl. Raya Kalirungkut",
+                            "campus_id": "UBAYA-TENGGILIS",
+                            "gate_type": "main_gate"
+                        }
+                    }
+                ]
+            }
+            with open(temp_gates_path, "w", encoding="utf-8") as f:
+                json.dump(gates_geojson, f, indent=2)
+
+            validated_gates, status = load_and_validate_campus_gates(temp_gates_path)
+            self.assertEqual(status, "VALID")
+            self.assertIsNotNone(validated_gates)
+            self.assertEqual(len(validated_gates), 2)
+            self.assertIn("utm_x", validated_gates[0])
+            self.assertIn("utm_y", validated_gates[0])
+
+            # Jalankan pipeline dengan berkas gerbang sementara pada output sementara
+            pipeline = GISPipeline()
+            out_tmp = os.path.join(tmpdir, "output")
+            pipeline_res = pipeline.process(
+                universities_path="data/raw/universities.geojson",
+                candidates_path="data/raw/survey_land_candidates.geojson",
+                output_dir=out_tmp,
+                campus_gates_path=temp_gates_path
+            )
+
+            # Baca kandidat hasil proses
+            with open(os.path.join(out_tmp, "land_candidates.geojson"), "r", encoding="utf-8") as f:
+                cands_processed = json.load(f)["features"]
+
+            # Kandidat near UNAIR-KAMPUS-A wajib memiliki distance_to_nearest_gate_meters positif terhitung
+            unair_a_cands = [c for c in cands_processed if c["properties"]["nearest_university_id"] == "UNAIR-KAMPUS-A"]
+            self.assertGreaterEqual(len(unair_a_cands), 1)
+            for uc in unair_a_cands:
+                p = uc["properties"]
+                self.assertIsNotNone(p["distance_to_nearest_gate_meters"])
+                self.assertGreater(p["distance_to_nearest_gate_meters"], 0.0)
+                self.assertEqual(p["gate_observation_status"], "OBSERVED")
+                self.assertIn("UNAIR-KAMPUS-A", p["gate_notes"])
+
+            # Kandidat near UKWMS (tidak ada gerbang di berkas fixture) wajib strictly NULL / UNOBSERVED
+            ukwms_cands = [c for c in cands_processed if "UKWMS" in c["properties"]["nearest_university_id"]]
+            self.assertGreaterEqual(len(ukwms_cands), 1)
+            for kc in ukwms_cands:
+                p = kc["properties"]
+                self.assertIsNone(p["distance_to_nearest_gate_meters"])
+                self.assertEqual(p["gate_observation_status"], "UNOBSERVED")
+
+    def test_30_road_and_student_fields_passthrough_and_evaluation(self):
+        """
+        Perbaikan 1 & GIS Pipeline: Passthrough dan Penilaian Bidang road_type & student_indicators:
+        - road_type dan student_indicators pada kandidat diteruskan ke properti processed.
+        - Dinilai secara transparan dalam skor kelayakan.
+        - Bila null, dicatat sebagai missing dan dikeluarkan dari pembagi bobot.
+        """
+        with tempfile.TemporaryDirectory() as tmpdir:
+            temp_cand_path = os.path.join(tmpdir, "test_survey_candidates.geojson")
+            cand_payload = {
+                "type": "FeatureCollection",
+                "metadata": {"title": "Test Candidates with Road and Student Indicators"},
+                "features": [
+                    {
+                        "type": "Feature",
+                        "geometry": {"type": "Point", "coordinates": [112.7585, -7.2655]},
+                        "properties": {
+                            "id": "TEST-CAND-ROAD-01",
+                            "name": "Kandidat Jalan Kolektor",
+                            "address": "Jl. Dharmawangsa, Surabaya",
+                            "status": "Lahan yang tersedia untuk disewakan",
+                            "survey_method": "street_view",
+                            "evidence_url": "https://maps.google.com/?test=1",
+                            "observed_at": "2026-11-01",
+                            "surveyed_by": "Tim Mahasiswa AFL 2",
+                            "data_kind": "survey_google_maps",
+                            "road_type": "tertiary / kolektor",
+                            "student_indicators": "high / kost_cluster"
+                        }
+                    }
+                ]
+            }
+            with open(temp_cand_path, "w", encoding="utf-8") as f:
+                json.dump(cand_payload, f, indent=2)
+
+            pipeline = GISPipeline()
+            out_tmp = os.path.join(tmpdir, "out")
+            pipeline.process(
+                universities_path="data/raw/universities.geojson",
+                candidates_path=temp_cand_path,
+                output_dir=out_tmp
+            )
+
+            with open(os.path.join(out_tmp, "land_candidates.geojson"), "r", encoding="utf-8") as f:
+                cands = json.load(f)["features"]
+
+            p = cands[0]["properties"]
+            self.assertEqual(p["road_type"], "tertiary / kolektor")
+            self.assertEqual(p["student_indicators"], "high / kost_cluster")
+            self.assertTrue(p["hard_gate_passed"])
+
+            # Cek evaluasi skor
+            bd = p["breakdown"]
+            self.assertEqual(bd["road_type"]["status"], "OBSERVED")
+            self.assertEqual(bd["road_type"]["points"], 8.0)  # tertiary -> 8.0 poin
+            self.assertEqual(bd["student_indicators"]["status"], "OBSERVED")
+            self.assertEqual(bd["student_indicators"]["points"], 10.0)  # high -> 10.0 poin
+
+    def test_31_geojson_metadata_honest_source_and_dates(self):
+        """
+        Perbaikan 1 & Anti-Fabrication: Verifikasi Metadata Jujur & Tanggal Aktual pada Seluruh GeoJSON:
+        1. Setiap GeoJSON luaran di data/processed/ dan data/fixtures/ memuat objek 'metadata'.
+        2. Memuat 'source' yang jujur (bukan klaim keliru).
+        3. Memuat 'captured_date' == '2026-11-01' dan 'generated_date' == '2026-11-01'.
+        """
+        target_files = [
+            "data/processed/universities.geojson",
+            "data/processed/universities_polygons.geojson",
+            "data/processed/buffer_500m.geojson",
+            "data/processed/buffer_1000m.geojson",
+            "data/processed/buffer_1km.geojson",
+            "data/processed/buffer_polygon_500m.geojson",
+            "data/processed/buffer_polygon_1000m.geojson",
+            "data/processed/buffer_polygon_1km.geojson",
+            "data/processed/land_candidates.geojson",
+            "data/processed/osm_cafes.geojson",
+            "data/fixtures/synthetic_scenario_candidates.geojson"
+        ]
+
+        for tf in target_files:
+            self.assertTrue(os.path.exists(tf), f"Berkas {tf} wajib ada")
+            with open(tf, "r", encoding="utf-8") as f:
+                content = json.load(f)
+
+            self.assertIn("metadata", content, f"Berkas {tf} wajib memuat kunci 'metadata'")
+            meta = content["metadata"]
+            self.assertIn("source", meta, f"{tf}: metadata wajib memuat 'source'")
+            self.assertIn("captured_date", meta, f"{tf}: metadata wajib memuat 'captured_date'")
+            self.assertIn("generated_date", meta, f"{tf}: metadata wajib memuat 'generated_date'")
+            self.assertEqual(meta["captured_date"], "2026-11-01")
+            self.assertEqual(meta["generated_date"], "2026-11-01")
+
 
 if __name__ == "__main__":
     unittest.main()

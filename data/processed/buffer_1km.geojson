@@ -2,6 +2,9 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Poligon Buffer Radial 1.000m (Skenario) Kampus Surabaya",
+    "source": "Dihitung dari titik koordinat kampus terverifikasi di EPSG:32749",
+    "captured_date": "2026-11-01",
+    "generated_date": "2026-11-01",
     "radius_m": 1000,
     "radius_mode": "scenario_1km",
     "total_features": 8,

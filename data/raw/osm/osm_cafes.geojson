@@ -2,9 +2,12 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Kafe Eksisting Faktual Sekitar Kampus Surabaya (OpenStreetMap)",
-    "source": "OpenStreetMap (Overpass API amenity=cafe)",
+    "source": "OpenStreetMap contributors via Overpass API (ODbL 1.0)",
     "licence": "ODbL 1.0 (OpenStreetMap contributors)",
+    "captured_date": "2026-11-01",
+    "generated_date": "2026-11-01",
     "total_features": 206,
+    "total_cafes": 206,
     "in_buffer_500m_count": 23,
     "in_buffer_1000m_count": 59,
     "in_buffer_1km_count": 59,

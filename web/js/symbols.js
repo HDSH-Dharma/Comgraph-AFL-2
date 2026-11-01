@@ -216,6 +216,26 @@ export function drawOsmCafeMarker(ctx, x, y, r = 7, { highlight = false, alpha =
   ctx.restore();
 }
 
+/** Gambar simbol gerbang kampus (lapisan opsional). */
+export function drawGateMarker(ctx, x, y, r = 7, { highlight = false, alpha = 1 } = {}) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, TAU);
+  ctx.lineWidth = highlight ? 4.5 : 2;
+  ctx.strokeStyle = highlight ? '#F43F5E' : '#9F1239';
+  ctx.stroke();
+  ctx.fillStyle = '#E11D48';
+  ctx.fill();
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = `700 ${Math.round(r * 1.05)}px system-ui, -apple-system, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('🚪', x, y + 0.5);
+  ctx.restore();
+}
+
 /**
  * Gambar simbol ke kanvas kecil (legenda, daftar, inspector, ranking panel).
  * Pertahanan berlapis (defense-in-depth): aman dijalankan di lingkungan mock DOM / headless test runner
