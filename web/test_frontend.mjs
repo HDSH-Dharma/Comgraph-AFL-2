@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Helper membaca file JSON dengan toleransi token non-standar (Infinity / NaN) yang dihasilkan pipa GIS Python
 function readJson(filePath) {
   const text = fs.readFileSync(filePath, 'utf8');
   try {
@@ -1770,7 +1771,9 @@ test('24. Provenans Sintetis vs Faktual, Pelabelan Harga Estimasi vs Riil, & Sta
       resetFilters: () => {},
     });
 
-    // 1. Uji Lapisan Kandidat saat layer kandidat nonaktif (branch hidden candidates)
+    // 1. Uji Lapisan Kandidat saat layer kandidat nonaktif (branch hidden candidates):
+    // Verifikasi anti-regresi: tidak boleh ada hardcoded '0 survei faktual' jika data survei faktual ada (factualCount = 1),
+    // serta pesan usang 'Belum ada data survei lapangan empiris...' tidak boleh muncul saat layer hanya disembunyikan.
     vm.layers.candidates = false;
     ui.renderCandidateList();
     assert.ok(
@@ -2348,6 +2351,12 @@ test('26. Integrasi Opt-in Skenario Sintetis: Checkbox Default-Off, Hit-Test, Hi
 });
 
 test('27. Web Tasks 2 & 7: Baseline 500m & 1km Scenario, Observed Candidates Default-ON, Unnamed Cafes, Legend/Draw Order, Ranking, & Inspector Panorama/Cafe Link', () => {
+  // Verifikasi integrasi menyeluruh Web Tasks 2 & 7:
+  // - Dual buffer: 500m baseline aktif default, 1km skenario nonaktif default (tidak mengubah eligibilitas perencana 500m).
+  // - Pelabelan 4 kafe OSM tanpa nama menjadi 'Kafe tanpa nama (OSM)'.
+  // - Panel peringkat kelayakan terurut berdasarkan skor bisnis (0-100 poin) dengan tie-breaker proksimitas.
+  // - Inspektor lahan: metrik jarak poligon, penanganan null jujur (anti-fabrikasi), tombol panorama Street View, dan tautan kafe terdekat.
+
   // 1. Baseline radius 500m default ON, Skenario buffer 1 km default OFF, Kandidat Observasi default ON
   const vm = new MapViewModel();
   assert.equal(vm.layers.buffers, true, 'Layer buffer 500 m (baseline) wajib aktif (true) secara default');

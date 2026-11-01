@@ -91,6 +91,8 @@ export function findMatchingAreaSummary(candidate, areaSummaries) {
   return null;
 }
 
+// Relasi Spasial (Spatial Join): Menemukan kafe OSM terdekat untuk kandidat lahan tertentu.
+// Memprioritaskan nearestCafeId dari backend jika tersedia; fallback ke kalkulasi jarak Haversine (lingkaran besar).
 export function findNearestOsmCafe(c, cafes) {
   if (!cafes || !cafes.length) return null;
   if (c.nearestCafeId) {
@@ -219,7 +221,7 @@ export class MapUI {
     const campusCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
     paintSwatch(campusCanvas, (ctx, x, y) => drawCampusMarker(ctx, x, y + 9, 7), 26);
 
-    // Buffer 500m baseline
+    // Legenda Dual-Buffer: visual swatch untuk buffer 500m baseline (garis solid/tegas) vs 1km skenario (garis putus-putus)
     const buffer500Canvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
     paintSwatch(buffer500Canvas, (ctx, x, y) => {
       ctx.beginPath();
@@ -232,7 +234,7 @@ export class MapUI {
       ctx.stroke();
     }, 26);
 
-    // Buffer 1km skenario
+    // Buffer 1km skenario (opsional / jangkauan luas)
     const buffer1kmCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
     paintSwatch(buffer1kmCanvas, (ctx, x, y) => {
       ctx.beginPath();
@@ -549,6 +551,9 @@ export class MapUI {
       return;
     }
 
+    // Penanganan Cabang Lapisan Kandidat Nonaktif (Hidden Candidates Branch):
+    // Melaporkan jumlah factualCount aktual (menghindari hardcoded 0) dan menyajikan notice tersembunyi yang jujur
+    // tanpa memunculkan pesan stale no-survey saat data observasi Street View sebenarnya sudah ada.
     if (!vm.layers.candidates) {
       const parts = [`${factualCount} survei faktual`];
       if (scenarioCount > 0) parts.push(`${scenarioCount} skenario`);
@@ -651,8 +656,8 @@ export class MapUI {
     this.els.list.replaceChildren(...items);
   }
 
-  // ---------- Panel Peringkat Kelayakan Lahan ----------
-
+  // ---------- Panel Peringkat Kelayakan Lahan (Web Task 7) ----------
+  // Mengurutkan kandidat berdasarkan skor kelayakan bisnis (0-100 poin) dengan tie-breaker proksimitas
   renderRankingPanel() {
     if (!this.els.rankingList) return;
     const cand = this.vm.data.candidates;
@@ -673,13 +678,14 @@ export class MapUI {
       return;
     }
 
-    // Hitung skor kelayakan untuk tiap kandidat yang terlihat
+    // Hitung skor kelayakan bisnis untuk tiap kandidat yang terlihat (proksimitas, luas, efisiensi sewa)
     const scored = visible.map((c) => {
       const score = calculateFeasibilityPoints({
         distance_meters: c.distanceM,
         area_sqm: c.areaSqm,
         rental_price_yr: c.rentalPriceYr,
       });
+      // Guard kelayakan: hanya kandidat di dalam baseline 500 m dengan status valid yang eligible
       const in500 = c.isInBuffer500 ?? (c.distanceM != null ? c.distanceM <= 500.0 : true);
       const isEligible = Boolean(c.isEligible && in500);
       return {
@@ -689,7 +695,7 @@ export class MapUI {
       };
     });
 
-    // Urutkan: Lahan eligible diutamakan, lalu total poin tertinggi, lalu jarak metrik terdekat
+    // Peringkat: Utamakan status eligible, lalu skor tertinggi, lalu jarak fisik terdekat sebagai pemecah seri
     scored.sort((a, b) => {
       if (a.isEligible !== b.isEligible) return a.isEligible ? -1 : 1;
       if (b.score.points !== a.score.points) return b.score.points - a.score.points;
@@ -875,6 +881,7 @@ export class MapUI {
         rows.push(['Harga sewa', 'Belum ada data (wajib diisi di planner)']);
       }
     } else {
+      // Penanganan Nilai Null Jujur (Anti-Fabrikasi): Tidak mengarang angka jika observasi Street View tidak menemukan plang sewa/luas
       if (c.areaSqm != null) {
         rows.push(['Luas lahan', `${numberID.format(c.areaSqm)} m² (hasil observasi/survei)`]);
       } else {
@@ -892,6 +899,7 @@ export class MapUI {
       } else {
         rows.push(['Harga sewa', 'null (Belum ada data sewa (tidak ada papan sewa terverifikasi))']);
       }
+      // Metadata observasi Google Street View (bukti empiris dan parameter kamera)
       if (c.surveyMethod || c.properties?.survey_method) {
         rows.push(['Metode survei', String(c.surveyMethod || c.properties.survey_method)]);
       }
@@ -919,7 +927,7 @@ export class MapUI {
       }
     }
 
-    // Tautan kafe OSM terdekat
+    // Tautan kafe OSM terdekat (interaksi klik untuk memusatkan peta ke kafe pesaing terdekat)
     const nearCafeInfo = findNearestOsmCafe(c, this.vm.data.osmCafes?.items);
     if (nearCafeInfo && nearCafeInfo.cafe) {
       rows.push([

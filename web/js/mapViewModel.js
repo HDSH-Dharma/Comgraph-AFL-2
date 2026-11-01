@@ -23,13 +23,16 @@ export class MapViewModel {
       osmBuildings: { ok: false, items: [] },
       osmCafes: { ok: false, items: [] },
     };
+    // Pengaturan visibilitas lapisan bawaan:
+    // - Baseline buffer 500m & kandidat observasi Street View aktif secara default (fokus utama analisis).
+    // - Skenario buffer 1km & skenario sintetis acak nonaktif secara default (fitur eksplorasi opt-in).
     this.layers = {
       basemap: true,
-      buffers: true, // Buffer 500 m (baseline) default ON
-      buffer1km: false, // Skenario buffer 1 km default OFF (opsional)
+      buffers: true, // Buffer 500 m (baseline): default ON
+      buffer1km: false, // Skenario buffer 1 km: default OFF (analisis opsi perluasan)
       campuses: true,
-      candidates: true, // Kandidat observasi default ON (Task 2)
-      scenarios: false, // Skenario sintetis acak eksplisit dinyalakan pengguna
+      candidates: true, // Kandidat observasi Street View: default ON (Task 2)
+      scenarios: false, // Skenario sintetis acak: default OFF (opt-in ketat)
       listings: true,
       osmBuildings: true,
       osmCafes: true,
@@ -162,6 +165,7 @@ export class MapViewModel {
       campuses: this.layers.campuses
         ? universities.items.filter((u) => this.institutionEnabled(u.institution))
         : [],
+      // Baseline buffer 500 m: dipetakan menggunakan geometri rings500 jika aktif
       buffers: this.layers.buffers
         ? buffers.items.filter((b) => this.institutionEnabled(b.institution)).map((b) => ({
             ...b,
@@ -170,6 +174,7 @@ export class MapViewModel {
             bounds: b.bounds500 || b.bounds,
           }))
         : [],
+      // Skenario buffer 1 km: dipetakan menggunakan geometri rings1km (geometri penuh 1000m)
       buffers1km: this.layers.buffer1km
         ? buffers.items.filter((b) => this.institutionEnabled(b.institution)).map((b) => ({
             ...b,

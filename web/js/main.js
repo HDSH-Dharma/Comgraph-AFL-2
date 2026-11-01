@@ -29,7 +29,7 @@ const ui = new MapUI(vm, {
   jumpTo,
   selectCandidate,
   selectListing,
-  selectOsmCafe,
+  selectOsmCafe, // Navigasi peta ke kafe OSM terdekat saat diklik dari inspektor lahan
   clearSelection,
 });
 

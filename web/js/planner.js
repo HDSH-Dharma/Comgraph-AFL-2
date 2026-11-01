@@ -202,6 +202,7 @@ export function canPlanForLand(landData, eligibleStatuses = ELIGIBLE_LAND_STATUS
         ? landData.status
         : '';
 
+  // Planner Guard: Validasi status lahan (hanya 'Lahan kosong' atau 'Lahan yang tersedia untuk disewakan' yang dapat membuka planner; rumah/ruko/fungsi lain ditolak keras).
   const isStatusOk = Array.isArray(eligibleStatuses) && eligibleStatuses.includes(statusVal);
   const notExplicitlyOutOfBuffer = landData.is_in_buffer !== false;
 
@@ -768,6 +769,7 @@ export class PlannerUI {
       landData?.is_scenario === true ||
       /(scenario|skenario)/.test(rawKind);
 
+    // Klasifikasi Data: Memastikan observasi Street View empiris tidak dianggap sebagai data demo sintetis.
     const isSurveyObservation = /^survey/.test(rawKind);
     const isDemo =
       !isScenario &&

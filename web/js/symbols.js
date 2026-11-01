@@ -216,12 +216,17 @@ export function drawOsmCafeMarker(ctx, x, y, r = 7, { highlight = false, alpha =
   ctx.restore();
 }
 
-/** Gambar simbol ke kanvas kecil (legenda, daftar, inspector). */
+/**
+ * Gambar simbol ke kanvas kecil (legenda, daftar, inspector, ranking panel).
+ * Pertahanan berlapis (defense-in-depth): aman dijalankan di lingkungan mock DOM / headless test runner
+ * tanpa menyebabkan crash TypeError pada canvas.style atau canvas.getContext.
+ */
 export function paintSwatch(canvas, draw, cssSize = 28) {
   if (!canvas) return;
   const dpr = typeof window !== 'undefined' && window?.devicePixelRatio ? window.devicePixelRatio : 1;
   canvas.width = Math.round(cssSize * dpr);
   canvas.height = Math.round(cssSize * dpr);
+  // Proteksi lingkungan mock DOM (Test 27): style objek mungkin undefined di node test runner
   if (canvas.style && typeof canvas.style === 'object') {
     canvas.style.width = `${cssSize}px`;
     canvas.style.height = `${cssSize}px`;

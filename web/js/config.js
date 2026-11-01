@@ -16,9 +16,14 @@ export const DATA_FILES = Object.freeze({
   scenarios: '../data/fixtures/synthetic_scenario_candidates.geojson',
 });
 
+// Radius buffer spasial:
+// - BASELINE (500 m): batas utama keterjangkauan jalan kaki mahasiswa; menjadi kriteria mutlak kelayakan perencana modal.
+// - SCENARIO (1.000 m): batas skenario jangkauan luas opsional; tidak mengubah syarat kelayakan perencana 500 m.
 export const BASELINE_BUFFER_RADIUS_M = 500.0;
 export const SCENARIO_BUFFER_RADIUS_M = 1000.0;
 
+// Klasifikasi label data: menjaga pemisahan tegas antara observasi lapangan faktual (Street View),
+// konteks OpenStreetMap ODbL, listing riil publik, dan skenario hipotetis acak.
 export const DATA_LABELS = Object.freeze({
   universities: 'Titik kampus (OSM faktual)',
   buffers: 'Buffer 500 m (baseline)',
@@ -149,6 +154,7 @@ export const INSTITUTION_LABELS = Object.freeze({
 // mengikuti data aktual yang berhasil dimuat.
 export const QUICK_JUMP_TARGETS = Object.freeze(['UNAIR', 'UKWMS', 'UBAYA']);
 
+// Buffer 500 m baseline: garis indigo tegas dengan arsiran transparan sedang (area fokus utama).
 export const BUFFER_STYLE = Object.freeze({
   fill: 'rgba(99, 102, 241, 0.12)',
   stroke: 'rgba(67, 56, 202, 0.85)',
@@ -157,6 +163,7 @@ export const BUFFER_STYLE = Object.freeze({
   label: 'Buffer 500 m (baseline)',
 });
 
+// Skenario buffer 1 km: garis putus-putus berarsir tipis agar tidak mengaburkan layer baseline 500 m.
 export const BUFFER_1KM_STYLE = Object.freeze({
   fill: 'rgba(99, 102, 241, 0.04)',
   stroke: 'rgba(99, 102, 241, 0.5)',

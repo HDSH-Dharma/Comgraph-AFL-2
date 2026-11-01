@@ -71,6 +71,17 @@ export class MapRenderer {
     }
     if (!basemapUsable) this.drawGraticule();
 
+    // Urutan Render Kanvas Baku (Canonical Draw Order):
+    // 1. Latar belakang kanvas (#EEF2F6) & Basemap / Graticule (di atas)
+    // 2. Skenario Buffer 1 km (opsional, digambar di bawah buffer 500m)
+    // 3. Baseline Buffer 500 m (fokus utama, kontras lebih tegas)
+    // 4. Poligon perimeter kampus OSM
+    // 5. Pin titik kampus utama (centroid)
+    // 6. Kafe eksisting OSM (faktual)
+    // 7. Listing pasar sewa riil publik
+    // 8. Kandidat lahan observasi Street View faktual
+    // 9. Skenario sintetis acak (jika opt-in diaktifkan)
+    // 10. Label teks, halo sorotan seleksi, dan tooltip hover
     const visible = this.vm.visible;
     if (visible.buffers1km?.length) this.drawBuffers(visible.buffers1km, BUFFER_1KM_STYLE);
     this.drawBuffers(visible.buffers, BUFFER_STYLE);
@@ -144,6 +155,7 @@ export class MapRenderer {
     return !(bounds[2] < minX - m || bounds[0] > maxX + m || bounds[3] < minY - m || bounds[1] > maxY + m);
   }
 
+  // Render geometri poligon buffer; parameter style membedakan visual baseline 500 m vs skenario 1 km.
   drawBuffers(buffers, style = BUFFER_STYLE) {
     if (!buffers || !buffers.length) return;
     const { ctx } = this;
