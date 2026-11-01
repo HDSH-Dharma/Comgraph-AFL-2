@@ -613,6 +613,29 @@ a {
   color: var(--muted);
 }
 
+.survey-empty-notice {
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--ink-2);
+  margin-bottom: 6px;
+}
+
+.candidate-hidden-notice {
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.candidate-demo-list-banner {
+  margin: 0 0 6px 0;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
 .alert {
   margin-bottom: 16px;
   padding: 10px 12px;

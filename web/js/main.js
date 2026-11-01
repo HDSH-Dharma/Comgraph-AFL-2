@@ -219,7 +219,8 @@ function selectListing(id, { source = 'map' } = {}) {
   vm.select({ kind: 'listing', id });
   ui.showListingInspector(l);
   revealSelected(l, { forceZoom: source === 'list' && viewport.zoom < 14 });
-  ui.announce(`Listing: ${l.title}. Rp ${l.rentalPriceYr.toLocaleString('id-ID')}/tahun.`);
+  const priceStr = l.rentalPriceYr != null ? `Rp ${l.rentalPriceYr.toLocaleString('id-ID')}/tahun.` : 'Harga hubungi kontak.';
+  ui.announce(`Listing: ${l.title}. ${priceStr}`);
 }
 
 function selectCampus(id) {

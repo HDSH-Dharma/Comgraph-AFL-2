@@ -32,7 +32,7 @@ import {
   isValidEvidenceListing,
   validateAreaSummariesWithListings,
 } from './js/data.js';
-import { evaluateCandidateEligibility, findMatchingAreaSummary } from './js/ui.js';
+import { evaluateCandidateEligibility, findMatchingAreaSummary, MapUI } from './js/ui.js';
 import {
   canPlanForLand,
   calculateInitialCapital,
@@ -1484,7 +1484,10 @@ test('23. Prompt B: Layout Responsif, Peringatan Demo, Nilai Kosong, Asumsi Biay
       children: [],
       style: {},
       attributes: {},
-      setAttribute(k, v) { el.attributes[k] = v; },
+      setAttribute(k, v) {
+        el.attributes[k] = v;
+        if (k === 'id') el.id = v;
+      },
       removeAttribute(k) { delete el.attributes[k]; },
       getAttribute(k) { return el.attributes[k]; },
       addEventListener(evt, fn) {
@@ -1585,6 +1588,265 @@ test('23. Prompt B: Layout Responsif, Peringatan Demo, Nilai Kosong, Asumsi Biay
     assert.equal(clearConfirmEl.hidden, false, 'Klik clear-plans harus memunculkan dialog konfirmasi inline');
     confirmNoEl.trigger('click');
     assert.equal(clearConfirmEl.hidden, true, 'Klik batal harus menutup dialog konfirmasi inline');
+  } finally {
+    global.document = origDoc;
+    global.window = origWindow;
+  }
+});
+
+test('24. Provenans Sintetis vs Faktual, Pelabelan Harga Estimasi vs Riil, & Status Survei Kosong', () => {
+  // A. Verifikasi Parser: Kandidat Sintetis vs Survei Empiris
+  const mockGeoJson = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [112.78, -7.26] },
+        properties: {
+          id: 'CAND-DEMO-SIM',
+          name: 'Kavling Demo Akademik',
+          status: 'Lahan kosong',
+          data_kind: 'synthetic_academic_demo',
+          area_sqm: 200,
+          rental_price_yr: 70_000_000,
+          distance_meters: 350,
+          is_in_buffer: true,
+        },
+      },
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [112.75, -7.28] },
+        properties: {
+          id: 'CAND-SURVEY-01',
+          name: 'Kavling Survei Street View',
+          status: 'Lahan yang tersedia untuk disewakan',
+          data_kind: 'survey_google_maps',
+          survey_method: 'street_view',
+          evidence_url: 'https://maps.google.com/?cbll=-7.28,112.75',
+          observed_at: '2026-11-01',
+          surveyed_by: 'Tim Mahasiswa AFL 2',
+          area_sqm: null,
+          rental_price_yr: null,
+          distance_meters: 450,
+          is_in_buffer: true,
+        },
+      },
+    ],
+  };
+
+  const parsed = PARSERS.candidates(mockGeoJson);
+  assert.equal(parsed.items.length, 2);
+
+  const demoItem = parsed.items[0];
+  assert.equal(demoItem.isFactual, false);
+  assert.equal(demoItem.isSurvey, false);
+  assert.equal(demoItem.dataKind, 'demo');
+  assert.equal(demoItem.provenanceLabel, 'Simulasi Akademik (Tanpa Provenans Faktual)');
+
+  const surveyItem = parsed.items[1];
+  assert.equal(surveyItem.isFactual, true);
+  assert.equal(surveyItem.isSurvey, true);
+  assert.equal(surveyItem.surveyMethod, 'street_view');
+  assert.equal(surveyItem.observedAt, '2026-11-01');
+  assert.equal(surveyItem.evidenceUrl, 'https://maps.google.com/?cbll=-7.28,112.75');
+  assert.equal(surveyItem.provenanceLabel, 'Survei Lapangan Empiris (street_view)');
+
+  // B. Simulasi Mock DOM untuk Pengujian UI Inspector & Pelabelan Harga Jujur
+  const mockElements = {};
+  const createMockEl = (tag = 'div', id = '') => {
+    const listeners = {};
+    const childrenList = [];
+    const el = {
+      tagName: tag.toUpperCase(),
+      id,
+      className: '',
+      hidden: false,
+      value: '',
+      placeholder: '',
+      textContent: '',
+      innerHTML: '',
+      dataset: {},
+      style: {},
+      attributes: {},
+      children: childrenList,
+      setAttribute(k, v) {
+        el.attributes[k] = v;
+        if (k === 'id') el.id = v;
+      },
+      removeAttribute(k) { delete el.attributes[k]; },
+      getAttribute(k) { return el.attributes[k]; },
+      addEventListener(evt, fn) {
+        listeners[evt] = listeners[evt] || [];
+        listeners[evt].push(fn);
+      },
+      trigger(evt, eventObj = {}) {
+        (listeners[evt] || []).forEach((fn) => fn(eventObj));
+      },
+      append(...nodes) {
+        for (const n of nodes.flat(Infinity)) {
+          if (n != null && n !== false) {
+            childrenList.push(n);
+            if (typeof n === 'string') el.textContent += n;
+            else if (n.textContent) el.textContent += ' ' + n.textContent;
+          }
+        }
+      },
+      replaceChildren(...nodes) {
+        childrenList.length = 0;
+        el.textContent = '';
+        el.append(...nodes);
+      },
+      focus() { el.isFocused = true; },
+      getContext() {
+        return new Proxy({}, {
+          get: (target, prop) => {
+            if (prop in target) return target[prop];
+            return () => {};
+          },
+          set: (target, prop, value) => {
+            target[prop] = value;
+            return true;
+          },
+        });
+      },
+      classList: {
+        add(c) { el.className = (el.className + ' ' + c).trim(); },
+        remove(c) { el.className = el.className.replace(c, '').trim(); },
+        toggle(c, force) { if (force) el.classList.add(c); else el.classList.remove(c); },
+      },
+    };
+    if (id) mockElements[id] = el;
+    return el;
+  };
+
+  const origDoc = global.document;
+  const origWindow = global.window;
+
+  try {
+    global.document = {
+      getElementById: (id) => mockElements[id] || createMockEl('div', id),
+      querySelector: () => null,
+      querySelectorAll: () => [],
+      createElement: (tag) => createMockEl(tag),
+      activeElement: null,
+    };
+    global.window = {
+      handleLandMarkerClick: null,
+      matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
+    };
+
+    createMockEl('section', 'inspector');
+    createMockEl('h2', 'inspector-title');
+    const inspBody = createMockEl('div', 'inspector-body');
+    const candList = createMockEl('ul', 'candidate-list');
+    const candCount = createMockEl('span', 'candidate-count');
+
+    const vm = new MapViewModel();
+    vm.data.candidates = { ok: true, items: parsed.items, metadata: null };
+    vm.visible.candidates = [...parsed.items];
+
+    const ui = new MapUI(vm, {
+      selectCandidate: () => {},
+      resetFilters: () => {},
+    });
+
+    // 1. Uji Status Survei Kosong saat layer kandidat nonaktif (default state)
+    vm.layers.candidates = false;
+    ui.renderCandidateList();
+    assert.ok(
+      candList.textContent.includes('Status Survei Lahan Faktual: Belum ada data survei lapangan empiris'),
+      'Wajib menampilkan status survei kosong yang jujur saat layer kandidat nonaktif'
+    );
+    assert.ok(
+      candCount.textContent.includes('0 survei faktual'),
+      'Count kandidat wajib menjelaskan 0 survei faktual'
+    );
+
+    // 2. Uji Daftar Kandidat saat layer kandidat aktif
+    vm.layers.candidates = true;
+    ui.renderCandidateList();
+    assert.ok(
+      candList.textContent.includes('Estimasi Demo'),
+      'Metadata kandidat demo wajib memuat label Estimasi Demo'
+    );
+    assert.ok(
+      candList.textContent.includes('(est. demo)'),
+      'Harga sewa kandidat demo wajib diberi label (est. demo)'
+    );
+
+    // 3. Uji Inspector untuk Kandidat Demo -> Harga Tidak Boleh Ditampilkan sebagai Fakta
+    ui.showLandInspector(demoItem);
+    assert.ok(
+      inspBody.textContent.includes('Estimasi sewa / thn'),
+      'Label sewa untuk kandidat demo wajib berlabel Estimasi sewa / thn'
+    );
+    assert.ok(
+      inspBody.textContent.includes('(asumsi demo, bukan data pasar)'),
+      'Harga sewa kandidat demo wajib diberi anotasi asumsi demo, bukan data pasar'
+    );
+    assert.ok(
+      inspBody.textContent.includes('Simulasi Akademik Demo (Tanpa Provenans Faktual)'),
+      'Callout peringatan demo wajib ada di inspector'
+    );
+
+    // 4. Uji Inspector untuk Kandidat Survei dengan Harga Kosong (null) -> Tidak Boleh Mengarang Harga
+    ui.showLandInspector(surveyItem);
+    assert.ok(
+      inspBody.textContent.includes('Belum ada data sewa (tidak ada papan sewa terverifikasi)'),
+      'Harga sewa kosong pada survei wajib dinyatakan jujur belum ada data sewa'
+    );
+    assert.ok(
+      inspBody.textContent.includes('street_view'),
+      'Metode survei wajib ditampilkan'
+    );
+
+    // 5. Uji Inspector Listing Riil & Pencegahan Fallback Fiktif
+    let dispatchedLandData = null;
+    global.window.handleLandMarkerClick = (data) => {
+      dispatchedLandData = data;
+    };
+
+    const realListing = {
+      id: 'LST-REAL-01',
+      title: 'Ruko Disewakan Kertajaya',
+      address: 'Jl. Kertajaya No. 88, Surabaya',
+      areaCluster: 'Gubeng',
+      propertyType: 'ruko',
+      buildingAreaSqm: 150,
+      landAreaSqm: null,
+      rentalPriceYr: null, // Harga null / hubungi kontak
+      priceSqmYr: null,
+      nearestUniversityName: 'Kampus B Unair',
+      distanceM: 350,
+      isInBuffer: true,
+      sourcePortal: 'OLX Surabaya',
+      sourceUrl: 'https://olx.co.id/item/ruko-kertajaya-12345',
+      lon: 112.755,
+      lat: -7.275,
+    };
+
+    ui.showListingInspector(realListing);
+    assert.ok(
+      inspBody.textContent.includes('Harga sewa tidak tercantum di listing'),
+      'Listing tanpa harga wajib menyatakan tidak tercantum'
+    );
+
+    // Klik tombol perencana dari listing riil
+    const planListingBtn = inspBody.children.find((c) => c.id === 'inspector-listing-plan-btn');
+    assert.ok(planListingBtn, 'Tombol perencanaan listing terverifikasi wajib tersedia');
+    planListingBtn.trigger('click');
+
+    assert.ok(dispatchedLandData, 'Payload landData harus terkirim');
+    assert.equal(
+      dispatchedLandData.rental_price_yr,
+      null,
+      'Listing dengan rentalPriceYr null TIDAK BOLEH fallback ke 60jt atau nilai fiktif apapun'
+    );
+    assert.equal(
+      dispatchedLandData.distance_meters,
+      350,
+      'Jarak spasial metrik aktual wajib dipertahankan'
+    );
   } finally {
     global.document = origDoc;
     global.window = origWindow;

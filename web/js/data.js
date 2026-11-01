@@ -254,8 +254,9 @@ export function classifyDataKind(raw) {
   const v = str(raw).toLowerCase();
   if (!v) return 'unknown';
   if (/(demo|synthetic|simulasi|dummy|sample)/.test(v)) return 'demo';
-  if (/(verified|terverifikasi|survey|survei|field|factual|osm)/.test(v)) return 'verified';
+  if (/(survey|survei|field|lapangan|verified|terverifikasi)/.test(v)) return 'verified';
   if (/(listing|marketplace|properti)/.test(v)) return 'listing';
+  if (/osm/.test(v)) return 'osm';
   return 'unknown';
 }
 
@@ -279,10 +280,14 @@ function parseCandidates(json) {
     const w = lonLatToWorld(c[0], c[1]);
     const kind = classifyDataKind(p.data_kind);
     const hasOsmProvenance = Boolean(p.osm_id || p.osm_way_ref || String(p.source || '').includes('OpenStreetMap'));
-    const isFactual = (p.is_factual === true || kind === 'verified') && hasOsmProvenance;
-    const provenanceLabel = isFactual
-      ? 'Faktual OpenStreetMap (ODbL 1.0)'
-      : 'Simulasi Akademik (Tanpa Provenans Faktual)';
+    const isSurvey = (kind === 'verified' || /(survey|survei)/.test(String(p.data_kind || ''))) &&
+      (Boolean(p.survey_method || p.evidence_url || p.observed_at) || String(p.data_kind || '').includes('survei') || String(p.data_kind || '').includes('survey'));
+    const isFactual = (p.is_factual === true && hasOsmProvenance) || isSurvey;
+    const provenanceLabel = isSurvey
+      ? `Survei Lapangan Empiris (${p.survey_method || 'Terverifikasi'})`
+      : (hasOsmProvenance && p.is_factual)
+        ? 'Faktual OpenStreetMap (ODbL 1.0)'
+        : 'Simulasi Akademik (Tanpa Provenans Faktual)';
 
     items.push({
       id,
@@ -302,6 +307,12 @@ function parseCandidates(json) {
       isEligible: typeof p.is_eligible === 'boolean' ? p.is_eligible : null,
       dataKind: kind,
       isFactual,
+      isSurvey,
+      surveyMethod: str(p.survey_method) || null,
+      evidenceUrl: str(p.evidence_url) || null,
+      observedAt: str(p.observed_at) || null,
+      surveyedBy: str(p.surveyed_by) || null,
+      priceSourceUrl: str(p.price_source_url) || null,
       provenanceLabel,
       areaSqm: num(p.area_sqm),
       rentalPriceYr: num(p.rental_price_yr),

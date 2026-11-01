@@ -35,7 +35,9 @@ from scripts.rental_market_service import (
     RentalMarketService,
     MIN_COMPARABLE_LISTINGS,
     REAL_DATA_KIND,
-    audit_synthetic_candidates
+    audit_synthetic_candidates,
+    calculate_range_midpoint_estimate,
+    audit_production_dataset
 )
 
 class TestGISPipeline(unittest.TestCase):
@@ -1064,6 +1066,70 @@ class TestGISPipeline(unittest.TestCase):
         self.assertEqual(template["metadata"]["status"], "AWAITING_FIELD_SURVEY_DATA")
         self.assertEqual(len(template["features"]), 0, "Dilarang memfabrikasi titik survei sebelum observasi riil")
         self.assertIn("required_fields", template["metadata"]["protocol_guidelines"])
+
+    def test_19_production_dataset_real_data_remediation_and_fixture_isolation(self):
+        """
+        Uji Remediasi Data Riil Jalur Produksi & Isolasi Fixture (Mandat Pengguna):
+        1. Berkas produksi data/processed/land_candidates.geojson TIDAK memuat kandidat sintetis demo.
+        2. Kandidat sintetis lama dipreservasi penuh di data/fixtures/synthetic_land_candidates.geojson.
+        3. Seluruh fitur di berkas produksi berakar pada data faktual riil (OSM).
+        4. Zero klaim ketersediaan sewa/lahan kosong tanpa bukti (seluruh is_rentable_or_sale = False).
+        5. Zero harga dan luas tanpa sumber (seluruhnya null).
+        """
+        audit_res = audit_production_dataset(
+            proc_cands_path="data/processed/land_candidates.geojson",
+            fixtures_path="data/fixtures/synthetic_land_candidates.geojson"
+        )
+        self.assertEqual(audit_res["status"], "PASSED")
+        self.assertEqual(audit_res["synthetic_in_production"], 0)
+        self.assertEqual(audit_res["fake_rentable_claims"], 0)
+        self.assertEqual(audit_res["unbacked_prices"], 0)
+        self.assertEqual(audit_res["fixtures_preserved_count"], 20)
+        self.assertEqual(audit_res["production_features_count"], 33)
+
+        # Verifikasi langsung pada berkas produksi
+        with open("data/processed/land_candidates.geojson", "r", encoding="utf-8") as f:
+            proc_cands = json.load(f)["features"]
+
+        for cf in proc_cands:
+            p = cf["properties"]
+            fid = p["id"]
+            # Tidak boleh ada prefix CAND- atau data_kind demo di berkas produksi
+            self.assertFalse(fid.startswith("CAND-"), f"ID {fid} adalah kandidat sintetis lama!")
+            self.assertNotEqual(p.get("data_kind"), "synthetic_academic_demo")
+            self.assertEqual(p.get("data_kind"), "osm_factual_open_data")
+            self.assertFalse(p.get("is_rentable_or_sale"), f"Fitur {fid} tidak boleh mengklaim sewa tanpa bukti!")
+            self.assertFalse(p.get("is_clickable_for_planning"), f"Fitur {fid} tidak boleh dapat dipilih!")
+            self.assertIsNone(p.get("rental_price_yr"), f"Harga sewa pada {fid} harus null!")
+            self.assertIsNone(p.get("area_sqm"), f"Luas pada {fid} harus null!")
+
+    def test_20_midpoint_range_estimation_and_anti_fabrication(self):
+        """
+        Uji Estimasi Titik Tengah Rentang Harga (Mandat Anti-Fabrikasi):
+        1. Nilai midpoint dari rentang [min, max] terdokumentasi WAJIB dilabeli estimasi (is_estimate=True).
+        2. Nilai midpoint DILARANG diklaim sebagai harga transaksi atau harga penawaran riil (is_transaction_price=False).
+        3. Rentang asli terdokumentasi (source_range) wajib disertakan utuh untuk transparansi.
+        4. Jika rentang tidak lengkap (min atau max bernilai None), midpoint wajib bernilai None.
+        5. Validasi kesalahan: batas bawah > batas atas memicu ValueError.
+        """
+        # A. Kasus valid rentang sewa terdokumentasi
+        min_p = 60000000.0
+        max_p = 90000000.0
+        res = calculate_range_midpoint_estimate(min_p, max_p, source_label="Survei Koridor Dinoyo")
+        self.assertEqual(res["midpoint"], 75000000.0)
+        self.assertTrue(res["is_estimate"], "Titik tengah wajib dilabeli sebagai estimasi.")
+        self.assertFalse(res["is_transaction_price"], "Titik tengah dilarang diklaim sebagai harga transaksi riil.")
+        self.assertEqual(res["source_range"], [min_p, max_p])
+        self.assertIn("Estimasi titik tengah", res["label"])
+
+        # B. Kasus data tidak lengkap (None)
+        res_null = calculate_range_midpoint_estimate(None, 80000000.0)
+        self.assertIsNone(res_null["midpoint"])
+        self.assertFalse(res_null["is_estimate"])
+
+        # C. Kasus batas terbalik (min > max) memicu ValueError
+        with self.assertRaises(ValueError):
+            calculate_range_midpoint_estimate(100000000.0, 50000000.0)
 
 if __name__ == "__main__":
     unittest.main()
