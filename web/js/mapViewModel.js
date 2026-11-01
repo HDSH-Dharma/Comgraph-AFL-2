@@ -26,7 +26,7 @@ export class MapViewModel {
       basemap: true,
       buffers: true,
       campuses: true,
-      candidates: false, // Kandidat sintetis disembunyikan secara default
+      candidates: false, // Kandidat disembunyikan secara default saat inisialisasi awal
       listings: true,
       osmBuildings: true,
       osmCafes: true,

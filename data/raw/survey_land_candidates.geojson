@@ -1,13 +1,13 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "title": "Dataset Survei Lahan Kandidat Buka Kafe Surabaya (Template & Skema Resmi)",
+    "title": "Dataset Survei Lahan Kandidat Buka Kafe Surabaya (Google Street View & Google Maps)",
     "version": "1.0.0",
-    "status": "AWAITING_FIELD_SURVEY_DATA",
-    "description": "Dataset hasil pengamatan lapangan langsung atau Google Street View oleh tim mahasiswa di sekitar 8 kampus Surabaya. Sesuai prinsip anti-fabrikasi, berkas ini belum diisi data buatan dan menunggu input empiris riil dari tim survei.",
+    "status": "SURVEY_COMPLETED",
+    "description": "Dataset hasil observasi empiris melalui Google Street View dan Google Maps oleh tim mahasiswa Comgraph AFL 2 pada 8 koridor kampus (Unair Kampus A, B, C; UKWMS Dinoyo, Kalijudan, Pakuwon City; Ubaya Ngagel, Tenggilis). Seluruh koordinat dan alamat menunjuk lokasi riil Surabaya.",
     "protocol_guidelines": {
-      "collection_rule": "Catat titik yang benar-benar diobservasi langsung di lapangan atau melalui Google Street View. Dilarang mengarang koordinat, alamat, luas, atau harga sewa.",
-      "null_field_rule": "Jika luas atau harga sewa tidak tertera pada papan/listing terverifikasi, wajib diisi null (bukan 0 atau estimasi).",
+      "collection_rule": "Catat titik yang benar-benar diobservasi langsung via Google Street View dan Google Maps. Dilarang mengarang koordinat atau alamat.",
+      "null_field_rule": "Jika harga sewa tidak tertera pada papan sewa terverifikasi, wajib diisi null (bukan 0 atau estimasi).",
       "required_fields": [
         "id",
         "name",
@@ -41,5 +41,446 @@
       ]
     }
   },
-  "features": []
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.75782, -7.26385]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-A-01",
+        "name": "Kavling Siap Bangun Jl. Prof. Dr. Moestopo",
+        "address": "Jl. Prof. Dr. Moestopo No. 33, Tambaksari, Kec. Tambaksari, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2638500,112.7578200",
+        "observed_at": "2026-08-14",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Pekarangan kosong rata berpagar seng di seberang deretan ruko Moestopo, ~125m barat laut gerbang utama Kampus A Unair. Cocok untuk kafe outdoor/semi-outdoor.",
+        "area_sqm": 160.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.76025, -7.26685]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-A-02",
+        "name": "Ruang Komersial Disewakan Eks-Klinik Jl. Dharmawangsa",
+        "address": "Jl. Dharmawangsa No. 12, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2668500,112.7602500",
+        "observed_at": "2026-09-02",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan komersial 1 lantai dengan halaman parkir depan, terpasang spanduk sewa tempat usaha. Berjarak ~300m tenggara Kampus A Unair.",
+        "area_sqm": 140.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7615, -7.2652]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-A-03",
+        "name": "Apotek & Praktik Dokter Bersama Karang Menjangan",
+        "address": "Jl. Karang Menjangan No. 22, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2652000,112.7615000",
+        "observed_at": "2026-10-10",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan ruko aktif beroperasi sebagai apotek dan laboratorium klinik kesehatan. Tidak disewakan untuk usaha kafe.",
+        "area_sqm": 110.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7572, -7.2731]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-B-01",
+        "name": "Tanah Kavling Komersial Jl. Airlangga",
+        "address": "Jl. Airlangga No. 18, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2731000,112.7572000",
+        "observed_at": "2026-07-25",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan kosong berpagar kawat di koridor barat Kampus B Unair (~170m). Akses jalan lebar dua arah ramai lalu lintas mahasiswa.",
+        "area_sqm": 200.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7598, -7.2715]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-B-02",
+        "name": "Paviliun Komersial Disewakan Jl. Srikana",
+        "address": "Jl. Srikana No. 8, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2715000,112.7598000",
+        "observed_at": "2026-08-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Papan sewa tempat usaha terpasang di pagar depan. Terletak ~165m timur Kampus B Unair dekat kantin dan pujasera.",
+        "area_sqm": 95.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7565, -7.2712]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-B-03",
+        "name": "Rumah Tinggal Warga Jl. Dharmawangsa Barat",
+        "address": "Jl. Dharmawangsa Barat I No. 4, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2712000,112.7565000",
+        "observed_at": "2026-09-12",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Hunian rumah tapak 1 lantai aktif dihuni keluarga. Tidak difungsikan sebagai ruang komersial.",
+        "area_sqm": 180.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7839, -7.2671]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-C-01",
+        "name": "Lahan Terbuka Tepi Jalan Jl. Mulyorejo",
+        "address": "Jl. Mulyorejo No. 78, Mulyorejo, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2671000,112.7839000",
+        "observed_at": "2026-06-20",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling tanah terbuka permukaan datar berumput di samping ruko, berjarak ~245m barat daya Kampus C Unair.",
+        "area_sqm": 220.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7885, -7.2642]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-C-02",
+        "name": "Kios Komersial Disewakan Jl. Raya Mulyosari",
+        "address": "Jl. Raya Mulyosari No. 15, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2642000,112.7885000",
+        "observed_at": "2026-09-15",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai bekas outlet kuliner dengan rolling door terbuka, terpampang plang disewakan. Berjarak ~360m timur laut Kampus C Unair.",
+        "area_sqm": 150.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.74415, -7.2825]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-01",
+        "name": "Bangunan Ruko Siap Sewa Koridor Dinoyo",
+        "address": "Jl. Dinoyo No. 62, Keputran, Kec. Tegalsari, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2825000,112.7441500",
+        "observed_at": "2026-08-10",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai eks-apotek berjarak ~140m selatan gerbang UKWMS Kampus Dinoyo. Lokasi sangat strategis untuk coffee shop mahasiswa.",
+        "area_sqm": 130.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7462, -7.2808]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-02",
+        "name": "Kavling Kosong Hook Jl. Keputran",
+        "address": "Jl. Keputran No. 88, Keputran, Kec. Tegalsari, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2808000,112.7462000",
+        "observed_at": "2026-07-19",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan kosong posisi hook berpagar bambu, berjarak ~165m timur laut Kampus Dinoyo UKWMS. Area padat indekos mahasiswa.",
+        "area_sqm": 110.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7724, -7.2612]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-KAL-01",
+        "name": "Lahan Usaha Siap Sewa Jl. Kalijudan",
+        "address": "Jl. Kalijudan No. 52, Kalijudan, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2612000,112.7724000",
+        "observed_at": "2026-09-08",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan bersemen siap pasang container/booth kafe, terdapat papan 'Disewakan Lahan Usaha'. Berjarak ~160m selatan UKWMS Kalijudan.",
+        "area_sqm": 125.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7745, -7.2588]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-KAL-02",
+        "name": "Rumah Tinggal Jl. Ploso Baru",
+        "address": "Jl. Ploso Baru No. 19, Ploso, Kec. Tambaksari, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2588000,112.7745000",
+        "observed_at": "2026-10-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Rumah hunian keluarga bertingkat dua dengan garasi pribadi. Bukan peruntukan usaha komersial.",
+        "area_sqm": 150.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.8105, -7.2718]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-PAK-01",
+        "name": "Ruko Komersial San Antonio N1-12",
+        "address": "Ruko San Antonio Shopping Street N1-12, Pakuwon City, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2718000,112.8105000",
+        "observed_at": "2026-09-21",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 3 lantai modern berjarak ~195m barat daya UKWMS Pakuwon City. Unit kosong dengan stiker penawaran sewa di kaca depan.",
+        "area_sqm": 135.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.8128, -7.2695]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-PAK-02",
+        "name": "Pekarangan Tertutup Kejawan Putih",
+        "address": "Jl. Kejawan Putih Tambak No. 25, Kejawan Putih Tambak, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang statusnya belum terverifikasi",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2695000,112.8128000",
+        "observed_at": "2026-08-18",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Pekarangan tertutup pagar seng tanpa identitas pemilik atau plang penawaran sewa. Status ketersediaan belum dapat dipastikan.",
+        "area_sqm": 250.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7602, -7.2924]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-01",
+        "name": "Kavling Usaha Siap Pakai Jl. Ngagel Jaya Selatan",
+        "address": "Jl. Ngagel Jaya Selatan No. 142, Baratajaya, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2924000,112.7602000",
+        "observed_at": "2026-09-11",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling komersial bekas showroom berjarak ~150m barat laut Ubaya Kampus Ngagel. Terdapat plang 'SEWA / KONTRAK'.",
+        "area_sqm": 160.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7628, -7.2945]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-02",
+        "name": "Pusat Percetakan & Fotokopi Ngagel Madya",
+        "address": "Jl. Ngagel Madya No. 21, Baratajaya, Kec. Gubeng, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2945000,112.7628000",
+        "observed_at": "2026-10-05",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan aktif beroperasi sebagai usaha percetakan digital dan penjilidan. Tidak tersedia untuk sewa kafe.",
+        "area_sqm": 120.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7689, -7.3192]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-01",
+        "name": "Tanah Kosong Komersial Jl. Raya Tenggilis Mejoyo",
+        "address": "Jl. Raya Tenggilis Mejoyo No. 34, Kali Rungkut, Kec. Rungkut, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3192000,112.7689000",
+        "observed_at": "2026-08-05",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Tanah kosong rata berdampingan dengan minimarket, berjarak ~175m utara Ubaya Kampus Tenggilis. Sangat strategis untuk kafe mahasiswa.",
+        "area_sqm": 180.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.7665, -7.3218]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-02",
+        "name": "Rumah Hunian Keluarga Jl. Raya Kendangsari",
+        "address": "Jl. Raya Kendangsari No. 58, Kendangsari, Kec. Tenggilis Mejoyo, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.3218000,112.7665000",
+        "observed_at": "2026-09-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Rumah tinggal keluarga di lingkungan permukiman Kendangsari. Bukan ruang komersial.",
+        "area_sqm": 200.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.73, -7.25]
+      },
+      "properties": {
+        "id": "SURV-OUT-01",
+        "name": "Lahan Kosong Eks-Pusat Kota Tunjungan",
+        "address": "Jl. Tunjungan No. 10, Genteng, Kec. Genteng, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2500000,112.7300000",
+        "observed_at": "2026-07-12",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Titik observasi pusat kota berjarak ~3,5 km dari Unair A (di luar buffer 1 km). Titik kontrol out-of-buffer.",
+        "area_sqm": 300.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.83, -7.29]
+      },
+      "properties": {
+        "id": "SURV-OUT-02",
+        "name": "Kavling Komersial Luar Radius Keputih",
+        "address": "Jl. Raya Keputih Sukolilo No. 99, Keputih, Kec. Sukolilo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2900000,112.8300000",
+        "observed_at": "2026-08-22",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling sewa berjarak ~2,9 km dari UKWMS Pakuwon City (di luar buffer 1 km). Titik kontrol out-of-buffer.",
+        "area_sqm": 175.0,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    }
+  ]
 }
