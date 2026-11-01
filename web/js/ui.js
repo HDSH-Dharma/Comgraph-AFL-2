@@ -20,6 +20,7 @@ import {
   drawCampusMarker,
   drawListingMarker,
   drawOsmCafeMarker,
+  drawGateMarker,
 } from './symbols.js';
 import { buildLandData } from './data.js';
 import { calculateFeasibilityPoints } from './planner.js';
@@ -259,6 +260,8 @@ export class MapUI {
     }, 26);
     const osmCafeCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
     paintSwatch(osmCafeCanvas, (ctx, x, y) => drawOsmCafeMarker(ctx, x, y, 7), 26);
+    const gateCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
+    paintSwatch(gateCanvas, (ctx, x, y) => drawGateMarker(ctx, x, y, 7), 26);
     const listingCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
     paintSwatch(listingCanvas, (ctx, x, y) => drawListingMarker(ctx, x, y, 7), 26);
     this.els.listingLegendText = h('span', { id: 'legend-listing-text', text: 'Listing sewa riil publik (L)' });
@@ -268,6 +271,7 @@ export class MapUI {
       h('li', { class: 'legend-sep' }, outCanvas, h('span', { text: 'Pudar = di luar buffer 500 m (baseline)' })),
       h('li', {}, campusCanvas, h('span', { text: 'Titik kampus (pin)' })),
       h('li', {}, osmBuildingCanvas, h('span', { text: 'Perimeter kampus (OSM faktual)' })),
+      h('li', {}, gateCanvas, h('span', { text: 'Gerbang kampus (status: belum diobservasi / unobserved)' })),
       h('li', {}, buffer500Canvas, h('span', { text: 'Buffer 500 m (baseline)' })),
       h('li', {}, buffer1kmCanvas, h('span', { text: 'Skenario buffer 1 km (opsional)' })),
       h('li', {}, osmCafeCanvas, h('span', { text: 'Kafe eksisting (OSM faktual; 4 tanpa nama)' })),
@@ -298,6 +302,17 @@ export class MapUI {
         listingInput.disabled = false;
         listingInput.checked = this.vm.layers.listings;
         listingInput.title = 'Tampilkan atau sembunyikan listing sewa riil publik.';
+      }
+    }
+
+    const gateInput = document.querySelector('input[data-layer="gates"]');
+    const gateLabel = document.getElementById('layer-gates-label') || gateInput?.nextElementSibling;
+    const gateCount = this.vm.data.gates?.items?.length || 0;
+    if (gateLabel) {
+      if (gateCount === 0) {
+        gateLabel.textContent = '🚪 Gerbang kampus (status: belum diobservasi / unobserved)';
+      } else {
+        gateLabel.textContent = `🚪 Gerbang kampus (${gateCount} lokasi; unobserved)`;
       }
     }
 
@@ -678,19 +693,77 @@ export class MapUI {
       return;
     }
 
-    // Hitung skor kelayakan bisnis untuk tiap kandidat yang terlihat (proksimitas, luas, efisiensi sewa)
+    // Penilaian Skor Kelayakan Panel Peringkat (Perbaikan 1 + 4 Web / reports/backend.md Task 8):
+    // 1. Tampilkan skor backend langsung bila ada (feasibility_scoring_baseline_500m / feasibility_scoring)
+    // 2. Evaluasi cakupan data (coverage_pct): jika < 60%, hilangkan bintang (suppress stars)
+    // 3. Tampilkan rincian skor per-komponen (proksimitas, ruang, biaya) dan missing components
     const scored = visible.map((c) => {
-      const score = calculateFeasibilityPoints({
-        distance_meters: c.distanceM,
-        area_sqm: c.areaSqm,
-        rental_price_yr: c.rentalPriceYr,
-      });
+      const backendScoring = c.feasibilityScoring500m || c.feasibilityScoring ||
+        c.properties?.feasibility_scoring_baseline_500m || c.properties?.feasibility_scoring;
+
+      let scoreObj;
+      if (backendScoring && (backendScoring.score_normalized != null || backendScoring.feasibility_score != null || c.properties?.feasibility_score_normalized != null)) {
+        const scoreNorm = backendScoring.score_normalized ?? backendScoring.feasibility_score ??
+          c.properties?.feasibility_score_normalized ?? c.properties?.feasibility_score;
+        const covPct = backendScoring.coverage ?? backendScoring.coverage_pct ?? c.properties?.coverage ??
+          Math.round(((backendScoring.max_available_weight || 40.0) / (backendScoring.theoretical_max_weight || 100.0)) * 100);
+        const hasStars = backendScoring.has_stars ?? c.properties?.has_stars ?? (covPct >= 60.0);
+        const suppressStars = !hasStars || covPct < 60;
+        const rawGrade = backendScoring.grade ?? backendScoring.feasibility_grade ?? c.properties?.feasibility_grade ?? 'Data Belum Lengkap';
+        const displayGrade = (suppressStars && rawGrade.includes('★'))
+          ? `${rawGrade.replace(/[★]+/g, '').trim()} (bintang ditangguhkan: cakupan < 60%)`
+          : rawGrade;
+        const bd = backendScoring.breakdown || c.properties?.breakdown || {};
+        const missing = backendScoring.missing || backendScoring.null_components || c.properties?.missing || [];
+        const observed = backendScoring.observed_components || Object.keys(bd).filter((k) => bd[k]?.status === 'OBSERVED' || bd[k]?.score != null || bd[k]?.points != null);
+
+        const proxScore = bd.campus_proximity?.points ?? bd.campus_proximity?.score ?? bd.proximity?.score ?? 0;
+        const spaceScore = bd.area?.points ?? bd.area?.score ?? bd.space?.score ?? null;
+        const costScore = bd.rent?.points ?? bd.rent?.score ?? bd.cost_efficiency?.score ?? null;
+
+        scoreObj = {
+          points: scoreNorm,
+          score_normalized: scoreNorm,
+          grade: rawGrade,
+          display_grade: displayGrade,
+          coverage_pct: covPct,
+          suppress_stars: suppressStars,
+          breakdown: {
+            proximity: proxScore,
+            space: spaceScore,
+            cost_efficiency: costScore,
+            ...bd,
+          },
+          null_components: missing,
+          observed_components: observed,
+          is_backend: true,
+        };
+      } else {
+        const calculated = calculateFeasibilityPoints({
+          distance_meters: c.distanceM,
+          area_sqm: c.areaSqm,
+          rental_price_yr: c.rentalPriceYr,
+        });
+        scoreObj = {
+          points: calculated.points,
+          score_normalized: calculated.score_normalized ?? calculated.points,
+          grade: calculated.grade,
+          display_grade: calculated.display_grade || calculated.grade,
+          coverage_pct: calculated.coverage_pct ?? 100,
+          suppress_stars: calculated.suppress_stars ?? false,
+          breakdown: calculated.breakdown,
+          null_components: calculated.scoring?.null_components || [],
+          observed_components: calculated.scoring?.observed_components || [],
+          is_backend: false,
+        };
+      }
+
       // Guard kelayakan: hanya kandidat di dalam baseline 500 m dengan status valid yang eligible
       const in500 = c.isInBuffer500 ?? (c.distanceM != null ? c.distanceM <= 500.0 : true);
       const isEligible = Boolean(c.isEligible && in500);
       return {
         candidate: c,
-        score,
+        score: scoreObj,
         isEligible,
       };
     });
@@ -709,9 +782,10 @@ export class MapUI {
     const selectedId = this.vm.selection?.kind === 'land' ? this.vm.selection.id : null;
     const items = scored.map((item, idx) => {
       const c = item.candidate;
-      const { points, grade, breakdown } = item.score;
+      const { points, display_grade, breakdown, coverage_pct, null_components } = item.score;
       const badgeClass = points >= 70 ? 'score-high' : points >= 40 ? 'score-mid' : 'score-low';
       const isSelected = c.id === selectedId;
+      const nullInfo = null_components && null_components.length ? ` · Null: ${null_components.join(', ')}` : '';
 
       return h(
         'li',
@@ -723,7 +797,7 @@ export class MapUI {
             class: 'ranking-item',
             'aria-pressed': String(isSelected),
             dataset: { id: c.id },
-            title: `Peringkat #${idx + 1}: ${c.name} (${points} poin - ${grade}). Klik untuk memilih di peta.`,
+            title: `Peringkat #${idx + 1}: ${c.name} (${points} poin - ${display_grade}, cakupan: ${coverage_pct}%). Komponen: Kedekatan ${breakdown.proximity} pt, Ruang ${breakdown.space ?? 'null'}, Biaya ${breakdown.cost_efficiency ?? 'null'}. Klik untuk memilih di peta.`,
             onclick: () => this.actions.selectCandidate(c.id, { source: 'ranking' }),
           },
           h('span', { class: 'ranking-pos', text: `#${idx + 1}` }),
@@ -739,13 +813,17 @@ export class MapUI {
             h('span', {
               class: 'ranking-meta',
               text: `${c.status.key === 'rumah' || c.status.key === 'fungsi_lain' ? 'Tidak Disewakan/Dijual' : c.status.label} · ${formatMeters(c.distanceM).split(' (')[0]}${c.isInBuffer500 === false ? ' (di luar buffer 500m)' : ''}`,
+            }),
+            h('span', {
+              class: 'ranking-components-meta',
+              text: `Kedekatan: ${breakdown.proximity} pt · Luas: ${breakdown.space ?? 'null'} · Biaya: ${breakdown.cost_efficiency ?? 'null'} (Cakupan ${coverage_pct}%)${nullInfo}`,
             })
           ),
           h(
             'span',
             {
               class: `ranking-score-badge ${badgeClass}`,
-              title: `Kedekatan: ${breakdown.proximity} poin, Ruang: ${breakdown.space} poin, Biaya: ${breakdown.cost_efficiency} poin`,
+              title: `Kedekatan: ${breakdown.proximity} poin, Ruang: ${breakdown.space ?? 'null'} poin, Biaya: ${breakdown.cost_efficiency ?? 'null'} poin (Cakupan: ${coverage_pct}%)`,
             },
             `${points} poin`
           )
@@ -883,12 +961,12 @@ export class MapUI {
     } else {
       // Penanganan Nilai Null Jujur (Anti-Fabrikasi): Tidak mengarang angka jika observasi Street View tidak menemukan plang sewa/luas
       if (c.areaSqm != null) {
-        rows.push(['Luas lahan', `${numberID.format(c.areaSqm)} m² (hasil observasi/survei)`]);
+        rows.push(['Luas lahan', `${numberID.format(c.areaSqm)} m² (hasil observasi)`]);
       } else {
         rows.push(['Luas lahan', 'null (Belum ada data luas)']);
       }
       if (c.rentalPriceYr != null) {
-        const priceLabel = c.properties?.price_kind === 'estimate' ? 'estimasi dari rentang listing' : 'harga listing/survei';
+        const priceLabel = c.properties?.price_kind === 'estimate' ? 'estimasi dari rentang listing' : 'harga listing/observasi';
         rows.push([`Harga sewa / thn (${priceLabel})`, rupiah.format(c.rentalPriceYr)]);
         if (c.priceSourceUrl || c.properties?.price_source_url) {
           rows.push([
@@ -901,7 +979,7 @@ export class MapUI {
       }
       // Metadata observasi Google Street View (bukti empiris dan parameter kamera)
       if (c.surveyMethod || c.properties?.survey_method) {
-        rows.push(['Metode survei', String(c.surveyMethod || c.properties.survey_method)]);
+        rows.push(['Metode observasi', String(c.surveyMethod || c.properties.survey_method)]);
       }
       if (c.observedAt || c.properties?.observed_at) {
         rows.push(['Tanggal observasi', String(c.observedAt || c.properties.observed_at)]);
@@ -923,9 +1001,70 @@ export class MapUI {
       const notes = c.notes || c.properties?.notes;
       if (notes) rows.push(['Catatan observasi', String(notes)]);
       if (c.surveyedBy || c.properties?.surveyed_by) {
-        rows.push(['Disurvei oleh', String(c.surveyedBy || c.properties.surveyed_by)]);
+        rows.push(['Diobservasi oleh', String(c.surveyedBy || c.properties.surveyed_by)]);
       }
     }
+
+    // Properti Skema Backend & Analisis Keputusan Multi-Kriteria (Perbaikan 1 + 4 Web / reports/backend.md Task 8):
+    // 1. Tampilkan skor kelayakan backend langsung, cakupan data %, rincian per komponen, dan komponen null
+    // 2. Supresi bintang jika cakupan data < 60%
+    const backendScoring = c.feasibilityScoring500m || c.feasibilityScoring ||
+      c.properties?.feasibility_scoring_baseline_500m || c.properties?.feasibility_scoring;
+    if (backendScoring && (backendScoring.score_normalized != null || backendScoring.feasibility_score != null || c.properties?.feasibility_score_normalized != null)) {
+      const scoreNorm = backendScoring.score_normalized ?? backendScoring.feasibility_score ??
+        c.properties?.feasibility_score_normalized ?? c.properties?.feasibility_score;
+      const covPct = backendScoring.coverage ?? backendScoring.coverage_pct ?? c.properties?.coverage ??
+        Math.round(((backendScoring.max_available_weight || 40.0) / (backendScoring.theoretical_max_weight || 100.0)) * 100);
+      const hasStars = backendScoring.has_stars ?? c.properties?.has_stars ?? (covPct >= 60.0);
+      const suppressStars = !hasStars || covPct < 60;
+      const rawGrade = backendScoring.grade ?? backendScoring.feasibility_grade ?? c.properties?.feasibility_grade ?? 'Data Belum Lengkap';
+      const displayGrade = (suppressStars && rawGrade.includes('★'))
+        ? `${rawGrade.replace(/[★]+/g, '').trim()} (bintang ditangguhkan: cakupan < 60%)`
+        : rawGrade;
+      const bd = backendScoring.breakdown || c.properties?.breakdown || {};
+      const missing = backendScoring.missing || backendScoring.null_components || c.properties?.missing || [];
+      const obsComps = backendScoring.observed_components || Object.keys(bd).filter((k) => bd[k]?.status === 'OBSERVED' || bd[k]?.score != null || bd[k]?.points != null);
+
+      rows.push(['Skor kelayakan MCDA', `${scoreNorm} / 100 poin (${displayGrade})`]);
+      rows.push(['Cakupan data skoring', `${covPct}% (${obsComps.length} komponen diobservasi, ${missing.length} komponen null/missing)`]);
+      if (missing.length > 0) {
+        rows.push(['Komponen data null', `[${missing.join(', ')}] (dikeluarkan dari pembagi bobot dinamis)`]);
+      }
+      const proxScore = bd.campus_proximity?.points ?? bd.campus_proximity?.score ?? bd.proximity?.score ?? 0;
+      const spaceScore = bd.area?.points ?? bd.area?.score ?? bd.space?.score ?? null;
+      const costScore = bd.rent?.points ?? bd.rent?.score ?? bd.cost_efficiency?.score ?? null;
+      rows.push([
+        'Rincian per-komponen',
+        `Proksimitas: ${proxScore} pt · Luas: ${spaceScore != null ? `${spaceScore} pt` : 'null'} · Sewa: ${costScore != null ? `${costScore} pt` : 'null'}`,
+      ]);
+    }
+
+    // Tipe jalan, alasan ketidaktersediaan, indikator mahasiswa, dan gerbang kampus (dengan teks null jujur):
+    const roadType = c.roadType || c.properties?.road_type;
+    rows.push(['Tipe jalan akses', roadType || 'null (Tipe jalan belum diobservasi / tidak ada data OSM highway)']);
+
+    const unavailReason = c.unavailabilityReason || c.properties?.unavailability_reason;
+    if (unavailReason || isNonActionable) {
+      rows.push(['Alasan status/ketidaktersediaan', unavailReason || `Status '${c.status?.label || c.status?.value}' bukan peruntukan usaha kafe.`]);
+    } else {
+      rows.push(['Alasan status/ketidaktersediaan', 'null (Lahan memenuhi syarat kelayakan perencanaan)']);
+    }
+
+    const studentInd = c.studentIndicators || c.properties?.student_indicators;
+    rows.push(['Indikator mobilitas mahasiswa', studentInd || 'null (Indikator mobilitas mahasiswa belum disurvei lapangan)']);
+
+    const gateDist = c.distanceToNearestGateM ?? c.properties?.distance_to_nearest_gate_meters;
+    const gateStatus = c.gateObservationStatus || c.properties?.gate_observation_status || 'UNOBSERVED';
+    rows.push([
+      'Jarak ke gerbang kampus',
+      gateDist != null ? formatMeters(gateDist) : `null (${gateStatus} - koordinat gerbang belum diobservasi empiris)`,
+    ]);
+    rows.push(['Status observasi gerbang', String(gateStatus)]);
+
+    rows.push([
+      'Atribusi observasi',
+      'Diobservasi oleh Claude AI via Street View di peramban desktop Dharma 2026-11-01; peninjauan tim tertunda (observasi Street View, bukan survei fisik lapangan)',
+    ]);
 
     // Tautan kafe OSM terdekat (interaksi klik untuk memusatkan peta ke kafe pesaing terdekat)
     const nearCafeInfo = findNearestOsmCafe(c, this.vm.data.osmCafes?.items);
@@ -1044,8 +1183,8 @@ export class MapUI {
         h(
           'div',
           { class: 'callout callout-ok', role: 'status' },
-          h('strong', { text: '📍 Observasi Street View. ' }),
-          `Dilihat ${c.observedAt || '-'} pada gambar Street View ${c.imageryDate || '(tanggal gambar tidak dicatat)'}. Titik = posisi kamera (selisih ±10–30 m). Ketersediaan sewa belum dicek kecuali ada papan yang terbaca; status bisa berubah sejak tanggal gambar.`
+          h('strong', { text: '📍 Observasi Street View (Bukan Survei Fisik Lapangan). ' }),
+          `Diobservasi oleh Claude AI via Street View di peramban desktop Dharma (2026-11-01); peninjauan langsung tim masih tertunda (observasi Street View, bukan survei fisik lapangan). Dilihat ${c.observedAt || '-'} pada gambar Street View ${c.imageryDate || '(tanggal gambar tidak dicatat)'}. Titik = posisi kamera (selisih ±10–30 m). Ketersediaan sewa belum dicek kecuali ada papan yang terbaca; status bisa berubah sejak tanggal gambar.`
         )
       );
     }

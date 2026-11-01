@@ -11,6 +11,8 @@
  * 5. Kontrak Interop: Menerima payload dari window.handleLandMarkerClick(landData).
  */
 
+import { TEAM_SCORING_ASSUMPTIONS } from './config.js';
+
 export const ELIGIBLE_LAND_STATUSES = Object.freeze([
   'Lahan kosong',
   'Lahan yang tersedia untuk disewakan',
@@ -237,6 +239,159 @@ export function canPlanForLand(landData, eligibleStatuses = ELIGIBLE_LAND_STATUS
 }
 
 /**
+ * Kalkulator Skor Kelayakan Transparan dengan Renormalisasi Komponen Null (Shared Backend Formula - reports/backend.md Task 8)
+ * - Komponen 1: Proximity (maks 40 poin)
+ * - Komponen 2: Space / Luas (maks 30 poin)
+ * - Komponen 3: Cost Efficiency / Sewa per m2 (maks 30 poin)
+ * - Mandat Anti-Fabrikasi: Tidak menebak harga sewa (never guess rent).
+ * - Menekan bintang (suppress stars) jika cakupan data < 60%.
+ */
+export function calculateTransparentFeasibilityScore({
+  distance_meters = null,
+  area_sqm = null,
+  rental_price_yr = null,
+  radius_mode = 'baseline_500m',
+  assumptions = TEAM_SCORING_ASSUMPTIONS,
+} = {}) {
+  const weights = assumptions.weights;
+  const breakdown = {};
+  const observed_components = [];
+  const null_components = [];
+  let raw_earned_points = 0.0;
+  let max_available_weight = 0.0;
+
+  // 1. Proximity
+  const dist = typeof distance_meters === 'number' && Number.isFinite(distance_meters) && distance_meters >= 0
+    ? distance_meters
+    : null;
+  if (dist != null) {
+    observed_components.push('proximity');
+    max_available_weight += weights.proximity;
+    const pTh = assumptions.proximity_thresholds_m[radius_mode] || assumptions.proximity_thresholds_m.scenario_1km;
+    let pScore = 0;
+    if (pTh.excellent[0] != null && dist <= pTh.excellent[0]) pScore = pTh.excellent[1];
+    else if (pTh.good[0] != null && dist <= pTh.good[0]) pScore = pTh.good[1];
+    else if (pTh.fair[0] != null && dist <= pTh.fair[0]) pScore = pTh.fair[1];
+    else pScore = pTh.unsuitable[1];
+    raw_earned_points += pScore;
+    breakdown.proximity = {
+      score: pScore,
+      max_weight: weights.proximity,
+      distance_meters: Math.round(dist * 100) / 100,
+      status: 'OBSERVED',
+    };
+  } else {
+    null_components.push('proximity');
+    breakdown.proximity = {
+      score: null,
+      max_weight: weights.proximity,
+      status: 'NULL',
+    };
+  }
+
+  // 2. Space
+  const area = typeof area_sqm === 'number' && Number.isFinite(area_sqm) && area_sqm > 0
+    ? area_sqm
+    : null;
+  if (area != null) {
+    observed_components.push('space');
+    max_available_weight += weights.space;
+    const optRange = assumptions.space_thresholds_sqm.optimal_range[0];
+    let sScore = assumptions.space_thresholds_sqm.acceptable_fallback;
+    if (area >= optRange[0] && area <= optRange[1]) {
+      sScore = assumptions.space_thresholds_sqm.optimal_range[1];
+    } else {
+      for (const [rng, val] of assumptions.space_thresholds_sqm.moderate_ranges) {
+        if (area >= rng[0] && area <= rng[1]) {
+          sScore = val;
+          break;
+        }
+      }
+    }
+    raw_earned_points += sScore;
+    breakdown.space = {
+      score: sScore,
+      max_weight: weights.space,
+      area_sqm: Math.round(area * 100) / 100,
+      status: 'OBSERVED',
+    };
+  } else {
+    null_components.push('space');
+    breakdown.space = {
+      score: null,
+      max_weight: weights.space,
+      status: 'NULL (Unmeasured area)',
+    };
+  }
+
+  // 3. Cost Efficiency
+  const rent = typeof rental_price_yr === 'number' && Number.isFinite(rental_price_yr) && rental_price_yr > 0
+    ? rental_price_yr
+    : null;
+  if (rent != null && area != null) {
+    observed_components.push('cost_efficiency');
+    max_available_weight += weights.cost_efficiency;
+    const costPerSqm = rent / area;
+    const cTh = assumptions.cost_efficiency_thresholds_idr_per_sqm_yr;
+    let cScore = cTh.high[1];
+    if (costPerSqm <= cTh.efficient[0]) cScore = cTh.efficient[1];
+    else if (costPerSqm <= cTh.moderate[0]) cScore = cTh.moderate[1];
+    raw_earned_points += cScore;
+    breakdown.cost_efficiency = {
+      score: cScore,
+      max_weight: weights.cost_efficiency,
+      cost_per_sqm_yr: Math.round(costPerSqm * 100) / 100,
+      status: 'OBSERVED',
+    };
+  } else {
+    null_components.push('cost_efficiency');
+    const reason = rent == null ? 'Unobserved rent (never guessed)' : 'Missing area for per-sqm calculation';
+    breakdown.cost_efficiency = {
+      score: null,
+      max_weight: weights.cost_efficiency,
+      status: `NULL (${reason})`,
+    };
+  }
+
+  const coverage_pct = Math.round((max_available_weight / 100.0) * 100);
+  const is_renormalized = null_components.length > 0;
+  const score_normalized = max_available_weight > 0
+    ? Math.round((raw_earned_points / max_available_weight) * 100)
+    : null;
+
+  let grade = 'Data Belum Lengkap';
+  if (score_normalized != null) {
+    if (score_normalized >= 85) grade = 'Sangat Strategis ★★★';
+    else if (score_normalized >= 70) grade = 'Strategis ★★';
+    else if (score_normalized >= 50) grade = 'Cukup Layak ★';
+    else grade = 'Kurang Layak';
+  }
+
+  const suppress_stars = coverage_pct < 60;
+  let display_grade = grade;
+  if (suppress_stars && grade.includes('★')) {
+    const baseGrade = grade.replace(/[★]+/g, '').trim() || 'Data Belum Lengkap';
+    display_grade = `${baseGrade} (bintang ditangguhkan: cakupan < 60%)`;
+  }
+
+  return {
+    score_normalized,
+    grade,
+    display_grade,
+    coverage_pct,
+    suppress_stars,
+    raw_earned_points,
+    max_available_weight,
+    theoretical_max_weight: 100,
+    is_renormalized,
+    observed_components,
+    null_components,
+    breakdown,
+    radius_mode,
+  };
+}
+
+/**
  * Kalkulator Poin Kelayakan / Skor Potensi Bisnis Kafe (0 - 100 Poin)
  * Menilai aspek strategis dalam lingkup game "Buka Kafe" sebagai SKOR ILUSTRATIF:
  * 1. Proksimitas kampus (jarak metrik <= 1000m): maks 40 poin (data kosong = 0 poin)
@@ -247,53 +402,26 @@ export function canPlanForLand(landData, eligibleStatuses = ELIGIBLE_LAND_STATUS
  * @returns {{ points: number, grade: string, breakdown: { proximity: number, space: number, cost_efficiency: number } }}
  */
 export function calculateFeasibilityPoints({ distance_meters = null, area_sqm = null, rental_price_yr = null } = {}) {
-  let proximityScore = 0;
-  const dist = typeof distance_meters === 'number' && Number.isFinite(distance_meters) && distance_meters >= 0
-    ? distance_meters
-    : null;
-  if (dist != null) {
-    if (dist <= 300) proximityScore = 40;
-    else if (dist <= 600) proximityScore = 30;
-    else if (dist <= 1000) proximityScore = 20;
-    else proximityScore = 0;
-  }
-
-  let spaceScore = 0;
-  const area = typeof area_sqm === 'number' && Number.isFinite(area_sqm) && area_sqm > 0
-    ? area_sqm
-    : null;
-  if (area != null) {
-    if (area >= 80 && area <= 250) spaceScore = 30;
-    else if ((area >= 50 && area < 80) || (area > 250 && area <= 400)) spaceScore = 20;
-    else spaceScore = 10;
-  }
-
-  let costScore = 0;
-  const rent = typeof rental_price_yr === 'number' && Number.isFinite(rental_price_yr) && rental_price_yr > 0
-    ? rental_price_yr
-    : null;
-  if (area != null && rent != null) {
-    const costPerSqm = rent / area;
-    if (costPerSqm <= 400_000) costScore = 30;
-    else if (costPerSqm <= 700_000) costScore = 20;
-    else costScore = 10;
-  }
-
-  const totalPoints = proximityScore + spaceScore + costScore;
-  let grade = 'Kurang Layak';
-  if (totalPoints >= 85) grade = 'Sangat Strategis ★★★';
-  else if (totalPoints >= 70) grade = 'Strategis ★★';
-  else if (totalPoints >= 50) grade = 'Cukup Layak ★';
-  else if (totalPoints === 0) grade = 'Data Belum Lengkap';
+  const scoring = calculateTransparentFeasibilityScore({
+    distance_meters,
+    area_sqm,
+    rental_price_yr,
+    radius_mode: 'scenario_1km',
+  });
 
   return {
-    points: totalPoints,
-    grade,
+    points: scoring.raw_earned_points,
+    score_normalized: scoring.score_normalized,
+    grade: scoring.grade,
+    display_grade: scoring.display_grade,
+    coverage_pct: scoring.coverage_pct,
+    suppress_stars: scoring.suppress_stars,
     breakdown: {
-      proximity: proximityScore,
-      space: spaceScore,
-      cost_efficiency: costScore,
+      proximity: scoring.breakdown.proximity?.score ?? 0,
+      space: scoring.breakdown.space?.score ?? 0,
+      cost_efficiency: scoring.breakdown.cost_efficiency?.score ?? 0,
     },
+    scoring,
   };
 }
 
@@ -561,6 +689,8 @@ export class PlannerUI {
     this.currentLand = null;
     this.currentPlanId = null;
     this.previousActiveElement = null;
+    // Penanda status edit pengguna: kalkulator hanya menghitung ulang skor jika pengguna secara aktif menginput luas atau sewa
+    this.userEditedRentOrArea = false;
 
     // Cache elemen DOM jika ada di halaman
     this.els = {
@@ -628,6 +758,18 @@ export class PlannerUI {
       this.els.form.addEventListener('submit', (e) => {
         e.preventDefault();
         this.saveCurrentPlan();
+      });
+    }
+
+    if (this.els.areaInput) {
+      this.els.areaInput.addEventListener('input', () => {
+        this.userEditedRentOrArea = true;
+      });
+    }
+
+    if (this.els.rentalPriceInput) {
+      this.els.rentalPriceInput.addEventListener('input', () => {
+        this.userEditedRentOrArea = true;
       });
     }
 
@@ -798,6 +940,9 @@ export class PlannerUI {
 
     this.currentLand = landData;
     this.currentPlanId = existingPlan ? existingPlan.id : null;
+    this.userEditedRentOrArea = Boolean(
+      existingPlan && (existingPlan.params?.area_sqm != null || existingPlan.params?.rental_price_yr != null)
+    );
 
     // Isi informasi lahan
     if (this.els.landName) this.els.landName.textContent = landData.name || landData.id;
@@ -895,9 +1040,11 @@ export class PlannerUI {
       this.els.modal.hidden = false;
     }
 
-    // Focus ke input pertama untuk alur keyboard yang intuitif
+    // Focus ke input pertama untuk alur keyboard yang intuitif (WCAG 2.1 Keyboard Navigation)
     setTimeout(() => {
-      if (this.els.cafeNameInput) this.els.cafeNameInput.focus();
+      if (this.els.cafeNameInput && typeof this.els.cafeNameInput.focus === 'function') {
+        this.els.cafeNameInput.focus();
+      }
     }, 50);
 
     return { opened: true };
@@ -967,11 +1114,53 @@ export class PlannerUI {
     if (this.els.outTotalCapital) {
       this.els.outTotalCapital.textContent = formatRupiah(result.total_initial_capital);
     }
+
+    // Penilaian Skor Kelayakan:
+    // Sesuai mandat Perbaikan 1 + 4 Web:
+    // 1. Tampilkan skor/coverage/breakdown backend langsung sebelum pengguna mengedit.
+    // 2. Suppress bintang jika cakupan data < 60%.
+    // 3. Hanya hitung ulang ketika pengguna memasukkan harga sewa atau luas lahan (menggunakan asumsi rumus backend bersama).
+    const backendScoring = this.currentLand?.feasibility_scoring_baseline_500m ||
+      this.currentLand?.feasibility_scoring ||
+      this.currentLand?.properties?.feasibility_scoring_baseline_500m ||
+      this.currentLand?.properties?.feasibility_scoring;
+
+    let pointsText = '';
+    let gradeText = '';
+
+    if (!this.userEditedRentOrArea && backendScoring && (backendScoring.score_normalized != null || backendScoring.feasibility_score != null || this.currentLand?.properties?.feasibility_score_normalized != null)) {
+      const scoreNorm = backendScoring.score_normalized ?? backendScoring.feasibility_score ??
+        this.currentLand?.properties?.feasibility_score_normalized ?? this.currentLand?.properties?.feasibility_score;
+      const covPct = backendScoring.coverage ?? backendScoring.coverage_pct ?? this.currentLand?.properties?.coverage ??
+        Math.round(((backendScoring.max_available_weight || 40.0) / (backendScoring.theoretical_max_weight || 100.0)) * 100);
+      const hasStars = backendScoring.has_stars ?? this.currentLand?.properties?.has_stars ?? (covPct >= 60.0);
+      const suppressStars = !hasStars || covPct < 60;
+      const rawGrade = backendScoring.grade ?? backendScoring.feasibility_grade ?? this.currentLand?.properties?.feasibility_grade ?? 'Data Belum Lengkap';
+      const displayGrade = (suppressStars && rawGrade.includes('★'))
+        ? `${rawGrade.replace(/[★]+/g, '').trim()} (bintang ditangguhkan: cakupan < 60%)`
+        : rawGrade;
+      pointsText = `${scoreNorm} / 100 Poin (Skor Backend, Cakupan: ${covPct}%)`;
+      gradeText = displayGrade;
+    } else {
+      const rawDist = this.currentLand?.distance_meters ?? this.currentLand?.distanceM;
+      const distance_meters = typeof rawDist === 'number' && Number.isFinite(rawDist) ? rawDist : null;
+      const calculated = calculateTransparentFeasibilityScore({
+        distance_meters,
+        area_sqm: params.area_sqm,
+        rental_price_yr: params.rental_price_yr,
+        radius_mode: 'baseline_500m',
+        assumptions: TEAM_SCORING_ASSUMPTIONS,
+      });
+      const scoreVal = calculated.score_normalized ?? calculated.raw_earned_points;
+      pointsText = `${scoreVal} / 100 Poin (Cakupan: ${calculated.coverage_pct}%)`;
+      gradeText = calculated.display_grade;
+    }
+
     if (this.els.outFeasibilityPoints) {
-      this.els.outFeasibilityPoints.textContent = `${result.feasibility_points} / 100 Poin`;
+      this.els.outFeasibilityPoints.textContent = pointsText;
     }
     if (this.els.outFeasibilityGrade) {
-      this.els.outFeasibilityGrade.textContent = result.feasibility_grade;
+      this.els.outFeasibilityGrade.textContent = gradeText;
     }
     if (this.els.outBudgetStatus) {
       if (result.budget_limit > 0) {

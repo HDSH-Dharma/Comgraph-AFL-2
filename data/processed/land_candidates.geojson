@@ -2,10 +2,16 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Kandidat Lahan Terklasifikasi & Terevaluasi Spasial",
+    "source": "Survei Tim AFL 2 (Google Street View & Observasi Lapangan)",
+    "captured_date": "2026-11-01",
+    "generated_date": "2026-11-01",
     "total_features": 16,
     "crs": "EPSG:4326",
+    "computation_crs": "EPSG:32749",
     "dataset_kind": "survey_field_observation",
     "is_survey_dataset": true,
+    "scoring_model": "multi_component_transparent_v2",
+    "scoring_assumptions_basis": "team_assumptions",
     "evaluation_rules": {
       "baseline_radius_meters": 500.0,
       "scenario_radius_meters": 1000.0,
@@ -15,40 +21,211 @@
       ],
       "buffer_threshold_meters": 1000.0,
       "eligible_statuses": [
-        "Lahan yang tersedia untuk disewakan",
-        "Lahan kosong"
+        "Lahan kosong",
+        "Lahan yang tersedia untuk disewakan"
       ],
       "rentable_or_sale_statuses": [
-        "Lahan yang tersedia untuk disewakan",
-        "Lahan kosong"
+        "Lahan kosong",
+        "Lahan yang tersedia untuk disewakan"
       ],
       "non_rentable_or_sale_statuses": [
         "Rumah atau bangunan tempat tinggal",
-        "Bangunan yang telah digunakan untuk fungsi lain",
-        "Lahan yang statusnya belum terverifikasi"
+        "Lahan yang statusnya belum terverifikasi",
+        "Bangunan yang telah digunakan untuk fungsi lain"
       ]
     },
     "scoring_assumptions": {
-      "version": "1.0.0",
-      "description": "Asumsi parameter penilaian kelayakan kafe terpusat tim AFL 2 Computer Graphics",
+      "version": "2.0.0",
+      "basis": "team_assumptions",
+      "description": "Asumsi parameter penilaian kelayakan kafe terpusat tim AFL 2 Computer Graphics (Multi-Component Scoring)",
       "weights": {
-        "proximity": 40.0,
-        "space": 30.0,
-        "cost_efficiency": 30.0
+        "campus_proximity": 25.0,
+        "gate_proximity": 15.0,
+        "osm_cafe_competition": 15.0,
+        "road_type": 10.0,
+        "student_indicators": 10.0,
+        "rent": 15.0,
+        "area": 10.0,
+        "proximity": 25.0,
+        "space": 10.0,
+        "cost_efficiency": 15.0
+      },
+      "min_coverage_for_stars": 60.0,
+      "campus_proximity_thresholds_m": {
+        "baseline_500m": {
+          "excellent": [
+            150.0,
+            25.0
+          ],
+          "good": [
+            300.0,
+            18.0
+          ],
+          "fair": [
+            500.0,
+            12.0
+          ],
+          "unsuitable": [
+            null,
+            0.0
+          ]
+        },
+        "scenario_1km": {
+          "excellent": [
+            300.0,
+            25.0
+          ],
+          "good": [
+            600.0,
+            18.0
+          ],
+          "fair": [
+            1000.0,
+            12.0
+          ],
+          "unsuitable": [
+            null,
+            0.0
+          ]
+        }
+      },
+      "gate_proximity_thresholds_m": {
+        "excellent": [
+          100.0,
+          15.0
+        ],
+        "good": [
+          250.0,
+          11.0
+        ],
+        "fair": [
+          400.0,
+          7.0
+        ],
+        "unsuitable": [
+          null,
+          3.0
+        ]
+      },
+      "osm_cafe_competition_thresholds": {
+        "optimal_cluster": [
+          [
+            2,
+            5
+          ],
+          15.0
+        ],
+        "single_competitor": [
+          [
+            1,
+            1
+          ],
+          11.0
+        ],
+        "moderate_competition": [
+          [
+            6,
+            10
+          ],
+          8.0
+        ],
+        "high_saturation": [
+          [
+            11,
+            null
+          ],
+          4.0
+        ],
+        "zero_competitors": [
+          [
+            0,
+            0
+          ],
+          5.0
+        ]
+      },
+      "road_type_weights": {
+        "primary": 10.0,
+        "arterial": 10.0,
+        "arteri": 10.0,
+        "utama": 10.0,
+        "secondary": 9.0,
+        "sekunder": 9.0,
+        "tertiary": 8.0,
+        "kolektor": 8.0,
+        "residential": 6.0,
+        "lokal": 6.0,
+        "service": 4.0,
+        "akses": 4.0,
+        "alley": 3.0,
+        "gang": 3.0,
+        "default": 4.0
+      },
+      "student_indicators_weights": {
+        "high": 10.0,
+        "kost_cluster": 10.0,
+        "tinggi": 10.0,
+        "padat": 10.0,
+        "medium": 7.0,
+        "moderate": 7.0,
+        "sedang": 7.0,
+        "low": 4.0,
+        "rendah": 4.0,
+        "default": 4.0
+      },
+      "rent_thresholds_idr_per_sqm_yr": {
+        "efficient": [
+          400000.0,
+          15.0
+        ],
+        "moderate": [
+          700000.0,
+          10.0
+        ],
+        "high": [
+          null,
+          5.0
+        ]
+      },
+      "area_thresholds_sqm": {
+        "optimal_range": [
+          [
+            80.0,
+            250.0
+          ],
+          10.0
+        ],
+        "moderate_ranges": [
+          [
+            [
+              50.0,
+              80.0
+            ],
+            7.0
+          ],
+          [
+            [
+              250.0,
+              400.0
+            ],
+            7.0
+          ]
+        ],
+        "acceptable_fallback": 4.0
       },
       "proximity_thresholds_m": {
         "scenario_1km": {
           "excellent": [
             300.0,
-            40.0
+            25.0
           ],
           "good": [
             600.0,
-            30.0
+            18.0
           ],
           "fair": [
             1000.0,
-            20.0
+            12.0
           ],
           "unsuitable": [
             null,
@@ -58,15 +235,15 @@
         "baseline_500m": {
           "excellent": [
             150.0,
-            40.0
+            25.0
           ],
           "good": [
             300.0,
-            30.0
+            18.0
           ],
           "fair": [
             500.0,
-            20.0
+            12.0
           ],
           "unsuitable": [
             null,
@@ -80,7 +257,7 @@
             80.0,
             250.0
           ],
-          30.0
+          10.0
         ],
         "moderate_ranges": [
           [
@@ -88,34 +265,55 @@
               50.0,
               80.0
             ],
-            20.0
+            7.0
           ],
           [
             [
               250.0,
               400.0
             ],
-            20.0
+            7.0
           ]
         ],
-        "acceptable_fallback": 10.0
+        "acceptable_fallback": 4.0
       },
       "cost_efficiency_thresholds_idr_per_sqm_yr": {
         "efficient": [
           400000.0,
-          30.0
+          15.0
         ],
         "moderate": [
           700000.0,
-          20.0
+          10.0
         ],
         "high": [
           null,
-          10.0
+          5.0
         ]
       },
-      "anti_fabrication_rule": "Dilarang keras menebak harga sewa (never guess rent); jika rental_price_yr tidak terverifikasi maka bernilai null dan komponen sewa dinormalisasi secara transparan.",
-      "renormalization_method": "Komponen yang bernilai null dikeluarkan dari pembagi bobot; skor dihitung ulang ke skala 0-100 secara proporsional."
+      "anti_fabrication_rule": "Dilarang keras menebak harga sewa (never guess rent); nilai null dikeluarkan dari pembagi bobot dan dipertahankan dalam daftar missing.",
+      "star_thresholds": {
+        "3_stars": [
+          85.0,
+          "Sangat Strategis ★★★",
+          "★★★"
+        ],
+        "2_stars": [
+          70.0,
+          "Strategis ★★",
+          "★★"
+        ],
+        "1_star": [
+          50.0,
+          "Cukup Layak ★",
+          "★"
+        ],
+        "0_stars": [
+          0.0,
+          "Kurang Layak",
+          ""
+        ]
+      }
     },
     "open_data_policy": {
       "defensible_basis": "Empirical Field Survey via Google Street View & Google Maps (Observasi Tim Mahasiswa)",
@@ -170,6 +368,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 3,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -180,79 +382,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
-        "feasibility_score_normalized": 75.0,
-        "feasibility_grade": "Strategis ★★",
+        "feasibility_score": 82.5,
+        "feasibility_score_normalized": 82.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 370.82,
+            "points": 18.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 3,
+            "points": 15.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 370.82,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 3,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 33.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 370.82,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 50.0,
-          "grade": "Cukup Layak ★",
-          "raw_earned_points": 20.0,
+          "feasibility_score": 67.5,
+          "score_normalized": 67.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 370.82,
+              "points": 12.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 3,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 27.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 20.0,
-              "max_weight": 40.0,
-              "distance_meters": 370.82,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -304,6 +645,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 7,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -314,79 +659,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "feasibility_score_normalized": 75.0,
-        "feasibility_grade": "Strategis ★★",
+        "feasibility_score": 65.0,
+        "feasibility_score_normalized": 65.0,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 426.88,
+            "points": 18.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 7,
+            "points": 8.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 65.0,
+          "score_normalized": 65.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 426.88,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 7,
+              "points": 8.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 26.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 426.88,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
+          "feasibility_score": 50.0,
           "score_normalized": 50.0,
-          "grade": "Cukup Layak ★",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 426.88,
+              "points": 12.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 7,
+              "points": 8.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
           "raw_earned_points": 20.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 20.0,
-              "max_weight": 40.0,
-              "distance_meters": 426.88,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -438,6 +922,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 2,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -448,79 +936,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "feasibility_score": 100.0,
         "feasibility_score_normalized": 100.0,
-        "feasibility_grade": "Sangat Strategis ★★★",
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 178.2,
+            "points": 25.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 2,
+            "points": 15.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
+          "feasibility_score": 100.0,
           "score_normalized": 100.0,
-          "grade": "Sangat Strategis ★★★",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 178.2,
+              "points": 25.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 2,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
           "raw_earned_points": 40.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 40.0,
-              "max_weight": 40.0,
-              "distance_meters": 178.2,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 178.2,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 2,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 33.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 178.2,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -572,6 +1199,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 0,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": false,
         "is_in_buffer_1000m": true,
@@ -582,79 +1213,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
-        "feasibility_score_normalized": 75.0,
-        "feasibility_grade": "Strategis ★★",
+        "feasibility_score": 57.5,
+        "feasibility_score_normalized": 57.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 540.97,
+            "points": 18.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 0,
+            "points": 5.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 57.5,
+          "score_normalized": 57.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 540.97,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 23.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 540.97,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 0.0,
-          "grade": "Kurang Layak",
-          "raw_earned_points": 0.0,
+          "feasibility_score": 12.5,
+          "score_normalized": 12.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 540.97,
+              "points": 0.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 5.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 0.0,
-              "max_weight": 40.0,
-              "distance_meters": 540.97,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -706,6 +1476,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 0,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": true,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -716,79 +1490,218 @@
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
-        "feasibility_score_normalized": 75.0,
-        "feasibility_grade": "Strategis ★★",
+        "feasibility_score": 57.5,
+        "feasibility_score_normalized": 57.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 465.77,
+            "points": 18.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 0,
+            "points": 5.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 57.5,
+          "score_normalized": 57.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 465.77,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 23.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 465.77,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 50.0,
-          "grade": "Cukup Layak ★",
-          "raw_earned_points": 20.0,
+          "feasibility_score": 42.5,
+          "score_normalized": 42.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 465.77,
+              "points": 12.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 17.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 20.0,
-              "max_weight": 40.0,
-              "distance_meters": 465.77,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "rentable_or_usable",
@@ -840,6 +1753,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 0,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": true,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -850,79 +1767,218 @@
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
-        "feasibility_score_normalized": 100.0,
-        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_score": 75.0,
+        "feasibility_score_normalized": 75.0,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 258.58,
+            "points": 25.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 0,
+            "points": 5.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 100.0,
-          "grade": "Sangat Strategis ★★★",
-          "raw_earned_points": 40.0,
-          "max_available_weight": 40.0,
-          "theoretical_max_weight": 100.0,
-          "is_renormalized": true,
-          "observed_components": [
-            "proximity"
-          ],
-          "null_components": [
-            "space",
-            "cost_efficiency"
+          "feasibility_score": 75.0,
+          "score_normalized": 75.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
           "breakdown": {
-            "proximity": {
-              "score": 40.0,
-              "max_weight": 40.0,
-              "distance_meters": 258.58,
+            "campus_proximity": {
+              "raw": 258.58,
+              "points": 25.0,
+              "weight": 25.0,
               "status": "OBSERVED"
             },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
             },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
             }
           },
-          "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
-        },
-        "feasibility_scoring_baseline_500m": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
           "raw_earned_points": 30.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "radius_mode": "scenario_1km",
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+        },
+        "feasibility_scoring_baseline_500m": {
+          "feasibility_score": 57.5,
+          "score_normalized": 57.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
           "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 258.58,
+            "campus_proximity": {
+              "raw": 258.58,
+              "points": 18.0,
+              "weight": 25.0,
               "status": "OBSERVED"
             },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
             },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
             }
           },
+          "raw_earned_points": 23.0,
+          "max_available_weight": 40.0,
+          "theoretical_max_weight": 100.0,
+          "is_renormalized": true,
+          "observed_components": [
+            "campus_proximity",
+            "osm_cafe_competition"
+          ],
+          "null_components": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "rentable_or_usable",
@@ -974,6 +2030,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 0,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": true,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -984,79 +2044,218 @@
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
-        "feasibility_score_normalized": 75.0,
-        "feasibility_grade": "Strategis ★★",
+        "feasibility_score": 57.5,
+        "feasibility_score_normalized": 57.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 474.43,
+            "points": 18.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 0,
+            "points": 5.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 57.5,
+          "score_normalized": 57.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 474.43,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 23.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 474.43,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 50.0,
-          "grade": "Cukup Layak ★",
-          "raw_earned_points": 20.0,
+          "feasibility_score": 42.5,
+          "score_normalized": 42.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 474.43,
+              "points": 12.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 17.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 20.0,
-              "max_weight": 40.0,
-              "distance_meters": 474.43,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "rentable_or_usable",
@@ -1108,6 +2307,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 1,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": true,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -1118,79 +2321,218 @@
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
-        "feasibility_score_normalized": 100.0,
-        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_score": 90.0,
+        "feasibility_score_normalized": 90.0,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 238.66,
+            "points": 25.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 1,
+            "points": 11.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 100.0,
-          "grade": "Sangat Strategis ★★★",
-          "raw_earned_points": 40.0,
+          "feasibility_score": 90.0,
+          "score_normalized": 90.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 238.66,
+              "points": 25.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 1,
+              "points": 11.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 36.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 40.0,
-              "max_weight": 40.0,
-              "distance_meters": 238.66,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 72.5,
+          "score_normalized": 72.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 238.66,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 1,
+              "points": 11.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 29.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 238.66,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "rentable_or_usable",
@@ -1242,6 +2584,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 0,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -1252,79 +2598,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "feasibility_score_normalized": 75.0,
-        "feasibility_grade": "Strategis ★★",
+        "feasibility_score": 57.5,
+        "feasibility_score_normalized": 57.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 330.12,
+            "points": 18.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 0,
+            "points": 5.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 57.5,
+          "score_normalized": 57.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 330.12,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 23.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 330.12,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 50.0,
-          "grade": "Cukup Layak ★",
-          "raw_earned_points": 20.0,
+          "feasibility_score": 42.5,
+          "score_normalized": 42.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 330.12,
+              "points": 12.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 17.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 20.0,
-              "max_weight": 40.0,
-              "distance_meters": 330.12,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -1376,6 +2861,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 2,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -1386,79 +2875,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "feasibility_score": 100.0,
         "feasibility_score_normalized": 100.0,
-        "feasibility_grade": "Sangat Strategis ★★★",
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 169.59,
+            "points": 25.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 2,
+            "points": 15.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
+          "feasibility_score": 100.0,
           "score_normalized": 100.0,
-          "grade": "Sangat Strategis ★★★",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 169.59,
+              "points": 25.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 2,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
           "raw_earned_points": 40.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 40.0,
-              "max_weight": 40.0,
-              "distance_meters": 169.59,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 169.59,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 2,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 33.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 169.59,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -1510,6 +3138,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 2,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -1520,79 +3152,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "feasibility_score": 100.0,
         "feasibility_score_normalized": 100.0,
-        "feasibility_grade": "Sangat Strategis ★★★",
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 241.48,
+            "points": 25.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 2,
+            "points": 15.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
+          "feasibility_score": 100.0,
           "score_normalized": 100.0,
-          "grade": "Sangat Strategis ★★★",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 241.48,
+              "points": 25.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 2,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
           "raw_earned_points": 40.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 40.0,
-              "max_weight": 40.0,
-              "distance_meters": 241.48,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 241.48,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 2,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 33.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 241.48,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -1644,6 +3415,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 2,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -1654,79 +3429,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
-        "feasibility_score_normalized": 75.0,
-        "feasibility_grade": "Strategis ★★",
+        "feasibility_score": 82.5,
+        "feasibility_score_normalized": 82.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 471.87,
+            "points": 18.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 2,
+            "points": 15.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 471.87,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 2,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 33.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 471.87,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 50.0,
-          "grade": "Cukup Layak ★",
-          "raw_earned_points": 20.0,
+          "feasibility_score": 67.5,
+          "score_normalized": 67.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 471.87,
+              "points": 12.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 2,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 27.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 20.0,
-              "max_weight": 40.0,
-              "distance_meters": 471.87,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -1778,6 +3692,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 9,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -1788,79 +3706,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "feasibility_score_normalized": 75.0,
-        "feasibility_grade": "Strategis ★★",
+        "feasibility_score": 65.0,
+        "feasibility_score_normalized": 65.0,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 374.08,
+            "points": 18.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 9,
+            "points": 8.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 65.0,
+          "score_normalized": 65.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 374.08,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 9,
+              "points": 8.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 26.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 374.08,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
+          "feasibility_score": 50.0,
           "score_normalized": 50.0,
-          "grade": "Cukup Layak ★",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 374.08,
+              "points": 12.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 9,
+              "points": 8.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
           "raw_earned_points": 20.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 20.0,
-              "max_weight": 40.0,
-              "distance_meters": 374.08,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -1912,6 +3969,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 4,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -1922,79 +3983,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
-        "feasibility_score_normalized": 75.0,
-        "feasibility_grade": "Strategis ★★",
+        "feasibility_score": 82.5,
+        "feasibility_score_normalized": 82.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 476.55,
+            "points": 18.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 4,
+            "points": 15.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 476.55,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 4,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 33.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 476.55,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 50.0,
-          "grade": "Cukup Layak ★",
-          "raw_earned_points": 20.0,
+          "feasibility_score": 67.5,
+          "score_normalized": 67.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 476.55,
+              "points": 12.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 4,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 27.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 20.0,
-              "max_weight": 40.0,
-              "distance_meters": 476.55,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -2046,6 +4246,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 3,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -2056,79 +4260,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "feasibility_score": 100.0,
         "feasibility_score_normalized": 100.0,
-        "feasibility_grade": "Sangat Strategis ★★★",
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 273.4,
+            "points": 25.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 3,
+            "points": 15.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
+          "feasibility_score": 100.0,
           "score_normalized": 100.0,
-          "grade": "Sangat Strategis ★★★",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 273.4,
+              "points": 25.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 3,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
           "raw_earned_points": 40.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 40.0,
-              "max_weight": 40.0,
-              "distance_meters": 273.4,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 75.0,
-          "grade": "Strategis ★★",
-          "raw_earned_points": 30.0,
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 273.4,
+              "points": 18.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 3,
+              "points": 15.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 33.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 30.0,
-              "max_weight": 40.0,
-              "distance_meters": 273.4,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -2180,6 +4523,10 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
+        "nearby_cafes_count": 0,
+        "road_type": null,
+        "student_indicators": null,
+        "hard_gate_passed": false,
         "is_in_buffer": true,
         "is_in_buffer_500m": true,
         "is_in_buffer_1000m": true,
@@ -2190,79 +4537,218 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
-        "feasibility_score_normalized": 100.0,
-        "feasibility_grade": "Sangat Strategis ★★★",
+        "feasibility_score": 75.0,
+        "feasibility_score_normalized": 75.0,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+        "has_stars": false,
+        "stars": "",
+        "missing": [
+          "gate_proximity",
+          "road_type",
+          "student_indicators",
+          "rent",
+          "area"
+        ],
+        "breakdown": {
+          "campus_proximity": {
+            "raw": 145.68,
+            "points": 25.0,
+            "weight": 25.0,
+            "status": "OBSERVED"
+          },
+          "gate_proximity": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Gate unobserved)"
+          },
+          "osm_cafe_competition": {
+            "raw": 0,
+            "points": 5.0,
+            "weight": 15.0,
+            "status": "OBSERVED"
+          },
+          "road_type": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Road type unobserved)"
+          },
+          "student_indicators": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Student indicators unobserved)"
+          },
+          "rent": {
+            "raw": null,
+            "points": null,
+            "weight": 15.0,
+            "status": "MISSING (Unobserved rent (never guessed))"
+          },
+          "area": {
+            "raw": null,
+            "points": null,
+            "weight": 10.0,
+            "status": "MISSING (Unmeasured area)"
+          }
+        },
         "feasibility_scoring": {
-          "score_normalized": 100.0,
-          "grade": "Sangat Strategis ★★★",
-          "raw_earned_points": 40.0,
+          "feasibility_score": 75.0,
+          "score_normalized": 75.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 145.68,
+              "points": 25.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 30.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 40.0,
-              "max_weight": 40.0,
-              "distance_meters": 145.68,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "scenario_1km",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "score_normalized": 100.0,
-          "grade": "Sangat Strategis ★★★",
-          "raw_earned_points": 40.0,
+          "feasibility_score": 75.0,
+          "score_normalized": 75.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "has_stars": false,
+          "stars": "",
+          "missing": [
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
+          ],
+          "breakdown": {
+            "campus_proximity": {
+              "raw": 145.68,
+              "points": 25.0,
+              "weight": 25.0,
+              "status": "OBSERVED"
+            },
+            "gate_proximity": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Gate unobserved)"
+            },
+            "osm_cafe_competition": {
+              "raw": 0,
+              "points": 5.0,
+              "weight": 15.0,
+              "status": "OBSERVED"
+            },
+            "road_type": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Road type unobserved)"
+            },
+            "student_indicators": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Student indicators unobserved)"
+            },
+            "rent": {
+              "raw": null,
+              "points": null,
+              "weight": 15.0,
+              "status": "MISSING (Unobserved rent (never guessed))"
+            },
+            "area": {
+              "raw": null,
+              "points": null,
+              "weight": 10.0,
+              "status": "MISSING (Unmeasured area)"
+            }
+          },
+          "raw_earned_points": 30.0,
           "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
-            "space",
-            "cost_efficiency"
+            "gate_proximity",
+            "road_type",
+            "student_indicators",
+            "rent",
+            "area"
           ],
-          "breakdown": {
-            "proximity": {
-              "score": 40.0,
-              "max_weight": 40.0,
-              "distance_meters": 145.68,
-              "status": "OBSERVED"
-            },
-            "space": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unmeasured area)"
-            },
-            "cost_efficiency": {
-              "score": null,
-              "max_weight": 30.0,
-              "status": "NULL (Unobserved rent (never guessed))"
-            }
-          },
           "radius_mode": "baseline_500m",
-          "assumptions_version": "1.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (bobot tersedia 40.0/100.0). Komponen null: ['space', 'cost_efficiency']."
+          "assumptions_version": "2.0.0",
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",

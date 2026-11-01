@@ -17,6 +17,7 @@ import {
   drawCampusMarker,
   drawListingMarker,
   drawOsmCafeMarker,
+  drawGateMarker,
   campusHeadCenter,
 } from './symbols.js';
 import { worldToLonLat } from './viewport.js';
@@ -87,6 +88,7 @@ export class MapRenderer {
     this.drawBuffers(visible.buffers, BUFFER_STYLE);
     this.drawOsmBuildings(visible.osmBuildings);
     this.drawCampuses(visible.campuses);
+    if (visible.gates?.length) this.drawGates(visible.gates);
     this.drawOsmCafes(visible.osmCafes);
     this.drawListings(visible.listings);
     this.drawCandidates(visible.candidates);
@@ -229,6 +231,18 @@ export class MapRenderer {
       const highlight =
         (selection?.kind === 'campus' && selection.id === u.id) || (hover?.kind === 'campus' && hover.id === u.id);
       drawCampusMarker(this.ctx, x, y, CAMPUS_STYLE.size, { highlight });
+    }
+  }
+
+  drawGates(gates) {
+    if (!gates || !gates.length) return;
+    const { ctx, viewport: vp } = this;
+    const { selection, hover } = this.vm;
+    for (const g of gates) {
+      const [x, y] = vp.worldToScreen(g.wx, g.wy);
+      if (x < -30 || y < -30 || x > vp.width + 30 || y > vp.height + 30) continue;
+      const highlight = (selection?.kind === 'gate' && selection.id === g.id) || (hover?.kind === 'gate' && hover.id === g.id);
+      drawGateMarker(ctx, x, y, 7, { highlight });
     }
   }
 
