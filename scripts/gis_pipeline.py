@@ -321,7 +321,7 @@ class GISPipeline:
         exported_unis = {
             "type": "FeatureCollection",
             "metadata": {
-                "title": "Titik Koordinat Terverifikasi Kampus Unair, Unesa, Ubaya (Processed)",
+                "title": "Titik Koordinat Terverifikasi Kampus Unair, UKWMS, Ubaya (Processed)",
                 "total_features": len(processed_campuses),
                 "crs": "EPSG:4326",
                 "computation_crs": "EPSG:32749"

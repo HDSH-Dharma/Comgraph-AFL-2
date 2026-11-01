@@ -21,7 +21,7 @@ export function statusByKey(key) {
 }
 
 async function fetchJson(url) {
-  if (location.protocol === 'file:') {
+  if (typeof location !== 'undefined' && location.protocol === 'file:') {
     throw new DataLoadError(
       'file-protocol',
       'Halaman dibuka langsung dari file. Jalankan server lokal dari root repo (python3 -m http.server 8000) lalu buka http://localhost:8000/web/.'
@@ -242,7 +242,7 @@ function parseCandidates(json) {
   return { items, skipped, unknownStatus, metadata: json.metadata ?? null };
 }
 
-const PARSERS = {
+export const PARSERS = {
   universities: parseUniversities,
   buffers: parseBuffers,
   candidates: parseCandidates,
@@ -280,14 +280,59 @@ export async function loadAllData(files = DATA_FILES) {
 }
 
 /** Hubungkan kandidat ke institusi lewat nearest_university_id (join, bukan tebakan). */
-function linkInstitutions(result) {
+export function linkInstitutions(result) {
   const byId = new Map();
-  for (const b of result.buffers.items) if (b.universityId && b.institution) byId.set(b.universityId, b.institution);
-  for (const u of result.universities.items) if (u.institution) byId.set(u.id, u.institution);
+  const register = (id, inst) => {
+    if (!id || !inst) return;
+    byId.set(id, inst);
+    byId.set(id.toLowerCase(), inst);
+    byId.set(id.toUpperCase(), inst);
+  };
+  for (const b of result.buffers.items) if (b.universityId && b.institution) register(b.universityId, b.institution);
+  for (const u of result.universities.items) if (u.institution) register(u.id, u.institution);
   for (const b of result.buffers.items) {
-    if (!b.institution && b.universityId) b.institution = byId.get(b.universityId) ?? null;
+    if (!b.institution && b.universityId) {
+      b.institution = byId.get(b.universityId) ?? byId.get(b.universityId.toLowerCase()) ?? null;
+    }
   }
   for (const c of result.candidates.items) {
-    c.institution = (c.nearestUniversityId && byId.get(c.nearestUniversityId)) || null;
+    c.institution =
+      (c.nearestUniversityId && (byId.get(c.nearestUniversityId) || byId.get(c.nearestUniversityId.toLowerCase()))) ||
+      (c.properties?.institution ? str(c.properties.institution) : null);
+  }
+}
+
+/** Objek yang dikirim ke modul perencanaan kafe: properti GeoJSON + koordinat [lon, lat] + institusi. */
+export function buildLandData(c) {
+  return {
+    ...c.properties,
+    institution: c.institution || c.properties?.institution || null,
+    coordinates: [c.lon, c.lat],
+  };
+}
+
+/**
+ * Notifikasi modul perencana eksternal.
+ * Menjalankan kontrak window.handleLandMarkerClick(landData) dengan fallback ke window.handleLandClick(landData).
+ * Menjamin isolasi: peta tidak pernah crash bila handler belum dimuat, melempar error, atau reject promise.
+ * @returns {'called' | 'missing' | 'error'}
+ */
+export function notifyPlanner(c, win = typeof window !== 'undefined' ? window : globalThis) {
+  const handler =
+    typeof win?.handleLandMarkerClick === 'function'
+      ? win.handleLandMarkerClick
+      : typeof win?.handleLandClick === 'function'
+        ? win.handleLandClick
+        : null;
+  if (!handler) return 'missing';
+  try {
+    const result = handler(buildLandData(c));
+    if (result && typeof result.then === 'function') {
+      result.then(undefined, (err) => console.error('[peta] handleLandMarkerClick (async):', err));
+    }
+    return 'called';
+  } catch (err) {
+    console.error('[peta] handleLandMarkerClick:', err);
+    return 'error';
   }
 }

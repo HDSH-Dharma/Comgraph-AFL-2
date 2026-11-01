@@ -163,7 +163,7 @@ class TestGISPipeline(unittest.TestCase):
 
     def test_04_five_statuses_and_conditional_eligibility(self):
         """Verifikasi 5 kategori status baku dan aturan kelayakan (hanya 2 status pertama & <=1000)."""
-        center_lon, center_lat = 112.7270644, -7.3140718  # Unesa Ketintang
+        center_lon, center_lat = 112.7448867, -7.2814773  # UKWMS Dinoyo
         cx_m, cy_m = self.pipeline.transformer_fwd.transform(center_lon, center_lat)
 
         # Titik 300m (inside buffer)
@@ -180,10 +180,10 @@ class TestGISPipeline(unittest.TestCase):
                 "type": "Feature",
                 "geometry": {"type": "Point", "coordinates": [center_lon, center_lat]},
                 "properties": {
-                    "id": "UNESA-KETINTANG",
-                    "institution": "UNESA",
-                    "university_name": "Universitas Negeri Surabaya",
-                    "campus_name": "Unesa Ketintang",
+                    "id": "UKWMS-DINOYO",
+                    "institution": "UKWMS",
+                    "university_name": "Universitas Katolik Widya Mandala Surabaya",
+                    "campus_name": "UKWMS Kampus Dinoyo",
                     "source": "OSM",
                     "verified_at": "2026-10-31"
                 }
@@ -349,6 +349,90 @@ class TestGISPipeline(unittest.TestCase):
             self.assertIsInstance(props["is_in_buffer"], bool)
             self.assertIsInstance(props["is_eligible"], bool)
             self.assertIsInstance(props["distance_meters"], float)
+
+    def test_07_regression_target_institutions_unair_ukwms_ubaya_no_unesa(self):
+        """
+        Pemeriksaan Regresi Target Institusi:
+        Menjamin target institusi resmi adalah Unair, UKWMS, dan Ubaya.
+        Memverifikasi ketiadaan total UNESA dari data raw dan processed,
+        serta memverifikasi 3 kampus UKWMS (Dinoyo, Kalijudan, Pakuwon City)
+        memiliki koordinat valid dan sumber OSM yang dapat ditelusuri.
+        """
+        raw_unis_path = "data/raw/universities.geojson"
+        raw_cands_path = "data/raw/land_candidates.geojson"
+        proc_unis_path = "data/processed/universities.geojson"
+        proc_buff_path = "data/processed/buffer_1km.geojson"
+        proc_cands_path = "data/processed/land_candidates.geojson"
+
+        # 1. Audit File Raw Universities
+        with open(raw_unis_path, "r", encoding="utf-8") as f:
+            raw_unis = json.load(f)
+
+        features = raw_unis.get("features", [])
+        self.assertEqual(len(features), 8, "Harus ada tepat 8 titik kampus terverifikasi.")
+
+        inst_counts = {}
+        campus_ids = set()
+        for feat in features:
+            props = feat["properties"]
+            cid = props["id"]
+            inst = props["institution"]
+            campus_ids.add(cid)
+            inst_counts[inst] = inst_counts.get(inst, 0) + 1
+
+            # Larangan keras UNESA
+            self.assertNotIn("UNESA", inst, f"Institusi UNESA dilarang ada pada {cid}.")
+            self.assertNotIn("UNESA", cid, f"ID kampus {cid} tidak boleh memuat UNESA.")
+            self.assertNotIn("unesa", props.get("university_name", "").lower(), f"Nama universitas tidak boleh UNESA.")
+
+        # Verifikasi tripartit resmi: Unair (3), UKWMS (3), Ubaya (2)
+        expected_insts = {"UNAIR": 3, "UKWMS": 3, "UBAYA": 2}
+        self.assertEqual(inst_counts, expected_insts, f"Distribusi institusi tidak sesuai: {inst_counts}")
+
+        # Verifikasi 3 kampus UKWMS Surabaya
+        expected_ukwms_campuses = {
+            "UKWMS-DINOYO": "279576575",
+            "UKWMS-KALIJUDAN": "432849700",
+            "UKWMS-PAKUWON": "876180997"
+        }
+        for uk_id, osm_way in expected_ukwms_campuses.items():
+            self.assertIn(uk_id, campus_ids, f"Kampus {uk_id} harus ada di dataset.")
+            matching = [feat for feat in features if feat["properties"]["id"] == uk_id][0]
+            src = matching["properties"]["source"]
+            self.assertIn(osm_way, src, f"Sumber OSM untuk {uk_id} harus memuat way/{osm_way}.")
+            coords = matching["geometry"]["coordinates"]
+            # Validasi batas Surabaya
+            self.assertTrue(SURABAYA_BBOX["min_lon"] <= coords[0] <= SURABAYA_BBOX["max_lon"])
+            self.assertTrue(SURABAYA_BBOX["min_lat"] <= coords[1] <= SURABAYA_BBOX["max_lat"])
+
+        # 2. Audit File Processed Buffers
+        with open(proc_buff_path, "r", encoding="utf-8") as f:
+            buff_data = json.load(f)
+        self.assertEqual(len(buff_data["features"]), 8)
+        buff_insts = {b["properties"]["institution"] for b in buff_data["features"]}
+        self.assertEqual(buff_insts, {"UNAIR", "UKWMS", "UBAYA"})
+        self.assertNotIn("UNESA", buff_insts)
+
+        # 3. Audit File Processed Land Candidates
+        with open(proc_cands_path, "r", encoding="utf-8") as f:
+            cand_data = json.load(f)
+
+        for cf in cand_data["features"]:
+            cprops = cf["properties"]
+            nearest_uid = cprops["nearest_university_id"]
+            self.assertNotIn("UNESA", nearest_uid, f"Kandidat {cprops['id']} tidak boleh merujuk ke UNESA.")
+            self.assertTrue(
+                nearest_uid.startswith(("UNAIR-", "UKWMS-", "UBAYA-")),
+                f"Nearest university {nearest_uid} harus merupakan Unair, UKWMS, atau Ubaya."
+            )
+
+        # Verifikasi kandidat khusus UKWMS
+        ukwms_cands = [cf for cf in cand_data["features"] if cf["properties"]["id"].startswith("CAND-UKWMS-")]
+        self.assertEqual(len(ukwms_cands), 4, "Harus ada 4 kandidat yang dikurasi khusus untuk UKWMS.")
+        for uk_cand in ukwms_cands:
+            p = uk_cand["properties"]
+            self.assertTrue(p["is_in_buffer"], f"Kandidat {p['id']} harus berada di dalam buffer UKWMS.")
+            self.assertLessEqual(p["distance_meters"], 1000.0)
 
 if __name__ == "__main__":
     unittest.main()

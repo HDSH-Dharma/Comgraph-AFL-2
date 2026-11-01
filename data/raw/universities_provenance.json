@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "extraction_timestamp": "2026-10-31T16:58:00+07:00",
+    "extraction_timestamp": "2026-10-31T23:40:00+07:00",
     "osm_overpass_query_files": [
-      "data/raw/osm_downloads/overpass_target_unis.json",
-      "data/raw/osm_downloads/overpass_surabaya_universities.json"
+      "Overpass API (https://overpass-api.de/api/interpreter)",
+      "Nominatim API (https://nominatim.openstreetmap.org/search)"
     ],
     "bounding_box_surabaya": {
       "south": -7.38,
@@ -13,12 +13,12 @@
     },
     "target_institutions": [
       "UNAIR",
-      "UNESA",
+      "UKWMS",
       "UBAYA"
     ],
     "crs": "EPSG:4326",
     "coordinate_order": "[longitude, latitude]",
-    "methodology": "Strict empirical extraction from OpenStreetMap Overpass payload. Ground-truth validation without fabricating points."
+    "methodology": "Strict empirical extraction from OpenStreetMap Overpass & Nominatim payloads. Empirical ground-truth verification of UKWMS campuses in Surabaya (Dinoyo, Kalijudan, Pakuwon City); no fabricated coordinates or assumed campus counts."
   },
   "verified_campuses": [
     {
@@ -128,7 +128,7 @@
           "osm_ref": "node/14310395514",
           "name": "FTMM",
           "distance_m": 167,
-          "note": "Merged via spatial clustering < 300m as specified in proposal"
+          "note": "Merged via spatial clustering < 300m"
         },
         {
           "osm_ref": "way/119517919",
@@ -144,118 +144,101 @@
       "verified_at": "2026-10-31"
     },
     {
-      "id": "UNESA-KETINTANG",
-      "institution": "UNESA",
-      "university_name": "Universitas Negeri Surabaya",
-      "campus_name": "Universitas Negeri Surabaya Kampus Ketintang",
-      "osm_ref": "way/689258419",
-      "source_url": "https://www.openstreetmap.org/way/689258419",
+      "id": "UKWMS-DINOYO",
+      "institution": "UKWMS",
+      "university_name": "Universitas Katolik Widya Mandala Surabaya",
+      "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+      "osm_ref": "way/279576575",
+      "source_url": "https://www.openstreetmap.org/way/279576575",
       "coordinates_wgs84": {
-        "lat": -7.3140718,
-        "lon": 112.7270644
+        "lat": -7.2814773,
+        "lon": 112.7448867
       },
       "geojson_point": [
-        112.7270644,
-        -7.3140718
+        112.7448867,
+        -7.2814773
       ],
       "osm_tags": {
         "amenity": "university",
-        "name": "Universitas Negeri Surabaya"
+        "name": "Universitas Katolik Widya Mandala Surabaya",
+        "addr:street": "Jl. Dinoyo 42-44",
+        "addr:full": "Jalan Dinoyo",
+        "addr:city": "Keputran, Tegal Sari, Surabaya",
+        "addr:postcode": "60261",
+        "operator:type": "private"
       },
       "clustered_sub_elements": [
         {
-          "osm_ref": "way/453651723",
-          "name": "Pusat Bahasa Universitas Negeri Surabaya",
-          "distance_m": 148
+          "osm_ref": "node/12291009160",
+          "name": "Universitas Widya Mandala B (Bus stop)",
+          "distance_m": 72
         },
         {
-          "osm_ref": "node/12724564687",
-          "name": "Gedung A10 Teknik Informatika UNESA",
-          "distance_m": 295
-        },
-        {
-          "osm_ref": "way/466563624",
-          "name": "Fakultas Matematika Dan Ilmu Pengetahuan Alam Unesa",
-          "distance_m": 145
-        },
-        {
-          "osm_ref": "way/478992926",
-          "name": "UKM Center Universitas Negeri Surabaya",
-          "distance_m": 180
+          "osm_ref": "node/12291009162",
+          "name": "Universitas Widya Mandala A (Bus stop)",
+          "distance_m": 61
         }
       ],
       "verified_at": "2026-10-31"
     },
     {
-      "id": "UNESA-LIDAH-WETAN",
-      "institution": "UNESA",
-      "university_name": "Universitas Negeri Surabaya",
-      "campus_name": "Universitas Negeri Surabaya Kampus Lidah Wetan",
-      "osm_ref": "way/344131999",
-      "source_url": "https://www.openstreetmap.org/way/344131999",
+      "id": "UKWMS-KALIJUDAN",
+      "institution": "UKWMS",
+      "university_name": "Universitas Katolik Widya Mandala Surabaya",
+      "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+      "osm_ref": "way/432849700",
+      "source_url": "https://www.openstreetmap.org/way/432849700",
       "coordinates_wgs84": {
-        "lat": -7.3019099,
-        "lon": 112.669028
+        "lat": -7.2599254,
+        "lon": 112.7731172
       },
       "geojson_point": [
-        112.669028,
-        -7.3019099
+        112.7731172,
+        -7.2599254
       ],
       "osm_tags": {
         "amenity": "university",
-        "name": "Universitas Negeri Surabaya",
-        "name:en": "Surabaya State University",
-        "alt_name": "Unesa",
-        "operator:type": "government",
-        "website": "https://www.unesa.ac.id/",
-        "wikidata": "Q18941968"
-      },
-      "clustered_sub_elements": [
-        {
-          "osm_ref": "way/685495162",
-          "name": "Graha Unesa",
-          "distance_m": 460
-        },
-        {
-          "osm_ref": "way/350820460",
-          "name": "Fakultas Ilmu Keolahragaan",
-          "distance_m": 230
-        },
-        {
-          "osm_ref": "way/350820462",
-          "name": "Fakultas Ilmu Pendidikan",
-          "distance_m": 210
-        },
-        {
-          "osm_ref": "way/350820489",
-          "name": "Fakultas Bahasa dan Seni",
-          "distance_m": 75
-        }
-      ],
-      "verified_at": "2026-10-31"
-    },
-    {
-      "id": "UNESA-TERATAI",
-      "institution": "UNESA",
-      "university_name": "Universitas Negeri Surabaya",
-      "campus_name": "FIP Universitas Negeri Surabaya Kampus Teratai",
-      "osm_ref": "way/467339097",
-      "source_url": "https://www.openstreetmap.org/way/467339097",
-      "coordinates_wgs84": {
-        "lat": -7.2557551,
-        "lon": 112.7558422
-      },
-      "geojson_point": [
-        112.7558422,
-        -7.2557551
-      ],
-      "osm_tags": {
-        "amenity": "university",
-        "name": "FIP Universitas Negeri Surabaya",
-        "addr:full": "Jalan Teratai",
-        "operator:type": "government"
+        "name": "Universitas Katolik Widya Mandala Surabaya",
+        "addr:street": "Jl. Kalijudan No. 37",
+        "addr:city": "Surabaya",
+        "operator:type": "private"
       },
       "clustered_sub_elements": [],
+      "verified_at": "2026-10-31"
+    },
+    {
+      "id": "UKWMS-PAKUWON",
+      "institution": "UKWMS",
+      "university_name": "Universitas Katolik Widya Mandala Surabaya",
+      "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+      "osm_ref": "way/876180997",
+      "source_url": "https://www.openstreetmap.org/way/876180997",
+      "coordinates_wgs84": {
+        "lat": -7.2705498,
+        "lon": 112.811725
+      },
+      "geojson_point": [
+        112.811725,
+        -7.2705498
+      ],
+      "osm_tags": {
+        "amenity": "university",
+        "name": "Universitas Katolik Widya Mandala",
+        "website": "https://ukwms.ac.id/",
+        "wikidata": "Q12523365",
+        "wikimedia_commons": "Category:Widya Mandala Catholic University, Surabaya",
+        "wikipedia": "id:Universitas Katolik Widya Mandala Surabaya",
+        "addr:city": "Surabaya",
+        "operator:type": "private"
+      },
+      "clustered_sub_elements": [
+        {
+          "osm_ref": "way/876180998",
+          "name": "Auditorium Widya Mandala",
+          "distance_m": 128,
+          "note": "Clustered campus auditorium < 300m"
+        }
+      ],
       "verified_at": "2026-10-31"
     },
     {
@@ -337,22 +320,16 @@
   ],
   "unresolved_and_excluded_entities": [
     {
-      "entity_name": "Politeknik Perkapalan Negeri Surabaya (PPNS)",
-      "osm_ref": "node/9832072676",
-      "status": "EXCLUDED",
-      "reason": "Lembaga politeknik vokasi independen (eks-ITS), bukan bagian dari Universitas Negeri Surabaya (UNESA)."
+      "entity_name": "Universitas Negeri Surabaya (UNESA)",
+      "osm_ref": "way/689258419, way/344131999, way/467339097",
+      "status": "EXCLUDED_AUDIT_MISMATCH",
+      "reason": "Entitas UNESA sebelumnya dimasukkan secara keliru ke dalam data masukan. Sesuai target institusi resmi proyek (Unair, UKWMS, Ubaya), seluruh fitur UNESA diaudit dan dikeluarkan untuk mengembalikan UKWMS sebagai target institusi yang sah."
     },
     {
-      "entity_name": "Politeknik Elektronika Negeri Surabaya (PENS)",
-      "osm_ref": "way/683503528",
-      "status": "EXCLUDED",
-      "reason": "Lembaga politeknik independen berstatus PTN-BH vokasi, bukan bagian dari UNESA."
-    },
-    {
-      "entity_name": "MA Negeri Surabaya",
-      "osm_ref": "way/461268917",
-      "status": "EXCLUDED",
-      "reason": "Madrasah Aliyah (jenjang SLTA), bukan perguruan tinggi."
+      "entity_name": "UKWMS Kampus Madiun",
+      "osm_ref": "UNRESOLVED_IN_SURABAYA_BBOX",
+      "status": "UNRESOLVED_OUT_OF_BOUNDS",
+      "reason": "Terletak di Jl. Manggis No. 15-17, Kota Madiun, Jawa Timur (koordinat ~ -7.63, 111.52), berada di luar wilayah administratif dan bounding box Kota Surabaya."
     },
     {
       "entity_name": "UBAYA Kampus III (Integrated Outdoor Campus - UTC Trawas)",
@@ -361,16 +338,28 @@
       "reason": "Terletak di Desa Trawas, Kecamatan Trawas, Kabupaten Mojokerto (koordinat ~ -7.66, 112.59), berada di luar wilayah administratif dan bounding box Kota Surabaya. Tidak dapat dimasukkan ke peta Surabaya."
     },
     {
-      "entity_name": "UNESA Kampus Magetan",
-      "osm_ref": "UNRESOLVED_IN_SURABAYA_BBOX",
-      "status": "UNRESOLVED_OUT_OF_BOUNDS",
-      "reason": "Terletak di Kabupaten Magetan, Jawa Timur, di luar wilayah Kota Surabaya."
-    },
-    {
       "entity_name": "UNAIR PSDKU Banyuwangi / Gresik",
       "osm_ref": "UNRESOLVED_IN_SURABAYA_BBOX",
       "status": "UNRESOLVED_OUT_OF_BOUNDS",
       "reason": "Terletak di luar wilayah administratif Kota Surabaya."
+    },
+    {
+      "entity_name": "Politeknik Perkapalan Negeri Surabaya (PPNS)",
+      "osm_ref": "node/9832072676",
+      "status": "EXCLUDED",
+      "reason": "Lembaga politeknik vokasi independen (eks-ITS)."
+    },
+    {
+      "entity_name": "Politeknik Elektronika Negeri Surabaya (PENS)",
+      "osm_ref": "way/683503528",
+      "status": "EXCLUDED",
+      "reason": "Lembaga politeknik independen berstatus PTN-BH vokasi."
+    },
+    {
+      "entity_name": "MA Negeri Surabaya",
+      "osm_ref": "way/461268917",
+      "status": "EXCLUDED",
+      "reason": "Madrasah Aliyah (jenjang SLTA), bukan perguruan tinggi."
     }
   ]
 }

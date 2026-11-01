@@ -5,7 +5,7 @@
 import { BASEMAP, VIEW, FALLBACK_ELIGIBLE_STATUSES } from './config.js';
 import { Viewport } from './viewport.js';
 import { TileLayer } from './tiles.js';
-import { loadAllData, mergeBounds, boundsValid } from './data.js';
+import { loadAllData, mergeBounds, boundsValid, buildLandData, notifyPlanner } from './data.js';
 import { MapViewModel, institutionLabel } from './mapViewModel.js';
 import { MapRenderer } from './renderer.js';
 import { attachInteractions } from './interaction.js';
@@ -117,13 +117,17 @@ function zoomBy(delta) {
 }
 
 function jumpTo(code) {
+  const buffers = vm.data.buffers.items.filter((b) => b.institution === code);
+  const campuses = vm.data.universities.items.filter((u) => u.institution === code);
+  const bounds = mergeBounds(...buffers.map((b) => b.bounds), campuses.length ? pointBounds(campuses) : null);
+  if (!boundsValid(bounds)) {
+    ui.announce(`Data lokasi untuk ${institutionLabel(code)} belum tersedia di peta.`);
+    return;
+  }
   if (!vm.institutionEnabled(code)) {
     vm.setInstitution(code, true);
     ui.syncFilterInputs();
   }
-  const buffers = vm.data.buffers.items.filter((b) => b.institution === code);
-  const campuses = vm.data.universities.items.filter((u) => u.institution === code);
-  const bounds = mergeBounds(...buffers.map((b) => b.bounds), campuses.length ? pointBounds(campuses) : null);
   fitTo(bounds, { maxZoom: 15.5 });
   ui.announce(`Peta dipusatkan ke ${institutionLabel(code)}.`);
 }
@@ -138,26 +142,6 @@ function setLayer(name, on) {
 function resetFilters() {
   vm.resetFilters();
   ui.syncFilterInputs();
-}
-
-/** Objek yang dikirim ke planner: salinan properti GeoJSON + koordinat [lon, lat]. */
-function buildLandData(c) {
-  return { ...c.properties, coordinates: [c.lon, c.lat] };
-}
-
-function notifyPlanner(c) {
-  const handler = window.handleLandMarkerClick;
-  if (typeof handler !== 'function') return 'missing';
-  try {
-    const result = handler(buildLandData(c));
-    if (result && typeof result.then === 'function') {
-      result.then(undefined, (err) => console.error('[peta] handleLandMarkerClick (async):', err));
-    }
-    return 'called';
-  } catch (err) {
-    console.error('[peta] handleLandMarkerClick:', err);
-    return 'error';
-  }
 }
 
 /**

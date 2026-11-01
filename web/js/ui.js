@@ -11,6 +11,7 @@ import {
 } from './config.js';
 import { NO_INSTITUTION, institutionLabel } from './mapViewModel.js';
 import { paintSwatch, drawStatusMarker, drawCampusMarker } from './symbols.js';
+import { buildLandData } from './data.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -49,6 +50,27 @@ function statusSwatch(status, size = 28, opts = {}) {
   const c = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
   paintSwatch(c, (ctx, x, y) => drawStatusMarker(ctx, status, x, y, size * 0.3, opts), size);
   return c;
+}
+
+export function evaluateCandidateEligibility(c, eligibleStatuses) {
+  const inRadius = c.distanceM != null ? c.distanceM <= 1000.0 : c.isInBuffer !== false;
+  const isStatusOk = Array.isArray(eligibleStatuses) && eligibleStatuses.includes(c.status?.value);
+  const passesDefenseInDepth = inRadius && isStatusOk && c.isInBuffer !== false;
+  const isEligible = c.isEligible === true && passesDefenseInDepth;
+  const reasons = [];
+  if (!inRadius || c.isInBuffer === false) {
+    reasons.push(c.distanceM != null ? `Di luar buffer 1 km (${formatMeters(c.distanceM)})` : 'Di luar buffer 1 km');
+  }
+  if (!isStatusOk) {
+    reasons.push(`Status “${c.status?.label || c.status?.value || 'Tidak dikenal'}” tidak dapat dipilih.`);
+  }
+  return {
+    isEligible,
+    inRadius,
+    isStatusOk,
+    passesDefenseInDepth,
+    reasons,
+  };
 }
 
 export class MapUI {
@@ -202,7 +224,11 @@ export class MapUI {
     const present = new Set(
       [...this.vm.data.universities.items, ...this.vm.data.buffers.items].map((x) => x.institution).filter(Boolean)
     );
-    const codes = [...QUICK_JUMP_TARGETS, ...[...present].filter((c) => !QUICK_JUMP_TARGETS.includes(c)).sort()];
+    // Quick-jump khusus untuk 3 kampus sasaran proyek: Unair, UKWMS, Ubaya.
+    // Kode tanpa data tetap tampil sebagai chip nonaktif (bukan mengarang koordinat).
+    // Institusi lain di data tidak mengontaminasi quick-jump, melainkan dikelola
+    // oleh kontrol filter universitas yang memang dinamis.
+    const codes = QUICK_JUMP_TARGETS;
     this.els.quickJump.replaceChildren(
       ...codes.map((code) => {
         const available = present.has(code);
@@ -376,7 +402,8 @@ export class MapUI {
   // ---------- Inspector ----------
 
   eligibilityBlock(c, eligibleStatuses) {
-    if (c.isEligible === true) {
+    const evaluation = evaluateCandidateEligibility(c, eligibleStatuses);
+    if (evaluation.isEligible) {
       return h(
         'div',
         { class: 'callout callout-ok', role: 'status' },
@@ -384,12 +411,12 @@ export class MapUI {
         'Berada di dalam buffer 1 km dan status lahannya bisa dipilih.'
       );
     }
-    if (c.isEligible === false) {
+    if (c.isEligible === false || !evaluation.passesDefenseInDepth) {
       const reasons = [];
-      if (c.isInBuffer === false) {
+      if (!evaluation.inRadius || c.isInBuffer === false) {
         reasons.push(`Di luar buffer 1 km: ${formatMeters(c.distanceM)} dari ${c.nearestUniversityName || 'kampus terdekat'}.`);
       }
-      if (!eligibleStatuses.includes(c.status.value)) reasons.push(`Status “${c.status.label}” tidak dapat dipilih.`);
+      if (!evaluation.isStatusOk) reasons.push(`Status “${c.status?.label || c.status?.value}” tidak dapat dipilih.`);
       if (!reasons.length) reasons.push('Tidak memenuhi syarat menurut data GIS.');
       return h(
         'div',
@@ -402,6 +429,7 @@ export class MapUI {
   }
 
   showLandInspector(c, { handlerStatus, eligibleStatuses }) {
+    const evaluation = evaluateCandidateEligibility(c, eligibleStatuses);
     const rows = [
       ['Alamat', c.address || '—'],
       ['Status lahan', h('span', { class: 'status-inline' }, statusSwatch(c.status, 22), `${c.status.label} (${c.status.glyph})`)],
@@ -419,10 +447,38 @@ export class MapUI {
       error: 'Modul perencanaan gagal memproses lokasi ini (cek console).',
     }[handlerStatus];
 
+    const planBtn = evaluation.isEligible
+      ? h(
+          'button',
+          {
+            type: 'button',
+            class: 'btn-plan-action',
+            id: 'inspector-plan-btn',
+            onclick: () => {
+              const landData = buildLandData(c);
+              if (typeof window?.handleLandMarkerClick === 'function') {
+                window.handleLandMarkerClick(landData);
+              }
+            },
+          },
+          '☕ Rencanakan Modal Kafe'
+        )
+      : h(
+          'button',
+          {
+            type: 'button',
+            class: 'btn-plan-action btn-plan-disabled',
+            disabled: true,
+            title: 'Lokasi ini tidak memenuhi syarat untuk perencanaan kafe.',
+          },
+          '✕ Lahan Tidak Memenuhi Syarat'
+        );
+
     this.els.inspectorTitle.textContent = c.name;
     this.els.inspectorBody.replaceChildren(
       this.eligibilityBlock(c, eligibleStatuses),
       this.detailList(rows),
+      planBtn,
       handlerText ? h('p', { class: `handler-note handler-${handlerStatus}`, text: handlerText }) : null
     );
     this.openInspector();
