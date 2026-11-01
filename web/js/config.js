@@ -14,16 +14,27 @@ export const DATA_FILES = Object.freeze({
   osmBuildings: '../data/processed/universities_polygons.geojson',
   osmCafes: '../data/processed/osm_cafes.geojson',
   scenarios: '../data/fixtures/synthetic_scenario_candidates.geojson',
+  gates: '../data/processed/campus_gates.geojson',
 });
 
+// Radius buffer spasial:
+// - BASELINE (500 m): batas utama keterjangkauan jalan kaki mahasiswa; menjadi kriteria mutlak kelayakan perencana modal.
+// - SCENARIO (1.000 m): batas skenario jangkauan luas opsional; tidak mengubah syarat kelayakan perencana 500 m.
+export const BASELINE_BUFFER_RADIUS_M = 500.0;
+export const SCENARIO_BUFFER_RADIUS_M = 1000.0;
+
+// Klasifikasi label data: menjaga pemisahan tegas antara observasi lapangan faktual (Street View),
+// konteks OpenStreetMap ODbL, listing riil publik, dan skenario hipotetis acak.
 export const DATA_LABELS = Object.freeze({
   universities: 'Titik kampus (OSM faktual)',
-  buffers: 'Buffer 1 km',
-  candidates: 'Kandidat lahan (Survei Google Maps & Street View)',
+  buffers: 'Buffer 500 m (baseline)',
+  buffer1km: 'Skenario buffer 1 km',
+  candidates: 'Kandidat lahan observasi (Street View faktual)',
   scenarios: 'Skenario lokasi & harga hipotetis (acak; bukan listing nyata)',
   listings: 'Listing sewa riil publik',
   osmBuildings: 'Perimeter kampus/bangunan (OSM faktual)',
   osmCafes: 'Kafe eksisting (OSM faktual)',
+  gates: 'Gerbang kampus (status: belum diobservasi / unobserved)',
 });
 
 export const LISTING_STYLE = Object.freeze({
@@ -145,11 +156,78 @@ export const INSTITUTION_LABELS = Object.freeze({
 // mengikuti data aktual yang berhasil dimuat.
 export const QUICK_JUMP_TARGETS = Object.freeze(['UNAIR', 'UKWMS', 'UBAYA']);
 
+// Buffer 500 m baseline: garis indigo tegas dengan arsiran transparan sedang (area fokus utama).
 export const BUFFER_STYLE = Object.freeze({
   fill: 'rgba(99, 102, 241, 0.12)',
   stroke: 'rgba(67, 56, 202, 0.85)',
   lineWidth: 1.5,
   dash: [6, 4],
+  label: 'Buffer 500 m (baseline)',
+});
+
+// Skenario buffer 1 km: garis putus-putus berarsir tipis agar tidak mengaburkan layer baseline 500 m.
+export const BUFFER_1KM_STYLE = Object.freeze({
+  fill: 'rgba(99, 102, 241, 0.04)',
+  stroke: 'rgba(99, 102, 241, 0.5)',
+  lineWidth: 1.25,
+  dash: [8, 6],
+  label: 'Skenario buffer 1 km',
+});
+
+// Gaya visual gerbang kampus (lapisan opsional; status belum diobservasi empiris).
+export const GATE_STYLE = Object.freeze({
+  color: '#E11D48',
+  stroke: '#9F1239',
+  fill: 'rgba(225, 29, 72, 0.25)',
+  lineWidth: 1.5,
+  glyph: '🚪',
+  radius: 7,
+  label: 'Gerbang kampus (status: belum diobservasi / unobserved)',
+});
+
+// Asumsi Penilaian Skor Kelayakan Terpusat (Shared Backend Formula - reports/backend.md Task 8)
+export const TEAM_SCORING_ASSUMPTIONS = Object.freeze({
+  version: '1.0.0',
+  description: 'Asumsi parameter penilaian kelayakan kafe terpusat tim AFL 2 Computer Graphics',
+  weights: {
+    proximity: 40.0,
+    space: 30.0,
+    cost_efficiency: 30.0,
+    campus_proximity: 25.0,
+    gate_proximity: 15.0,
+    osm_cafe_competition: 15.0,
+    road_type: 10.0,
+    student_indicators: 10.0,
+    rent: 15.0,
+    area: 10.0,
+  },
+  min_coverage_for_stars: 60.0,
+  proximity_thresholds_m: {
+    scenario_1km: {
+      excellent: [300.0, 40.0],
+      good: [600.0, 30.0],
+      fair: [1000.0, 20.0],
+      unsuitable: [null, 0.0],
+    },
+    baseline_500m: {
+      excellent: [150.0, 40.0],
+      good: [300.0, 30.0],
+      fair: [500.0, 20.0],
+      unsuitable: [null, 0.0],
+    },
+  },
+  space_thresholds_sqm: {
+    optimal_range: [[80.0, 250.0], 30.0],
+    moderate_ranges: [[[50.0, 80.0], 20.0], [[250.0, 400.0], 20.0]],
+    acceptable_fallback: 10.0,
+  },
+  cost_efficiency_thresholds_idr_per_sqm_yr: {
+    efficient: [400000.0, 30.0],
+    moderate: [700000.0, 20.0],
+    high: [null, 10.0],
+  },
+  anti_fabrication_rule: 'Dilarang keras menebak harga sewa (never guess rent); jika rental_price_yr tidak terverifikasi maka bernilai null dan komponen sewa dinormalisasi secara transparan.',
+  renormalization_method: 'Komponen yang bernilai null dikeluarkan dari pembagi bobot; skor dihitung ulang ke skala 0-100 secara proporsional.',
 });
 
 export const CAMPUS_STYLE = Object.freeze({

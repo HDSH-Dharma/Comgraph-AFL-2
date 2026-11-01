@@ -216,15 +216,44 @@ export function drawOsmCafeMarker(ctx, x, y, r = 7, { highlight = false, alpha =
   ctx.restore();
 }
 
-/** Gambar simbol ke kanvas kecil (legenda, daftar, inspector). */
+/** Gambar simbol gerbang kampus (lapisan opsional). */
+export function drawGateMarker(ctx, x, y, r = 7, { highlight = false, alpha = 1 } = {}) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, TAU);
+  ctx.lineWidth = highlight ? 4.5 : 2;
+  ctx.strokeStyle = highlight ? '#F43F5E' : '#9F1239';
+  ctx.stroke();
+  ctx.fillStyle = '#E11D48';
+  ctx.fill();
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = `700 ${Math.round(r * 1.05)}px system-ui, -apple-system, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('🚪', x, y + 0.5);
+  ctx.restore();
+}
+
+/**
+ * Gambar simbol ke kanvas kecil (legenda, daftar, inspector, ranking panel).
+ * Pertahanan berlapis (defense-in-depth): aman dijalankan di lingkungan mock DOM / headless test runner
+ * tanpa menyebabkan crash TypeError pada canvas.style atau canvas.getContext.
+ */
 export function paintSwatch(canvas, draw, cssSize = 28) {
-  const dpr = window.devicePixelRatio || 1;
+  if (!canvas) return;
+  const dpr = typeof window !== 'undefined' && window?.devicePixelRatio ? window.devicePixelRatio : 1;
   canvas.width = Math.round(cssSize * dpr);
   canvas.height = Math.round(cssSize * dpr);
-  canvas.style.width = `${cssSize}px`;
-  canvas.style.height = `${cssSize}px`;
-  const ctx = canvas.getContext('2d');
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, cssSize, cssSize);
-  draw(ctx, cssSize / 2, cssSize / 2);
+  // Proteksi lingkungan mock DOM (Test 27): style objek mungkin undefined di node test runner
+  if (canvas.style && typeof canvas.style === 'object') {
+    canvas.style.width = `${cssSize}px`;
+    canvas.style.height = `${cssSize}px`;
+  }
+  const ctx = typeof canvas.getContext === 'function' ? canvas.getContext('2d') : null;
+  if (!ctx) return;
+  if (typeof ctx.setTransform === 'function') ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  if (typeof ctx.clearRect === 'function') ctx.clearRect(0, 0, cssSize, cssSize);
+  if (typeof draw === 'function') draw(ctx, cssSize / 2, cssSize / 2);
 }

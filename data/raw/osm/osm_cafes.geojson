@@ -2,9 +2,14 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Kafe Eksisting Faktual Sekitar Kampus Surabaya (OpenStreetMap)",
-    "source": "OpenStreetMap (Overpass API amenity=cafe)",
+    "source": "OpenStreetMap contributors via Overpass API (ODbL 1.0)",
     "licence": "ODbL 1.0 (OpenStreetMap contributors)",
+    "captured_date": "2026-11-01",
+    "generated_date": "2026-11-01",
     "total_features": 206,
+    "total_cafes": 206,
+    "in_buffer_500m_count": 23,
+    "in_buffer_1000m_count": 59,
     "in_buffer_1km_count": 59,
     "downloaded_at": "2026-11-01T09:42:01Z",
     "verified_at": "2026-11-01"
@@ -45,7 +50,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 697.24,
         "distance_to_polygon_meters": 499.96,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -91,7 +101,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 934.31,
         "distance_to_polygon_meters": 759.87,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -133,7 +148,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 3074.45,
         "distance_to_polygon_meters": 2895.65,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -175,7 +195,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 1048.7,
         "distance_to_polygon_meters": 793.05,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -217,7 +242,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 3512.44,
         "distance_to_polygon_meters": 3327.49,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -258,7 +288,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 263.31,
         "distance_to_polygon_meters": 181.06,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -300,7 +335,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 2032.01,
         "distance_to_polygon_meters": 1479.34,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -342,7 +382,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 233.79,
         "distance_to_polygon_meters": 170.52,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -384,7 +429,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 934.8,
         "distance_to_polygon_meters": 671.73,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -426,7 +476,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1028.09,
         "distance_to_polygon_meters": 939.38,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -471,7 +526,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1777.2,
         "distance_to_polygon_meters": 1704.07,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -512,7 +572,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1176.5,
         "distance_to_polygon_meters": 1128.19,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -568,7 +633,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1144.88,
         "distance_to_polygon_meters": 967.03,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -609,7 +679,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 3076.27,
         "distance_to_polygon_meters": 2998.14,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -650,7 +725,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 456.24,
         "distance_to_polygon_meters": 365.25,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -691,7 +771,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1731.82,
         "distance_to_polygon_meters": 1662.05,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -733,7 +818,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 2046.32,
         "distance_to_polygon_meters": 1504.84,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -782,7 +872,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 3902.86,
         "distance_to_polygon_meters": 3804.9,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -831,7 +926,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1005.89,
         "distance_to_polygon_meters": 498.69,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -873,7 +973,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1412.47,
         "distance_to_polygon_meters": 1335.98,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -914,7 +1019,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1446.14,
         "distance_to_polygon_meters": 1382.27,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -956,7 +1066,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 647.87,
         "distance_to_polygon_meters": 456.7,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -997,7 +1112,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1196.49,
         "distance_to_polygon_meters": 700.65,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1039,7 +1159,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 2378.97,
         "distance_to_polygon_meters": 2266.42,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1080,7 +1205,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1336.59,
         "distance_to_polygon_meters": 742.97,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1122,7 +1252,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1018.52,
         "distance_to_polygon_meters": 931.9,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1163,7 +1298,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "distance_meters": 2070.94,
         "distance_to_polygon_meters": 1910.27,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1205,7 +1345,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1382.67,
         "distance_to_polygon_meters": 1206.78,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1247,7 +1392,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1804.19,
         "distance_to_polygon_meters": 1733.37,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1289,7 +1439,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 2828.56,
         "distance_to_polygon_meters": 2710.33,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1330,7 +1485,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 465.22,
         "distance_to_polygon_meters": 402.16,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -1372,7 +1532,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1302.47,
         "distance_to_polygon_meters": 1242.81,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1414,7 +1579,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1047.25,
         "distance_to_polygon_meters": 984.43,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1456,7 +1626,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1188.23,
         "distance_to_polygon_meters": 952.21,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1498,7 +1673,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 491.41,
         "distance_to_polygon_meters": 436.49,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -1541,7 +1721,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1754.31,
         "distance_to_polygon_meters": 1680.93,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1579,7 +1764,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 4028.44,
         "distance_to_polygon_meters": 3940.62,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1620,7 +1810,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 3384.29,
         "distance_to_polygon_meters": 3233.26,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1659,7 +1854,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 3541.14,
         "distance_to_polygon_meters": 3465.91,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1697,7 +1897,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1340.37,
         "distance_to_polygon_meters": 1272.75,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1739,7 +1944,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 1636.18,
         "distance_to_polygon_meters": 1446.91,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1778,7 +1988,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2056.81,
         "distance_to_polygon_meters": 1882.28,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1816,7 +2031,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2599.89,
         "distance_to_polygon_meters": 2509.7,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1857,7 +2077,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1387.91,
         "distance_to_polygon_meters": 1313.5,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1895,7 +2120,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2164.06,
         "distance_to_polygon_meters": 1988.25,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1941,7 +2171,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1454.65,
         "distance_to_polygon_meters": 886.34,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -1980,7 +2215,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 878.32,
         "distance_to_polygon_meters": 803.46,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -2031,7 +2271,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 1274.2,
         "distance_to_polygon_meters": 986.25,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2076,7 +2321,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2130.08,
         "distance_to_polygon_meters": 1958.57,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2121,7 +2371,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2262.71,
         "distance_to_polygon_meters": 2092.46,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2166,7 +2421,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2116.28,
         "distance_to_polygon_meters": 1957.54,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2211,7 +2471,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2256.31,
         "distance_to_polygon_meters": 2109.6,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2256,7 +2521,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2178.31,
         "distance_to_polygon_meters": 2088.31,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2301,7 +2571,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "distance_meters": 955.15,
         "distance_to_polygon_meters": 807.87,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -2339,7 +2614,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 935.73,
         "distance_to_polygon_meters": 648.03,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -2377,7 +2657,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 1902.54,
         "distance_to_polygon_meters": 1550.81,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2420,7 +2705,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1002.84,
         "distance_to_polygon_meters": 827.72,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2459,7 +2749,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1018.09,
         "distance_to_polygon_meters": 842.42,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2498,7 +2793,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 947.64,
         "distance_to_polygon_meters": 773.44,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -2536,7 +2836,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 950.65,
         "distance_to_polygon_meters": 765.72,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -2574,7 +2879,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 3971.17,
         "distance_to_polygon_meters": 3883.88,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2619,7 +2929,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1988.12,
         "distance_to_polygon_meters": 1810.97,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2664,7 +2979,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1109.69,
         "distance_to_polygon_meters": 921.97,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2709,7 +3029,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2904.48,
         "distance_to_polygon_meters": 2725.67,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2754,7 +3079,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 1599.46,
         "distance_to_polygon_meters": 1427.98,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2798,7 +3128,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1636.21,
         "distance_to_polygon_meters": 1570.99,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2843,7 +3178,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 473.34,
         "distance_to_polygon_meters": 407.73,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -2880,7 +3220,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 475.01,
         "distance_to_polygon_meters": 409.54,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -2925,7 +3270,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1214.55,
         "distance_to_polygon_meters": 686.04,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -2963,7 +3313,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 312.57,
         "distance_to_polygon_meters": 31.85,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3009,7 +3364,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2219.55,
         "distance_to_polygon_meters": 2090.6,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3055,7 +3415,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1433.98,
         "distance_to_polygon_meters": 1345.24,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3093,7 +3458,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1398.1,
         "distance_to_polygon_meters": 1309.95,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3135,7 +3505,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1433.52,
         "distance_to_polygon_meters": 1343.28,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3175,7 +3550,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 257.19,
         "distance_to_polygon_meters": 29.73,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3214,7 +3594,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 258.96,
         "distance_to_polygon_meters": 29.32,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3253,7 +3638,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 309.15,
         "distance_to_polygon_meters": 31.25,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3292,7 +3682,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 571.94,
         "distance_to_polygon_meters": 322.5,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3331,7 +3726,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 750.94,
         "distance_to_polygon_meters": 485.33,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3370,7 +3770,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 259.67,
         "distance_to_polygon_meters": 23.46,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3409,7 +3814,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 292.24,
         "distance_to_polygon_meters": 43.39,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3455,7 +3865,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 882.71,
         "distance_to_polygon_meters": 819.26,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3493,7 +3908,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 351.39,
         "distance_to_polygon_meters": 67.68,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3532,7 +3952,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 5066.11,
         "distance_to_polygon_meters": 4916.24,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3573,7 +3998,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 667.27,
         "distance_to_polygon_meters": 586.94,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3614,7 +4044,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 523.34,
         "distance_to_polygon_meters": 454.95,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3658,7 +4093,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1122.08,
         "distance_to_polygon_meters": 1040.79,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3699,7 +4139,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2175.0,
         "distance_to_polygon_meters": 2008.75,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3740,7 +4185,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1155.9,
         "distance_to_polygon_meters": 1074.16,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3782,7 +4232,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1645.84,
         "distance_to_polygon_meters": 1576.72,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3823,7 +4278,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 798.65,
         "distance_to_polygon_meters": 725.26,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -3864,7 +4324,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 3305.33,
         "distance_to_polygon_meters": 3225.68,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3905,7 +4370,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1089.33,
         "distance_to_polygon_meters": 1014.5,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3945,7 +4415,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1111.61,
         "distance_to_polygon_meters": 1041.12,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -3986,7 +4461,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 890.41,
         "distance_to_polygon_meters": 821.55,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -4026,7 +4506,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 626.02,
         "distance_to_polygon_meters": 546.21,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -4068,7 +4553,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1853.94,
         "distance_to_polygon_meters": 1683.03,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4109,7 +4599,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1918.24,
         "distance_to_polygon_meters": 1741.06,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4150,7 +4645,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2187.8,
         "distance_to_polygon_meters": 2018.33,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4191,7 +4691,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 371.25,
         "distance_to_polygon_meters": 295.68,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -4232,7 +4737,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 735.63,
         "distance_to_polygon_meters": 648.2,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -4274,7 +4784,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2594.85,
         "distance_to_polygon_meters": 2503.86,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4317,7 +4832,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1196.62,
         "distance_to_polygon_meters": 1113.55,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4359,7 +4879,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 3495.94,
         "distance_to_polygon_meters": 3310.83,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4401,7 +4926,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1583.1,
         "distance_to_polygon_meters": 1407.04,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4443,7 +4973,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1627.0,
         "distance_to_polygon_meters": 1441.07,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4483,7 +5018,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 680.95,
         "distance_to_polygon_meters": 406.9,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -4527,7 +5067,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 594.37,
         "distance_to_polygon_meters": 499.16,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -4570,7 +5115,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 589.97,
         "distance_to_polygon_meters": 495.09,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -4612,7 +5162,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1852.64,
         "distance_to_polygon_meters": 1740.15,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4655,7 +5210,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1812.41,
         "distance_to_polygon_meters": 1665.93,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4696,7 +5256,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1529.77,
         "distance_to_polygon_meters": 1390.87,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4739,7 +5304,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1319.96,
         "distance_to_polygon_meters": 1235.65,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4781,7 +5351,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1330.65,
         "distance_to_polygon_meters": 1246.67,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4822,7 +5397,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1229.18,
         "distance_to_polygon_meters": 1147.44,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4865,7 +5445,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 1112.07,
         "distance_to_polygon_meters": 1029.97,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -4908,7 +5493,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 494.88,
         "distance_to_polygon_meters": 302.25,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -4949,7 +5539,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 495.71,
         "distance_to_polygon_meters": 312.71,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -4990,7 +5585,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 1589.4,
         "distance_to_polygon_meters": 1313.89,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5031,7 +5631,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2478.62,
         "distance_to_polygon_meters": 2408.32,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5072,7 +5677,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2326.76,
         "distance_to_polygon_meters": 2254.17,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5112,7 +5722,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2227.65,
         "distance_to_polygon_meters": 2147.0,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5152,7 +5767,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1831.87,
         "distance_to_polygon_meters": 1757.2,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5192,7 +5812,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1718.21,
         "distance_to_polygon_meters": 1645.17,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5233,7 +5858,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1684.74,
         "distance_to_polygon_meters": 1606.04,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5274,7 +5904,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1644.79,
         "distance_to_polygon_meters": 1559.9,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5316,7 +5951,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1634.02,
         "distance_to_polygon_meters": 1548.31,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5358,7 +5998,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 728.09,
         "distance_to_polygon_meters": 649.81,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -5400,7 +6045,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "distance_meters": 2435.56,
         "distance_to_polygon_meters": 2278.19,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5442,7 +6092,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 617.29,
         "distance_to_polygon_meters": 371.95,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -5483,7 +6138,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "distance_meters": 413.36,
         "distance_to_polygon_meters": 315.75,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -5524,7 +6184,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1358.2,
         "distance_to_polygon_meters": 729.29,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5565,7 +6230,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 730.93,
         "distance_to_polygon_meters": 526.47,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -5605,7 +6275,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 793.44,
         "distance_to_polygon_meters": 581.78,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -5647,7 +6322,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2549.59,
         "distance_to_polygon_meters": 2473.39,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5688,7 +6368,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2463.06,
         "distance_to_polygon_meters": 2388.43,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5728,7 +6413,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2250.15,
         "distance_to_polygon_meters": 2174.43,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5769,7 +6459,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2322.3,
         "distance_to_polygon_meters": 2246.08,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5809,7 +6504,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2393.33,
         "distance_to_polygon_meters": 2316.4,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5850,7 +6550,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2565.12,
         "distance_to_polygon_meters": 2486.72,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5893,7 +6598,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2943.55,
         "distance_to_polygon_meters": 2773.01,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5934,7 +6644,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1485.59,
         "distance_to_polygon_meters": 1405.71,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -5976,7 +6691,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2090.83,
         "distance_to_polygon_meters": 2009.64,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6017,7 +6737,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1906.1,
         "distance_to_polygon_meters": 1824.75,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6058,7 +6783,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1966.31,
         "distance_to_polygon_meters": 1792.46,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6099,7 +6829,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2884.31,
         "distance_to_polygon_meters": 2727.0,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6141,7 +6876,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 3302.87,
         "distance_to_polygon_meters": 3120.33,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6182,7 +6922,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 3746.83,
         "distance_to_polygon_meters": 3564.65,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6222,7 +6967,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1583.46,
         "distance_to_polygon_meters": 1413.95,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6263,7 +7013,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 871.62,
         "distance_to_polygon_meters": 643.52,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -6303,7 +7058,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2996.33,
         "distance_to_polygon_meters": 2906.41,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6347,7 +7107,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 1390.48,
         "distance_to_polygon_meters": 1162.73,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6389,7 +7154,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 842.68,
         "distance_to_polygon_meters": 773.01,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -6438,7 +7208,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1028.38,
         "distance_to_polygon_meters": 963.79,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6478,7 +7253,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1436.98,
         "distance_to_polygon_meters": 1373.19,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6518,7 +7298,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 3678.9,
         "distance_to_polygon_meters": 3492.63,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6560,7 +7345,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 3537.12,
         "distance_to_polygon_meters": 3356.41,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6601,7 +7391,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2602.98,
         "distance_to_polygon_meters": 2481.64,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6639,7 +7434,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "distance_meters": 1325.8,
         "distance_to_polygon_meters": 1171.75,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6677,7 +7477,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1138.96,
         "distance_to_polygon_meters": 1051.51,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6716,7 +7521,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2327.98,
         "distance_to_polygon_meters": 2153.17,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6754,7 +7564,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 678.02,
         "distance_to_polygon_meters": 485.31,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -6792,7 +7607,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1078.02,
         "distance_to_polygon_meters": 878.95,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6838,7 +7658,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 2854.42,
         "distance_to_polygon_meters": 2735.52,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6880,7 +7705,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 3792.03,
         "distance_to_polygon_meters": 3607.46,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6918,7 +7748,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1812.61,
         "distance_to_polygon_meters": 1666.17,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6956,7 +7791,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2024.81,
         "distance_to_polygon_meters": 1933.82,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -6994,7 +7834,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1375.17,
         "distance_to_polygon_meters": 1308.37,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7045,7 +7890,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 952.78,
         "distance_to_polygon_meters": 902.22,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -7084,7 +7934,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2439.87,
         "distance_to_polygon_meters": 2262.24,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7123,7 +7978,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2428.66,
         "distance_to_polygon_meters": 2251.24,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7161,7 +8021,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2418.23,
         "distance_to_polygon_meters": 2241.04,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7199,7 +8064,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2403.5,
         "distance_to_polygon_meters": 2226.79,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7237,7 +8107,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2254.54,
         "distance_to_polygon_meters": 2082.06,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7275,7 +8150,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2244.73,
         "distance_to_polygon_meters": 2072.54,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7313,7 +8193,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2206.94,
         "distance_to_polygon_meters": 2036.52,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7351,7 +8236,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2146.5,
         "distance_to_polygon_meters": 1977.06,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7393,7 +8283,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2365.23,
         "distance_to_polygon_meters": 2188.25,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7431,7 +8326,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 1627.26,
         "distance_to_polygon_meters": 1545.67,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7470,7 +8370,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 1586.64,
         "distance_to_polygon_meters": 1421.24,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7509,7 +8414,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 1563.09,
         "distance_to_polygon_meters": 1403.68,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7553,7 +8463,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1574.08,
         "distance_to_polygon_meters": 1504.38,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7604,7 +8519,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 997.57,
         "distance_to_polygon_meters": 939.18,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -7667,7 +8587,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 2624.73,
         "distance_to_polygon_meters": 2551.53,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7705,7 +8630,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 721.88,
         "distance_to_polygon_meters": 536.16,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -7743,7 +8673,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 723.32,
         "distance_to_polygon_meters": 536.8,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -7781,7 +8716,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1270.07,
         "distance_to_polygon_meters": 1096.03,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7828,7 +8768,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 140.81,
         "distance_to_polygon_meters": 0.0,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -7867,7 +8812,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1493.79,
         "distance_to_polygon_meters": 863.32,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7911,7 +8861,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 804.45,
         "distance_to_polygon_meters": 729.58,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -7954,7 +8909,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 2508.07,
         "distance_to_polygon_meters": 2338.64,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -7999,7 +8959,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1498.01,
         "distance_to_polygon_meters": 1434.71,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -8043,7 +9008,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "distance_meters": 1676.13,
         "distance_to_polygon_meters": 1385.84,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -8082,7 +9052,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 734.12,
         "distance_to_polygon_meters": 672.66,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -8121,7 +9096,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 157.12,
         "distance_to_polygon_meters": 0.0,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -8160,7 +9140,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 2421.33,
         "distance_to_polygon_meters": 2337.54,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -8199,7 +9184,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 257.3,
         "distance_to_polygon_meters": 0.0,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -8242,7 +9232,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1673.8,
         "distance_to_polygon_meters": 1493.41,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -8301,7 +9296,12 @@
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 1054.72,
         "distance_to_polygon_meters": 829.49,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -8340,7 +9340,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 718.65,
         "distance_to_polygon_meters": 671.16,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -8385,7 +9390,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1725.92,
         "distance_to_polygon_meters": 1275.88,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -8423,7 +9433,12 @@
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1454.37,
         "distance_to_polygon_meters": 1007.56,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     },
     {
@@ -8466,7 +9481,12 @@
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "distance_meters": 730.97,
         "distance_to_polygon_meters": 631.25,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -8515,7 +9535,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 176.59,
         "distance_to_polygon_meters": 118.07,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -8565,7 +9590,12 @@
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 349.62,
         "distance_to_polygon_meters": 277.82,
-        "is_in_buffer": true
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": true,
+        "is_in_buffer_500m": true,
+        "is_in_buffer_1000m": true
       }
     },
     {
@@ -8604,7 +9634,12 @@
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 1845.74,
         "distance_to_polygon_meters": 1662.05,
-        "is_in_buffer": false
+        "distance_to_nearest_gate_meters": null,
+        "gate_observation_status": "UNOBSERVED",
+        "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
+        "is_in_buffer": false,
+        "is_in_buffer_500m": false,
+        "is_in_buffer_1000m": false
       }
     }
   ]

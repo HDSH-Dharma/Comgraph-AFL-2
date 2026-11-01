@@ -2,6 +2,9 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Titik Koordinat & Poligon Terverifikasi Kampus Unair, UKWMS, Ubaya (Processed)",
+    "source": "OpenStreetMap contributors (ODbL 1.0) & verifikasi web resmi universitas",
+    "captured_date": "2026-11-01",
+    "generated_date": "2026-11-01",
     "total_features": 8,
     "crs": "EPSG:4326",
     "computation_crs": "EPSG:32749",

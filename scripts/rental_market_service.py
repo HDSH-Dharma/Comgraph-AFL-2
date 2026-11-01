@@ -33,9 +33,21 @@ except ImportError:
     print("Error: 'pyproj' library is required. Install via 'pip install pyproj'.", file=sys.stderr)
     sys.exit(1)
 
-# Import konstanta terpercaya dari gis_pipeline
+# Import konstanta terpercaya dan konfigurasi radius terpusat dari gis_pipeline.
+# Menggunakan single source of truth untuk radius spasial (baseline 500m & skenario 1km)
+# serta algoritma penilaian kelayakan transparan yang mematuhi mandat anti-fabrikasi.
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from scripts.gis_pipeline import SURABAYA_BBOX
+from scripts.gis_pipeline import (
+    SURABAYA_BBOX,
+    BASELINE_RADIUS_METERS,
+    SCENARIO_RADIUS_METERS,
+    SUPPORTED_RADII_METERS,
+    RADIUS_CONFIG,
+    TEAM_SCORING_ASSUMPTIONS,
+    calculate_transparent_feasibility_score,
+    evaluate_candidate_feasibility,
+    load_and_validate_campus_gates,
+)
 
 MIN_COMPARABLE_LISTINGS = 3
 ALLOWED_PORTALS = {"Rumah123", "Ray White", "Brighton"}
@@ -76,6 +88,30 @@ class RentalMarketService:
     def __init__(self):
         self.transformer_fwd = pyproj.Transformer.from_crs("EPSG:4326", "EPSG:32749", always_xy=True)
         self.transformer_inv = pyproj.Transformer.from_crs("EPSG:32749", "EPSG:4326", always_xy=True)
+
+    def evaluate_candidate(
+        self,
+        candidate_props: Dict[str, Any],
+        user_rent_yr: Optional[float] = None,
+        user_area_sqm: Optional[float] = None,
+        radius_mode: str = "baseline_500m",
+        assumptions: Optional[Dict[str, Any]] = None,
+        nearby_cafes_count: Optional[int] = None,
+        distance_to_nearest_gate_meters: Optional[float] = None,
+    ) -> Dict[str, Any]:
+        """
+        Evaluator kelayakan transparan terbagi untuk modul Planner & Backend Service.
+        Menggunakan evaluator 7-komponen tunggal tanpa memfabrikasi variabel spasial.
+        """
+        return evaluate_candidate_feasibility(
+            candidate_props=candidate_props,
+            user_rent_yr=user_rent_yr,
+            user_area_sqm=user_area_sqm,
+            radius_mode=radius_mode,
+            assumptions=assumptions,
+            nearby_cafes_count=nearby_cafes_count,
+            distance_to_nearest_gate_meters=distance_to_nearest_gate_meters,
+        )
 
     def is_source_specific_url(self, url: str) -> bool:
         """
@@ -462,8 +498,10 @@ class RentalMarketService:
             "area_summaries": summaries
         }
 
+        # Serialisasi JSON ketat sesuai RFC 8259: opsi allow_nan=False mencegah
+        # token non-finit (seperti NaN atau Infinity) yang dilarang pada spesifikasi JSON.
         with open(summary_out_path, "w", encoding="utf-8") as f:
-            json.dump(summary_payload, f, indent=2, ensure_ascii=False)
+            json.dump(summary_payload, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         # Ekspor Listing Riil Terproses (GeoJSON) - Menghasilkan FeatureCollection kosong jika tidak ada listing valid
         listings_out_path = os.path.join(output_dir, "real_rental_listings.geojson")
@@ -486,8 +524,9 @@ class RentalMarketService:
             "features": geo_features
         }
 
+        # Serialisasi GeoJSON dengan allow_nan=False menjamin output aman dibaca oleh parser strict RFC 8259.
         with open(listings_out_path, "w", encoding="utf-8") as f:
-            json.dump(listings_geojson, f, indent=2, ensure_ascii=False)
+            json.dump(listings_geojson, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         return {
             "total_listings": len(validated_listings),

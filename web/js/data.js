@@ -44,7 +44,13 @@ async function fetchJson(url) {
   try {
     return JSON.parse(text);
   } catch {
-    throw new DataLoadError('parse', 'Isi file bukan JSON yang valid.');
+    try {
+      // Penanganan edge case: sanitasi token non-standar (Infinity/NaN) yang dapat dihasilkan oleh script GIS Python
+      const sanitized = text.replace(/\bInfinity\b/g, 'null').replace(/\bNaN\b/g, 'null');
+      return JSON.parse(sanitized);
+    } catch {
+      throw new DataLoadError('parse', 'Isi file bukan JSON yang valid.');
+    }
   }
 }
 
@@ -204,6 +210,19 @@ function parseUniversities(json) {
   return { items, skipped, metadata: json.metadata ?? null };
 }
 
+// Penskalaan ring poligon terhadap titik pusat (cx, cy) untuk derivasi geometri buffer 500 m dari buffer 1.000 m.
+function scaleRing(ring, cx, cy, factor, outBounds) {
+  const out = new Float64Array(ring.length);
+  for (let i = 0; i < ring.length; i += 2) {
+    const x = cx + factor * (ring[i] - cx);
+    const y = cy + factor * (ring[i + 1] - cy);
+    out[i] = x;
+    out[i + 1] = y;
+    extendBounds(outBounds, x, y);
+  }
+  return out;
+}
+
 function parseBuffers(json) {
   const items = [];
   let skipped = 0;
@@ -238,13 +257,25 @@ function parseBuffers(json) {
       skipped++;
       continue;
     }
+
+    // Derivasi buffer 500m baseline (faktor skala 0.5 terhadap ring 1.000m) jika file buffer_500m tidak dimuat terpisah.
+    const cx = (bounds[0] + bounds[2]) / 2;
+    const cy = (bounds[1] + bounds[3]) / 2;
+    const bounds500 = emptyBounds();
+    const rings500 = rings.map((r) => scaleRing(r, cx, cy, 0.5, bounds500));
+
     items.push({
       universityId: str(p.university_id) || null,
       institution: str(p.institution) || null,
       campusName: str(p.campus_name),
-      radiusM: num(p.radius_m),
-      rings,
-      bounds,
+      radiusM: 500, // baseline default 500 m
+      rings: rings500,
+      bounds: bounds500,
+      rings500,
+      bounds500,
+      rings1km: rings,
+      bounds1km: bounds,
+      radiusM1km: 1000,
     });
   }
   return { items, skipped, metadata: json.metadata ?? null };
@@ -306,7 +337,7 @@ function parseCandidates(json) {
           ? 'Skenario Sintetis (Penempatan Spasial Acak)'
           : 'Skenario Sintetis (Simulasi Hipotetis)')
       : isSurvey
-        ? `Survei Lapangan Empiris (${p.survey_method || 'Terverifikasi'})`
+        ? 'Observasi Street View (Diobservasi oleh Claude AI di peramban desktop Dharma 2026-11-01; peninjauan tim tertunda; observasi Street View, bukan survei fisik lapangan)'
         : (hasOsmProvenance && p.is_factual)
           ? 'Faktual OpenStreetMap (ODbL 1.0)'
           : 'Simulasi Akademik (Tanpa Provenans Faktual)';
@@ -333,9 +364,35 @@ function parseCandidates(json) {
       isScenario,
       simulated: isSimulated || isScenario,
       isRandomPlacement,
+      // Metadata observasi Google Street View faktual & penelusuran spasial:
       surveyMethod: str(p.survey_method) || null,
       evidenceUrl: str(p.evidence_url) || null,
       observedAt: str(p.observed_at) || null,
+      imageryDate: str(p.imagery_date) || null,
+      panoId: str(p.pano_id) || null,
+      headingDeg: num(p.heading_deg),
+      locationMethod: str(p.location_method) || null,
+      notes: str(p.notes) || null,
+      // Metrik jarak ke perimeter poligon kampus vs centroid:
+      distanceToPolygonM: num(p.distance_to_polygon_meters),
+      // Flag dual-buffer: 500m baseline (kelayakan utama) vs 1km skenario:
+      isInBuffer500: num(p.distance_meters) != null ? num(p.distance_meters) <= 500.0 : Boolean(p.is_in_buffer),
+      isInBuffer1km: num(p.distance_meters) != null ? num(p.distance_meters) <= 1000.0 : Boolean(p.is_in_buffer),
+      // Relasi spasial kafe OSM terdekat (jika disediakan backend):
+      nearestCafeId: str(p.nearest_cafe_id) || null,
+      nearestCafeName: str(p.nearest_cafe_name) || null,
+      nearestCafeDistM: num(p.nearest_cafe_distance_meters),
+      // Properti skema backend Task 1, 4, 5, 8:
+      roadType: str(p.road_type) || null,
+      unavailabilityReason: str(p.unavailability_reason) || null,
+      studentIndicators: str(p.student_indicators) || null,
+      distanceToNearestGateM: num(p.distance_to_nearest_gate_meters),
+      gateObservationStatus: str(p.gate_observation_status) || 'UNOBSERVED',
+      gateNotes: str(p.gate_notes) || null,
+      feasibilityScoring: p.feasibility_scoring || null,
+      feasibilityScoring500m: p.feasibility_scoring_baseline_500m || null,
+      feasibilityScoreNormalized: num(p.feasibility_score_normalized),
+      feasibilityGrade: str(p.feasibility_grade) || null,
       surveyedBy: str(p.surveyed_by) || null,
       priceSourceUrl: str(p.price_source_url) || null,
       provenanceLabel,
@@ -620,9 +677,15 @@ export function parseOsmCafes(json) {
       continue;
     }
     const w = lonLatToWorld(c[0], c[1]);
+    const rawName = str(p.name);
+    // Task 7: Kafe OSM tanpa tag nama eksplisit dilabeli jujur sebagai 'Kafe tanpa nama (OSM)'.
+    const isUnnamed = !rawName || rawName === 'Kafe OSM Eksisting' || rawName.toLowerCase() === 'kafe tanpa nama';
+    const name = isUnnamed ? 'Kafe tanpa nama (OSM)' : rawName;
     items.push({
       id,
-      name: str(p.name) || 'Kafe OSM Eksisting',
+      name,
+      rawName,
+      isUnnamed,
       amenity: str(p.amenity) || 'cafe',
       cuisine: str(p.cuisine),
       brand: str(p.brand),
@@ -631,13 +694,48 @@ export function parseOsmCafes(json) {
       source: str(p.source) || 'OpenStreetMap',
       verifiedAt: str(p.verified_at),
       isExistingCafe: true,
-      isPlannerAllowed: false,
+      isPlannerAllowed: false, // Kafe eksisting dilarang membuka modal perencana kafe baru
       isFactual: true,
       dataKind: 'osm_cafe',
+      nearestUniversityId: str(p.nearest_university_id) || null,
+      nearestUniversityName: str(p.nearest_university_name) || null,
+      distanceM: num(p.distance_meters),
+      distanceToPolygonM: num(p.distance_to_polygon_meters),
+      isInBuffer: typeof p.is_in_buffer === 'boolean' ? p.is_in_buffer : null,
       lon: c[0],
       lat: c[1],
       wx: w.x,
       wy: w.y,
+      properties: { ...p, name },
+    });
+  }
+  return { items, skipped, metadata: json.metadata ?? null };
+}
+
+export function parseGates(json) {
+  if (!json || !Array.isArray(json?.features)) {
+    return { items: [], skipped: 0, metadata: null };
+  }
+  const items = [];
+  let skipped = 0;
+  for (const feature of json.features) {
+    const c = pointCoords(feature);
+    const p = feature?.properties ?? {};
+    const id = str(p.id) || `gate-${items.length + 1}`;
+    if (!c) {
+      skipped++;
+      continue;
+    }
+    const w = lonLatToWorld(c[0], c[1]);
+    items.push({
+      id,
+      name: str(p.name) || 'Gerbang Kampus',
+      institution: str(p.institution) || null,
+      lon: c[0],
+      lat: c[1],
+      wx: w.x,
+      wy: w.y,
+      gateStatus: str(p.gate_observation_status) || 'UNOBSERVED',
       properties: { ...p },
     });
   }
@@ -653,9 +751,10 @@ export const PARSERS = {
   areaSummary: parseAreaSummary,
   osmBuildings: parseOsmBuildings,
   osmCafes: parseOsmCafes,
+  gates: parseGates,
 };
 
-const OPTIONAL_DATA_KEYS = new Set(['listings', 'areaSummary', 'osmCafes', 'osmBuildings', 'scenarios']);
+const OPTIONAL_DATA_KEYS = new Set(['listings', 'areaSummary', 'osmCafes', 'osmBuildings', 'scenarios', 'gates']);
 
 /**
  * Muat file spasial secara paralel. Tidak pernah melempar error: tiap layer
@@ -804,6 +903,29 @@ export function buildLandData(c) {
     is_scenario: isScenario,
     is_random_placement: isRandomPlacement,
     is_factual: isScenario || simulated ? false : Boolean(c.isFactual ?? props?.is_factual),
+    // Integrasi payload observasi Street View & analisis spasial Web Tasks 2 & 7:
+    imagery_date: c.imageryDate || props?.imagery_date || null,
+    pano_id: c.panoId || props?.pano_id || null,
+    heading_deg: c.headingDeg ?? props?.heading_deg ?? null,
+    location_method: c.locationMethod || props?.location_method || null,
+    notes: c.notes || props?.notes || null,
+    distance_to_polygon_meters: c.distanceToPolygonM ?? props?.distance_to_polygon_meters ?? null,
+    is_in_buffer_500: c.isInBuffer500 ?? (c.distanceM != null ? c.distanceM <= 500.0 : null),
+    is_in_buffer_1km: c.isInBuffer1km ?? (c.distanceM != null ? c.distanceM <= 1000.0 : null),
+    nearest_cafe_id: c.nearestCafeId || props?.nearest_cafe_id || null,
+    nearest_cafe_name: c.nearestCafeName || props?.nearest_cafe_name || null,
+    nearest_cafe_distance_meters: c.nearestCafeDistM ?? props?.nearest_cafe_distance_meters ?? null,
+    // Atribut & skoring backend Task 1, 4, 5, 8:
+    road_type: c.roadType || props?.road_type || null,
+    unavailability_reason: c.unavailabilityReason || props?.unavailability_reason || null,
+    student_indicators: c.studentIndicators || props?.student_indicators || null,
+    distance_to_nearest_gate_meters: c.distanceToNearestGateM ?? props?.distance_to_nearest_gate_meters ?? null,
+    gate_observation_status: c.gateObservationStatus || props?.gate_observation_status || 'UNOBSERVED',
+    gate_notes: c.gateNotes || props?.gate_notes || null,
+    feasibility_scoring: c.feasibilityScoring || props?.feasibility_scoring || null,
+    feasibility_scoring_baseline_500m: c.feasibilityScoring500m || props?.feasibility_scoring_baseline_500m || null,
+    feasibility_score_normalized: c.feasibilityScoreNormalized ?? props?.feasibility_score_normalized ?? null,
+    feasibility_grade: c.feasibilityGrade || props?.feasibility_grade || null,
   };
 }
 

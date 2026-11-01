@@ -23,15 +23,20 @@ export class MapViewModel {
       osmBuildings: { ok: false, items: [] },
       osmCafes: { ok: false, items: [] },
     };
+    // Pengaturan visibilitas lapisan bawaan:
+    // - Baseline buffer 500m & kandidat observasi Street View aktif secara default (fokus utama analisis).
+    // - Skenario buffer 1km & skenario sintetis acak nonaktif secara default (fitur eksplorasi opt-in).
     this.layers = {
       basemap: true,
-      buffers: true,
+      buffers: true, // Buffer 500 m (baseline): default ON
+      buffer1km: false, // Skenario buffer 1 km: default OFF (analisis opsi perluasan)
       campuses: true,
-      candidates: false, // Kandidat disembunyikan secara default saat inisialisasi awal
-      scenarios: false, // Skenario sintetis eksplisit dinyalakan pengguna
+      candidates: true, // Kandidat observasi Street View: default ON (Task 2)
+      scenarios: false, // Skenario sintetis acak: default OFF (opt-in ketat)
       listings: true,
       osmBuildings: true,
       osmCafes: true,
+      gates: false, // Gerbang kampus: default OFF (lapisan opsional)
     };
     this.institutions = new Map(); // code → { code, label, enabled, campusCount, candidateCount }
     this.statusEnabled = new Map(LAND_STATUSES.map((s) => [s.key, true]));
@@ -161,7 +166,24 @@ export class MapViewModel {
       campuses: this.layers.campuses
         ? universities.items.filter((u) => this.institutionEnabled(u.institution))
         : [],
-      buffers: this.layers.buffers ? buffers.items.filter((b) => this.institutionEnabled(b.institution)) : [],
+      // Baseline buffer 500 m: dipetakan menggunakan geometri rings500 jika aktif
+      buffers: this.layers.buffers
+        ? buffers.items.filter((b) => this.institutionEnabled(b.institution)).map((b) => ({
+            ...b,
+            radiusM: 500,
+            rings: b.rings500 || b.rings,
+            bounds: b.bounds500 || b.bounds,
+          }))
+        : [],
+      // Skenario buffer 1 km: dipetakan menggunakan geometri rings1km (geometri penuh 1000m)
+      buffers1km: this.layers.buffer1km
+        ? buffers.items.filter((b) => this.institutionEnabled(b.institution)).map((b) => ({
+            ...b,
+            radiusM: 1000,
+            rings: b.rings1km || b.rings,
+            bounds: b.bounds1km || b.bounds,
+          }))
+        : [],
       candidates: this.layers.candidates
         ? candidates.items.filter(
             (c) => this.institutionEnabled(c.institution) && this.statusEnabled.get(c.status.key)
@@ -181,6 +203,11 @@ export class MapViewModel {
       osmCafes:
         this.layers.osmCafes && osmCafes?.items
           ? osmCafes.items
+          : [],
+      // Gerbang kampus (lapisan opsional)
+      gates:
+        this.layers.gates && this.data.gates?.items
+          ? this.data.gates.items.filter((g) => !g.institution || this.institutionEnabled(g.institution))
           : [],
     };
   }
