@@ -157,45 +157,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7235274,
-          -7.3120509
+          112.7462523,
+          -7.2833708
         ]
       },
       "properties": {
-        "id": "CAND-UNESA-KET-01",
-        "name": "Kavling Sudut Ketintang",
-        "address": "Jl. Ketintang Baru XII No. 3, Gayungan, Surabaya",
+        "id": "CAND-UKWMS-DIN-01",
+        "name": "Kavling Komersial Dinoyo",
+        "address": "Jl. Dinoyo No. 68, Keputran, Tegalsari, Surabaya",
         "status": "Lahan kosong",
-        "area_sqm": 160.0,
-        "rental_price_yr": 55000000.0,
-        "nearest_university_id": "UNESA-KETINTANG",
-        "nearest_university_name": "Universitas Negeri Surabaya Kampus Ketintang",
-        "distance_meters": 450.0041500002868,
-        "is_in_buffer": true,
-        "is_eligible": true,
-        "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.733481,
-          -7.31034
-        ]
-      },
-      "properties": {
-        "id": "CAND-UNESA-KET-02",
-        "name": "Ruko Gandeng Ketintang Madya",
-        "address": "Jl. Ketintang Madya No. 40, Wonokromo, Surabaya",
-        "status": "Lahan yang tersedia untuk disewakan",
-        "area_sqm": 140.0,
+        "area_sqm": 180.0,
         "rental_price_yr": 65000000.0,
-        "nearest_university_id": "UNESA-KETINTANG",
-        "nearest_university_name": "Universitas Negeri Surabaya Kampus Ketintang",
-        "distance_meters": 820.0004833404007,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 258.06869646163943,
         "is_in_buffer": true,
         "is_eligible": true,
         "data_kind": "synthetic_academic_demo",
@@ -207,20 +182,45 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.6690481,
-          -7.3073351
+          112.7441515,
+          -7.2786772
         ]
       },
       "properties": {
-        "id": "CAND-UNESA-LIDAH-01",
-        "name": "Kavling Komersial Lidah Kulon",
-        "address": "Jl. Raya Menganti No. 88, Lakarsantri, Surabaya",
+        "id": "CAND-UKWMS-DIN-02",
+        "name": "Ruko Usaha Mojopahit",
+        "address": "Jl. Mojopahit No. 12, Keputran, Tegalsari, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 150.0,
+        "rental_price_yr": 75000000.0,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 320.15349175469936,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7741949,
+          -7.2576608
+        ]
+      },
+      "properties": {
+        "id": "CAND-UKWMS-KAL-01",
+        "name": "Kavling Siap Bangun Kalijudan",
+        "address": "Jl. Kalijudan No. 42, Kalijudan, Mulyorejo, Surabaya",
         "status": "Lahan kosong",
         "area_sqm": 220.0,
         "rental_price_yr": 70000000.0,
-        "nearest_university_id": "UNESA-LIDAH-WETAN",
-        "nearest_university_name": "Universitas Negeri Surabaya Kampus Lidah Wetan",
-        "distance_meters": 600.001161573509,
+        "nearest_university_id": "UKWMS-KALIJUDAN",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "distance_meters": 277.30724278658175,
         "is_in_buffer": true,
         "is_eligible": true,
         "data_kind": "synthetic_academic_demo",
@@ -232,20 +232,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.664643,
-          -7.2967311
+          112.8092009,
+          -7.2733627
         ]
       },
       "properties": {
-        "id": "CAND-UNESA-LIDAH-02",
-        "name": "Paviliun Hunian Babatan",
-        "address": "Jl. Babatan Mukti Blok M No. 4, Wiyung, Surabaya",
+        "id": "CAND-UKWMS-PAK-01",
+        "name": "Paviliun Hunian Kejawan Putih",
+        "address": "Jl. Kejawan Putih Tambak No. 18, Mulyorejo, Surabaya",
         "status": "Rumah atau bangunan tempat tinggal",
         "area_sqm": 175.0,
-        "rental_price_yr": 40000000.0,
-        "nearest_university_id": "UNESA-LIDAH-WETAN",
-        "nearest_university_name": "Universitas Negeri Surabaya Kampus Lidah Wetan",
-        "distance_meters": 750.0016068358734,
+        "rental_price_yr": 45000000.0,
+        "nearest_university_id": "UKWMS-PAKUWON",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "distance_meters": 417.7325466403946,
         "is_in_buffer": true,
         "is_eligible": false,
         "data_kind": "synthetic_academic_demo",
@@ -343,9 +343,9 @@
         "status": "Lahan kosong",
         "area_sqm": 500.0,
         "rental_price_yr": 95000000.0,
-        "nearest_university_id": "UNAIR-KAMPUS-C",
-        "nearest_university_name": "Kampus C Universitas Airlangga",
-        "distance_meters": 3199.998544638587,
+        "nearest_university_id": "UKWMS-PAKUWON",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "distance_meters": 1082.3480344556683,
         "is_in_buffer": false,
         "is_eligible": false,
         "data_kind": "synthetic_academic_demo",
@@ -368,9 +368,9 @@
         "status": "Lahan yang tersedia untuk disewakan",
         "area_sqm": 150.0,
         "rental_price_yr": 85000000.0,
-        "nearest_university_id": "UNESA-LIDAH-WETAN",
-        "nearest_university_name": "Universitas Negeri Surabaya Kampus Lidah Wetan",
-        "distance_meters": 3799.99876092134,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 5478.759916369144,
         "is_in_buffer": false,
         "is_eligible": false,
         "data_kind": "synthetic_academic_demo",
@@ -393,9 +393,9 @@
         "status": "Rumah atau bangunan tempat tinggal",
         "area_sqm": 280.0,
         "rental_price_yr": 95000000.0,
-        "nearest_university_id": "UNAIR-KAMPUS-B",
-        "nearest_university_name": "Kampus B Universitas Airlangga",
-        "distance_meters": 1307.8987447730035,
+        "nearest_university_id": "UKWMS-KALIJUDAN",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "distance_meters": 1219.407766515588,
         "is_in_buffer": false,
         "is_eligible": false,
         "data_kind": "synthetic_academic_demo",
@@ -518,9 +518,9 @@
         "status": "Lahan yang statusnya belum terverifikasi",
         "area_sqm": 210.0,
         "rental_price_yr": 0.0,
-        "nearest_university_id": "UNAIR-KAMPUS-C",
-        "nearest_university_name": "Kampus C Universitas Airlangga",
-        "distance_meters": 850.0000964107533,
+        "nearest_university_id": "UKWMS-KALIJUDAN",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "distance_meters": 746.3549109703856,
         "is_in_buffer": true,
         "is_eligible": false,
         "data_kind": "synthetic_academic_demo",

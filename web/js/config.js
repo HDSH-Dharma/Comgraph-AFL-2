@@ -84,17 +84,19 @@ export const FALLBACK_ELIGIBLE_STATUSES = Object.freeze([
   'Lahan yang tersedia untuk disewakan',
 ]);
 
-// Label singkat institusi. Kode diambil dari properti `institution` di GeoJSON.
+// Label singkat institusi sasaran (Unair, UKWMS, Ubaya).
+// Kode diambil dari properti `institution` di GeoJSON.
 export const INSTITUTION_LABELS = Object.freeze({
   UNAIR: 'Unair',
   UKWMS: 'UKWMS',
   UBAYA: 'Ubaya',
-  UNESA: 'Unesa',
 });
 
-// Quick-jump yang diminta brief. Kode yang tidak ada di data tetap tampil
-// sebagai tombol nonaktif (bukan dikarang titiknya). Institusi lain yang ada
-// di data ditambahkan otomatis setelah daftar ini.
+// Quick-jump untuk 3 kampus sasaran proyek: Unair, UKWMS, Ubaya.
+// Kode yang belum memiliki data di GeoJSON tetap tampil sebagai tombol
+// nonaktif dengan label "(belum ada data)" (toleransi data gagal/belum tersedia,
+// bukan mengarang koordinat fiktif). Kontrol filter di sidebar tetap dinamis
+// mengikuti data aktual yang berhasil dimuat.
 export const QUICK_JUMP_TARGETS = Object.freeze(['UNAIR', 'UKWMS', 'UBAYA']);
 
 export const BUFFER_STYLE = Object.freeze({

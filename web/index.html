@@ -12,8 +12,7 @@
       lalu buka http://localhost:8000/web/
     -->
     <script type="module" src="js/main.js"></script>
-    <!-- Modul planner (milik anggota lain) dimuat di sini dan mendefinisikan
-         window.handleLandMarkerClick(landData). Peta tetap jalan tanpanya. -->
+    <script type="module" src="js/planner.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#controls">Lompat ke kontrol peta</a>
@@ -143,8 +142,156 @@
             <li class="muted">Memuat…</li>
           </ul>
         </section>
+
+        <section class="control-group" aria-labelledby="plans-title">
+          <div class="plans-header">
+            <h2 id="plans-title">Rencana Tersimpan <span class="count" id="saved-plans-count">(0)</span></h2>
+            <div class="plans-header-actions">
+              <button type="button" class="link-button" id="btn-download-all-plans" hidden title="Unduh seluruh rencana kafe sebagai berkas JSON">Unduh semua</button>
+              <button type="button" class="link-button" id="btn-clear-plans" hidden title="Hapus seluruh rencana tersimpan">Hapus semua</button>
+            </div>
+          </div>
+          <ul class="saved-plans-list" id="saved-plans-list">
+            <li class="muted saved-plans-empty">
+              Belum ada rencana tersimpan. Klik marker lahan eligible di peta atau tombol "Rencanakan Modal Kafe" untuk memulai.
+            </li>
+          </ul>
+        </section>
       </aside>
     </main>
+
+    <dialog id="planner-modal" class="planner-modal" aria-labelledby="modal-title" aria-describedby="modal-subtitle" aria-modal="true">
+      <div class="modal-content">
+        <header class="modal-header">
+          <div class="modal-title-group">
+            <h2 id="modal-title">Perencanaan Modal Kafe</h2>
+            <p id="modal-subtitle" class="modal-subtitle">Estimasi anggaran modal awal berdasarkan parameter lahan dan biaya operasional</p>
+          </div>
+          <button type="button" id="modal-close-btn" class="icon-button small" aria-label="Tutup modal perencanaan">
+            <span aria-hidden="true">×</span>
+          </button>
+        </header>
+
+        <div id="planner-guard-alert" class="alert alert-error" role="alert" hidden></div>
+
+        <section class="planner-land-summary" aria-label="Ringkasan Lokasi Lahan">
+          <div class="land-summary-header">
+            <h3 id="planner-land-name" class="land-name">—</h3>
+            <span id="planner-status-badge" class="badge-eligible">Memenuhi Syarat</span>
+          </div>
+          <p id="planner-land-address" class="land-address">—</p>
+          <div class="land-summary-meta">
+            <span class="meta-item">🏫 Kampus: <strong id="planner-land-campus">—</strong></span>
+            <span class="meta-item">📏 Jarak: <strong id="planner-land-distance">—</strong></span>
+          </div>
+        </section>
+
+        <div class="modal-grid">
+          <form id="planner-form" class="planner-form" onsubmit="return false;">
+            <fieldset class="form-section">
+              <legend>Identitas Rencana Kafe</legend>
+              <div class="form-group">
+                <label for="input-cafe-name">Nama Kafe / Konsep</label>
+                <input type="text" id="input-cafe-name" name="cafe_name" placeholder="Misal: Kafe Sudut Dinoyo" required />
+              </div>
+              <div class="form-group">
+                <label for="input-target-customer">Target Pelanggan</label>
+                <input type="text" id="input-target-customer" name="target_customer" placeholder="Misal: Mahasiswa Unair / UKWMS / Ubaya" />
+              </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+              <legend>Parameter Lahan &amp; Sewa</legend>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="input-area-sqm">Luas Lahan (m²)</label>
+                  <input type="number" id="input-area-sqm" name="area_sqm" min="10" max="5000" step="1" required />
+                </div>
+                <div class="form-group">
+                  <label for="input-rental-duration">Durasi Sewa (Tahun)</label>
+                  <input type="number" id="input-rental-duration" name="rental_duration_yr" min="1" max="10" step="1" value="1" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="input-rental-price">Biaya Sewa per Tahun (Rp)</label>
+                <input type="number" id="input-rental-price" name="rental_price_yr" min="0" step="1000000" required />
+              </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+              <legend>Estimasi Biaya Operasional &amp; Fisik</legend>
+              <div class="form-group">
+                <label for="input-renovation-rate">Renovasi &amp; Desain Interior (Rp / m²)</label>
+                <input type="number" id="input-renovation-rate" name="renovation_cost_per_sqm" min="0" step="100000" value="1500000" />
+                <span class="field-hint">Standar coffee shop Surabaya: Rp 1,5 jt / m²</span>
+              </div>
+              <div class="form-group">
+                <label for="input-equipment-cost">Peralatan &amp; Mesin Kopi (Rp)</label>
+                <input type="number" id="input-equipment-cost" name="equipment_cost" min="0" step="1000000" value="45000000" />
+                <span class="field-hint">Espresso machine, grinder, POS, chiller</span>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="input-monthly-ops">Operasional / Bulan (Rp)</label>
+                  <input type="number" id="input-monthly-ops" name="monthly_operational_cost" min="0" step="500000" value="15000000" />
+                </div>
+                <div class="form-group">
+                  <label for="input-working-months">Cadangan (Bulan)</label>
+                  <input type="number" id="input-working-months" name="working_capital_months" min="1" max="12" step="1" value="3" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="input-contingency-cost">Perizinan &amp; Kontingensi (Rp)</label>
+                <input type="number" id="input-contingency-cost" name="contingency_cost" min="0" step="500000" value="10000000" />
+              </div>
+            </fieldset>
+          </form>
+
+          <aside class="calculator-panel" aria-label="Rincian Kalkulasi Modal">
+            <div class="calculator-card">
+              <h3 class="calc-title">Rincian Estimasi Modal</h3>
+              <dl class="calc-breakdown">
+                <div class="calc-row">
+                  <dt>Sewa Lahan</dt>
+                  <dd id="calc-subtotal-rental">Rp 0</dd>
+                </div>
+                <div class="calc-row">
+                  <dt>Renovasi &amp; Interior</dt>
+                  <dd id="calc-subtotal-renovation">Rp 0</dd>
+                </div>
+                <div class="calc-row">
+                  <dt>Mesin &amp; Peralatan</dt>
+                  <dd id="calc-subtotal-equipment">Rp 0</dd>
+                </div>
+                <div class="calc-row">
+                  <dt>Cadangan Operasional</dt>
+                  <dd id="calc-subtotal-operational">Rp 0</dd>
+                </div>
+                <div class="calc-row">
+                  <dt>Kontingensi &amp; Izin</dt>
+                  <dd id="calc-subtotal-contingency">Rp 0</dd>
+                </div>
+              </dl>
+
+              <div class="calc-total-banner">
+                <span class="total-label">TOTAL ESTIMASI MODAL AWAL</span>
+                <span class="total-value" id="calc-total-capital">Rp 0</span>
+              </div>
+
+              <p class="calc-note">
+                💡 Estimasi dihitung otomatis. Perhitungan modal ini tersimpan di browser (LocalStorage) untuk presentasi dan evaluasi bisnis kafe.
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <footer class="modal-footer">
+          <button type="button" id="modal-download-btn" class="btn btn-secondary">Unduh JSON</button>
+          <button type="button" id="modal-cancel-btn" class="btn btn-secondary">Batal</button>
+          <button type="button" id="modal-save-btn" class="btn btn-primary">Simpan Rencana Kafe</button>
+        </footer>
+      </div>
+    </dialog>
 
     <div id="live-region" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
   </body>
