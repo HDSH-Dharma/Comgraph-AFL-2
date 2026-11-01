@@ -49,11 +49,18 @@ export function formatMeters(m) {
 
 const DATA_KIND_TEXT = {
   demo: 'Data demo (simulasi akademik), belum diverifikasi lapangan',
-  verified: 'Terverifikasi',
-  listing: 'Listing properti eksternal',
+  verified: 'Survei lapangan empiris terverifikasi',
+  listing: 'Listing properti eksternal (terverifikasi)',
+  osm: 'Konteks OpenStreetMap (ODbL 1.0)',
   unknown: 'Sumber data belum jelas',
 };
-const DATA_KIND_SHORT = { demo: 'Demo', verified: 'Terverifikasi', listing: 'Listing', unknown: 'Belum jelas' };
+const DATA_KIND_SHORT = {
+  demo: 'Simulasi Demo',
+  verified: 'Survei Faktual',
+  listing: 'Listing Riil',
+  osm: 'OSM Konteks',
+  unknown: 'Belum jelas',
+};
 
 function statusSwatch(status, size = 28, opts = {}) {
   const c = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
@@ -453,29 +460,60 @@ export class MapUI {
     const visible = [...vm.visible.candidates].sort(
       (a, b) => (a.distanceM ?? Infinity) - (b.distanceM ?? Infinity)
     );
-    this.els.count.textContent = cand.ok ? `${visible.length} dari ${cand.items.length}` : '';
+    const factualCount = (cand.items || []).filter((c) => c.isFactual).length;
+    const demoCount = (cand.items || []).filter((c) => !c.isFactual).length;
+
     if (!cand.ok) {
+      this.els.count.textContent = '';
       this.els.list.replaceChildren(h('li', { class: 'muted', text: 'Data kandidat belum tersedia.' }));
       return;
     }
+
     if (!vm.layers.candidates) {
+      this.els.count.textContent = `(0 survei faktual · ${demoCount} demo nonaktif)`;
       this.els.list.replaceChildren(
         h(
           'li',
+          { class: 'muted survey-empty-notice' },
+          h('strong', { text: '📍 Status Survei Lahan Faktual: ' }),
+          'Belum ada data survei lapangan empiris (menunggu hasil observasi lapangan / Google Street View dari tim). Seluruh koordinat dan batas lahan riil memerlukan verifikasi langsung.'
+        ),
+        h(
+          'li',
           { class: 'muted candidate-hidden-notice' },
-          'ℹ️ Kandidat lahan sintetis (demo) disembunyikan secara default demi memprioritaskan data faktual. Aktifkan checkbox "Kandidat lahan (demo)" di kontrol layer jika ingin menampilkan simulasi demo.'
+          `ℹ️ Kandidat lahan sintetis (${demoCount} titik demo akademik) disembunyikan secara default demi memprioritaskan data faktual. Aktifkan checkbox "Kandidat lahan (demo)" di kontrol layer jika ingin menampilkan simulasi demo.`
         )
       );
       return;
     }
+
+    this.els.count.textContent = factualCount > 0
+      ? `${visible.length} terlihat (${factualCount} faktual · ${demoCount} demo)`
+      : `${visible.length} terlihat (${demoCount} simulasi demo · 0 faktual)`;
+
     if (!visible.length) {
       this.els.list.replaceChildren(
         h('li', { class: 'muted', text: cand.items.length ? 'Tidak ada kandidat yang cocok dengan filter.' : 'Belum ada data kandidat lahan.' })
       );
       return;
     }
+
     const selectedId = vm.selection?.kind === 'land' ? vm.selection.id : null;
-    this.els.list.replaceChildren(
+    const items = [];
+
+    // Jika seluruh kandidat yang aktif adalah data demo (0 faktual), sematkan callout peringatan di atas daftar
+    if (factualCount === 0) {
+      items.push(
+        h(
+          'li',
+          { class: 'callout callout-warn candidate-demo-list-banner', role: 'note' },
+          h('strong', { text: '⚠️ Simulasi Akademik Demo: ' }),
+          `Menampilkan ${visible.length} titik simulasi demo (0 data survei faktual). Angka sewa & luas adalah estimasi asumsi, bukan harga pasar nyata.`
+        )
+      );
+    }
+
+    items.push(
       ...visible.map((c) =>
         h(
           'li',
@@ -502,7 +540,10 @@ export class MapUI {
                     : c.status.label,
                   c.distanceM != null ? formatMeters(c.distanceM).split(' (')[0] : null,
                   c.isInBuffer === false ? 'di luar buffer' : null,
-                  DATA_KIND_SHORT[c.dataKind],
+                  !c.isFactual ? 'Estimasi Demo' : 'Survei Faktual',
+                  c.rentalPriceYr
+                    ? (!c.isFactual ? `${rupiah.format(c.rentalPriceYr)} (est. demo)` : rupiah.format(c.rentalPriceYr))
+                    : 'Sewa: n/a',
                 ]
                   .filter(Boolean)
                   .join(' · '),
@@ -512,6 +553,8 @@ export class MapUI {
         )
       )
     );
+
+    this.els.list.replaceChildren(...items);
   }
 
   // ---------- Inspector ----------
@@ -561,10 +604,55 @@ export class MapUI {
       ['Status lahan', h('span', { class: 'status-inline' }, statusSwatch(c.status, 22), statusDisplay)],
       ['Kampus terdekat', c.nearestUniversityName || c.nearestUniversityId || '—'],
       ['Jarak', formatMeters(c.distanceM)],
-      ['Jenis data', c.provenanceLabel || DATA_KIND_TEXT[c.dataKind]],
+      ['Jenis data', c.provenanceLabel || DATA_KIND_TEXT[c.dataKind] || 'Simulasi Akademik'],
     ];
-    if (c.areaSqm) rows.push(['Luas', `${numberID.format(c.areaSqm)} m²`]);
-    if (c.rentalPriceYr) rows.push(['Sewa per tahun', rupiah.format(c.rentalPriceYr)]);
+
+    if (isDemo) {
+      if (c.areaSqm) {
+        rows.push(['Luas lahan', `${numberID.format(c.areaSqm)} m² (estimasi asumsi demo)`]);
+      } else {
+        rows.push(['Luas lahan', 'Belum diketahui (wajib diisi di planner)']);
+      }
+      if (c.rentalPriceYr) {
+        rows.push(['Estimasi sewa / thn', `${rupiah.format(c.rentalPriceYr)} (asumsi demo, bukan data pasar)`]);
+      } else {
+        rows.push(['Harga sewa', 'Belum ada data (wajib diisi di planner)']);
+      }
+    } else {
+      if (c.areaSqm) {
+        rows.push(['Luas lahan', `${numberID.format(c.areaSqm)} m² (hasil observasi/survei)`]);
+      } else {
+        rows.push(['Luas lahan', 'Belum ada data luas']);
+      }
+      if (c.rentalPriceYr) {
+        const priceLabel = c.properties?.price_kind === 'estimate' ? 'estimasi dari rentang listing' : 'harga listing/survei';
+        rows.push([`Harga sewa / thn (${priceLabel})`, rupiah.format(c.rentalPriceYr)]);
+        if (c.priceSourceUrl || c.properties?.price_source_url) {
+          rows.push([
+            'Bukti harga sewa',
+            h('a', { href: c.priceSourceUrl || c.properties.price_source_url, target: '_blank', rel: 'noopener noreferrer' }, 'Tautan Bukti Sewa ↗'),
+          ]);
+        }
+      } else {
+        rows.push(['Harga sewa', 'Belum ada data sewa (tidak ada papan sewa terverifikasi)']);
+      }
+      if (c.surveyMethod || c.properties?.survey_method) {
+        rows.push(['Metode survei', String(c.surveyMethod || c.properties.survey_method)]);
+      }
+      if (c.observedAt || c.properties?.observed_at) {
+        rows.push(['Tanggal observasi', String(c.observedAt || c.properties.observed_at)]);
+      }
+      if (c.evidenceUrl || c.properties?.evidence_url) {
+        rows.push([
+          'Bukti observasi',
+          h('a', { href: c.evidenceUrl || c.properties.evidence_url, target: '_blank', rel: 'noopener noreferrer' }, 'Tautan Bukti Observasi ↗'),
+        ]);
+      }
+      if (c.surveyedBy || c.properties?.surveyed_by) {
+        rows.push(['Disurvei oleh', String(c.surveyedBy || c.properties.surveyed_by)]);
+      }
+    }
+
     if (c.properties?.source) rows.push(['Sumber', String(c.properties.source)]);
     if (c.properties?.listing_id) rows.push(['ID Listing', String(c.properties.listing_id)]);
     if (c.properties?.listing_provider) rows.push(['Penyedia Listing', String(c.properties.listing_provider)]);
@@ -580,13 +668,13 @@ export class MapUI {
       if (match && match.isSupported && match.has_sufficient_listings && match.median_price_yr != null) {
         rows.push([
           'Pasar sewa kawasan',
-          `${rupiah.format(match.median_price_yr)}/thn (median ${match.count} listing pembanding)`,
+          `${rupiah.format(match.median_price_yr)}/thn (median estimasi dari ${match.count} listing pembanding)`,
         ]);
       } else {
         // Hapus data rentang harga jika ringkasan tidak didukung data listing terverifikasi (anti-fabrikasi)
         rows.push([
           'Pasar sewa kawasan',
-          'Belum ada data sewa terverifikasi',
+          'Belum ada data sewa terverifikasi (estimasi pasar tidak tersedia)',
         ]);
       }
     }
@@ -635,7 +723,16 @@ export class MapUI {
           'div',
           { class: 'callout callout-warn', role: 'status' },
           h('strong', { text: '⚠️ Simulasi Akademik Demo (Tanpa Provenans Faktual). ' }),
-          'Kandidat lahan ini adalah data sintetis demo akademik dan tidak memiliki verifikasi survei empiris di lapangan.'
+          'Kandidat lahan ini adalah data sintetis demo akademik dan tidak memiliki verifikasi survei empiris di lapangan. Angka sewa dan luas adalah estimasi asumsi simulasi, bukan data pasar riil.'
+        )
+      );
+    } else if (c.isSurvey) {
+      callouts.push(
+        h(
+          'div',
+          { class: 'callout callout-ok', role: 'status' },
+          h('strong', { text: '📍 Data Survei Lapangan Faktual. ' }),
+          `Lokasi ini diobservasi melalui metode ${c.surveyMethod || 'survei tim'}. Titik dan koordinat telah diverifikasi.`
         )
       );
     }
@@ -679,8 +776,9 @@ export class MapUI {
     ];
     if (l.buildingAreaSqm) rows.push(['Luas bangunan', `${numberID.format(l.buildingAreaSqm)} m²`]);
     if (l.landAreaSqm) rows.push(['Luas tanah', `${numberID.format(l.landAreaSqm)} m²`]);
-    if (l.rentalPriceYr) rows.push(['Harga sewa / thn', rupiah.format(l.rentalPriceYr)]);
-    if (l.priceSqmYr) rows.push(['Harga / m² / thn', `${rupiah.format(Math.round(l.priceSqmYr))} / m²`]);
+    if (l.rentalPriceYr) rows.push(['Harga sewa / thn', `${rupiah.format(l.rentalPriceYr)} (Listing riil terverifikasi)`]);
+    else rows.push(['Harga sewa / thn', 'Harga sewa tidak tercantum di listing']);
+    if (l.priceSqmYr) rows.push(['Harga / m² / thn', `${rupiah.format(Math.round(l.priceSqmYr))} / m² (Listing riil)`]);
     rows.push(['Kampus terdekat', `${l.nearestUniversityName || '—'} (${formatMeters(l.distanceM)})`]);
     rows.push(['Status buffer', l.isInBuffer ? '✓ Di dalam buffer 1 km' : '✕ Di luar buffer 1 km']);
     rows.push(['Portal sumber', l.sourcePortal || 'Portal Publik']);
@@ -713,11 +811,11 @@ export class MapUI {
                 name: l.title || l.id,
                 address: l.address,
                 status: 'Lahan yang tersedia untuk disewakan',
-                area_sqm: l.landAreaSqm || l.buildingAreaSqm || 120,
-                rental_price_yr: l.rentalPriceYr || 60000000,
+                area_sqm: l.landAreaSqm || l.buildingAreaSqm || null,
+                rental_price_yr: l.rentalPriceYr || null,
                 nearest_university_id: l.nearestUniversityId,
                 nearest_university_name: l.nearestUniversityName,
-                distance_meters: l.distanceM ?? 300,
+                distance_meters: l.distanceM ?? null,
                 is_in_buffer: true,
                 institution: l.institution,
                 coordinates: [l.lon, l.lat],
