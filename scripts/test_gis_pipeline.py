@@ -869,5 +869,201 @@ class TestGISPipeline(unittest.TestCase):
         self.assertGreater(shop_cafe_count, 0, "Harus ada fitur kafe/toko aktif terdeteksi.")
         self.assertGreater(unverified_count, 0, "Harus ada fitur unverified fallback terdeteksi.")
 
+    def test_15_survey_candidate_schema_and_trust_boundary(self):
+        """
+        Uji Kontrak & Trust Boundary Skema Survei Lahan Kandidat (Prompt A Task 1):
+        1. Fitur survei yang lengkap dengan bukti URL & tanggal observasi lolos validasi.
+        2. Penolakan kandidat tanpa URL bukti (Street View / Google Maps) atau path foto.
+        3. Penolakan tanggal observasi tidak baku (wajib YYYY-MM-DD).
+        4. Penolakan harga sewa tanpa sumber bukti (price_source_url).
+        5. Penolakan metode survei atau data_kind di luar taksonomi yang diizinkan.
+        """
+        # A. Fitur valid survei lapangan
+        valid_survey_feat = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [112.7485, -7.2865]
+            },
+            "properties": {
+                "id": "SURVEY-UKWMS-01",
+                "name": "Kavling Dinoyo Timur",
+                "address": "Jl. Dinoyo No. 45, Tegalsari, Surabaya",
+                "status": "Lahan yang tersedia untuk disewakan",
+                "survey_method": "street_view",
+                "evidence_url": "https://maps.google.com/?cid=123456789",
+                "observed_at": "2026-10-15",
+                "surveyed_by": "Tim AFL 2",
+                "notes": "Papan sewa terlihat di pagar depan",
+                "area_sqm": 180.0,
+                "rental_price_yr": 65000000.0,
+                "price_source_url": "https://maps.google.com/?cid=123456789",
+                "data_kind": "survey_google_maps"
+            }
+        }
+        res = self.pipeline.validate_survey_candidate(valid_survey_feat)
+        self.assertEqual(res["properties"]["id"], "SURVEY-UKWMS-01")
+        self.assertEqual(res["properties"]["status"], "Lahan yang tersedia untuk disewakan")
+        self.assertEqual(res["properties"]["observed_at"], "2026-10-15")
+
+        # B. Penolakan bukti kosong (tanpa URL bukti atau foto)
+        no_evidence_feat = json.loads(json.dumps(valid_survey_feat))
+        no_evidence_feat["properties"]["evidence_url"] = None
+        no_evidence_feat["properties"]["evidence_photo"] = None
+        with self.assertRaises(ValueError) as ctx:
+            self.pipeline.validate_survey_candidate(no_evidence_feat)
+        self.assertIn("wajib menyertakan 'evidence_url'", str(ctx.exception))
+
+        # C. Penolakan tanggal tidak baku
+        bad_date_feat = json.loads(json.dumps(valid_survey_feat))
+        bad_date_feat["properties"]["observed_at"] = "15-10-2026"
+        with self.assertRaises(ValueError) as ctx:
+            self.pipeline.validate_survey_candidate(bad_date_feat)
+        self.assertIn("Format 'observed_at'", str(ctx.exception))
+
+        # D. Penolakan harga sewa tanpa URL sumber bukti
+        no_price_source_feat = json.loads(json.dumps(valid_survey_feat))
+        no_price_source_feat["properties"]["price_source_url"] = None
+        with self.assertRaises(ValueError) as ctx:
+            self.pipeline.validate_survey_candidate(no_price_source_feat)
+        self.assertIn("tidak memiliki 'price_source_url' valid", str(ctx.exception))
+
+        # E. Penolakan metode survei tidak terdaftar
+        bad_method_feat = json.loads(json.dumps(valid_survey_feat))
+        bad_method_feat["properties"]["survey_method"] = "ai_hallucination"
+        with self.assertRaises(ValueError) as ctx:
+            self.pipeline.validate_survey_candidate(bad_method_feat)
+        self.assertIn("Metode survei 'ai_hallucination' pada SURVEY-UKWMS-01 tidak valid", str(ctx.exception))
+
+        # F. Penolakan data_kind tidak valid
+        bad_kind_feat = json.loads(json.dumps(valid_survey_feat))
+        bad_kind_feat["properties"]["data_kind"] = "unverified_listing"
+        with self.assertRaises(ValueError) as ctx:
+            self.pipeline.validate_survey_candidate(bad_kind_feat)
+        self.assertIn("'data_kind' (unverified_listing) pada SURVEY-UKWMS-01 tidak valid", str(ctx.exception))
+
+    def test_16_osm_cafes_provenance_and_buffer_metrics(self):
+        """
+        Uji Lapisan Konteks Kafe Eksisting OpenStreetMap (Prompt A Task 3):
+        1. Berkas data/processed/osm_cafes.geojson tersedia dan berlisensi ODbL.
+        2. Seluruh fitur bertipe Point dengan koordinat valid di Surabaya.
+        3. Properti kafe konsisten: is_existing_cafe=True, is_planner_allowed=False, data_kind='osm_cafe'.
+        4. Metrik spasial: jarak ke kampus terdekat dan bendera is_in_buffer terhitung akurat.
+        5. Preservasi identitas sumber: osm_id, osm_tags, dan osm_url menunjuk ke osm.org.
+        """
+        cafes_proc_path = "data/processed/osm_cafes.geojson"
+        self.assertTrue(os.path.exists(cafes_proc_path), "Berkas osm_cafes.geojson wajib ada di data/processed/")
+
+        with open(cafes_proc_path, "r", encoding="utf-8") as f:
+            cafes_data = json.load(f)
+
+        features = cafes_data.get("features", [])
+        self.assertEqual(len(features), 206, "Harus ada 206 kafe riil dari Overpass API")
+
+        in_buffer_count = 0
+        for feat in features:
+            props = feat["properties"]
+            cid = props["id"]
+
+            self.assertTrue(cid.startswith("OSM-CAFE-NODE-") or cid.startswith("OSM-CAFE-WAY-"))
+            self.assertEqual(props["amenity"], "cafe")
+            self.assertEqual(props["data_kind"], "osm_cafe")
+            self.assertTrue(props["is_existing_cafe"])
+            self.assertFalse(props["is_planner_allowed"], "Kafe eksisting tidak boleh dibuka untuk perencanaan kafe baru")
+            self.assertTrue(props["is_factual"])
+            self.assertIn("ODbL", props["source"])
+            self.assertTrue(props["osm_url"].startswith("https://www.openstreetmap.org/"))
+
+            # Koordinat valid
+            coords = feat["geometry"]["coordinates"]
+            self.assertGreaterEqual(coords[0], 112.50)
+            self.assertLessEqual(coords[0], 112.95)
+            self.assertGreaterEqual(coords[1], -7.45)
+            self.assertLessEqual(coords[1], -7.15)
+
+            # Jarak metrik
+            self.assertGreater(props["distance_meters"], 0)
+            self.assertGreaterEqual(props["distance_to_polygon_meters"], 0)
+            if props["is_in_buffer"]:
+                in_buffer_count += 1
+                self.assertLessEqual(props["distance_meters"], 1000.0)
+            else:
+                self.assertGreater(props["distance_meters"], 1000.0)
+
+        # 59 kafe berada dalam radius 1 km kampus
+        self.assertEqual(in_buffer_count, 59, "Tepat 59 kafe eksisting berada dalam buffer 1km dari 8 kampus")
+
+    def test_17_genuine_osm_campus_perimeter_polygons_and_cadastral_areas(self):
+        """
+        Uji Geometri Asli Perimeter Kampus OSM (Prompt A Task 2):
+        1. 8 kampus memiliki poligon asli multi-vertex dari way OSM (bukan bounding box 4 titik).
+        2. Seluruh poligon membentuk cincin tertutup (closed ring).
+        3. Luas kadaster terhitung positif (hektar) sesuai metrik UTM 49S (EPSG:32749).
+        4. Payload mentah way OSM tersimpan di data/raw/osm/way_*.json untuk keterulangan (reproducibility).
+        """
+        raw_polygons_path = "data/raw/osm/genuine_campus_polygons.json"
+        self.assertTrue(os.path.exists(raw_polygons_path), "genuine_campus_polygons.json harus ada di data/raw/osm/")
+
+        with open(raw_polygons_path, "r", encoding="utf-8") as f:
+            poly_data = json.load(f)
+
+        self.assertEqual(len(poly_data), 8, "Harus ada 8 kampus dengan poligon asli OSM")
+
+        expected_ways = {
+            "UNAIR-KAMPUS-A": 448790949,
+            "UNAIR-KAMPUS-B": 448790950,
+            "UNAIR-KAMPUS-C": 320182776,
+            "UKWMS-DINOYO": 279576575,
+            "UKWMS-KALIJUDAN": 432849700,
+            "UKWMS-PAKUWON": 876180997,
+            "UBAYA-NGAGEL": 429131451,
+            "UBAYA-TENGGILIS": 463579114
+        }
+
+        for cid, way_id in expected_ways.items():
+            self.assertIn(cid, poly_data)
+            campus_info = poly_data[cid]
+            self.assertEqual(campus_info["way_id"], way_id)
+            self.assertGreaterEqual(campus_info["nodes_count"], 6, "Setiap poligon kampus memiliki minimal 6 titik batas")
+
+            # Verifikasi keterulangan payload mentah
+            raw_way_file = f"data/raw/osm/way_{way_id}.json"
+            self.assertTrue(os.path.exists(raw_way_file), f"Payload mentah way {way_id} harus tersimpan di data/raw/osm/")
+
+            # Verifikasi luas kadaster metrik positif
+            area_ha = campus_info["area_ha"]
+            self.assertGreater(area_ha, 0.5, f"Luas kadaster {cid} harus > 0.5 ha")
+            self.assertLess(area_ha, 100.0, f"Luas kadaster {cid} harus < 100 ha")
+
+        # Verifikasi berkas processed
+        proc_poly_path = "data/processed/universities_polygons.geojson"
+        with open(proc_poly_path, "r", encoding="utf-8") as f:
+            proc_polys = json.load(f)
+
+        self.assertEqual(len(proc_polys["features"]), 8)
+        for feat in proc_polys["features"]:
+            coords = feat["geometry"]["coordinates"][0]
+            self.assertEqual(coords[0], coords[-1], "Cincin poligon kampus harus tertutup eksak")
+            self.assertGreater(feat["properties"]["campus_area_ha"], 0)
+
+    def test_18_survey_dataset_template_integrity_and_anti_fabrication_audit(self):
+        """
+        Uji Integritas Template Survei Lahan & Audit Anti-Fabrikasi (Prompt A Task 1 & 4):
+        1. data/raw/survey_land_candidates.geojson ada dan valid skemanya.
+        2. Status berkas secara jujur ditandai AWAITING_FIELD_SURVEY_DATA (menunggu survei tim mahasiswa).
+        3. Zero klaim observasi palsu: tidak ada titik survei buatan/karangan di berkas mentah ini.
+        4. Keterulangan eksekusi pipeline menghasilkan processed dataset secara deterministik.
+        """
+        survey_template_path = "data/raw/survey_land_candidates.geojson"
+        self.assertTrue(os.path.exists(survey_template_path))
+
+        with open(survey_template_path, "r", encoding="utf-8") as f:
+            template = json.load(f)
+
+        self.assertEqual(template["type"], "FeatureCollection")
+        self.assertEqual(template["metadata"]["status"], "AWAITING_FIELD_SURVEY_DATA")
+        self.assertEqual(len(template["features"]), 0, "Dilarang memfabrikasi titik survei sebelum observasi riil")
+        self.assertIn("required_fields", template["metadata"]["protocol_guidelines"])
+
 if __name__ == "__main__":
     unittest.main()

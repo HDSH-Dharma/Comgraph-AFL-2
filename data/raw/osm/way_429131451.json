@@ -1,0 +1,100 @@
+{
+  "version": "0.6",
+  "generator": "openstreetmap-cgimap 2.1.0 (907286 spike-08.openstreetmap.org)",
+  "copyright": "OpenStreetMap and contributors",
+  "attribution": "http://www.openstreetmap.org/copyright",
+  "license": "http://opendatacommons.org/licenses/odbl/1-0/",
+  "elements": [
+    {
+      "type": "node",
+      "id": 4282601273,
+      "lat": -7.2928811,
+      "lon": 112.760828,
+      "timestamp": "2016-07-04T19:02:10Z",
+      "version": 1,
+      "changeset": 40484860,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 4282601274,
+      "lat": -7.2935474,
+      "lon": 112.760828,
+      "timestamp": "2016-07-04T19:02:10Z",
+      "version": 1,
+      "changeset": 40484860,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 4282601275,
+      "lat": -7.2935382,
+      "lon": 112.7617338,
+      "timestamp": "2016-07-04T19:02:10Z",
+      "version": 1,
+      "changeset": 40484860,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 4282601276,
+      "lat": -7.2926825,
+      "lon": 112.7618324,
+      "timestamp": "2016-07-04T19:02:10Z",
+      "version": 1,
+      "changeset": 40484860,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 4282601277,
+      "lat": -7.2927346,
+      "lon": 112.7614843,
+      "timestamp": "2016-10-14T04:08:52Z",
+      "version": 2,
+      "changeset": 42886186,
+      "user": "Yudha Sidhikoro",
+      "uid": 4706322
+    },
+    {
+      "type": "node",
+      "id": 4282601278,
+      "lat": -7.2928872,
+      "lon": 112.7614781,
+      "timestamp": "2016-07-04T19:02:10Z",
+      "version": 1,
+      "changeset": 40484860,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "way",
+      "id": 429131451,
+      "timestamp": "2018-10-27T09:38:38Z",
+      "version": 3,
+      "changeset": 63923281,
+      "user": "Farras",
+      "uid": 136807,
+      "nodes": [
+        4282601273,
+        4282601274,
+        4282601275,
+        4282601276,
+        4282601277,
+        4282601278,
+        4282601273
+      ],
+      "tags": {
+        "addr:full": "Jalan Ngagel Jaya Selatan 149",
+        "alt_name": "Kampus Ngagel Universitas Surabaya",
+        "amenity": "university",
+        "name": "Universitas Surabaya",
+        "operator:type": "government"
+      }
+    }
+  ]
+}

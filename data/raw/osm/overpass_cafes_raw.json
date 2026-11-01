@@ -1,0 +1,2865 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-01T09:42:01Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 415826789,
+  "lat": -7.2661303,
+  "lon": 112.7646912,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Cafe Glass"
+  }
+},
+{
+  "type": "node",
+  "id": 3953125335,
+  "lat": -7.2621634,
+  "lon": 112.7504732,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "internet_access": "yes",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4188606200,
+  "lat": -7.2428160,
+  "lon": 112.7413808,
+  "tags": {
+    "addr:city": "Bongkaran, Surabaya",
+    "addr:postcode": "60161",
+    "addr:street": "Jalan Stasiun Kota",
+    "amenity": "cafe",
+    "name": "K1 Karaoke Lounge",
+    "name:en": "K1 Karaoke Lounge"
+  }
+},
+{
+  "type": "node",
+  "id": 4188778818,
+  "lat": -7.2694972,
+  "lon": 112.7494463,
+  "tags": {
+    "addr:city": "Gubeng",
+    "addr:housenumber": "Nomor 40",
+    "addr:postcode": "60281",
+    "addr:street": "Jalan Sumatera",
+    "amenity": "cafe",
+    "name": "Historica Coffee & Pastry"
+  }
+},
+{
+  "type": "node",
+  "id": 4188865096,
+  "lat": -7.2492813,
+  "lon": 112.7307395,
+  "tags": {
+    "addr:city": "Kota SBY, Jawa Timur, Indonesia",
+    "addr:housenumber": "1",
+    "addr:postcode": "64412",
+    "addr:street": "Jl. Semarang",
+    "amenity": "cafe",
+    "name": "Kedai kopi SINGGALANG"
+  }
+},
+{
+  "type": "node",
+  "id": 4189063901,
+  "lat": -7.2819951,
+  "lon": 112.7425595,
+  "tags": {
+    "addr:city": "Keputran, Tegalsari, Surabaya",
+    "addr:postcode": "60265",
+    "addr:street": "Jalan Mojopahit",
+    "amenity": "cafe",
+    "name": "Autonet"
+  }
+},
+{
+  "type": "node",
+  "id": 4189279554,
+  "lat": -7.2818933,
+  "lon": 112.7762419,
+  "tags": {
+    "addr:city": "Manyar Sabrangan, Surabaya, Jawa Timur, Indonesia",
+    "addr:housenumber": "411",
+    "addr:postcode": "60115",
+    "addr:street": "Jalan Kertajaya Indah Tengah V",
+    "amenity": "cafe",
+    "name": "Konig"
+  }
+},
+{
+  "type": "node",
+  "id": 4191048384,
+  "lat": -7.2948767,
+  "lon": 112.7625001,
+  "tags": {
+    "addr:city": "Menur Pumpungan, Sukolilo, Surabaya, East Java",
+    "addr:housenumber": "No.53D",
+    "addr:postcode": "60118",
+    "addr:street": "Jalan Raya Manyar",
+    "amenity": "cafe",
+    "name": "Sapi Milk"
+  }
+},
+{
+  "type": "node",
+  "id": 4191074244,
+  "lat": -7.2692876,
+  "lon": 112.7506084,
+  "tags": {
+    "addr:city": "RT.002/RW.05, Gubeng, Kota Surabaya, Jawa Timur, Indonesia",
+    "addr:housenumber": "31",
+    "addr:postcode": "60281",
+    "addr:street": "Jalan Sumatra",
+    "amenity": "cafe",
+    "name": "Layali Shisha Cafe and Lounge"
+  }
+},
+{
+  "type": "node",
+  "id": 4191092612,
+  "lat": -7.2848049,
+  "lon": 112.7361940,
+  "tags": {
+    "addr:city": "Tegalsari, Dr. Sutomo, Surabaya",
+    "addr:housenumber": "No.79",
+    "addr:postcode": "60264",
+    "addr:street": "Jl. Untung Suropati",
+    "amenity": "cafe",
+    "name": "Blackbarn Coffee"
+  }
+},
+{
+  "type": "node",
+  "id": 4191121303,
+  "lat": -7.2661781,
+  "lon": 112.7399656,
+  "tags": {
+    "addr:city": "Tegalsari, Kota SBY, Jawa Timur",
+    "addr:housenumber": "2",
+    "addr:postcode": "60262",
+    "addr:street": "Jalan Pregolan",
+    "amenity": "cafe",
+    "cuisine": "sandwich;breakfast;ice_cream;cake;coffee_shop",
+    "internet_access": "wlan",
+    "name": "Le Cafe Gourmand",
+    "opening_hours": "Mo-Su 08:00-22:00"
+  }
+},
+{
+  "type": "node",
+  "id": 4191179831,
+  "lat": -7.3037377,
+  "lon": 112.7618885,
+  "tags": {
+    "addr:city": "Baratajaya, Gubeng, Surabaya, East Java",
+    "addr:postcode": "60284",
+    "addr:street": "Jl. Raya Nginden No.72-A",
+    "amenity": "cafe",
+    "name": "Cafe Glass"
+  }
+},
+{
+  "type": "node",
+  "id": 4191188521,
+  "lat": -7.2611565,
+  "lon": 112.7488027,
+  "tags": {
+    "addr:city": "Genteng, Ketabang, Surabaya",
+    "addr:housenumber": "67 - 69",
+    "addr:postcode": "60272",
+    "addr:street": "Jalan Walikota Mustajab",
+    "alt_name": "Calibre Coffee Roasters",
+    "amenity": "cafe",
+    "contact:instagram": "https://instagram.com/calibrecoffeeroasters",
+    "cuisine": "savory_pancakes;tea;cake;pasta;pancake;sandwich;breakfast;international;coffee_shop",
+    "diet:vegetarian": "yes",
+    "internet_access": "wlan",
+    "internet_access:fee": "no",
+    "name": "Calibre",
+    "name:de": "Calibre Kaffeerösterei",
+    "name:en": "Calibre Coffee Roasters",
+    "opening_hours": "Su-Th 10:00-22:00; Fr-Sa 10:00-23:30",
+    "outdoor_seating": "yes",
+    "phone": "+62 31 5454801",
+    "smoking": "outside",
+    "takeaway": "yes",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 4191236894,
+  "lat": -7.2583456,
+  "lon": 112.7294178,
+  "tags": {
+    "addr:city": "Sawahan, Surabaya",
+    "addr:postcode": "60251",
+    "addr:street": "Jalan Anjasmoro",
+    "amenity": "cafe",
+    "name": "Caturra Espresso"
+  }
+},
+{
+  "type": "node",
+  "id": 4191388843,
+  "lat": -7.2837039,
+  "lon": 112.7414089,
+  "tags": {
+    "addr:city": "Keputran, Tegalsari, Surabaya",
+    "addr:postcode": "60265",
+    "addr:street": "Jl. Tumapael 33",
+    "amenity": "cafe",
+    "name": "Coffeezone"
+  }
+},
+{
+  "type": "node",
+  "id": 4191391086,
+  "lat": -7.2868818,
+  "lon": 112.7757162,
+  "tags": {
+    "addr:city": "Klampis Ngasem, Sukolilo, Surabaya",
+    "addr:postcode": "60117",
+    "addr:street": "Jl. Klampis Jaya",
+    "amenity": "cafe",
+    "name": "Coffee Toffee"
+  }
+},
+{
+  "type": "node",
+  "id": 4191427580,
+  "lat": -7.2821635,
+  "lon": 112.7762654,
+  "tags": {
+    "addr:city": "Manyar Sabrangan, Surabaya, Jawa Timur, Indonesia",
+    "addr:housenumber": "No. 24",
+    "addr:postcode": "60115",
+    "addr:street": "Jalan Kertajaya Indah Tengah",
+    "amenity": "cafe",
+    "name": "Communal"
+  }
+},
+{
+  "type": "node",
+  "id": 4192761149,
+  "lat": -7.3202700,
+  "lon": 112.7325051,
+  "tags": {
+    "addr:city": "Ketintang, Gayungan, Surabaya",
+    "addr:housenumber": "No. 88",
+    "addr:postcode": "60231",
+    "addr:street": "Jalan Ahmad Yani",
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4192765244,
+  "lat": -7.2744901,
+  "lon": 112.7820139,
+  "tags": {
+    "addr:city": "Mulyorejo, Surabaya, East Java",
+    "addr:housenumber": "No.35-39",
+    "addr:postcode": "60115",
+    "addr:street": "Jl. Dr. Ir. H. Soekarno",
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4192769085,
+  "lat": -7.2930550,
+  "lon": 112.7394879,
+  "tags": {
+    "addr:city": "Darmo, Wonokromo, Surabaya, East Java",
+    "addr:housenumber": "No.2",
+    "addr:postcode": "60241",
+    "addr:street": "Jl. Juwono",
+    "amenity": "cafe",
+    "name": "Stilrod Cycle Shop"
+  }
+},
+{
+  "type": "node",
+  "id": 4192787118,
+  "lat": -7.2944924,
+  "lon": 112.7461441,
+  "tags": {
+    "addr:city": "Ngagelrejo, Wonokromo, Surabaya",
+    "addr:postcode": "60245",
+    "addr:street": "Jl. Ngagel Redjo",
+    "amenity": "cafe",
+    "name": "STMJ Bu Nunuk Pojok Ngagel"
+  }
+},
+{
+  "type": "node",
+  "id": 4192912669,
+  "lat": -7.2654319,
+  "lon": 112.7527206,
+  "tags": {
+    "addr:city": "Pacar Keling, Tambaksari, Surabaya, East Java",
+    "addr:housenumber": "No.2",
+    "addr:postcode": "60131",
+    "addr:street": "Jl. Gubeng Masjid",
+    "amenity": "cafe",
+    "name": "Surabaya CAFÈ"
+  }
+},
+{
+  "type": "node",
+  "id": 4193058429,
+  "lat": -7.2763121,
+  "lon": 112.7818725,
+  "tags": {
+    "addr:city": "Mulyorejo, Surabaya",
+    "addr:postcode": "60115",
+    "addr:street": "Galaxy Mall - Management - Office Lantai I No. 112, JL. Dharma Husada Indah Timur, No. 37",
+    "amenity": "cafe",
+    "name": "Excelso"
+  }
+},
+{
+  "type": "node",
+  "id": 4193096146,
+  "lat": -7.3219722,
+  "lon": 112.7463631,
+  "tags": {
+    "addr:city": "emur Wonosari, Rungkut, Surabaya",
+    "addr:housenumber": "No.80",
+    "addr:postcode": "60237",
+    "addr:street": "Jl. Raya Kendangsari",
+    "amenity": "cafe",
+    "name": "Feliz Guest House & Cafe"
+  }
+},
+{
+  "type": "node",
+  "id": 4193187205,
+  "lat": -7.2737522,
+  "lon": 112.7954887,
+  "tags": {
+    "addr:city": "Mulyorejo, Surabaya, East Java",
+    "addr:postcode": "60115",
+    "addr:street": "Jl. Wisma Permai 1",
+    "amenity": "cafe",
+    "name": "Teras Rumah Cafe"
+  }
+},
+{
+  "type": "node",
+  "id": 4193358660,
+  "lat": -7.2840504,
+  "lon": 112.7360311,
+  "tags": {
+    "addr:city": "Dr. Sutomo, Tegalsari, Surabaya",
+    "addr:housenumber": "No.63",
+    "addr:postcode": "60264",
+    "addr:street": "Jl. Untung Suropati",
+    "amenity": "cafe",
+    "name": "Too Too Moo Patisserie"
+  }
+},
+{
+  "type": "node",
+  "id": 4212997992,
+  "lat": -7.2876459,
+  "lon": 112.8040771,
+  "tags": {
+    "amenity": "cafe",
+    "cuisine": "american",
+    "internet_access": "wlan",
+    "name": "Kopi Ganes",
+    "smoking": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4260123796,
+  "lat": -7.2635031,
+  "lon": 112.7460796,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "15",
+    "addr:postcode": "60271",
+    "addr:street": "Jalan Yos Sudarso",
+    "amenity": "cafe",
+    "name": "Zangrandi, Ice Cream"
+  }
+},
+{
+  "type": "node",
+  "id": 4260137173,
+  "lat": -7.2858843,
+  "lon": 112.7759749,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "25 C",
+    "addr:postcode": "60117",
+    "addr:street": "Jl. Klampis Jaya",
+    "amenity": "cafe",
+    "name": "Kedai Kopi (Keiko)"
+  }
+},
+{
+  "type": "node",
+  "id": 4260141068,
+  "lat": -7.3226030,
+  "lon": 112.7423292,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "71",
+    "addr:postcode": "60237",
+    "addr:street": "Jalan Jemur Sari",
+    "amenity": "cafe",
+    "name": "De mandailing Cafe n Eatery Jemur Sari"
+  }
+},
+{
+  "type": "node",
+  "id": 4260143149,
+  "lat": -7.2940318,
+  "lon": 112.7572188,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:postcode": "60284",
+    "addr:street": "Jalan Krukah Timur",
+    "amenity": "cafe",
+    "name": "Otoclassic Cafe"
+  }
+},
+{
+  "type": "node",
+  "id": 4260144465,
+  "lat": -7.2923125,
+  "lon": 112.7495072,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "30",
+    "addr:postcode": "60245",
+    "addr:street": "Jalan Bung Tomo",
+    "amenity": "cafe",
+    "name": "GR Café (Gue Rasa ini Café)"
+  }
+},
+{
+  "type": "node",
+  "id": 4260149093,
+  "lat": -7.2907982,
+  "lon": 112.7465567,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "6",
+    "addr:postcode": "60246",
+    "addr:street": "Jalan Bung Tomo",
+    "amenity": "cafe",
+    "name": "One Dollar Cafe"
+  }
+},
+{
+  "type": "node",
+  "id": 4267713041,
+  "lat": -7.2824084,
+  "lon": 112.7622228,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "93",
+    "addr:postcode": "60285",
+    "addr:street": "Jalan Menur",
+    "amenity": "cafe",
+    "name": "Kafe Panorama"
+  }
+},
+{
+  "type": "node",
+  "id": 4267809700,
+  "lat": -7.2773927,
+  "lon": 112.7466380,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "5",
+    "addr:postcode": "60246",
+    "addr:street": "Jalan Bawean",
+    "amenity": "cafe",
+    "name": "Shae Cafe and Eatery"
+  }
+},
+{
+  "type": "node",
+  "id": 4270975190,
+  "lat": -7.2664268,
+  "lon": 112.7398709,
+  "tags": {
+    "addr:housenumber": "4",
+    "addr:street": "Jalan Pregolan",
+    "amenity": "cafe",
+    "cuisine": "sandwich;tea;cake;coffee_shop;asian;american;pasta;pizza",
+    "internet_access": "wlan",
+    "name": "Noach Cafe & Bistro",
+    "opening_hours": "Mo-Th 11:00-22:00; Fr-Sa 11:00-22:00"
+  }
+},
+{
+  "type": "node",
+  "id": 4296327398,
+  "lat": -7.3086561,
+  "lon": 112.7206005,
+  "tags": {
+    "amenity": "cafe",
+    "name": "KPK Latar Ombo"
+  }
+},
+{
+  "type": "node",
+  "id": 4342496192,
+  "lat": -7.3122818,
+  "lon": 112.7973987,
+  "tags": {
+    "addr:postcode": "60296",
+    "addr:street": "Wonorejo",
+    "amenity": "cafe",
+    "internet_access": "wlan",
+    "name": "Warkop Damai"
+  }
+},
+{
+  "type": "node",
+  "id": 4378996689,
+  "lat": -7.3109666,
+  "lon": 112.7323964,
+  "tags": {
+    "addr:street": "jl.ketintang II",
+    "amenity": "cafe",
+    "opening_hours": "Mo-Su 07:00-00:00"
+  }
+},
+{
+  "type": "node",
+  "id": 4516864624,
+  "lat": -7.2693945,
+  "lon": 112.7439460,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Excelso"
+  }
+},
+{
+  "type": "node",
+  "id": 4701193190,
+  "lat": -7.3125985,
+  "lon": 112.7804403,
+  "tags": {
+    "addr:housenumber": "NC 6",
+    "addr:street": "Jalan Dr. Ir. H. Soekarno",
+    "amenity": "cafe",
+    "internet_access": "wlan",
+    "name": "Coffee Estatindo",
+    "opening_hours": "Mo-Su 10:00-23:00"
+  }
+},
+{
+  "type": "node",
+  "id": 4745225123,
+  "lat": -7.2635586,
+  "lon": 112.7399021,
+  "tags": {
+    "addr:street": "Jalan Jenderal Basuki Rachmat",
+    "amenity": "cafe",
+    "name": "Coyote"
+  }
+},
+{
+  "type": "node",
+  "id": 4903244721,
+  "lat": -7.2916900,
+  "lon": 112.7236817,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Warkop tugu emas"
+  }
+},
+{
+  "type": "node",
+  "id": 4965692721,
+  "lat": -7.2697812,
+  "lon": 112.7403323,
+  "tags": {
+    "addr:street": "Jalan Embong Blimbing",
+    "amenity": "cafe",
+    "cuisine": "indonesian",
+    "name": "Depot 20",
+    "opening_hours": "Mo-Su 09:00-21:00"
+  }
+},
+{
+  "type": "node",
+  "id": 5301723424,
+  "lat": -7.2625609,
+  "lon": 112.7390643,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Starbucks"
+  }
+},
+{
+  "type": "node",
+  "id": 5330637022,
+  "lat": -7.2747419,
+  "lon": 112.7758684,
+  "tags": {
+    "addr:housenumber": "no 38",
+    "addr:postcode": "60115",
+    "addr:street": "Jalan Dharmahusada Indah II",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "name": "Warung danang",
+    "opening_hours": "Mo-Sa 00:00-24:00",
+    "phone": "+6285731894265",
+    "website": "https://wifi.id/"
+  }
+},
+{
+  "type": "node",
+  "id": 5716380921,
+  "lat": -7.2741573,
+  "lon": 112.7418023,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Foodcourt",
+    "name:de": "Foodcourt"
+  }
+},
+{
+  "type": "node",
+  "id": 5873197056,
+  "lat": -7.2797036,
+  "lon": 112.7673519,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "internet_access:fee": "no",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "opening_hours": "07:00-23:00",
+    "operator": "PT Sari Coffee Indonesia",
+    "outdoor_seating": "yes",
+    "smoking": "outside",
+    "takeaway": "yes",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 5873197057,
+  "lat": -7.2617762,
+  "lon": 112.7394783,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5873197058,
+  "lat": -7.2612547,
+  "lon": 112.7383465,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5873197059,
+  "lat": -7.2631864,
+  "lon": 112.7392584,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5873197060,
+  "lat": -7.2622711,
+  "lon": 112.7379978,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5873197061,
+  "lat": -7.2945388,
+  "lon": 112.7301228,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5873197062,
+  "lat": -7.2768993,
+  "lon": 112.8058630,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5897591816,
+  "lat": -7.2779716,
+  "lon": 112.7647984,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Titik Kumpul"
+  }
+},
+{
+  "type": "node",
+  "id": 5897591856,
+  "lat": -7.2808530,
+  "lon": 112.7734619,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Rollaas"
+  }
+},
+{
+  "type": "node",
+  "id": 6123924347,
+  "lat": -7.2619186,
+  "lon": 112.7499001,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Maxx Coffee",
+    "brand:wikidata": "Q124651563",
+    "cuisine": "coffee_shop",
+    "internet_access": "yes",
+    "name": "Maxx Coffee",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6123924348,
+  "lat": -7.2618108,
+  "lon": 112.7497901,
+  "tags": {
+    "amenity": "cafe",
+    "internet_access": "yes",
+    "name": "Excelso"
+  }
+},
+{
+  "type": "node",
+  "id": 6123924349,
+  "lat": -7.2621593,
+  "lon": 112.7503480,
+  "tags": {
+    "amenity": "cafe",
+    "internet_access": "yes",
+    "name": "Anomali Coffee"
+  }
+},
+{
+  "type": "node",
+  "id": 6123924350,
+  "lat": -7.2604671,
+  "lon": 112.7510521,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Oh Gelato & Cafe"
+  }
+},
+{
+  "type": "node",
+  "id": 6154038472,
+  "lat": -7.3087693,
+  "lon": 112.7215186,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Renekopi"
+  }
+},
+{
+  "type": "node",
+  "id": 6214815967,
+  "lat": -7.2630241,
+  "lon": 112.7406183,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6214815969,
+  "lat": -7.2652191,
+  "lon": 112.7485067,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6214815970,
+  "lat": -7.2556672,
+  "lon": 112.7338484,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6296236163,
+  "lat": -7.3144389,
+  "lon": 112.7810472,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6363976422,
+  "lat": -7.2894573,
+  "lon": 112.7756865,
+  "tags": {
+    "addr:city": "Klampis Ngasem, Sukolilo, Surabaya",
+    "addr:postcode": "60117",
+    "addr:street": "Jalan Arief Rahman Hakim",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warung Polisi (Warpol)",
+    "outdoor_seating": "yes",
+    "smoking": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6397255490,
+  "lat": -7.2892326,
+  "lon": 112.7631340,
+  "tags": {
+    "addr:city": "Menur Pumpungan, Sukolilo, Surabaya, East Java",
+    "addr:housenumber": "No.33",
+    "addr:postcode": "60118",
+    "addr:street": "Jalan Menur Pumpungan",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "coffy toffy manyar",
+    "opening_hours": "Mo-Su 09:00-21:00",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6398529327,
+  "lat": -7.2892120,
+  "lon": 112.7631254,
+  "tags": {
+    "amenity": "cafe"
+  }
+},
+{
+  "type": "node",
+  "id": 6409346562,
+  "lat": -7.2760014,
+  "lon": 112.7808205,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "cuisine": "coffee_shop",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6495308533,
+  "lat": -7.2706004,
+  "lon": 112.7562516,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Janji Jiwa"
+  }
+},
+{
+  "type": "node",
+  "id": 6621178653,
+  "lat": -7.2625788,
+  "lon": 112.7381244,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "Unit 22-23",
+    "addr:postcode": "60261",
+    "amenity": "cafe",
+    "brand": "The Coffee Bean & Tea Leaf",
+    "brand:wikidata": "Q1141384",
+    "brand:wikipedia": "en:The Coffee Bean & Tea Leaf",
+    "cuisine": "coffee_shop",
+    "name": "The Coffee Bean & Tea Leaf",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6681993566,
+  "lat": -7.2861002,
+  "lon": 112.7327551,
+  "tags": {
+    "addr:street": "Jalan Opak",
+    "air_conditioning": "yes",
+    "alt_name": "Thirty Three Brew",
+    "amenity": "cafe",
+    "bar": "yes",
+    "internet_access": "wlan",
+    "internet_access:fee": "no",
+    "name": "Thirty3 Brew",
+    "opening_hours": "Mo-Su 10:00-23:00",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6681993571,
+  "lat": -7.2856692,
+  "lon": 112.7329429,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Seventies Coffee"
+  }
+},
+{
+  "type": "node",
+  "id": 6681993573,
+  "lat": -7.2871804,
+  "lon": 112.7332299,
+  "tags": {
+    "air_conditioning": "yes",
+    "amenity": "cafe",
+    "bar": "yes",
+    "name": "Locaāhands",
+    "opening_hours": "Mo-Su 08:00-22:00",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6806679940,
+  "lat": -7.2725287,
+  "lon": 112.7562049,
+  "tags": {
+    "amenity": "cafe",
+    "internet_access": "yes",
+    "name": "Diskuupi",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6806679941,
+  "lat": -7.2726524,
+  "lon": 112.7562049,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Hi Coffee",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6806679945,
+  "lat": -7.2737805,
+  "lon": 112.7561539,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Lain Hati",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6806679946,
+  "lat": -7.2766819,
+  "lon": 112.7557891,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Pukul Satu",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6806679947,
+  "lat": -7.2778060,
+  "lon": 112.7545580,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Foresthree",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6806679950,
+  "lat": -7.2717451,
+  "lon": 112.7608087,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Kopi Yor",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6806679951,
+  "lat": -7.2710483,
+  "lon": 112.7608578,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Awal Cerita",
+    "outdoor_seating": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6811538254,
+  "lat": -7.2998090,
+  "lon": 112.7656827,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "38",
+    "addr:postcode": "60118",
+    "addr:street": "Jalan Nginden Semolo",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop;coffee;drinks",
+    "internet_access": "yes",
+    "name": "Diskuupi 101",
+    "outdoor_seating": "yes",
+    "reservation": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6862762515,
+  "lat": -7.2743511,
+  "lon": 112.7561009,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Katalokopi"
+  }
+},
+{
+  "type": "node",
+  "id": 6960986586,
+  "lat": -7.3291909,
+  "lon": 112.7228236,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Warkop Stadion",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7113437686,
+  "lat": -7.2773182,
+  "lon": 112.7405096,
+  "tags": {
+    "addr:street": "Jalan Pandegiling",
+    "amenity": "cafe",
+    "internet_access": "wlan",
+    "name": "Warkop Wali",
+    "opening_hours": "Mo-Sa 06:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7116217285,
+  "lat": -7.2859950,
+  "lon": 112.7434771,
+  "tags": {
+    "addr:street": "Jalan Dinoyo Baru",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop;local",
+    "name": "Warkop Cak Man",
+    "opening_hours": "Mo-Su 05:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7116217485,
+  "lat": -7.2774065,
+  "lon": 112.7355799,
+  "tags": {
+    "addr:housenumber": "19",
+    "addr:postcode": "60264",
+    "addr:street": "Jalan Imam Bonjol",
+    "amenity": "cafe",
+    "cuisine": "friture;cake;donut;coffee_shop",
+    "name": "Warkop Koramil - Pak Tono",
+    "opening_hours": "Mo-Su 06:00-16:00",
+    "operator": "Tono"
+  }
+},
+{
+  "type": "node",
+  "id": 7116279985,
+  "lat": -7.2473764,
+  "lon": 112.7492283,
+  "tags": {
+    "addr:street": "Jalan Pecindilan II",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Pojok Pasar Pecindilan",
+    "opening_hours": "Mo-Su 05:00-16:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7116874685,
+  "lat": -7.2762480,
+  "lon": 112.7358243,
+  "tags": {
+    "addr:street": "Jalan Imam Bonjol",
+    "amenity": "cafe",
+    "cuisine": "indonesian",
+    "name": "Warung Pojok Rawon Lodeh Bali",
+    "opening_hours": "Mo-Su 19:00-00:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118511485,
+  "lat": -7.2667722,
+  "lon": 112.7426006,
+  "tags": {
+    "addr:street": "Jalan Embong Sawo",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "name": "Kedai Kopi Simple",
+    "opening_hours": "Mo-Fr 07:00-16:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118528786,
+  "lat": -7.2746447,
+  "lon": 112.7425464,
+  "tags": {
+    "addr:street": "Jalan Keputran",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop SJDW",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7118536585,
+  "lat": -7.2584638,
+  "lon": 112.7257918,
+  "tags": {
+    "addr:street": "Jalan Argopuro",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Cak Man",
+    "opening_hours": "Mo-Su 06:00-21:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118537685,
+  "lat": -7.2723849,
+  "lon": 112.7410945,
+  "tags": {
+    "addr:street": "Jalan Jenderal Basuki Rachmat",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Cak Min",
+    "opening_hours": "Mo-Fr 10:00-00:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118541285,
+  "lat": -7.2716697,
+  "lon": 112.7426857,
+  "tags": {
+    "addr:street": "Jalan Lemah Putro III",
+    "amenity": "cafe",
+    "name": "Warkop Mbak Mar",
+    "opening_hours": "Mo-Sa 06:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118541286,
+  "lat": -7.2735094,
+  "lon": 112.7437324,
+  "tags": {
+    "addr:street": "Kayun",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop PakDe Yanto",
+    "opening_hours": "Mo-Sa 06:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118551585,
+  "lat": -7.2771988,
+  "lon": 112.7411753,
+  "tags": {
+    "addr:street": "Jalan Jenderal Urip Sumoharjo",
+    "amenity": "cafe",
+    "name": "Warkop Pojok",
+    "opening_hours": "Mo-Su 06:00-21:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118651185,
+  "lat": -7.2620896,
+  "lon": 112.7419599,
+  "tags": {
+    "addr:housenumber": "7",
+    "addr:street": "Jalan Simpang Dukuh",
+    "amenity": "cafe",
+    "cuisine": "deli;tea;cake;asian;beef_bowl;coffee_shop",
+    "name": "Warkop Pak No Simpang Dukuh",
+    "opening_hours": "Mo-Su 06:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118681890,
+  "lat": -7.2591134,
+  "lon": 112.7420994,
+  "tags": {
+    "addr:street": "Jalan Genteng Bandar Lor",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Pak Imam",
+    "opening_hours": "Mo-Sa 06:00-15:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118694885,
+  "lat": -7.2610137,
+  "lon": 112.7390793,
+  "tags": {
+    "addr:street": "Jalan Genteng Besar",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Dewo",
+    "opening_hours": "Mo-Su 06:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7118937485,
+  "lat": -7.2784600,
+  "lon": 112.7434136,
+  "tags": {
+    "addr:street": "Jalan Dinoyo",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop WK",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7119524187,
+  "lat": -7.2864466,
+  "lon": 112.7404590,
+  "tags": {
+    "addr:street": "Jalan Bintoro",
+    "amenity": "cafe",
+    "cuisine": "tea;friture;diner;cake;coffee_shop;local",
+    "name": "Warung Cak Mis",
+    "opening_hours": "Mo-Su 15:00-00:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7123664986,
+  "lat": -7.2945975,
+  "lon": 112.7254069,
+  "tags": {
+    "addr:street": "Jalan Brawijaya",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Sis",
+    "opening_hours": "Mo-Su 05:00-15:00",
+    "operator": "Sis"
+  }
+},
+{
+  "type": "node",
+  "id": 7123730485,
+  "lat": -7.2833698,
+  "lon": 112.7342181,
+  "tags": {
+    "addr:housenumber": "64",
+    "addr:street": "Jalan Trunojoyo",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Halik",
+    "opening_hours": "Mo-Sa 10:00-18:00",
+    "operator": "Halik"
+  }
+},
+{
+  "type": "node",
+  "id": 7123743685,
+  "lat": -7.2491726,
+  "lon": 112.7309717,
+  "tags": {
+    "addr:street": "Jalan Lamongan",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Dilla",
+    "opening_hours": "Mo-Su 06:00-21:00",
+    "operator": "Dilla"
+  }
+},
+{
+  "type": "node",
+  "id": 7123793185,
+  "lat": -7.2602861,
+  "lon": 112.7449068,
+  "tags": {
+    "addr:street": "Jalan Walikota Mustajab",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warjo Pak Pur",
+    "opening_hours": "Mo-Sa 06:00-15:00",
+    "operator": "Pur"
+  }
+},
+{
+  "type": "node",
+  "id": 7123820385,
+  "lat": -7.2552780,
+  "lon": 112.7472311,
+  "tags": {
+    "addr:street": "Jalan Jaksa Agung Suprapto",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Ardi",
+    "opening_hours": "Mo-Su 06:00-16:00",
+    "operator": "Ardi"
+  }
+},
+{
+  "type": "node",
+  "id": 7125233785,
+  "lat": -7.2772632,
+  "lon": 112.7621547,
+  "tags": {
+    "addr:street": "Jalan Raya Menur",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Ramonez"
+  }
+},
+{
+  "type": "node",
+  "id": 7125258886,
+  "lat": -7.2593538,
+  "lon": 112.7590477,
+  "tags": {
+    "addr:housenumber": "19",
+    "addr:street": "Pacar Keling VII",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "diet:vegetarian": "yes",
+    "name": "Warkop Pak No",
+    "opening_hours": "Mo-Su 06:00-12:00",
+    "operator": "Sundari & Pak No"
+  }
+},
+{
+  "type": "node",
+  "id": 7125275785,
+  "lat": -7.2594028,
+  "lon": 112.7591347,
+  "tags": {
+    "addr:street": "Jalan Pacarkeling Gang V",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "diet:vegetarian": "yes",
+    "name": "Warkop & Nasi Pecel Sederhana",
+    "opening_hours": "Mo-Su 05:00-12:00",
+    "operator": "Mak Ni"
+  }
+},
+{
+  "type": "node",
+  "id": 7127411885,
+  "lat": -7.2479833,
+  "lon": 112.7575363,
+  "tags": {
+    "addr:housenumber": "2b",
+    "addr:street": "Jalan Tambak Arum III",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Pak Ri",
+    "opening_hours": "Mo-Su 07:00-16:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7127632386,
+  "lat": -7.2490873,
+  "lon": 112.7535689,
+  "tags": {
+    "addr:housenumber": "51",
+    "addr:street": "Jalan Ngaglik",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Yani",
+    "opening_hours": "Mo-Su 06:00-18:00",
+    "operator": "Ibu Yani"
+  }
+},
+{
+  "type": "node",
+  "id": 7127669786,
+  "lat": -7.2513154,
+  "lon": 112.7550641,
+  "tags": {
+    "addr:street": "Jalan Juwet",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Cak Arifin",
+    "opening_hours": "Mo-Su 06:00-17:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7128474688,
+  "lat": -7.2912056,
+  "lon": 112.7379627,
+  "tags": {
+    "addr:housenumber": "33",
+    "addr:street": "Jalan Cimanuk",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "internet_access": "wlan",
+    "name": "Warkop Tulungagung",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7128509285,
+  "lat": -7.2913481,
+  "lon": 112.7379973,
+  "tags": {
+    "addr:housenumber": "35",
+    "addr:street": "Jalan Cimanuk",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Sewelas",
+    "opening_hours": "Mo-Su 08:00-17:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7130137889,
+  "lat": -7.2759233,
+  "lon": 112.7352458,
+  "tags": {
+    "addr:street": "Jalan Pandegiling",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "name": "Warkop Yoyok"
+  }
+},
+{
+  "type": "node",
+  "id": 7132301585,
+  "lat": -7.3205017,
+  "lon": 112.7577787,
+  "tags": {
+    "addr:housenumber": "120",
+    "addr:street": "Jalan Tenggilis Mejoyo",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Gorip",
+    "opening_hours": "Mo-Su 21:00-09:00",
+    "operator": "Gorip & Umi"
+  }
+},
+{
+  "type": "node",
+  "id": 7132325185,
+  "lat": -7.3233379,
+  "lon": 112.7712258,
+  "tags": {
+    "addr:housenumber": "2",
+    "addr:street": "Jalan Rungkut Asri Utara II",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "name": "Warkop Anugrah",
+    "opening_hours": "Mo-Su 06:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7132340585,
+  "lat": -7.3232086,
+  "lon": 112.7713442,
+  "tags": {
+    "addr:street": "Jalan Rungkut Asri Utara II",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Pojok Pasar Soponyono",
+    "opening_hours": "Mo-Su 05:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7132389485,
+  "lat": -7.3079327,
+  "lon": 112.7606838,
+  "tags": {
+    "addr:housenumber": "21",
+    "addr:street": "Jalan Jemursari",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Kopi Selir"
+  }
+},
+{
+  "type": "node",
+  "id": 7132454786,
+  "lat": -7.3027908,
+  "lon": 112.7379490,
+  "tags": {
+    "addr:street": "Jalan Stasiun Wonokromo",
+    "amenity": "cafe",
+    "cuisine": "friture;cake;donut;coffee_shop",
+    "name": "Warkop Barokah",
+    "opening_hours": "Mo-Su 05:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7132460490,
+  "lat": -7.3012025,
+  "lon": 112.7375605,
+  "tags": {
+    "addr:street": "Jalan Jagir Wonokromo Wetan",
+    "amenity": "cafe",
+    "cuisine": "friture;donut;coffee_shop",
+    "name": "Warkop Farid",
+    "opening_hours": "Mo-Su 06:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7134705285,
+  "lat": -7.2688683,
+  "lon": 112.7291567,
+  "tags": {
+    "addr:street": "Jalan Wonorejo III",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Kusni"
+  }
+},
+{
+  "type": "node",
+  "id": 7134746985,
+  "lat": -7.2797343,
+  "lon": 112.7283909,
+  "tags": {
+    "addr:street": "Ronggowarsito Tengah",
+    "amenity": "cafe",
+    "cuisine": "curry;coffee_shop",
+    "name": "Warkop Ronggowarsito"
+  }
+},
+{
+  "type": "node",
+  "id": 7134748285,
+  "lat": -7.2807687,
+  "lon": 112.7293442,
+  "tags": {
+    "addr:street": "Jalan Yoso Dipuro",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7134751586,
+  "lat": -7.2825169,
+  "lon": 112.7296666,
+  "tags": {
+    "addr:street": "Jalan Kembang Kuning",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Pojok Cak Gondol",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7134772985,
+  "lat": -7.2847546,
+  "lon": 112.7303589,
+  "tags": {
+    "addr:street": "Jalan Kanwa",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Kanwa",
+    "opening_hours": "Mo-Su 06:00-17:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7134773085,
+  "lat": -7.2850998,
+  "lon": 112.7305419,
+  "tags": {
+    "addr:street": "Jalan Dokter Sutomo",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "internet_access": "wlan",
+    "name": "Warkop Abadi",
+    "opening_hours": "Mo-Su 12:00-22:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7134773185,
+  "lat": -7.2819918,
+  "lon": 112.7383139,
+  "tags": {
+    "addr:street": "Jalan Dr. Wahidin",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Subekti",
+    "opening_hours": "Mo-Sa 06:00-17:00",
+    "operator": "Subekti"
+  }
+},
+{
+  "type": "node",
+  "id": 7134840685,
+  "lat": -7.2891290,
+  "lon": 112.7998866,
+  "tags": {
+    "addr:street": "Keputih II",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop & Selep Ibu Supini",
+    "opening_hours": "Mo-Su 05:00-15:00",
+    "operator": "Supini"
+  }
+},
+{
+  "type": "node",
+  "id": 7134843686,
+  "lat": -7.3158464,
+  "lon": 112.7646112,
+  "tags": {
+    "addr:street": "Gang Boto Putih",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "name": "Warkop Rizky",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7137828085,
+  "lat": -7.2636423,
+  "lon": 112.7735091,
+  "tags": {
+    "addr:street": "Jalan Kalijudan",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Pojok Kalijudan",
+    "opening_hours": "Mo-Su 05:00-21:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7137858885,
+  "lat": -7.2580589,
+  "lon": 112.7950862,
+  "tags": {
+    "addr:street": "Kalisari",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Yamuri",
+    "opening_hours": "Mo-Su 05:00-12:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7138038285,
+  "lat": -7.2675865,
+  "lon": 112.7525857,
+  "tags": {
+    "addr:street": "Jalan Gubeng Masjid",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Cak Pur",
+    "opening_hours": "Mo-Su 05:00-17:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7138147286,
+  "lat": -7.2678465,
+  "lon": 112.7520830,
+  "tags": {
+    "addr:street": "Jalan Banda",
+    "amenity": "cafe",
+    "cuisine": "curry;coffee_shop",
+    "name": "Warung Giras Pojok PJKA"
+  }
+},
+{
+  "type": "node",
+  "id": 7147640985,
+  "lat": -7.2817550,
+  "lon": 112.7218013,
+  "tags": {
+    "addr:housenumber": "2a",
+    "addr:street": "Jalan Kupang Gunung Timur V Raya",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Biru",
+    "opening_hours": "Mo-Su 06:00-22:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7147775385,
+  "lat": -7.2792106,
+  "lon": 112.7226990,
+  "tags": {
+    "addr:street": "Jalan Girilaya",
+    "amenity": "cafe",
+    "cuisine": "friture;donut;coffee_shop",
+    "name": "Warkop Mbak Lemu",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7150269185,
+  "lat": -7.2631366,
+  "lon": 112.7360677,
+  "tags": {
+    "addr:street": "Jalan Kaliasin Pompa",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Senpai"
+  }
+},
+{
+  "type": "node",
+  "id": 7150269186,
+  "lat": -7.2629504,
+  "lon": 112.7349903,
+  "tags": {
+    "addr:street": "Jalan Plemahan Gang VI",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "internet_access": "wlan",
+    "name": "Warkop Gondrong"
+  }
+},
+{
+  "type": "node",
+  "id": 7150303385,
+  "lat": -7.2628433,
+  "lon": 112.7338679,
+  "tags": {
+    "addr:street": "Jalan Kedung Rukem IV",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Pandawa"
+  }
+},
+{
+  "type": "node",
+  "id": 7150340285,
+  "lat": -7.2623887,
+  "lon": 112.7316936,
+  "tags": {
+    "addr:street": "Jalan Kedung Rukem IV",
+    "amenity": "cafe",
+    "cuisine": "friture;cake;donut;coffee_shop",
+    "name": "Warkop Nuryah",
+    "opening_hours": "Mo-Su 06:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7155502185,
+  "lat": -7.2418702,
+  "lon": 112.7448489,
+  "tags": {
+    "addr:street": "Jalan Bunguran",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Depot Ko San - Perhimpunan Xiang Qi Pasar Atom",
+    "name:id": "Depot Ko San - Perhimpunan Xiang Qi Pasar Atom",
+    "opening_hours": "Mo-Su 10:00-16:00",
+    "operator": "Ko San"
+  }
+},
+{
+  "type": "node",
+  "id": 7157928885,
+  "lat": -7.2713571,
+  "lon": 112.7360414,
+  "tags": {
+    "addr:street": "Jalan Kedondong Kidul Gang 3",
+    "amenity": "cafe",
+    "cuisine": "friture;coffee_shop",
+    "name": "Warkop Asik",
+    "opening_hours": "Mo-Su 10:00-17:00, 19:00-22:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7158219585,
+  "lat": -7.2741065,
+  "lon": 112.7274523,
+  "tags": {
+    "addr:street": "Jalan Pandegiling",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "name": "Warkop Pojok Legendaris",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7158221986,
+  "lat": -7.2744646,
+  "lon": 112.7291202,
+  "tags": {
+    "addr:street": "Jalan Pandegiling",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Pancar",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 7158258285,
+  "lat": -7.2624443,
+  "lon": 112.7408814,
+  "tags": {
+    "addr:street": "Jalan Tunjungan",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Simpang",
+    "opening_hours": "Mo-Sa 08:00-16:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7158260585,
+  "lat": -7.2582004,
+  "lon": 112.7331090,
+  "tags": {
+    "addr:street": "Jalan Blauran",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Warkop Pojok Blauran",
+    "opening_hours": "Mo-Su 09:00-18:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7174515385,
+  "lat": -7.2427287,
+  "lon": 112.7382911,
+  "tags": {
+    "addr:housenumber": "2",
+    "addr:street": "Jalan Veteran",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Kafeku",
+    "opening_hours": "Mo-Sa 10:00-16:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7252030485,
+  "lat": -7.2508696,
+  "lon": 112.7275728,
+  "tags": {
+    "addr:street": "Jalan Margorukun II",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "opening_hours": "Mo-Su 05:00-18:00",
+    "operator": "Cak Di"
+  }
+},
+{
+  "type": "node",
+  "id": 7330332685,
+  "lat": -7.2820524,
+  "lon": 112.7704322,
+  "tags": {
+    "addr:street": "Jalan Mleto Gang Pasar",
+    "amenity": "cafe",
+    "name": "Warkop Pak Yono",
+    "opening_hours": "Mo-Su 05:00-17:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7824596487,
+  "lat": -7.2728312,
+  "lon": 112.7663950,
+  "tags": {
+    "addr:street": "Jalan Jojoran I",
+    "amenity": "cafe",
+    "cuisine": "tea;friture;donut;coffee_shop",
+    "name": "Warkop Pak Sapik",
+    "opening_hours": "Mo-Su 05:00-21:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7948007285,
+  "lat": -7.2995786,
+  "lon": 112.7246988,
+  "tags": {
+    "addr:street": "Jalan Raden Wijaya",
+    "amenity": "cafe",
+    "name": "Warkop 83 (Pasar Malam Kodam)",
+    "opening_hours": "Mo-Su 17:00-23:00"
+  }
+},
+{
+  "type": "node",
+  "id": 7972072185,
+  "lat": -7.3107120,
+  "lon": 112.7758786,
+  "tags": {
+    "addr:housenumber": "41",
+    "addr:street": "Jalan Kedung Baruk",
+    "amenity": "cafe",
+    "cuisine": "breakfast;coffee_shop;donut;friture",
+    "diet:vegetarian": "yes",
+    "name": "Warkop Pak Cobra",
+    "opening_hours": "Mo-Su 06:00-18:00",
+    "operator": "Pak Cobra"
+  }
+},
+{
+  "type": "node",
+  "id": 7987809885,
+  "lat": -7.2740022,
+  "lon": 112.7434093,
+  "tags": {
+    "addr:street": "Jalan Keputran",
+    "amenity": "cafe",
+    "cuisine": "cake;coffee_shop;friture",
+    "name": "Warkop Agus",
+    "opening_hours": "Mo-Su 14:00-00:00",
+    "operator": "Agus"
+  }
+},
+{
+  "type": "node",
+  "id": 7991989466,
+  "lat": -7.2995970,
+  "lon": 112.7680066,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "45",
+    "addr:postcode": "60118",
+    "addr:street": "Jalan Nginden Semolo",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop;sandwich;chicken;asian",
+    "description": "Basecamp17 adalah tempat berkumpul, tempat nongkrong yang asik. Gorengan akan menjadi teman, simbol kebersamaan, meriah, asik dinikmati bersama teman.",
+    "image": "https://i2.wp.com/cldup.com/QDK2tYpXUE.jpg?w=1080&ssl=1",
+    "internet_access": "wlan",
+    "internet_access:fee": "customers",
+    "name": "Angkringan & Cafe Basecamp 17",
+    "opening_hours": "Mo-Sa 10:00-21:00",
+    "reservation": "required"
+  }
+},
+{
+  "type": "node",
+  "id": 8008155085,
+  "lat": -7.2944064,
+  "lon": 112.7461734,
+  "tags": {
+    "addr:street": "Jalan Ngagel Rejo Utara VI",
+    "amenity": "cafe",
+    "name": "Warkop Subur",
+    "opening_hours": "Mo-Su 05:00-16:00"
+  }
+},
+{
+  "type": "node",
+  "id": 8508756917,
+  "lat": -7.2441565,
+  "lon": 112.7323458,
+  "tags": {
+    "addr:street": "Jalan Dupak Magersari III",
+    "amenity": "cafe",
+    "name": "Warkop Pak Ponirin",
+    "opening_hours": "Mo-Su 06:00-20:00"
+  }
+},
+{
+  "type": "node",
+  "id": 8568915217,
+  "lat": -7.2526233,
+  "lon": 112.7288868,
+  "tags": {
+    "addr:street": "Jalan Semarang",
+    "amenity": "cafe",
+    "cuisine": "cake;coffee_shop;friture",
+    "name": "Warkop Bagio",
+    "name:id": "Warkop Bagio",
+    "opening_hours": "Mo-Su 18:00-05:00"
+  }
+},
+{
+  "type": "node",
+  "id": 9012973317,
+  "lat": -7.2413053,
+  "lon": 112.7560071,
+  "tags": {
+    "addr:street": "Jalan Kenjeran IV",
+    "amenity": "cafe",
+    "cuisine": "cake;coffee_shop",
+    "name": "Warkop Palapa",
+    "opening_hours": "Mo-Su 05:00-17:00"
+  }
+},
+{
+  "type": "node",
+  "id": 9599404615,
+  "lat": -7.2801788,
+  "lon": 112.8045749,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Mexicola"
+  }
+},
+{
+  "type": "node",
+  "id": 10139441848,
+  "lat": -7.2846363,
+  "lon": 112.7350704,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Tanamera Coffee & Roastery Trunojoyo"
+  }
+},
+{
+  "type": "node",
+  "id": 10142198066,
+  "lat": -7.2587211,
+  "lon": 112.7383317,
+  "tags": {
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Toko Kopi Padma"
+  }
+},
+{
+  "type": "node",
+  "id": 10774732097,
+  "lat": -7.2655817,
+  "lon": 112.7524654,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Loko"
+  }
+},
+{
+  "type": "node",
+  "id": 11348321169,
+  "lat": -7.2668495,
+  "lon": 112.7490196,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Good Press and Co"
+  }
+},
+{
+  "type": "node",
+  "id": 11609752540,
+  "lat": -7.3226777,
+  "lon": 112.7421007,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "69",
+    "addr:postcode": "60237",
+    "addr:street": "Jalan Raya Jemursari",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop;burger",
+    "name": "Salt & Sugar Cafe and Bistro",
+    "opening_hours": "Mo-Su 10:00-21:15",
+    "phone": "+62 852 3121 6943",
+    "website": "https://salt-and-sugar-cafe-and-bistro.business.site/"
+  }
+},
+{
+  "type": "node",
+  "id": 11733317572,
+  "lat": -7.2409355,
+  "lon": 112.7337958,
+  "tags": {
+    "addr:housenumber": "3",
+    "addr:street": "Jalan Krembangan Barat",
+    "amenity": "cafe",
+    "name": "Warkop",
+    "name:id": "Warkop Irul",
+    "opening_hours": "Mo-Sa 06:00-15:00"
+  }
+},
+{
+  "type": "node",
+  "id": 11780266827,
+  "lat": -7.2490839,
+  "lon": 112.7535738,
+  "tags": {
+    "amenity": "cafe",
+    "name": "kafe"
+  }
+},
+{
+  "type": "node",
+  "id": 11984937195,
+  "lat": -7.2916881,
+  "lon": 112.7296680,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Ultra Coffee"
+  }
+},
+{
+  "type": "node",
+  "id": 12012456804,
+  "lat": -7.2690545,
+  "lon": 112.7443616,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Warkop DankDut"
+  }
+},
+{
+  "type": "node",
+  "id": 12211251378,
+  "lat": -7.3016779,
+  "lon": 112.7622739,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:district": "Sukolilo",
+    "addr:housenumber": "35-37",
+    "addr:postcode": "60118",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Raya Nginden",
+    "addr:subdistrict": "Nginden Jangkungan",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop;tea;noodle;regional;soup;pasta;chicken;kebab",
+    "internet_access": "yes",
+    "internet_access:fee": "no",
+    "name": "Warkop Budal Mulih",
+    "opening_hours": "24/7",
+    "outdoor_seating": "yes",
+    "website": "https://www.instagram.com/warkop.budalmulih"
+  }
+},
+{
+  "type": "node",
+  "id": 12215189327,
+  "lat": -7.2575058,
+  "lon": 112.7376583,
+  "tags": {
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Bubu Oriental"
+  }
+},
+{
+  "type": "node",
+  "id": 12215189328,
+  "lat": -7.2576123,
+  "lon": 112.7377290,
+  "tags": {
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Phermitage"
+  }
+},
+{
+  "type": "node",
+  "id": 12215189330,
+  "lat": -7.2577201,
+  "lon": 112.7377921,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Ludic"
+  }
+},
+{
+  "type": "node",
+  "id": 12215189331,
+  "lat": -7.2579232,
+  "lon": 112.7378650,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Thirty Three"
+  }
+},
+{
+  "type": "node",
+  "id": 12215189341,
+  "lat": -7.2595504,
+  "lon": 112.7387904,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Hoho Coffee"
+  }
+},
+{
+  "type": "node",
+  "id": 12215189342,
+  "lat": -7.2596488,
+  "lon": 112.7388566,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Zerøgram"
+  }
+},
+{
+  "type": "node",
+  "id": 12215189345,
+  "lat": -7.2601788,
+  "lon": 112.7390788,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Piring Seng"
+  }
+},
+{
+  "type": "node",
+  "id": 12215189353,
+  "lat": -7.2607207,
+  "lon": 112.7395192,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Paper Cup"
+  }
+},
+{
+  "type": "node",
+  "id": 12215189357,
+  "lat": -7.2579405,
+  "lon": 112.7382243,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "TOMORO Coffee",
+    "brand:wikidata": "Q126326801",
+    "cuisine": "coffee_shop",
+    "name": "TOMORO Coffee",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12284575449,
+  "lat": -7.2750140,
+  "lon": 112.7316495,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Warkop Bening"
+  }
+},
+{
+  "type": "node",
+  "id": 12721862892,
+  "lat": -7.3264049,
+  "lon": 112.7808962,
+  "tags": {
+    "addr:street": "Jalan Doktor Insinyur Haji Soekarno",
+    "amenity": "cafe",
+    "name": "BM Coffee"
+  }
+},
+{
+  "type": "node",
+  "id": 12721862893,
+  "lat": -7.3260034,
+  "lon": 112.7808423,
+  "tags": {
+    "addr:street": "Jalan Doktor Insinyur Haji Soekarno",
+    "amenity": "cafe",
+    "name": "Jokopi"
+  }
+},
+{
+  "type": "node",
+  "id": 13475865701,
+  "lat": -7.3052175,
+  "lon": 112.7538298,
+  "tags": {
+    "addr:street": "Jalan Sidoresmo VII",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop;tea",
+    "internet_access": "wlan",
+    "level": "0",
+    "name": "Kafe Sarvatra",
+    "name:en": "Sarvatra Cafe",
+    "opening_hours": "Mo-Su 09:00-20:00"
+  }
+},
+{
+  "type": "node",
+  "id": 13534220354,
+  "lat": -7.2729017,
+  "lon": 112.7476864,
+  "tags": {
+    "air_conditioning": "yes",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Toko Kopi TUKU - SPBU bp Gubeng",
+    "opening_hours": "Mo-Su 07:00-21:00",
+    "outdoor_seating": "yes",
+    "payment:cash": "yes",
+    "payment:contactless": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "smoking": "no",
+    "takeaway": "yes",
+    "website": "https://tuku.coffee"
+  }
+},
+{
+  "type": "node",
+  "id": 13534229567,
+  "lat": -7.3183613,
+  "lon": 112.7441672,
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:district": "Woncolo",
+    "addr:postcode": "60238",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Margorejo Indah",
+    "addr:subdistrict": "Margorejo",
+    "addr:unit": "A.134",
+    "air_conditioning": "yes",
+    "amenity": "cafe",
+    "brand": "Toko Kopi TUKU",
+    "check_date": "2026-02-12",
+    "cuisine": "coffee_shop",
+    "delivery": "yes",
+    "internet_access": "no",
+    "name": "Toko Kopi TUKU - Margorejo",
+    "opening_hours": "Mo-Su 07:00-21:00",
+    "outdoor_seating": "yes",
+    "payment:cash": "yes",
+    "payment:contactless": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "smoking": "outside",
+    "toilets": "yes",
+    "website": "https://tuku.coffee",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13609168202,
+  "lat": -7.2649848,
+  "lon": 112.7520111,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Roti'O"
+  }
+},
+{
+  "type": "node",
+  "id": 13609176401,
+  "lat": -7.2650502,
+  "lon": 112.7520012,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Point Coffee"
+  }
+},
+{
+  "type": "node",
+  "id": 13609195201,
+  "lat": -7.2614241,
+  "lon": 112.7475204,
+  "tags": {
+    "amenity": "cafe",
+    "name": "Slow Bar Coffee"
+  }
+},
+{
+  "type": "node",
+  "id": 13609357641,
+  "lat": -7.2652172,
+  "lon": 112.7573746,
+  "tags": {
+    "addr:city": "Kota Surabaya, Jawa Timur Indonesia",
+    "addr:street": "Jalan Profesor Doktor Moestopo",
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "internet_access:fee": "no",
+    "name": "Sama Koffie",
+    "opening_hours": "Mo-Fr 12:00-20:00",
+    "outdoor_seating": "yes",
+    "phone": "+6285178915597",
+    "website": "https://www.instagram.com/sama.koffie"
+  }
+},
+{
+  "type": "node",
+  "id": 13677686501,
+  "lat": -7.2769599,
+  "lon": 112.7942646,
+  "tags": {
+    "amenity": "cafe",
+    "check_date": "2026-03-25",
+    "name": "Kantin PENS"
+  }
+},
+{
+  "type": "node",
+  "id": 13806249801,
+  "lat": -7.2747779,
+  "lon": 112.7420500,
+  "tags": {
+    "addr:postcode": "60265",
+    "addr:street": "Jl. Urip Sumoharjo No.25",
+    "amenity": "cafe",
+    "check_date": "2026-05-03",
+    "check_date:opening_hours": "2026-05-03",
+    "internet_access": "wlan",
+    "name": "\"STK\" Sedulur Tunggal Kopi",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 13848008898,
+  "lat": -7.2604276,
+  "lon": 112.7362390,
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Kopi Kenangan",
+    "brand:wikidata": "Q97221992",
+    "cuisine": "coffee_shop",
+    "diet:halal": "only",
+    "name": "Kopi Kenangan",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 14050688296,
+  "lat": -7.3045854,
+  "lon": 112.7685438,
+  "tags": {
+    "air_conditioning": "yes",
+    "amenity": "cafe",
+    "indoor_seating": "yes",
+    "name": "Andzero",
+    "outdoor_seating": "no",
+    "smoking": "separated",
+    "toilets": "yes",
+    "toilets:access": "customers",
+    "toilets:fee": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 14298516801,
+  "lat": -7.2501381,
+  "lon": 112.7847043,
+  "tags": {
+    "addr:postcode": "60134",
+    "addr:street": "Jl. Kenjeran No.500",
+    "amenity": "cafe",
+    "check_date": "2026-10-19",
+    "check_date:opening_hours": "2026-10-19",
+    "internet_access": "wlan",
+    "name": "Warkop KAI (Kopi Adalah Inspirasi)",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 14337774374,
+  "lat": -7.2749884,
+  "lon": 112.7462865,
+  "tags": {
+    "amenity": "cafe",
+    "cuisine": "coffee_shop",
+    "name": "Fore"
+  }
+},
+{
+  "type": "way",
+  "id": 307346894,
+  "center": {
+    "lat": -7.2653731,
+    "lon": 112.7597966
+  },
+  "tags": {
+    "amenity": "cafe",
+    "building": "yes",
+    "name": "Medicine Cafe"
+  }
+},
+{
+  "type": "way",
+  "id": 314361483,
+  "center": {
+    "lat": -7.2995797,
+    "lon": 112.7325552
+  },
+  "tags": {
+    "amenity": "cafe",
+    "building": "yes",
+    "name": "PKL Gunungsari 1"
+  }
+},
+{
+  "type": "way",
+  "id": 371708393,
+  "center": {
+    "lat": -7.2707334,
+    "lon": 112.7567887
+  },
+  "tags": {
+    "amenity": "cafe",
+    "building": "yes",
+    "name": "Coffee Toffee"
+  }
+},
+{
+  "type": "way",
+  "id": 423209899,
+  "center": {
+    "lat": -7.2638934,
+    "lon": 112.7434074
+  },
+  "tags": {
+    "addr:city": "Genteng, Embong Kaliasin, Surabaya, East Java",
+    "addr:housenumber": "No.181",
+    "addr:postcode": "60271",
+    "addr:street": "Jalan Raya Dharma Husada",
+    "amenity": "cafe",
+    "building": "yes",
+    "name": "Coffee Toffee"
+  }
+},
+{
+  "type": "way",
+  "id": 426896979,
+  "center": {
+    "lat": -7.2720932,
+    "lon": 112.7489729
+  },
+  "tags": {
+    "addr:housenumber": "33",
+    "addr:street": "Jalan Gubeng",
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "building": "yes",
+    "building:levels": "1",
+    "building:roof": "asbestos",
+    "building:structure": "confined_masonry",
+    "building:use": "commercial",
+    "building:walls": "brick",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "internet_access:fee": "no",
+    "internet_access:ssid": "Starbucks@wifi.id",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "opening_hours": "Mo-Th 07:00-23:00, Fr-Su 07:00-23:59",
+    "operator": "PT Sari Coffee Indonesia",
+    "outdoor_seating": "yes",
+    "smoking": "outside",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 429000476,
+  "center": {
+    "lat": -7.2768166,
+    "lon": 112.7494210
+  },
+  "tags": {
+    "amenity": "cafe",
+    "building": "yes",
+    "name": "Excelso"
+  }
+},
+{
+  "type": "way",
+  "id": 447125584,
+  "center": {
+    "lat": -7.2817878,
+    "lon": 112.7840903
+  },
+  "tags": {
+    "addr:full": "Jalan Manyar Kerta Adi",
+    "amenity": "cafe",
+    "building": "yes",
+    "building:floor": "ceramics",
+    "building:levels": "3",
+    "building:structure": "confined_masonry",
+    "building:walls": "bamboo",
+    "capacity:persons": "100",
+    "name": "Unicorn"
+  }
+},
+{
+  "type": "way",
+  "id": 447125931,
+  "center": {
+    "lat": -7.2701424,
+    "lon": 112.7985575
+  },
+  "tags": {
+    "amenity": "cafe",
+    "name": "SAS Cafe & Resto"
+  }
+},
+{
+  "type": "way",
+  "id": 447611744,
+  "center": {
+    "lat": -7.2635666,
+    "lon": 112.7675936
+  },
+  "tags": {
+    "addr:city": "Gubeng, Jawa Timur, Indonesia",
+    "addr:housenumber": "60",
+    "addr:postcode": "60281",
+    "addr:street": "Jalan Kaliwaron",
+    "amenity": "cafe",
+    "building": "yes",
+    "name": "Oost Koffie & Thee"
+  }
+},
+{
+  "type": "way",
+  "id": 468207974,
+  "center": {
+    "lat": -7.2934107,
+    "lon": 112.7597588
+  },
+  "tags": {
+    "amenity": "cafe",
+    "brand": "Starbucks",
+    "brand:wikidata": "Q37158",
+    "brand:wikipedia": "en:Starbucks",
+    "building": "yes",
+    "cuisine": "coffee_shop",
+    "internet_access": "wlan",
+    "internet_access:fee": "no",
+    "name": "Starbucks",
+    "official_name": "Starbucks Coffee",
+    "operator": "PT Sari Coffee Indonesia",
+    "outdoor_seating": "yes",
+    "takeaway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 727358815,
+  "center": {
+    "lat": -7.3203883,
+    "lon": 112.7646828
+  },
+  "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "33",
+    "addr:postcode": "60293",
+    "addr:street": "Jalan Tenggilis Mejoyo AI 33",
+    "amenity": "cafe",
+    "bar": "yes",
+    "building": "yes",
+    "cuisine": "coffee_shop;bar",
+    "delivery": "yes",
+    "internet_access": "yes",
+    "internet_access:ssid": "Diskuupi",
+    "name": "Diskuupi 102",
+    "outdoor_seating": "yes",
+    "website": "https://diskuupi.id"
+  }
+},
+{
+  "type": "way",
+  "id": 767949905,
+  "center": {
+    "lat": -7.2644365,
+    "lon": 112.7418308
+  },
+  "tags": {
+    "amenity": "cafe",
+    "building": "yes",
+    "name": "TGC"
+  }
+}
+
+  ]
+}

@@ -16,13 +16,59 @@ export const ELIGIBLE_LAND_STATUSES = Object.freeze([
   'Lahan yang tersedia untuk disewakan',
 ]);
 
+/**
+ * Asumsi Biaya Perencanaan Kafe
+ * Catatan Metodologis (Prompt B):
+ * Seluruh komponen biaya di bawah merupakan ASUMSI INTERNAL TIM SIMULASI AFL 2 (2026),
+ * BUKAN data survei pasar komersial aktual Surabaya.
+ * Digunakan sebagai nilai dasar ilustratif dalam simulasi kalkulator modal kafe mahasiswa.
+ */
+export const COST_ASSUMPTIONS = Object.freeze({
+  renovation_cost_per_sqm: Object.freeze({
+    value: 1_500_000,
+    label: 'Renovasi & Desain Interior (Rp / m²)',
+    is_market_data: false,
+    note: 'Asumsi tim simulasi (bukan data pasar): Estimasi fit-out interior kafe minimalis',
+  }),
+  equipment_cost: Object.freeze({
+    value: 45_000_000,
+    label: 'Peralatan & Mesin Kopi (Rp)',
+    is_market_data: false,
+    note: 'Asumsi tim simulasi: Paket komersial dasar (mesin espresso, grinder, chiller, POS)',
+  }),
+  monthly_operational_cost: Object.freeze({
+    value: 15_000_000,
+    label: 'Operasional Bulanan (Rp)',
+    is_market_data: false,
+    note: 'Asumsi tim simulasi: Estimasi gaji barista paruh waktu, bahan baku awal, listrik, & WiFi',
+  }),
+  working_capital_months: Object.freeze({
+    value: 3,
+    label: 'Cadangan Operasional (Bulan)',
+    is_market_data: false,
+    note: 'Asumsi tim simulasi: Runway cadangan dana operasional 3 bulan pertama',
+  }),
+  contingency_cost: Object.freeze({
+    value: 10_000_000,
+    label: 'Perizinan & Kontingensi (Rp)',
+    is_market_data: false,
+    note: 'Asumsi tim simulasi: Biaya izin usaha mikro (NIB/PIRT) dan cadangan tak terduga',
+  }),
+  rental_duration_yr: Object.freeze({
+    value: 1,
+    label: 'Durasi Sewa Lahan (Tahun)',
+    is_market_data: false,
+    note: 'Asumsi tim simulasi: Kontrak sewa tahunan standar',
+  }),
+});
+
 export const DEFAULT_PLAN_COSTS = Object.freeze({
-  renovation_cost_per_sqm: 1_500_000,     // Rp 1.500.000 / m²
-  equipment_cost: 45_000_000,             // Rp 45.000.000 (mesin espresso, grinder, POS, dsb)
-  monthly_operational_cost: 15_000_000,   // Rp 15.000.000 / bulan (gaji, bahan baku, listrik/WiFi)
-  working_capital_months: 3,              // 3 bulan cadangan operasional
-  contingency_cost: 10_000_000,           // Rp 10.000.000 (perizinan, kontingensi)
-  rental_duration_yr: 1,                  // 1 tahun durasi sewa default
+  renovation_cost_per_sqm: COST_ASSUMPTIONS.renovation_cost_per_sqm.value,
+  equipment_cost: COST_ASSUMPTIONS.equipment_cost.value,
+  monthly_operational_cost: COST_ASSUMPTIONS.monthly_operational_cost.value,
+  working_capital_months: COST_ASSUMPTIONS.working_capital_months.value,
+  contingency_cost: COST_ASSUMPTIONS.contingency_cost.value,
+  rental_duration_yr: COST_ASSUMPTIONS.rental_duration_yr.value,
 });
 
 export const rupiah = new Intl.NumberFormat('id-ID', {
@@ -191,17 +237,19 @@ export function canPlanForLand(landData, eligibleStatuses = ELIGIBLE_LAND_STATUS
 
 /**
  * Kalkulator Poin Kelayakan / Skor Potensi Bisnis Kafe (0 - 100 Poin)
- * Menilai aspek strategis dalam lingkup game "Buka Kafe":
- * 1. Proksimitas kampus (jarak metrik <= 1000m): maks 40 poin
- * 2. Kesesuaian luas lahan (80 - 250 m² optimal untuk kafe mahasiswa): maks 30 poin
- * 3. Efisiensi harga sewa per m²: maks 30 poin
+ * Menilai aspek strategis dalam lingkup game "Buka Kafe" sebagai SKOR ILUSTRATIF:
+ * 1. Proksimitas kampus (jarak metrik <= 1000m): maks 40 poin (data kosong = 0 poin)
+ * 2. Kesesuaian luas lahan (80 - 250 m² optimal): maks 30 poin (data kosong = 0 poin)
+ * 3. Efisiensi harga sewa per m²: maks 30 poin (data sewa/luas kosong = 0 poin)
  *
  * @param {Object} params
  * @returns {{ points: number, grade: string, breakdown: { proximity: number, space: number, cost_efficiency: number } }}
  */
-export function calculateFeasibilityPoints({ distance_meters = null, area_sqm = 0, rental_price_yr = 0 } = {}) {
-  let proximityScore = 20; // default dalam buffer 1km
-  const dist = typeof distance_meters === 'number' && Number.isFinite(distance_meters) ? distance_meters : null;
+export function calculateFeasibilityPoints({ distance_meters = null, area_sqm = null, rental_price_yr = null } = {}) {
+  let proximityScore = 0;
+  const dist = typeof distance_meters === 'number' && Number.isFinite(distance_meters) && distance_meters >= 0
+    ? distance_meters
+    : null;
   if (dist != null) {
     if (dist <= 300) proximityScore = 40;
     else if (dist <= 600) proximityScore = 30;
@@ -209,16 +257,21 @@ export function calculateFeasibilityPoints({ distance_meters = null, area_sqm = 
     else proximityScore = 0;
   }
 
-  let spaceScore = 15;
-  const area = typeof area_sqm === 'number' && Number.isFinite(area_sqm) ? area_sqm : 0;
-  if (area >= 80 && area <= 250) spaceScore = 30;
-  else if ((area >= 50 && area < 80) || (area > 250 && area <= 400)) spaceScore = 20;
-  else if (area > 0) spaceScore = 10;
-  else spaceScore = 0;
+  let spaceScore = 0;
+  const area = typeof area_sqm === 'number' && Number.isFinite(area_sqm) && area_sqm > 0
+    ? area_sqm
+    : null;
+  if (area != null) {
+    if (area >= 80 && area <= 250) spaceScore = 30;
+    else if ((area >= 50 && area < 80) || (area > 250 && area <= 400)) spaceScore = 20;
+    else spaceScore = 10;
+  }
 
-  let costScore = 15;
-  const rent = typeof rental_price_yr === 'number' && Number.isFinite(rental_price_yr) ? rental_price_yr : 0;
-  if (area > 0 && rent > 0) {
+  let costScore = 0;
+  const rent = typeof rental_price_yr === 'number' && Number.isFinite(rental_price_yr) && rental_price_yr > 0
+    ? rental_price_yr
+    : null;
+  if (area != null && rent != null) {
     const costPerSqm = rent / area;
     if (costPerSqm <= 400_000) costScore = 30;
     else if (costPerSqm <= 700_000) costScore = 20;
@@ -230,6 +283,7 @@ export function calculateFeasibilityPoints({ distance_meters = null, area_sqm = 
   if (totalPoints >= 85) grade = 'Sangat Strategis ★★★';
   else if (totalPoints >= 70) grade = 'Strategis ★★';
   else if (totalPoints >= 50) grade = 'Cukup Layak ★';
+  else if (totalPoints === 0) grade = 'Data Belum Lengkap';
 
   return {
     points: totalPoints,
@@ -257,13 +311,18 @@ export function calculateFeasibilityPoints({ distance_meters = null, area_sqm = 
  * @returns {Object} Rincian biaya, total estimasi modal awal, dan skor kelayakan
  */
 export function calculateInitialCapital(params = {}, landData = null) {
+  const numOrNull = (v) => {
+    if (v == null || v === '') return null;
+    const parsed = typeof v === 'number' ? v : Number(v);
+    return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
+  };
   const num = (v, def = 0) => {
     const parsed = typeof v === 'number' ? v : Number(v);
     return Number.isFinite(parsed) && parsed >= 0 ? parsed : def;
   };
 
-  const area_sqm = num(params.area_sqm, 0);
-  const rental_price_yr = num(params.rental_price_yr, 0);
+  const area_sqm = numOrNull(params.area_sqm);
+  const rental_price_yr = numOrNull(params.rental_price_yr);
   const rental_duration_yr = Math.max(1, Math.round(num(params.rental_duration_yr, DEFAULT_PLAN_COSTS.rental_duration_yr)));
   const renovation_cost_per_sqm = num(params.renovation_cost_per_sqm, DEFAULT_PLAN_COSTS.renovation_cost_per_sqm);
   const equipment_cost = num(params.equipment_cost, DEFAULT_PLAN_COSTS.equipment_cost);
@@ -272,8 +331,8 @@ export function calculateInitialCapital(params = {}, landData = null) {
   const contingency_cost = num(params.contingency_cost, DEFAULT_PLAN_COSTS.contingency_cost);
   const budget_limit = num(params.budget_limit, 0);
 
-  const subtotal_rental = Math.round(rental_price_yr * rental_duration_yr);
-  const subtotal_renovation = Math.round(area_sqm * renovation_cost_per_sqm);
+  const subtotal_rental = rental_price_yr != null ? Math.round(rental_price_yr * rental_duration_yr) : 0;
+  const subtotal_renovation = area_sqm != null ? Math.round(area_sqm * renovation_cost_per_sqm) : 0;
   const subtotal_equipment = Math.round(equipment_cost);
   const subtotal_operational = Math.round(monthly_operational_cost * working_capital_months);
   const subtotal_contingency = Math.round(contingency_cost);
@@ -282,7 +341,10 @@ export function calculateInitialCapital(params = {}, landData = null) {
     subtotal_rental + subtotal_renovation + subtotal_equipment + subtotal_operational + subtotal_contingency;
 
   const rawDist = params.distance_meters ?? landData?.distance_meters ?? landData?.distanceM ?? null;
-  const distance_meters = typeof rawDist === 'number' && Number.isFinite(rawDist) ? rawDist : (Number(rawDist) || null);
+  const distance_meters = typeof rawDist === 'number' && Number.isFinite(rawDist)
+    ? rawDist
+    : (rawDist != null && !Number.isNaN(Number(rawDist)) ? Number(rawDist) : null);
+
   const feasibility = calculateFeasibilityPoints({
     distance_meters,
     area_sqm,
@@ -508,6 +570,7 @@ export class PlannerUI {
       modalDownloadBtn: document.getElementById('modal-download-btn'),
       form: document.getElementById('planner-form'),
       guardAlert: document.getElementById('planner-guard-alert'),
+      demoWarning: document.getElementById('planner-demo-warning'),
       statusBadge: document.getElementById('planner-status-badge'),
       landName: document.getElementById('planner-land-name'),
       landAddress: document.getElementById('planner-land-address'),
@@ -538,6 +601,9 @@ export class PlannerUI {
       savedPlansList: document.getElementById('saved-plans-list'),
       savedPlansCount: document.getElementById('saved-plans-count'),
       clearPlansBtn: document.getElementById('btn-clear-plans'),
+      clearPlansConfirm: document.getElementById('clear-plans-confirm'),
+      confirmClearYesBtn: document.getElementById('btn-confirm-clear-yes'),
+      confirmClearNoBtn: document.getElementById('btn-confirm-clear-no'),
       downloadAllBtn: document.getElementById('btn-download-all-plans'),
       liveRegion: document.getElementById('live-region'),
     };
@@ -582,17 +648,42 @@ export class PlannerUI {
           this.storage.downloadAllPlans();
           this.announce('Semua rencana kafe berhasil diunduh sebagai JSON.');
         } catch (err) {
-          alert(`Gagal mengunduh: ${err.message}`);
+          this.announce(`Gagal mengunduh: ${err.message}`);
         }
       });
     }
 
-    if (this.els.clearPlansBtn) {
+    // Konfirmasi inline keyboard-accessible untuk hapus semua rencana (tanpa window.confirm)
+    if (this.els.clearPlansBtn && this.els.clearPlansConfirm) {
       this.els.clearPlansBtn.addEventListener('click', () => {
-        if (confirm('Hapus seluruh rencana kafe tersimpan?')) {
+        this.els.clearPlansConfirm.hidden = false;
+        if (this.els.confirmClearYesBtn) {
+          this.els.confirmClearYesBtn.focus();
+        }
+      });
+
+      if (this.els.confirmClearYesBtn) {
+        this.els.confirmClearYesBtn.addEventListener('click', () => {
           this.storage.clearPlans();
           this.renderSavedPlans();
           this.announce('Seluruh rencana kafe tersimpan telah dihapus.');
+          this.els.clearPlansConfirm.hidden = true;
+          this.els.clearPlansBtn?.focus();
+        });
+      }
+
+      if (this.els.confirmClearNoBtn) {
+        this.els.confirmClearNoBtn.addEventListener('click', () => {
+          this.els.clearPlansConfirm.hidden = true;
+          this.els.clearPlansBtn?.focus();
+        });
+      }
+
+      this.els.clearPlansConfirm.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.stopPropagation();
+          this.els.clearPlansConfirm.hidden = true;
+          this.els.clearPlansBtn?.focus();
         }
       });
     }
@@ -630,6 +721,14 @@ export class PlannerUI {
     }
   }
 
+  showModalError(msg) {
+    if (this.els.guardAlert) {
+      this.els.guardAlert.hidden = false;
+      this.els.guardAlert.textContent = msg;
+    }
+    this.announce(msg);
+  }
+
   /**
    * Buka modal untuk merencanakan kafe pada kandidat lahan tertentu
    * @param {Object} landData Objek kandidat lahan
@@ -659,6 +758,18 @@ export class PlannerUI {
       this.els.guardAlert.hidden = true;
     }
 
+    // Evaluasi Banner Peringatan Data Demo (Prompt B)
+    const rawKind = String(landData?.data_kind || landData?.source || '').toLowerCase();
+    const isDemo =
+      landData?.is_synthetic_demo === true ||
+      landData?.is_factual === false ||
+      /(demo|synthetic|simulasi|dummy|sample)/.test(rawKind) ||
+      !landData?.is_verified_public;
+
+    if (this.els.demoWarning) {
+      this.els.demoWarning.hidden = !isDemo;
+    }
+
     this.currentLand = landData;
     this.currentPlanId = existingPlan ? existingPlan.id : null;
 
@@ -685,13 +796,30 @@ export class PlannerUI {
         existingPlan?.target_customer || `Mahasiswa ${landData.institution || 'Kampus Sekitar'}`;
     }
 
+    // Penanganan Nilai Kosong (Prompt B):
+    // Jika rental_price_yr atau area_sqm null/undefined, kosongkan field dan minta pengguna mengisi; jangan isi 0
     if (this.els.areaInput) {
-      this.els.areaInput.value = existingPlan?.params?.area_sqm ?? landData.area_sqm ?? 200;
+      const areaVal = existingPlan?.params?.area_sqm ?? landData.area_sqm ?? null;
+      if (areaVal != null && areaVal !== '' && Number(areaVal) > 0) {
+        this.els.areaInput.value = areaVal;
+        this.els.areaInput.placeholder = 'Contoh: 150';
+      } else {
+        this.els.areaInput.value = '';
+        this.els.areaInput.placeholder = 'Wajib diisi: masukkan luas lahan (m²)';
+      }
     }
+
     if (this.els.rentalPriceInput) {
-      this.els.rentalPriceInput.value =
-        existingPlan?.params?.rental_price_yr ?? landData.rental_price_yr ?? 60_000_000;
+      const rentVal = existingPlan?.params?.rental_price_yr ?? landData.rental_price_yr ?? null;
+      if (rentVal != null && rentVal !== '' && Number(rentVal) > 0) {
+        this.els.rentalPriceInput.value = rentVal;
+        this.els.rentalPriceInput.placeholder = 'Contoh: 60000000';
+      } else {
+        this.els.rentalPriceInput.value = '';
+        this.els.rentalPriceInput.placeholder = 'Wajib diisi: masukkan harga sewa per tahun (Rp)';
+      }
     }
+
     if (this.els.rentalDurationInput) {
       this.els.rentalDurationInput.value =
         existingPlan?.params?.rental_duration_yr ?? DEFAULT_PLAN_COSTS.rental_duration_yr;
@@ -762,15 +890,23 @@ export class PlannerUI {
   }
 
   getFormParams() {
+    const parseNumOrNull = (val) => {
+      if (val == null) return null;
+      const s = String(val).trim();
+      if (s === '') return null;
+      const n = Number(s);
+      return Number.isFinite(n) && n >= 0 ? n : null;
+    };
+
     return {
-      area_sqm: Number(this.els.areaInput?.value || 0),
-      rental_price_yr: Number(this.els.rentalPriceInput?.value || 0),
+      area_sqm: parseNumOrNull(this.els.areaInput?.value),
+      rental_price_yr: parseNumOrNull(this.els.rentalPriceInput?.value),
       rental_duration_yr: Number(this.els.rentalDurationInput?.value || 1),
-      renovation_cost_per_sqm: Number(this.els.renovationRateInput?.value || 0),
-      equipment_cost: Number(this.els.equipmentInput?.value || 0),
-      monthly_operational_cost: Number(this.els.monthlyOpsInput?.value || 0),
-      working_capital_months: Number(this.els.workingMonthsInput?.value || 0),
-      contingency_cost: Number(this.els.contingencyInput?.value || 0),
+      renovation_cost_per_sqm: Number(this.els.renovationRateInput?.value || DEFAULT_PLAN_COSTS.renovation_cost_per_sqm),
+      equipment_cost: Number(this.els.equipmentInput?.value || DEFAULT_PLAN_COSTS.equipment_cost),
+      monthly_operational_cost: Number(this.els.monthlyOpsInput?.value || DEFAULT_PLAN_COSTS.monthly_operational_cost),
+      working_capital_months: Number(this.els.workingMonthsInput?.value || DEFAULT_PLAN_COSTS.working_capital_months),
+      contingency_cost: Number(this.els.contingencyInput?.value || DEFAULT_PLAN_COSTS.contingency_cost),
       budget_limit: Number(this.els.budgetLimitInput?.value || 0),
     };
   }
@@ -823,7 +959,7 @@ export class PlannerUI {
 
   downloadCurrentModalPlan() {
     if (!this.currentLand) {
-      alert('Tidak ada data lahan yang dipilih.');
+      this.showModalError('Tidak ada data lahan yang dipilih.');
       return;
     }
 
@@ -856,13 +992,13 @@ export class PlannerUI {
       downloadPlanAsJson(planPayload);
       this.announce(`Rencana "${cafeName}" berhasil diunduh sebagai JSON.`);
     } catch (err) {
-      alert(`Gagal mengunduh rencana: ${err.message}`);
+      this.showModalError(`Gagal mengunduh rencana: ${err.message}`);
     }
   }
 
   saveCurrentPlan() {
     if (!this.currentLand) {
-      alert('Tidak ada data lahan yang dipilih.');
+      this.showModalError('Tidak ada data lahan yang dipilih.');
       return;
     }
 
@@ -900,7 +1036,7 @@ export class PlannerUI {
       this.closeModal();
       this.announce(`Rencana kafe "${cafeName}" berhasil disimpan ke browser.`);
     } catch (err) {
-      alert(`Gagal menyimpan: ${err.message}`);
+      this.showModalError(`Gagal menyimpan: ${err.message}`);
     }
   }
 
@@ -913,6 +1049,9 @@ export class PlannerUI {
     }
     if (this.els.clearPlansBtn) {
       this.els.clearPlansBtn.hidden = plans.length === 0;
+    }
+    if (this.els.clearPlansConfirm) {
+      this.els.clearPlansConfirm.hidden = true;
     }
     if (this.els.downloadAllBtn) {
       this.els.downloadAllBtn.hidden = plans.length === 0;
@@ -952,11 +1091,24 @@ export class PlannerUI {
           ${p.calculation?.feasibility_points != null ? `<span class="saved-plan-score"> · Skor: <strong>${p.calculation.feasibility_points}/100</strong> (${escapeHtml(p.calculation.feasibility_grade || '')})</span>` : ''}
         </div>
         <div class="saved-plan-actions">
-          <button type="button" class="btn-sm btn-open-plan" data-id="${p.id}">Buka &amp; Edit</button>
-          <button type="button" class="btn-sm btn-download-plan" data-id="${p.id}" aria-label="Unduh berkas JSON rencana ${escapeHtml(p.cafe_name)}">Unduh JSON</button>
-          <button type="button" class="btn-sm btn-delete-plan" data-id="${p.id}" aria-label="Hapus rencana ${escapeHtml(p.cafe_name)}">Hapus</button>
+          <button type="button" class="btn-sm btn-open-plan" data-id="${escapeHtml(p.id)}">Buka &amp; Edit</button>
+          <button type="button" class="btn-sm btn-download-plan" data-id="${escapeHtml(p.id)}" aria-label="Unduh berkas JSON rencana ${escapeHtml(p.cafe_name)}">Unduh JSON</button>
+          <button type="button" class="btn-sm btn-delete-plan" data-id="${escapeHtml(p.id)}" aria-label="Hapus rencana ${escapeHtml(p.cafe_name)}">Hapus</button>
+        </div>
+        <div class="inline-confirm-box" role="alertdialog" aria-labelledby="confirm-del-${escapeHtml(p.id)}" hidden>
+          <span id="confirm-del-${escapeHtml(p.id)}">Hapus rencana <strong>${escapeHtml(p.cafe_name)}</strong>?</span>
+          <div class="inline-confirm-actions">
+            <button type="button" class="btn-sm btn-danger btn-confirm-delete-yes" data-id="${escapeHtml(p.id)}">Ya, Hapus</button>
+            <button type="button" class="btn-sm btn-confirm-delete-no">Batal</button>
+          </div>
         </div>
       `;
+
+      const actionsDiv = li.querySelector('.saved-plan-actions');
+      const confirmDiv = li.querySelector('.inline-confirm-box');
+      const deleteBtn = li.querySelector('.btn-delete-plan');
+      const confirmYesBtn = li.querySelector('.btn-confirm-delete-yes');
+      const confirmNoBtn = li.querySelector('.btn-confirm-delete-no');
 
       // Event listener tombol buka
       li.querySelector('.btn-open-plan').addEventListener('click', () => {
@@ -969,19 +1121,38 @@ export class PlannerUI {
           this.storage.downloadPlan(p.id);
           this.announce(`Rencana "${p.cafe_name}" berhasil diunduh sebagai JSON.`);
         } catch (err) {
-          alert(`Gagal mengunduh: ${err.message}`);
+          this.announce(`Gagal mengunduh: ${err.message}`);
         }
       });
 
-      // Event listener tombol hapus
-      li.querySelector('.btn-delete-plan').addEventListener('click', () => {
-        if (confirm(`Hapus rencana "${p.cafe_name}"?`)) {
-          this.storage.deletePlan(p.id);
-          this.renderSavedPlans();
-          this.announce(`Rencana "${p.cafe_name}" telah dihapus.`);
-          if (typeof this.onPlanDeleted === 'function') {
-            this.onPlanDeleted(p.id);
-          }
+      // Event listener tombol hapus: Tampilkan konfirmasi inline aksesibel (tanpa window.confirm)
+      deleteBtn.addEventListener('click', () => {
+        actionsDiv.hidden = true;
+        confirmDiv.hidden = false;
+        confirmYesBtn.focus();
+      });
+
+      confirmNoBtn.addEventListener('click', () => {
+        confirmDiv.hidden = true;
+        actionsDiv.hidden = false;
+        deleteBtn.focus();
+      });
+
+      confirmYesBtn.addEventListener('click', () => {
+        this.storage.deletePlan(p.id);
+        this.renderSavedPlans();
+        this.announce(`Rencana "${p.cafe_name}" telah dihapus.`);
+        if (typeof this.onPlanDeleted === 'function') {
+          this.onPlanDeleted(p.id);
+        }
+      });
+
+      confirmDiv.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.stopPropagation();
+          confirmDiv.hidden = true;
+          actionsDiv.hidden = false;
+          deleteBtn.focus();
         }
       });
 
@@ -990,13 +1161,14 @@ export class PlannerUI {
   }
 }
 
-function escapeHtml(str) {
-  if (!str) return '';
+export function escapeHtml(str) {
+  if (str == null) return '';
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 /**

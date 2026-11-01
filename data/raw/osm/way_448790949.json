@@ -1,0 +1,176 @@
+{
+  "version": "0.6",
+  "generator": "openstreetmap-cgimap 2.1.0 (897624 spike-08.openstreetmap.org)",
+  "copyright": "OpenStreetMap and contributors",
+  "attribution": "http://www.openstreetmap.org/copyright",
+  "license": "http://opendatacommons.org/licenses/odbl/1-0/",
+  "elements": [
+    {
+      "type": "node",
+      "id": 4457686398,
+      "lat": -7.263713,
+      "lon": 112.7571763,
+      "timestamp": "2017-01-16T03:41:13Z",
+      "version": 4,
+      "changeset": 45205866,
+      "user": "Ms Kiara",
+      "uid": 3682550
+    },
+    {
+      "type": "node",
+      "id": 4457686399,
+      "lat": -7.2638807,
+      "lon": 112.7591986,
+      "timestamp": "2017-01-31T02:17:12Z",
+      "version": 4,
+      "changeset": 45671039,
+      "user": "Febrina Dewi",
+      "uid": 617262
+    },
+    {
+      "type": "node",
+      "id": 4457686400,
+      "lat": -7.2640429,
+      "lon": 112.7602286,
+      "timestamp": "2017-01-16T03:41:15Z",
+      "version": 3,
+      "changeset": 45205866,
+      "user": "Ms Kiara",
+      "uid": 3682550
+    },
+    {
+      "type": "node",
+      "id": 4457686402,
+      "lat": -7.2645192,
+      "lon": 112.7602246,
+      "timestamp": "2016-10-24T11:14:00Z",
+      "version": 2,
+      "changeset": 43119920,
+      "user": "gafuri",
+      "uid": 1588993
+    },
+    {
+      "type": "node",
+      "id": 4457686403,
+      "lat": -7.2654757,
+      "lon": 112.7568585,
+      "timestamp": "2016-10-24T11:14:00Z",
+      "version": 2,
+      "changeset": 43119920,
+      "user": "gafuri",
+      "uid": 1588993
+    },
+    {
+      "type": "node",
+      "id": 4457686404,
+      "lat": -7.2656261,
+      "lon": 112.7601924,
+      "timestamp": "2016-10-24T11:14:00Z",
+      "version": 2,
+      "changeset": 43119920,
+      "user": "gafuri",
+      "uid": 1588993
+    },
+    {
+      "type": "node",
+      "id": 4457686405,
+      "lat": -7.2656952,
+      "lon": 112.7601334,
+      "timestamp": "2016-10-24T11:14:00Z",
+      "version": 2,
+      "changeset": 43119920,
+      "user": "gafuri",
+      "uid": 1588993
+    },
+    {
+      "type": "node",
+      "id": 4461618264,
+      "lat": -7.2653188,
+      "lon": 112.7568544,
+      "timestamp": "2016-10-24T11:13:48Z",
+      "version": 1,
+      "changeset": 43119920,
+      "user": "gafuri",
+      "uid": 1588993
+    },
+    {
+      "type": "node",
+      "id": 4461618265,
+      "lat": -7.2656141,
+      "lon": 112.7569886,
+      "timestamp": "2016-10-24T11:13:48Z",
+      "version": 1,
+      "changeset": 43119920,
+      "user": "gafuri",
+      "uid": 1588993
+    },
+    {
+      "type": "node",
+      "id": 4611102193,
+      "lat": -7.2639465,
+      "lon": 112.7597371,
+      "timestamp": "2017-01-16T03:40:15Z",
+      "version": 1,
+      "changeset": 45205866,
+      "user": "Ms Kiara",
+      "uid": 3682550
+    },
+    {
+      "type": "node",
+      "id": 4611102194,
+      "lat": -7.2638667,
+      "lon": 112.7582726,
+      "timestamp": "2017-01-16T03:40:15Z",
+      "version": 1,
+      "changeset": 45205866,
+      "user": "Ms Kiara",
+      "uid": 3682550
+    },
+    {
+      "type": "node",
+      "id": 4611102195,
+      "lat": -7.2638002,
+      "lon": 112.7582726,
+      "timestamp": "2017-01-16T03:40:15Z",
+      "version": 1,
+      "changeset": 45205866,
+      "user": "Ms Kiara",
+      "uid": 3682550
+    },
+    {
+      "type": "way",
+      "id": 448790949,
+      "timestamp": "2025-11-30T23:55:33Z",
+      "version": 10,
+      "changeset": 175335659,
+      "user": "Farras",
+      "uid": 136807,
+      "nodes": [
+        4457686398,
+        4461618264,
+        4457686403,
+        4461618265,
+        4457686405,
+        4457686404,
+        4457686402,
+        4457686400,
+        4611102193,
+        4457686399,
+        4611102194,
+        4611102195,
+        4457686398
+      ],
+      "tags": {
+        "addr:city": "Surabaya",
+        "addr:street": "Jalan Professor Dokter Mustopo",
+        "amenity": "university",
+        "name": "Kampus A Universitas Airlangga",
+        "name:en": "Airlangga University Campus A",
+        "operator": "Universitas Airlangga",
+        "operator:type": "government",
+        "operator:wikidata": "Q1494353",
+        "operator:wikipedia": "id:Universitas Airlangga"
+      }
+    }
+  ]
+}

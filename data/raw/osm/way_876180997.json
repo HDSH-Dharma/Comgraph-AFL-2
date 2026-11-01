@@ -1,0 +1,137 @@
+{
+  "version": "0.6",
+  "generator": "openstreetmap-cgimap 2.1.0 (876092 spike-08.openstreetmap.org)",
+  "copyright": "OpenStreetMap and contributors",
+  "attribution": "http://www.openstreetmap.org/copyright",
+  "license": "http://opendatacommons.org/licenses/odbl/1-0/",
+  "elements": [
+    {
+      "type": "node",
+      "id": 8154873836,
+      "lat": -7.2712029,
+      "lon": 112.8120267,
+      "timestamp": "2024-01-27T13:01:42Z",
+      "version": 2,
+      "changeset": 146743201,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 8154873837,
+      "lat": -7.2705511,
+      "lon": 112.8132847,
+      "timestamp": "2024-01-27T13:01:42Z",
+      "version": 2,
+      "changeset": 146743201,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 8154873838,
+      "lat": -7.2691888,
+      "lon": 112.8125954,
+      "timestamp": "2020-11-23T14:14:44Z",
+      "version": 1,
+      "changeset": 94643287,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 8154873839,
+      "lat": -7.2700669,
+      "lon": 112.8110129,
+      "timestamp": "2020-11-23T14:14:44Z",
+      "version": 1,
+      "changeset": 94643287,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 8154873840,
+      "lat": -7.2708438,
+      "lon": 112.8101653,
+      "timestamp": "2020-11-23T14:14:44Z",
+      "version": 1,
+      "changeset": 94643287,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 8154873841,
+      "lat": -7.2719107,
+      "lon": 112.8112087,
+      "timestamp": "2024-01-27T13:01:42Z",
+      "version": 2,
+      "changeset": 146743201,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 11556491767,
+      "lat": -7.2709401,
+      "lon": 112.812534,
+      "timestamp": "2024-01-27T13:01:42Z",
+      "version": 1,
+      "changeset": 146743201,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 11556608570,
+      "lat": -7.2702362,
+      "lon": 112.8108282,
+      "timestamp": "2024-01-27T13:01:42Z",
+      "version": 1,
+      "changeset": 146743201,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "node",
+      "id": 11556608575,
+      "lat": -7.2713615,
+      "lon": 112.8118434,
+      "timestamp": "2024-01-27T13:01:42Z",
+      "version": 1,
+      "changeset": 146743201,
+      "user": "Farras",
+      "uid": 136807
+    },
+    {
+      "type": "way",
+      "id": 876180997,
+      "timestamp": "2024-01-27T13:01:42Z",
+      "version": 3,
+      "changeset": 146743201,
+      "user": "Farras",
+      "uid": 136807,
+      "nodes": [
+        8154873841,
+        8154873840,
+        11556608570,
+        8154873839,
+        8154873838,
+        8154873837,
+        11556491767,
+        8154873836,
+        11556608575,
+        8154873841
+      ],
+      "tags": {
+        "amenity": "university",
+        "name": "Universitas Katolik Widya Mandala",
+        "website": "https://ukwms.ac.id/",
+        "wikidata": "Q12523365",
+        "wikimedia_commons": "Category:Widya Mandala Catholic University, Surabaya",
+        "wikipedia": "id:Universitas Katolik Widya Mandala Surabaya"
+      }
+    }
+  ]
+}

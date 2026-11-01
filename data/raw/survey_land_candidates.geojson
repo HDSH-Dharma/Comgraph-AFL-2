@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "Dataset Survei Lahan Kandidat Buka Kafe Surabaya (Template & Skema Resmi)",
+    "version": "1.0.0",
+    "status": "AWAITING_FIELD_SURVEY_DATA",
+    "description": "Dataset hasil pengamatan lapangan langsung atau Google Street View oleh tim mahasiswa di sekitar 8 kampus Surabaya. Sesuai prinsip anti-fabrikasi, berkas ini belum diisi data buatan dan menunggu input empiris riil dari tim survei.",
+    "protocol_guidelines": {
+      "collection_rule": "Catat titik yang benar-benar diobservasi langsung di lapangan atau melalui Google Street View. Dilarang mengarang koordinat, alamat, luas, atau harga sewa.",
+      "null_field_rule": "Jika luas atau harga sewa tidak tertera pada papan/listing terverifikasi, wajib diisi null (bukan 0 atau estimasi).",
+      "required_fields": [
+        "id",
+        "name",
+        "address",
+        "status",
+        "survey_method",
+        "evidence_url",
+        "observed_at",
+        "surveyed_by",
+        "notes",
+        "area_sqm",
+        "rental_price_yr",
+        "price_source_url",
+        "data_kind"
+      ],
+      "valid_statuses": [
+        "Lahan kosong",
+        "Lahan yang tersedia untuk disewakan",
+        "Rumah atau bangunan tempat tinggal",
+        "Bangunan yang telah digunakan untuk fungsi lain",
+        "Lahan yang statusnya belum terverifikasi"
+      ],
+      "valid_survey_methods": [
+        "street_view",
+        "google_maps",
+        "lapangan"
+      ],
+      "valid_data_kinds": [
+        "survey_google_maps",
+        "survey_lapangan"
+      ]
+    }
+  },
+  "features": []
+}
