@@ -336,6 +336,7 @@ function parseCandidates(json) {
       surveyMethod: str(p.survey_method) || null,
       evidenceUrl: str(p.evidence_url) || null,
       observedAt: str(p.observed_at) || null,
+      imageryDate: str(p.imagery_date) || null,
       surveyedBy: str(p.surveyed_by) || null,
       priceSourceUrl: str(p.price_source_url) || null,
       provenanceLabel,

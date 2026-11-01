@@ -380,7 +380,7 @@ export class MapUI {
 
     const validListings = this.vm.data.listings?.items?.length || 0;
     if (validListings === 0) {
-      parts.push('belum ada listing sewa publik terverifikasi (hanya menampilkan kandidat lahan demo)');
+      parts.push('belum ada listing sewa publik terverifikasi (harga sewa belum tersedia)');
     } else {
       parts.push(`${validListings} listing sewa riil publik terverifikasi`);
     }
@@ -497,7 +497,7 @@ export class MapUI {
         h(
           'li',
           { class: 'muted candidate-hidden-notice' },
-          `ℹ️ Kandidat lahan sintetis (${demoCount + scenarioCount} titik simulasi/skenario) disembunyikan secara default demi memprioritaskan data faktual. Aktifkan checkbox "Kandidat lahan (demo)" di kontrol layer jika ingin menampilkan simulasi demo/skenario.`
+          `ℹ️ Kandidat lahan sintetis (${demoCount + scenarioCount} titik simulasi/skenario) disembunyikan secara default demi memprioritaskan data faktual. Aktifkan checkbox "Kandidat lahan (observasi Street View)" di kontrol layer jika ingin menampilkan simulasi demo/skenario.`
         )
       );
       return;
@@ -817,8 +817,8 @@ export class MapUI {
         h(
           'div',
           { class: 'callout callout-ok', role: 'status' },
-          h('strong', { text: '📍 Data Survei Lapangan Faktual. ' }),
-          `Lokasi ini diobservasi melalui metode ${c.surveyMethod || 'survei tim'}. Titik dan koordinat telah diverifikasi.`
+          h('strong', { text: '📍 Observasi Street View. ' }),
+          `Dilihat ${c.observedAt || '-'} pada gambar Street View ${c.imageryDate || '(tanggal gambar tidak dicatat)'}. Titik = posisi kamera (selisih ±10–30 m). Ketersediaan sewa belum dicek kecuali ada papan yang terbaca; status bisa berubah sejak tanggal gambar.`
         )
       );
     }

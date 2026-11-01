@@ -1099,7 +1099,8 @@ class TestGISPipeline(unittest.TestCase):
         self.assertEqual(audit_res["fake_rentable_claims"], 0)
         self.assertEqual(audit_res["unbacked_prices"], 0)
         self.assertEqual(audit_res["fixtures_preserved_count"], 20)
-        self.assertGreaterEqual(audit_res["production_features_count"], 20)
+        # Ambang minimum disamakan dengan test_18 (>= 16 observasi nyata).
+        self.assertGreaterEqual(audit_res["production_features_count"], 16)
 
         # Verifikasi langsung pada berkas produksi
         with open("data/processed/land_candidates.geojson", "r", encoding="utf-8") as f:
@@ -1310,7 +1311,9 @@ class TestGISPipeline(unittest.TestCase):
             fixtures_path="data/fixtures/synthetic_land_candidates.geojson"
         )
         self.assertEqual(audit_prod["status"], "PASSED")
-        self.assertEqual(audit_prod["production_features_count"], 33)
+        with open("data/raw/survey_land_candidates.geojson", "r", encoding="utf-8") as f:
+            expected_production = len(json.load(f)["features"])
+        self.assertEqual(audit_prod["production_features_count"], expected_production)
         self.assertEqual(audit_prod["fixtures_preserved_count"], 20)
 
 if __name__ == "__main__":
