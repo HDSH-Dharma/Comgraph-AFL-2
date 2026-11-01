@@ -70,10 +70,15 @@ VALID_SURVEY_DATA_KINDS = {"survey_google_maps", "survey_lapangan"}
 # ==============================================================================
 # KONFIGURASI RADIUS TERPUSAT (GIS TASK 2: BASELINE 500M & SCENARIO 1KM)
 # ==============================================================================
+# Radius spasial terpusat untuk analisis jangkauan kawasan sekitar kampus:
+# - BASELINE (500.0 m): Batas pejalan kaki standar proposal Bab 1.1 & Bab 3 (~5-7 menit jalan kaki).
+# - SCENARIO (1000.0 m / 1 km): Batas skenario jangkauan strategis Bab 2.2 untuk eksplorasi modal kafe.
 BASELINE_RADIUS_METERS: float = 500.0
 SCENARIO_RADIUS_METERS: float = 1000.0
 SUPPORTED_RADII_METERS: List[float] = [500.0, 1000.0]
 
+# Metadata konfigurasi radius terpusat: single source of truth untuk koordinasi
+# antara GIS pipeline, test suite, dan komponen visualisasi antarmuka web.
 RADIUS_CONFIG: Dict[str, Dict[str, Any]] = {
     "baseline": {
         "radius_m": 500.0,
@@ -92,6 +97,14 @@ RADIUS_CONFIG: Dict[str, Dict[str, Any]] = {
 # ==============================================================================
 # ASUMSI PENILAIAN SKOR KELAYAKAN TERPUSAT (GIS TASK 8: TRANSPARENT SCORING)
 # ==============================================================================
+# Bobot & kriteria Multi-Criteria Decision Analysis (MCDA) terpusat:
+# - Proximity (40%): Kedekatan fisik dengan kampus sasaran (kriteria spasial utama).
+# - Space (30%): Kapasitas luas lahan/bangunan untuk zonasi tempat duduk dan operasional.
+# - Cost Efficiency (30%): Efisiensi biaya sewa per m2/tahun terhadap anggaran modal.
+#
+# Kepatuhan JSON RFC 8259:
+# Batas atas terbuka (unbounded interval) menggunakan None (diserialisasi sebagai null)
+# menggantikan float("inf") agar mematuhi standar JSON murni dan mencegah penolakan parser ketat.
 TEAM_SCORING_ASSUMPTIONS: Dict[str, Any] = {
     "version": "1.0.0",
     "description": "Asumsi parameter penilaian kelayakan kafe terpusat tim AFL 2 Computer Graphics",
@@ -155,7 +168,8 @@ def calculate_transparent_feasibility_score(
     raw_earned_points = 0.0
     max_available_weight = 0.0
 
-    # 1. Proksimitas Kampus
+    # 1. Komponen Proksimitas Kampus (Maks 40 Poin)
+    # Evaluasi jarak fisik terhadap ambang batas mode radius aktif (baseline 500m vs skenario 1km).
     if distance_meters is not None and math.isfinite(distance_meters) and distance_meters >= 0.0:
         observed_components.append("proximity")
         max_available_weight += weights["proximity"]
@@ -163,6 +177,8 @@ def calculate_transparent_feasibility_score(
             radius_mode,
             assumptions["proximity_thresholds_m"]["scenario_1km"]
         )
+        # Ambang batas atas None mewakili interval terbuka tak berhingga (RFC 8259 safe).
+        # Jika jarak melampaui ambang fair, alur jatuh ke cabang else (unsuitable: 0.0 poin).
         if p_thresholds["excellent"][0] is not None and distance_meters <= p_thresholds["excellent"][0]:
             p_score = p_thresholds["excellent"][1]
         elif p_thresholds["good"][0] is not None and distance_meters <= p_thresholds["good"][0]:
@@ -179,6 +195,7 @@ def calculate_transparent_feasibility_score(
             "status": "OBSERVED"
         }
     else:
+        # Penanganan null: proksimitas tidak diobservasi (dikeluarkan dari pembagi bobot)
         null_components.append("proximity")
         breakdown["proximity"] = {
             "score": None,
@@ -186,7 +203,8 @@ def calculate_transparent_feasibility_score(
             "status": "NULL"
         }
 
-    # 2. Kesesuaian Luas Lahan (Space)
+    # 2. Komponen Kesesuaian Luas Lahan / Space (Maks 30 Poin)
+    # Optimal untuk kafe mahasiswa: 80 - 250 m2 (ruang saji + meja belajar/nongkrong).
     if area_sqm is not None and math.isfinite(area_sqm) and area_sqm > 0.0:
         observed_components.append("space")
         max_available_weight += weights["space"]
@@ -210,6 +228,7 @@ def calculate_transparent_feasibility_score(
             "status": "OBSERVED"
         }
     else:
+        # Penanganan null: luas tidak terukur (misal survei visual Google Street View tanpa denah kadaster)
         null_components.append("space")
         breakdown["space"] = {
             "score": None,
@@ -217,14 +236,16 @@ def calculate_transparent_feasibility_score(
             "status": "NULL (Unmeasured area)"
         }
 
-    # 3. Efisiensi Biaya Sewa (Cost Efficiency)
-    # Mandat: Never guess rent! Jika rental_price_yr is None, maka NULL.
+    # 3. Komponen Efisiensi Biaya Sewa / Cost Efficiency (Maks 30 Poin)
+    # Mandat Anti-Fabrikasi: Dilarang keras menebak harga sewa (never guess rent).
+    # Kedua parameter (rental_price_yr dan area_sqm) wajib terobservasi valid secara positif.
     if (rental_price_yr is not None and math.isfinite(rental_price_yr) and rental_price_yr > 0.0 and
             area_sqm is not None and math.isfinite(area_sqm) and area_sqm > 0.0):
         observed_components.append("cost_efficiency")
         max_available_weight += weights["cost_efficiency"]
         cost_per_sqm = rental_price_yr / area_sqm
         c_th = assumptions["cost_efficiency_thresholds_idr_per_sqm_yr"]
+        # Evaluasi biaya sewa per m2/tahun: batas None pada kategori high mewakili sewa > 700k
         if c_th["efficient"][0] is not None and cost_per_sqm <= c_th["efficient"][0]:
             c_score = c_th["efficient"][1]
         elif c_th["moderate"][0] is not None and cost_per_sqm <= c_th["moderate"][0]:
@@ -239,6 +260,7 @@ def calculate_transparent_feasibility_score(
             "status": "OBSERVED"
         }
     else:
+        # Penanganan null: jika harga belum terverifikasi dari listing publik, jangan buat asumsi sembarangan
         null_components.append("cost_efficiency")
         reason = "Unobserved rent (never guessed)" if rental_price_yr is None else "Missing area for per-sqm calculation"
         breakdown["cost_efficiency"] = {
@@ -247,14 +269,16 @@ def calculate_transparent_feasibility_score(
             "status": f"NULL ({reason})"
         }
 
-    # Renormalisasi ke skala 0-100
+    # Algoritma Renormalisasi Bobot Dinamis (Dynamic Null Renormalization):
+    # Jika salah satu komponen bernilai null (misal sewa belum diobservasi), bobot komponen tersebut
+    # dikeluarkan dari penyebut sehingga skor akhir diskalakan secara adil ke rentang 0 - 100.
     is_renormalized = len(null_components) > 0
     if max_available_weight > 0.0:
         score_normalized = round((raw_earned_points / max_available_weight) * 100.0, 2)
     else:
         score_normalized = None
 
-    # Penentuan Predikat (Grade)
+    # Penentuan Predikat (Grade): Ambang batas baku 85 (★★★), 70 (★★), 50 (★)
     if score_normalized is None:
         grade = "Data Belum Lengkap"
     elif score_normalized >= 85.0:
@@ -1127,6 +1151,11 @@ class GISPipeline:
             }
             processed_campuses.append(campus_entry)
 
+            # GIS Task 2: Pembangkitan buffer dual radius (baseline 500m & skenario 1.000m).
+            # Menghasilkan dua representasi geometri spasial pelengkap:
+            # - Radial centroid buffer (128 segmen) untuk analisis jarak Euclidean titik tengah kampus.
+            # - Dilation polygon buffer (Minkowski offset, 8 titik fillet) untuk jarak dari pagar/batas fisik kampus.
+
             # 1. Buat poligon buffer radial 500m (baseline) dari titik referensi
             radial_ring_500 = self.create_radial_buffer_polygon(lon, lat, radius_m=BASELINE_RADIUS_METERS, num_segments=128)
             buffer_features_500m.append({
@@ -1345,14 +1374,18 @@ class GISPipeline:
                 raise RuntimeError("Gagal menentukan kampus terdekat.")
 
             # Batas inklusif buffer (GIS Task 2 & 3: Dual radius 500m baseline & 1000m scenario)
+            # Invarian Himpunan Bagian: min_dist <= 500.0 pasti menjamin min_dist <= 1000.0 (500m subset dari 1km).
             is_in_buffer_500m = bool(min_dist <= BASELINE_RADIUS_METERS)
             is_in_buffer_1000m = bool(min_dist <= SCENARIO_RADIUS_METERS)
+            # Kompatibilitas mundur: is_in_buffer tetap mengacu pada ambang batas skenario 1km
             is_in_buffer = is_in_buffer_1000m
 
             # Klasifikasi peruntukan komersial / sewa vs tempat tinggal / fungsi lain
             is_rentable = bool(status in RENTABLE_OR_SALE_STATUSES)
+            # Kelayakan ganda: kandidat 500m wajib disewa DAN berada dalam jangkauan jalan kaki 500m
             is_eligible_500m = bool(is_in_buffer_500m and is_rentable)
             is_eligible_1000m = bool(is_in_buffer_1000m and is_rentable)
+            # Kompatibilitas mundur: kelayakan perencana modal utama mengacu pada skenario 1km
             is_eligible = is_eligible_1000m
             is_clickable = is_eligible
 
@@ -1371,12 +1404,15 @@ class GISPipeline:
                 else:
                     unavail_reason = "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik)."
 
-            # GIS Task 5: Gate distance strictly null until observed gate data exists
+            # GIS Task 5: Penegakan Jarak Gerbang Kampus Bernilai NULL (Mandat Anti-Fabrikasi Gerbang)
+            # Nilai distance_to_nearest_gate_meters strictly None dan status "UNOBSERVED"
+            # karena koordinat gerbang resmi belum disurvei secara fisik di lapangan (mencegah koordinat fiktif).
             distance_to_nearest_gate_meters = None
             gate_observation_status = "UNOBSERVED"
             gate_notes = "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan."
 
-            # GIS Task 8: Transparent feasibility scoring with null components renormalized and centralized team assumptions
+            # GIS Task 8: Penilaian kelayakan transparan dengan renormalisasi komponen null (asumsi tim terpusat)
+            # Menghitung skor terpisah untuk skenario 1km dan baseline 500m sesuai skala ambang proksimitasnya.
             feasibility_scoring_1km = calculate_transparent_feasibility_score(
                 distance_meters=min_dist,
                 area_sqm=area_sqm,
@@ -1546,6 +1582,7 @@ class GISPipeline:
             json.dump(exported_unis_polygons, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         # 5. Export Processed Buffer Radial (Baseline 500m & Scenario 1000m / 1km)
+        # Ekspor buffer radial 500m dan 1000m; file buffer_1km.geojson dipertahankan sebagai alias kompatibilitas.
         buffer_500m_out_path = os.path.join(output_dir, "buffer_500m.geojson")
         exported_buffer_500m = {
             "type": "FeatureCollection",
@@ -1582,6 +1619,7 @@ class GISPipeline:
             json.dump(exported_buffer_1000m, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         # 6. Export Processed Buffer Polygon (Baseline 500m & Scenario 1000m / 1km Dilation)
+        # Ekspor buffer dilatasi batas perimeter kampus untuk 500m dan 1000m (serta alias 1km).
         buffer_polygon_500m_out_path = os.path.join(output_dir, "buffer_polygon_500m.geojson")
         exported_buffer_polygon_500m = {
             "type": "FeatureCollection",
@@ -1754,6 +1792,8 @@ class GISPipeline:
             if nearest_camp is None:
                 continue
 
+            # GIS Task 3: Klasifikasi spasial kafe eksisting dual radius (500m baseline & 1000m skenario).
+            # Konsistensi proposal: 23 kafe berada dalam radius 500m (pejalan kaki), 59 kafe dalam 1.000m (skenario).
             is_in_buf_500 = bool(min_dist <= BASELINE_RADIUS_METERS)
             is_in_buf_1000 = bool(min_dist <= SCENARIO_RADIUS_METERS)
             if is_in_buf_500:
@@ -1792,6 +1832,7 @@ class GISPipeline:
                     "nearest_university_name": nearest_camp["campus_name"],
                     "distance_meters": round(min_dist, 2),
                     "distance_to_polygon_meters": round(min_poly_dist, 2),
+                    # GIS Task 5: Penegakan jarak gerbang null untuk layer kafe eksisting
                     "distance_to_nearest_gate_meters": None,
                     "gate_observation_status": "UNOBSERVED",
                     "gate_notes": "Jarak ke gerbang kampus bernilai null (belum diobservasi secara empiris di lapangan).",
@@ -1921,10 +1962,13 @@ def generate_synthetic_scenario_fixture(
         rent_yr = basis.get("rental_price_yr", 100000000.0)
         rent_label = f"Rp {rent_yr:,.0f} / tahun (Estimasi Simulasi Hipotetis)"
 
+        # Evaluasi spasial dual-radius (GIS Task 2 & 3)
+        # Menentukan apakah titik simulasi hipotetis jatuh ke dalam radius pejalan kaki 500m atau skenario 1km
         is_in_buf_500 = bool(dist_ref <= BASELINE_RADIUS_METERS)
         is_in_buf_1000 = bool(dist_ref <= SCENARIO_RADIUS_METERS)
         is_in_buf = is_in_buf_1000
 
+        # GIS Task 8: Skor kelayakan transparan untuk kedua skenario radius
         feasibility_1km = calculate_transparent_feasibility_score(
             distance_meters=dist_ref,
             area_sqm=basis.get("area_sqm", 100.0),
@@ -2143,6 +2187,7 @@ def audit_synthetic_scenario_fixture(fixture_path: str = "data/fixtures/syntheti
             raise AssertionError(f"{fid}: source_range wajib list [min, max]")
 
         # Spasial buffer & metrik dual-radius (GIS Task 2 & 3)
+        # Menjamin seluruh titik simulasi mematuhi skema koordinasi dual-radius
         dist = p.get("distance_meters")
         if dist is None or dist > 1000.0:
             raise AssertionError(f"{fid}: distance_meters ({dist}) harus <= 1000.0m")
@@ -2151,13 +2196,14 @@ def audit_synthetic_scenario_fixture(fixture_path: str = "data/fixtures/syntheti
         if "is_in_buffer_500m" not in p or "is_in_buffer_1000m" not in p:
             raise AssertionError(f"{fid}: wajib memiliki bendera is_in_buffer_500m dan is_in_buffer_1000m")
 
-        # Gerbang kampus null (GIS Task 5)
+        # Gerbang kampus null (GIS Task 5: Mandat Anti-Fabrikasi Gerbang)
+        # Menjamin tidak ada koordinat fiktif gerbang kampus yang diselundupkan ke layer skenario
         if p.get("distance_to_nearest_gate_meters") is not None:
             raise AssertionError(f"{fid}: distance_to_nearest_gate_meters wajib bernilai null/None")
         if p.get("gate_observation_status") != "UNOBSERVED":
             raise AssertionError(f"{fid}: gate_observation_status wajib 'UNOBSERVED'")
 
-        # Skor kelayakan transparan (GIS Task 8)
+        # Skor kelayakan transparan (GIS Task 8: Validasi skema scoring breakdown)
         if not p.get("feasibility_scoring") or not isinstance(p.get("feasibility_scoring"), dict):
             raise AssertionError(f"{fid}: feasibility_scoring wajib berupa objek breakdown skor kelayakan")
 

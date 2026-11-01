@@ -987,6 +987,7 @@ class TestGISPipeline(unittest.TestCase):
             self.assertTrue(props["osm_url"].startswith("https://www.openstreetmap.org/"))
 
             # Validasi Task 3 (dual radius flags) & Task 5 (gate null)
+            # Kafe eksisting wajib memuat bendera dual-radius dan jarak gerbang unobserved (null)
             self.assertIn("is_in_buffer_500m", props)
             self.assertIn("is_in_buffer_1000m", props)
             self.assertIsNone(props.get("distance_to_nearest_gate_meters"), "Jarak gerbang kafe wajib null unobserved")
@@ -1010,12 +1011,14 @@ class TestGISPipeline(unittest.TestCase):
                 self.assertGreater(props["distance_meters"], 1000.0)
                 self.assertFalse(props["is_in_buffer_1000m"])
 
+            # Verifikasi invarian himpunan bagian: jika berada dalam 500m maka wajib dalam 1.000m
             if props["is_in_buffer_500m"]:
                 in_buffer_500m_count += 1
                 self.assertLessEqual(props["distance_meters"], 500.0)
                 self.assertTrue(props["is_in_buffer_1000m"], "Titik di dalam 500m wajib juga berada di dalam 1000m")
 
-        # Verifikasi konsistensi metadata
+        # Verifikasi konsistensi metadata dan rekonsiliasi cacah kafe proposal:
+        # Tepat 23 kafe berada dalam radius 500m (Bab 1.1) dan 59 kafe dalam radius 1km (Bab 2.2)
         expected_1000m = cafes_data.get("metadata", {}).get("in_buffer_1000m_count", 59)
         expected_500m = cafes_data.get("metadata", {}).get("in_buffer_500m_count", 23)
         self.assertEqual(in_buffer_count, expected_1000m, "Cacah kafe 1km harus cocok dengan metadata")
@@ -1348,6 +1351,7 @@ class TestGISPipeline(unittest.TestCase):
         4. File buffer dilatasi poligon tersedia: buffer_polygon_500m.geojson, buffer_polygon_1000m.geojson, buffer_polygon_1km.geojson.
         5. Setiap berkas memuat tepat 8 poligon tertutup valid (closed ring) untuk 8 kampus sasaran.
         """
+        # Verifikasi konstanta radius terpusat (single source of truth)
         self.assertEqual(BASELINE_RADIUS_METERS, 500.0)
         self.assertEqual(SCENARIO_RADIUS_METERS, 1000.0)
         self.assertEqual(SUPPORTED_RADII_METERS, [500.0, 1000.0])
@@ -1356,6 +1360,7 @@ class TestGISPipeline(unittest.TestCase):
         self.assertEqual(RADIUS_CONFIG["baseline"]["radius_m"], 500.0)
         self.assertEqual(RADIUS_CONFIG["scenario"]["radius_m"], 1000.0)
 
+        # Daftar berkas buffer yang wajib tersedia: 3 buffer radial dan 3 buffer dilatasi poligon
         expected_buffer_files = [
             ("data/processed/buffer_500m.geojson", 500, "radial"),
             ("data/processed/buffer_1000m.geojson", 1000, "radial"),
@@ -1365,6 +1370,7 @@ class TestGISPipeline(unittest.TestCase):
             ("data/processed/buffer_polygon_1km.geojson", 1000, "polygon_dilation"),
         ]
 
+        # Validasi eksistensi dan integritas topologis poligon buffer (closed ring)
         for file_path, expected_radius, buf_type in expected_buffer_files:
             self.assertTrue(os.path.exists(file_path), f"Berkas {file_path} wajib ada di filesystem.")
             with open(file_path, "r", encoding="utf-8") as f:
@@ -1383,6 +1389,7 @@ class TestGISPipeline(unittest.TestCase):
                 self.assertGreater(len(coords), 0)
                 ring = coords[0]
                 self.assertGreaterEqual(len(ring), 4)
+                # Invarian topologis: titik awal dan titik akhir poligon wajib identik (closed ring)
                 self.assertEqual(ring[0], ring[-1], "Ring poligon buffer wajib tertutup eksak (closed ring).")
                 self.assertEqual(feat["properties"]["radius_m"], expected_radius)
 
@@ -1395,7 +1402,7 @@ class TestGISPipeline(unittest.TestCase):
         4. Kafe OSM memuat flag: is_in_buffer_500m dan is_in_buffer_1000m.
         5. Kafe OSM dalam 500m (23 kafe) merupakan subset konsisten dari 1000m (59 kafe).
         """
-        # A. Evaluasi Kandidat Lahan
+        # A. Evaluasi Kandidat Lahan: Verifikasi bendera dual-radius dan invarian matematis
         with open("data/processed/land_candidates.geojson", "r", encoding="utf-8") as f:
             cands_data = json.load(f)
 
@@ -1412,7 +1419,7 @@ class TestGISPipeline(unittest.TestCase):
             self.assertIn("is_eligible_500m", p)
             self.assertIn("is_eligible_1000m", p)
 
-            # Validasi matematis jarak vs bendera
+            # Validasi batas inklusif presisi float tanpa pembulatan prematur
             if dist <= 500.0:
                 self.assertTrue(p["is_in_buffer_500m"], f"{fid}: dist={dist} <= 500 tapi is_in_buffer_500m False")
             else:
@@ -1423,17 +1430,17 @@ class TestGISPipeline(unittest.TestCase):
             else:
                 self.assertFalse(p["is_in_buffer_1000m"], f"{fid}: dist={dist} > 1000 tapi is_in_buffer_1000m True")
 
-            # Invarian subset: 500m subset dari 1000m
+            # Invarian himpunan bagian: jika di dalam 500m pasti di dalam 1000m
             if p["is_in_buffer_500m"]:
                 self.assertTrue(p["is_in_buffer_1000m"], f"{fid}: in 500m harus in 1000m")
             if p["is_eligible_500m"]:
                 self.assertTrue(p["is_eligible_1000m"], f"{fid}: eligible 500m harus eligible 1000m")
 
-            # Kompatibilitas mundur
+            # Kompatibilitas mundur: bendera legacy tetap sinkron dengan skenario 1km
             self.assertEqual(p["is_in_buffer"], p["is_in_buffer_1000m"])
             self.assertEqual(p["is_eligible"], p["is_eligible_1000m"])
 
-        # B. Evaluasi Kafe OSM
+        # B. Evaluasi Kafe OSM: Verifikasi rekonsiliasi cacah kafe proposal
         with open("data/processed/osm_cafes.geojson", "r", encoding="utf-8") as f:
             cafes_data = json.load(f)
 
@@ -1441,6 +1448,7 @@ class TestGISPipeline(unittest.TestCase):
         count_500 = sum(1 for cf in cafe_feats if cf["properties"]["is_in_buffer_500m"])
         count_1000 = sum(1 for cf in cafe_feats if cf["properties"]["is_in_buffer_1000m"])
 
+        # Konsistensi dengan narasi proposal: 23 kafe pejalan kaki (Bab 1.1) vs 59 kafe skenario (Bab 2.2)
         self.assertEqual(count_500, 23, "Tepat 23 kafe eksisting OSM berada di dalam baseline 500m")
         self.assertEqual(count_1000, 59, "Tepat 59 kafe eksisting OSM berada di dalam skenario 1000m")
         self.assertLessEqual(count_500, count_1000)
@@ -1457,7 +1465,7 @@ class TestGISPipeline(unittest.TestCase):
         3. Dilarang keras mengarang koordinat gerbang kampus atau menghitung jarak rekaan.
         4. Berlaku pada seluruh layer: kandidat lahan, kafe OSM, dan fixture skenario sintetis.
         """
-        # 1. Kandidat Lahan
+        # 1. Kandidat Lahan: penegakan null pada observasi empiris
         with open("data/processed/land_candidates.geojson", "r", encoding="utf-8") as f:
             cands = json.load(f)["features"]
         for feat in cands:
@@ -1467,7 +1475,7 @@ class TestGISPipeline(unittest.TestCase):
             self.assertEqual(p.get("gate_observation_status"), "UNOBSERVED")
             self.assertIn("belum diobservasi", p.get("gate_notes", ""))
 
-        # 2. Kafe OSM
+        # 2. Kafe OSM: penegakan null pada layer konteks ODbL
         with open("data/processed/osm_cafes.geojson", "r", encoding="utf-8") as f:
             cafes = json.load(f)["features"]
         for feat in cafes:
@@ -1475,7 +1483,7 @@ class TestGISPipeline(unittest.TestCase):
             self.assertIsNone(p.get("distance_to_nearest_gate_meters"))
             self.assertEqual(p.get("gate_observation_status"), "UNOBSERVED")
 
-        # 3. Fixture Skenario Sintetis
+        # 3. Fixture Skenario Sintetis: penegakan null pada situs simulasi hipotetis
         with open("data/fixtures/synthetic_scenario_candidates.geojson", "r", encoding="utf-8") as f:
             scenarios = json.load(f)["features"]
         for feat in scenarios:
@@ -1492,14 +1500,14 @@ class TestGISPipeline(unittest.TestCase):
         4. Kandidat dari survei lapangan Street View (luas & sewa null) menghasilkan skor ternormalisasi jujur.
         5. Mode radius 500m dan 1000m menggunakan ambang jarak yang disesuaikan secara transparan.
         """
-        # 1. Verifikasi Asumsi Terpusat
+        # 1. Verifikasi Asumsi Terpusat (Bobot 40/30/30 dan mandat anti-fabrikasi)
         assumptions = TEAM_SCORING_ASSUMPTIONS
         self.assertEqual(assumptions["weights"]["proximity"], 40.0)
         self.assertEqual(assumptions["weights"]["space"], 30.0)
         self.assertEqual(assumptions["weights"]["cost_efficiency"], 30.0)
         self.assertIn("never guess rent", assumptions["anti_fabrication_rule"].lower(), "Mandat anti-fabrikasi wajib ada")
 
-        # 2. Kasus Ideal: Seluruh 3 komponen diobservasi lengkap
+        # 2. Kasus Ideal: Seluruh 3 komponen diobservasi lengkap (tanpa renormalisasi)
         res_full = calculate_transparent_feasibility_score(
             distance_meters=200.0,
             area_sqm=120.0,
@@ -1513,7 +1521,8 @@ class TestGISPipeline(unittest.TestCase):
         self.assertEqual(res_full["grade"], "Sangat Strategis ★★★")
 
         # 3. Kasus Realistis Street View (Mandat Anti-Fabrikasi: rent & space NULL)
-        # Hanya jarak 200m yang diobservasi (40 poin dari maks bobot 40)
+        # Hanya jarak 200m yang diobservasi (40 poin dari total bobot tersedia 40):
+        # Renormalisasi proporsional: (40.0 / 40.0) * 100.0 = 100.0
         res_renorm = calculate_transparent_feasibility_score(
             distance_meters=200.0,
             area_sqm=None,
@@ -1528,7 +1537,8 @@ class TestGISPipeline(unittest.TestCase):
         self.assertIn("cost_efficiency", res_renorm["null_components"])
 
         # 4. Mode Radius Baseline 500m vs Scenario 1km
-        # Jarak 250m: Pada 1km (<=300m) dapat 40 poin; Pada 500m (<=300m) dapat 30 poin
+        # Jarak 250m: Pada 1km (<=300m) dapat 40 poin; Pada 500m (<=300m) dapat 30 poin:
+        # Renormalisasi proporsional: (30.0 / 40.0) * 100.0 = 75.0 (Strategis ★★)
         res_500m = calculate_transparent_feasibility_score(
             distance_meters=250.0,
             area_sqm=None,
@@ -1565,6 +1575,7 @@ class TestGISPipeline(unittest.TestCase):
         4. Parameter TEAM_SCORING_ASSUMPTIONS dapat diserialisasi dengan json.dumps(allow_nan=False) tanpa ValueError.
         5. Injeksi float('inf') atau float('nan') wajib tertangkap dan ditolak oleh allow_nan=False.
         """
+        # Callback penolak konstanta non-finit (menegakkan RFC 8259 murni pada parser Python)
         def strict_constant_reject(c: str):
             raise ValueError(f"Strict JSON RFC 8259 violation: non-finite constant '{c}' encountered.")
 
@@ -1576,7 +1587,7 @@ class TestGISPipeline(unittest.TestCase):
         self.assertIsNone(parsed_assumptions["proximity_thresholds_m"]["scenario_1km"]["unsuitable"][0])
         self.assertIsNone(parsed_assumptions["cost_efficiency_thresholds_idr_per_sqm_yr"]["high"][0])
 
-        # 2. Verifikasi Efektivitas Guard allow_nan=False
+        # 2. Verifikasi Efektivitas Guard allow_nan=False terhadap float non-finit
         bad_payload = {"test_inf": float("inf")}
         with self.assertRaises(ValueError):
             json.dumps(bad_payload, allow_nan=False)

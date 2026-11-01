@@ -33,7 +33,9 @@ except ImportError:
     print("Error: 'pyproj' library is required. Install via 'pip install pyproj'.", file=sys.stderr)
     sys.exit(1)
 
-# Import konstanta terpercaya dari gis_pipeline
+# Import konstanta terpercaya dan konfigurasi radius terpusat dari gis_pipeline.
+# Menggunakan single source of truth untuk radius spasial (baseline 500m & skenario 1km)
+# serta algoritma penilaian kelayakan transparan yang mematuhi mandat anti-fabrikasi.
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from scripts.gis_pipeline import (
     SURABAYA_BBOX,
@@ -470,6 +472,8 @@ class RentalMarketService:
             "area_summaries": summaries
         }
 
+        # Serialisasi JSON ketat sesuai RFC 8259: opsi allow_nan=False mencegah
+        # token non-finit (seperti NaN atau Infinity) yang dilarang pada spesifikasi JSON.
         with open(summary_out_path, "w", encoding="utf-8") as f:
             json.dump(summary_payload, f, indent=2, ensure_ascii=False, allow_nan=False)
 
@@ -494,6 +498,7 @@ class RentalMarketService:
             "features": geo_features
         }
 
+        # Serialisasi GeoJSON dengan allow_nan=False menjamin output aman dibaca oleh parser strict RFC 8259.
         with open(listings_out_path, "w", encoding="utf-8") as f:
             json.dump(listings_geojson, f, indent=2, ensure_ascii=False, allow_nan=False)
 

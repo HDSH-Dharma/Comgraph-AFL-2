@@ -45,6 +45,7 @@ async function fetchJson(url) {
     return JSON.parse(text);
   } catch {
     try {
+      // Penanganan edge case: sanitasi token non-standar (Infinity/NaN) yang dapat dihasilkan oleh script GIS Python
       const sanitized = text.replace(/\bInfinity\b/g, 'null').replace(/\bNaN\b/g, 'null');
       return JSON.parse(sanitized);
     } catch {
@@ -209,6 +210,7 @@ function parseUniversities(json) {
   return { items, skipped, metadata: json.metadata ?? null };
 }
 
+// Penskalaan ring poligon terhadap titik pusat (cx, cy) untuk derivasi geometri buffer 500 m dari buffer 1.000 m.
 function scaleRing(ring, cx, cy, factor, outBounds) {
   const out = new Float64Array(ring.length);
   for (let i = 0; i < ring.length; i += 2) {
@@ -256,7 +258,7 @@ function parseBuffers(json) {
       continue;
     }
 
-    // Baseline 500m buffer dihitung dengan skala 0.5 dari centroid ring 1000m
+    // Derivasi buffer 500m baseline (faktor skala 0.5 terhadap ring 1.000m) jika file buffer_500m tidak dimuat terpisah.
     const cx = (bounds[0] + bounds[2]) / 2;
     const cy = (bounds[1] + bounds[3]) / 2;
     const bounds500 = emptyBounds();
@@ -266,7 +268,7 @@ function parseBuffers(json) {
       universityId: str(p.university_id) || null,
       institution: str(p.institution) || null,
       campusName: str(p.campus_name),
-      radiusM: 500, // baseline default
+      radiusM: 500, // baseline default 500 m
       rings: rings500,
       bounds: bounds500,
       rings500,
@@ -362,6 +364,7 @@ function parseCandidates(json) {
       isScenario,
       simulated: isSimulated || isScenario,
       isRandomPlacement,
+      // Metadata observasi Google Street View faktual & penelusuran spasial:
       surveyMethod: str(p.survey_method) || null,
       evidenceUrl: str(p.evidence_url) || null,
       observedAt: str(p.observed_at) || null,
@@ -370,9 +373,12 @@ function parseCandidates(json) {
       headingDeg: num(p.heading_deg),
       locationMethod: str(p.location_method) || null,
       notes: str(p.notes) || null,
+      // Metrik jarak ke perimeter poligon kampus vs centroid:
       distanceToPolygonM: num(p.distance_to_polygon_meters),
+      // Flag dual-buffer: 500m baseline (kelayakan utama) vs 1km skenario:
       isInBuffer500: num(p.distance_meters) != null ? num(p.distance_meters) <= 500.0 : Boolean(p.is_in_buffer),
       isInBuffer1km: num(p.distance_meters) != null ? num(p.distance_meters) <= 1000.0 : Boolean(p.is_in_buffer),
+      // Relasi spasial kafe OSM terdekat (jika disediakan backend):
       nearestCafeId: str(p.nearest_cafe_id) || null,
       nearestCafeName: str(p.nearest_cafe_name) || null,
       nearestCafeDistM: num(p.nearest_cafe_distance_meters),
@@ -661,6 +667,7 @@ export function parseOsmCafes(json) {
     }
     const w = lonLatToWorld(c[0], c[1]);
     const rawName = str(p.name);
+    // Task 7: Kafe OSM tanpa tag nama eksplisit dilabeli jujur sebagai 'Kafe tanpa nama (OSM)'.
     const isUnnamed = !rawName || rawName === 'Kafe OSM Eksisting' || rawName.toLowerCase() === 'kafe tanpa nama';
     const name = isUnnamed ? 'Kafe tanpa nama (OSM)' : rawName;
     items.push({
@@ -676,7 +683,7 @@ export function parseOsmCafes(json) {
       source: str(p.source) || 'OpenStreetMap',
       verifiedAt: str(p.verified_at),
       isExistingCafe: true,
-      isPlannerAllowed: false,
+      isPlannerAllowed: false, // Kafe eksisting dilarang membuka modal perencana kafe baru
       isFactual: true,
       dataKind: 'osm_cafe',
       nearestUniversityId: str(p.nearest_university_id) || null,
@@ -854,6 +861,7 @@ export function buildLandData(c) {
     is_scenario: isScenario,
     is_random_placement: isRandomPlacement,
     is_factual: isScenario || simulated ? false : Boolean(c.isFactual ?? props?.is_factual),
+    // Integrasi payload observasi Street View & analisis spasial Web Tasks 2 & 7:
     imagery_date: c.imageryDate || props?.imagery_date || null,
     pano_id: c.panoId || props?.pano_id || null,
     heading_deg: c.headingDeg ?? props?.heading_deg ?? null,
