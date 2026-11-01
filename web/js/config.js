@@ -16,10 +16,14 @@ export const DATA_FILES = Object.freeze({
   scenarios: '../data/fixtures/synthetic_scenario_candidates.geojson',
 });
 
+export const BASELINE_BUFFER_RADIUS_M = 500.0;
+export const SCENARIO_BUFFER_RADIUS_M = 1000.0;
+
 export const DATA_LABELS = Object.freeze({
   universities: 'Titik kampus (OSM faktual)',
-  buffers: 'Buffer 1 km',
-  candidates: 'Kandidat lahan (Survei Google Maps & Street View)',
+  buffers: 'Buffer 500 m (baseline)',
+  buffer1km: 'Skenario buffer 1 km',
+  candidates: 'Kandidat lahan observasi (Street View faktual)',
   scenarios: 'Skenario lokasi & harga hipotetis (acak; bukan listing nyata)',
   listings: 'Listing sewa riil publik',
   osmBuildings: 'Perimeter kampus/bangunan (OSM faktual)',
@@ -150,6 +154,15 @@ export const BUFFER_STYLE = Object.freeze({
   stroke: 'rgba(67, 56, 202, 0.85)',
   lineWidth: 1.5,
   dash: [6, 4],
+  label: 'Buffer 500 m (baseline)',
+});
+
+export const BUFFER_1KM_STYLE = Object.freeze({
+  fill: 'rgba(99, 102, 241, 0.04)',
+  stroke: 'rgba(99, 102, 241, 0.5)',
+  lineWidth: 1.25,
+  dash: [8, 6],
+  label: 'Skenario buffer 1 km',
 });
 
 export const CAMPUS_STYLE = Object.freeze({

@@ -1,0 +1,49 @@
+RINGKASAN TRANSPARAN ANALISIS SPASIAL & DATASET BUKA KAFE SURABAYA
+================================================================================
+Mata Kuliah : Computer Graphics (AFL 2) — Universitas Ciputra Surabaya
+Tanggal     : 2026-11-01
+Komitmen    : Anti-Fabrikasi, Standar Epistemik Faktual, Koordinasi Kontrak Backend
+
+1. STATUS KANDIDAT LAHAN (SURVEI OBSERVASI STREET VIEW NYATA - PR#2)
+--------------------------------------------------------------------------------
+- Sumber Data           : Google Street View (Observasi Tim & Verifikasi Metadata Pano)
+- Total Titik Observasi : 16 titik
+- Titik Dalam Buffer 1km: 16 titik (100.0%)
+- Titik Memenuhi Syarat : 4 titik (Lahan kosong / Tersedia disewakan)
+- Titik Tidak Memenuhi  : 12 titik (Rumah tinggal / Usaha lain / Belum terverifikasi)
+
+Rincian Status Lahan Faktual:
+- Lahan kosong                              : 3 titik
+- Lahan yang tersedia untuk disewakan       : 1 titik
+- Rumah atau bangunan tempat tinggal        : 5 titik
+- Bangunan yang telah digunakan fungsi lain : 6 titik
+- Lahan yang statusnya belum terverifikasi  : 1 titik
+
+2. REKAPITULASI 4 KANDIDAT YANG MEMENUHI SYARAT (ELIGIBLE UNTUK PERENCANA KAFE)
+--------------------------------------------------------------------------------
+1. SV-UNAIR-C-02 (Lahan berpagar disewakan Jl. Mulyorejo Utara 221)
+   Jarak Kampus : 465.8 m ke Unair Kampus C | Pano ID: axuDfMvoxSFQUquRPNTw9A
+2. SV-UKWMS-PAKUWON-01 (Lahan terbuka bertembok barat UKWMS Pakuwon City)
+   Jarak Kampus : 258.6 m ke UKWMS Pakuwon | Pano ID: TVaYBWVuh8laZfloweA2ag
+3. SV-UKWMS-PAKUWON-02 (Lahan terbuka berumput barat laut UKWMS Pakuwon City)
+   Jarak Kampus : 474.4 m ke UKWMS Pakuwon | Pano ID: mBCxYcHyQBRJri7Oz0I4BQ
+4. SV-UBAYA-TENGGILIS-01 (Lahan berpagar ditumbuhi semak Jl. Raya Kalirungkut)
+   Jarak Kampus : 238.7 m ke Ubaya Tenggilis | Pano ID: LtHbBYRcFXzeHL-Nn7AfwA
+
+3. STATUS BUKTI HARGA SEWA (RENTAL PRICE REALITY CHECK)
+--------------------------------------------------------------------------------
+- Observasi Street View : Luas tanah dan harga sewa = NULL (papan iklan tidak memuat angka)
+- Bukti Listing Publik  : 15 listing terverifikasi langsung via web portal (Bagian 1 research.md)
+- Kuorum Rentang Pasar  :
+  * 7 Koridor (< 3 listing)  : DECLARED UNAVAILABLE (anti-fabrikasi)
+  * 1 Koridor (>= 3 listing) : Ubaya Tenggilis (Rentang Rp 65 Jt - Rp 123,5 Jt; Median Rp 70 Jt)
+
+4. AUDIT AKSES PANORAMA HEADLESS / BROWSER AUTOMATION
+--------------------------------------------------------------------------------
+- Percobaan Safaridriver    : Ditolak (Memerlukan otorisasi Remote Automation di Safari)
+- Percobaan AppleScript     : Ditolak (Memerlukan izin JavaScript from Apple Events)
+- Percobaan Headless Chrome : Tidak terpasang di sistem operasi
+- Percobaan API Static/Pano : Ditolak (HTTP 403 / REQUEST_DENIED karena membutuhkan Google Maps API Key berbayar)
+- Kesimpulan Faktual        : Tidak ada panorama baru yang diklaim telah dilihat secara interaktif oleh agen.
+                              Data observasi tetap menggunakan 16 titik riil PR#2 tanpa fabrikasi.
+================================================================================

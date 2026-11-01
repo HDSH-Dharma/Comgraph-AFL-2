@@ -10,6 +10,15 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+function readJson(filePath) {
+  const text = fs.readFileSync(filePath, 'utf8');
+  try {
+    return JSON.parse(text);
+  } catch {
+    return JSON.parse(text.replace(/\bInfinity\b/g, 'null').replace(/\bNaN\b/g, 'null'));
+  }
+}
+
 import {
   DATA_FILES,
   DATA_LABELS,
@@ -323,9 +332,9 @@ test('8. Integrasi Pemuatan Dataset Aktual (data/processed/)', () => {
   assert.ok(fs.existsSync(bufPath), 'Berkas buffer_1km.geojson harus ada di processed');
   assert.ok(fs.existsSync(canPath), 'Berkas land_candidates.geojson harus ada di processed');
 
-  const uniJson = JSON.parse(fs.readFileSync(uniPath, 'utf8'));
-  const bufJson = JSON.parse(fs.readFileSync(bufPath, 'utf8'));
-  const canJson = JSON.parse(fs.readFileSync(canPath, 'utf8'));
+  const uniJson = readJson(uniPath);
+  const bufJson = readJson(bufPath);
+  const canJson = readJson(canPath);
 
   const parsedUnis = PARSERS.universities(uniJson);
   const parsedBufs = PARSERS.buffers(bufJson);
@@ -726,7 +735,7 @@ test('12. Kontrak Global window.handleLandMarkerClick & Integrasi Perencana', ()
 test('13. Verifikasi Komprehensif Seluruh Kandidat Dataset Terproses & Benchmark terhadap Guard Planner', () => {
   const rootDir = path.resolve(__dirname, '..');
   const canPath = path.join(rootDir, 'data/processed/land_candidates.geojson');
-  const canJson = JSON.parse(fs.readFileSync(canPath, 'utf8'));
+  const canJson = readJson(canPath);
 
   // Ambang disamakan dengan tes GIS (>= 16 observasi Street View nyata).
   assert.ok(canJson.features.length >= 16, 'Harus ada fitur kandidat lahan yang diproses');
@@ -812,7 +821,7 @@ test('15. Kontrak Data Listing Properti, Integritas Label Demo & Guard Kelayakan
   // A. Memastikan dataset kandidat lahan menjaga integritas sumber (tidak dipalsukan sebagai listing sewa riil)
   const rootDir = path.resolve(__dirname, '..');
   const canPath = path.join(rootDir, 'data/processed/land_candidates.geojson');
-  const canJson = JSON.parse(fs.readFileSync(canPath, 'utf8'));
+  const canJson = readJson(canPath);
 
   for (const feat of canJson.features) {
     const kind = classifyDataKind(feat.properties.data_kind);
@@ -910,9 +919,9 @@ test('16. Integrasi Unified Listing Data Source (real_rental_listings.geojson & 
   assert.ok(fs.existsSync(summaryPath), 'File area_rental_price_summary.json harus ada di data/processed/');
   assert.ok(fs.existsSync(candidatesPath), 'File land_candidates.geojson harus ada di data/processed/');
 
-  const listingsJson = JSON.parse(fs.readFileSync(listingsPath, 'utf8'));
-  const summaryJson = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
-  const candidatesJson = JSON.parse(fs.readFileSync(candidatesPath, 'utf8'));
+  const listingsJson = readJson(listingsPath);
+  const summaryJson = readJson(summaryPath);
+  const candidatesJson = readJson(candidatesPath);
 
   // B. Parsing berkas via PARSERS
   const parsedListings = PARSERS.listings(listingsJson);
@@ -1283,7 +1292,7 @@ test('21. Dukungan Poligon Perimeter Kampus OSM & Layer Faktual Default', () => 
   const polyPath = path.join(rootDir, 'data/processed/universities_polygons.geojson');
 
   assert.ok(fs.existsSync(polyPath), 'Berkas universities_polygons.geojson harus ada di processed');
-  const polyJson = JSON.parse(fs.readFileSync(polyPath, 'utf8'));
+  const polyJson = readJson(polyPath);
 
   const parsedBuildings = PARSERS.osmBuildings(polyJson);
   assert.equal(parsedBuildings.items.length, 8, 'Harus ada 8 perimeter kampus OSM faktual');
@@ -1325,11 +1334,13 @@ test('21. Dukungan Poligon Perimeter Kampus OSM & Layer Faktual Default', () => 
 
   // Verifikasi ViewModel Layer States
   const vm = new MapViewModel();
-  assert.equal(vm.layers.candidates, false, 'Layer kandidat sintetis wajib nonaktif (false) secara default');
+  assert.equal(vm.layers.candidates, true, 'Layer kandidat observasi aktif (true) secara default');
+  assert.equal(vm.layers.scenarios, false, 'Layer skenario sintetis nonaktif (false) secara default');
   assert.equal(vm.layers.osmBuildings, true, 'Layer perimeter kampus OSM aktif default');
   assert.equal(vm.layers.osmCafes, true, 'Layer kafe eksisting OSM aktif default');
   assert.equal(vm.layers.campuses, true, 'Layer titik kampus aktif default');
-  assert.equal(vm.layers.buffers, true, 'Layer buffer aktif default');
+  assert.equal(vm.layers.buffers, true, 'Layer buffer 500 m (baseline) aktif default');
+  assert.equal(vm.layers.buffer1km, false, 'Layer skenario buffer 1 km nonaktif default');
 });
 
 test('22. Penegakan Provenans Faktual, Non-Planner Status, & Pembukaan Planner Listing Terverifikasi', () => {
@@ -1759,17 +1770,43 @@ test('24. Provenans Sintetis vs Faktual, Pelabelan Harga Estimasi vs Riil, & Sta
       resetFilters: () => {},
     });
 
-    // 1. Uji Status Survei Kosong saat layer kandidat nonaktif (default state)
+    // 1. Uji Lapisan Kandidat saat layer kandidat nonaktif (branch hidden candidates)
     vm.layers.candidates = false;
     ui.renderCandidateList();
     assert.ok(
-      candList.textContent.includes('Status Survei Lahan Faktual: Belum ada data survei lapangan empiris'),
-      'Wajib menampilkan status survei kosong yang jujur saat layer kandidat nonaktif'
+      candList.textContent.includes('Lapisan Kandidat Lahan Dinonaktifkan'),
+      'Wajib menampilkan notice layer kandidat nonaktif yang jujur'
     );
     assert.ok(
-      candCount.textContent.includes('0 survei faktual'),
-      'Count kandidat wajib menjelaskan 0 survei faktual'
+      candList.textContent.includes('1 lokasi observasi Street View faktual'),
+      'Notice layer kandidat wajib menyebutkan jumlah lokasi survei faktual yang disembunyikan'
     );
+    assert.ok(
+      !candList.textContent.includes('Belum ada data survei lapangan empiris'),
+      'Pesan stale no-survey dilarang muncul ketika layer dinonaktifkan'
+    );
+    assert.ok(
+      candCount.textContent.includes('1 survei faktual'),
+      'Count kandidat wajib menggunakan factualCount aktual (bukan hardcoded 0)'
+    );
+
+    // 1b. Uji branch hidden candidates jika dataset memang memiliki 0 survei faktual
+    const origCandItems = vm.data.candidates.items;
+    vm.data.candidates.items = [demoItem];
+    ui.renderCandidateList();
+    assert.ok(
+      candCount.textContent.includes('0 survei faktual'),
+      'Count kandidat wajib menampilkan 0 survei faktual jika factualCount memang 0'
+    );
+    assert.ok(
+      candList.textContent.includes('0 lokasi observasi Street View faktual'),
+      'Notice layer kandidat menampilkan 0 lokasi observasi Street View faktual jika dataset 0 faktual'
+    );
+    assert.ok(
+      !candList.textContent.includes('Belum ada data survei lapangan empiris'),
+      'Pesan stale no-survey tetap dilarang muncul pada hidden branch'
+    );
+    vm.data.candidates.items = origCandItems;
 
     // 2. Uji Daftar Kandidat saat layer kandidat aktif
     vm.layers.candidates = true;
@@ -2168,7 +2205,7 @@ test('26. Integrasi Opt-in Skenario Sintetis: Checkbox Default-Off, Hit-Test, Hi
   // 2. Pemuatan Fixture Skenario Sintetis Nyata dari Disk (data/fixtures/synthetic_scenario_candidates.geojson)
   const fixturePath = path.join(__dirname, '../data/fixtures/synthetic_scenario_candidates.geojson');
   assert.ok(fs.existsSync(fixturePath), 'Berkas fixture skenario sintetis wajib ada di disk');
-  const fixtureJson = JSON.parse(fs.readFileSync(fixturePath, 'utf-8'));
+  const fixtureJson = readJson(fixturePath);
   const parsed = PARSERS.scenarios(fixtureJson);
 
   assert.equal(parsed.items.length, 8, 'Fixture skenario wajib memuat 8 situs kafe simulasi');
@@ -2308,5 +2345,418 @@ test('26. Integrasi Opt-in Skenario Sintetis: Checkbox Default-Off, Hit-Test, Hi
     null,
     'Menonaktifkan status filter yang menyembunyikan skenario terpilih WAJIB mengosongkan seleksi'
   );
+});
+
+test('27. Web Tasks 2 & 7: Baseline 500m & 1km Scenario, Observed Candidates Default-ON, Unnamed Cafes, Legend/Draw Order, Ranking, & Inspector Panorama/Cafe Link', () => {
+  // 1. Baseline radius 500m default ON, Skenario buffer 1 km default OFF, Kandidat Observasi default ON
+  const vm = new MapViewModel();
+  assert.equal(vm.layers.buffers, true, 'Layer buffer 500 m (baseline) wajib aktif (true) secara default');
+  assert.equal(vm.layers.buffer1km, false, 'Layer skenario buffer 1 km wajib nonaktif (false) secara default');
+  assert.equal(vm.layers.candidates, true, 'Layer kandidat observasi Street View wajib aktif (true) secara default');
+  assert.equal(vm.layers.scenarios, false, 'Layer skenario sintetis acak tetap opt-in (false) secara default');
+
+  // Muat fixture buffer
+  const sampleBuffer = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Polygon',
+          coordinates: [
+            [
+              [112.79, -7.28],
+              [112.80, -7.28],
+              [112.80, -7.29],
+              [112.79, -7.29],
+              [112.79, -7.28],
+            ],
+          ],
+        },
+        properties: {
+          university_id: 'UNAIR-KAMPUS-C',
+          institution: 'UNAIR',
+          campus_name: 'Kampus C UNAIR',
+          radius_m: 1000,
+        },
+      },
+    ],
+  };
+  const parsedBuffers = PARSERS.buffers(sampleBuffer);
+  assert.equal(parsedBuffers.items.length, 1);
+  const bItem = parsedBuffers.items[0];
+  assert.equal(bItem.radiusM, 500, 'Radius buffer baseline default adalah 500 m');
+  assert.equal(bItem.radiusM1km, 1000, 'Radius buffer skenario adalah 1000 m');
+  assert.ok(bItem.rings500, 'Cincin koordinat 500 m harus dihasilkan');
+  assert.ok(bItem.rings1km, 'Cincin koordinat 1 km harus dipertahankan');
+
+  // Set ke ViewModel & verifikasi computeDerived visible buffers
+  vm.data.buffers = { ok: true, items: parsedBuffers.items };
+  assert.equal(vm.visible.buffers.length, 1);
+  assert.equal(vm.visible.buffers[0].radiusM, 500);
+  assert.equal(vm.visible.buffers1km.length, 0);
+
+  // Nyalakan layer buffer 1 km -> visible.buffers1km aktif tanpa membatalkan baseline
+  vm.setLayer('buffer1km', true);
+  assert.equal(vm.visible.buffers1km.length, 1);
+  assert.equal(vm.visible.buffers1km[0].radiusM, 1000);
+  assert.equal(vm.visible.buffers.length, 1);
+
+  // 2. Empat Kafe OSM Tanpa Nama Diberi Label 'Kafe tanpa nama (OSM)'
+  const osmCafesFixture = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        id: 'node/4378996689',
+        geometry: { type: 'Point', coordinates: [112.7946, -7.2818] },
+        properties: {
+          id: 'OSM-CAFE-NODE-4378996689',
+          amenity: 'cafe',
+          name: '', // Tanpa tag nama
+        },
+      },
+      {
+        type: 'Feature',
+        id: 'node/6398529327',
+        geometry: { type: 'Point', coordinates: [112.7523, -7.2874] },
+        properties: {
+          id: 'OSM-CAFE-NODE-6398529327',
+          amenity: 'cafe',
+          name: 'Kafe OSM Eksisting', // Placeholder lama
+        },
+      },
+      {
+        type: 'Feature',
+        id: 'node/7134748285',
+        geometry: { type: 'Point', coordinates: [112.7681, -7.3195] },
+        properties: {
+          id: 'OSM-CAFE-NODE-7134748285',
+          amenity: 'cafe',
+          name: 'kafe tanpa nama', // Huruf kecil
+        },
+      },
+      {
+        type: 'Feature',
+        id: 'node/7252030485',
+        geometry: { type: 'Point', coordinates: [112.7667, -7.3204] },
+        properties: {
+          id: 'OSM-CAFE-NODE-7252030485',
+          amenity: 'cafe',
+          name: null,
+        },
+      },
+      {
+        type: 'Feature',
+        id: 'node/9999999999',
+        geometry: { type: 'Point', coordinates: [112.7600, -7.2700] },
+        properties: {
+          id: 'OSM-CAFE-NODE-9999999999',
+          amenity: 'cafe',
+          name: 'Kopisae Surabaya', // Kafe bernama riil
+        },
+      },
+    ],
+  };
+
+  const parsedCafes = PARSERS.osmCafes(osmCafesFixture);
+  assert.equal(parsedCafes.items.length, 5);
+  const unnamed = parsedCafes.items.filter((c) => c.isUnnamed);
+  assert.equal(unnamed.length, 4, 'Tepat 4 kafe OSM wajib terdeteksi sebagai tanpa nama');
+  for (const c of unnamed) {
+    assert.equal(c.name, 'Kafe tanpa nama (OSM)', 'Wajib diberi label "Kafe tanpa nama (OSM)"');
+  }
+  const namedCafe = parsedCafes.items.find((c) => c.id === 'OSM-CAFE-NODE-9999999999');
+  assert.equal(namedCafe.name, 'Kopisae Surabaya', 'Kafe bernama asli tidak boleh diubah');
+  assert.equal(namedCafe.isUnnamed, false);
+
+  // 3. Gate Kelayakan Planner & Proksimitas 500m Baseline
+  const eligibleIn500 = {
+    id: 'SV-UNAIR-C-02',
+    name: 'Lahan berpagar disewakan Jl. Mulyorejo Utara 221',
+    distance_meters: 465.77,
+    status: 'Lahan yang tersedia untuk disewakan',
+    is_in_buffer: true,
+  };
+  const resEligible = canPlanForLand(eligibleIn500);
+  assert.equal(resEligible.eligible, true, 'Lahan disewakan dalam 500m harus lolos planner');
+
+  // Lahan dengan status non-actionable (rumah tinggal) ditolak planner (gate status)
+  const houseLand = {
+    id: 'SV-UNAIR-A-01',
+    name: 'Rumah tinggal Jl. Kedung Tarukan Baru I',
+    distance_meters: 370.82,
+    status: 'Rumah atau bangunan tempat tinggal',
+    is_in_buffer: true,
+  };
+  const resHouse = canPlanForLand(houseLand);
+  assert.equal(resHouse.eligible, false, 'Rumah tempat tinggal tidak boleh lolos planner');
+  assert.equal(resHouse.isStatusOk, false);
+
+  // 4. Panel Peringkat Berdasarkan Skor Kelayakan (Ranking Panel by Feasibility Score)
+  const candidateFixture = [
+    {
+      id: 'CAND-01',
+      name: 'Lahan Strategis Dekat Kampus',
+      distanceM: 250, // proximity 40 poin
+      areaSqm: 150,   // space 30 poin
+      rentalPriceYr: 45_000_000, // cost_efficiency (300k/m2) 30 poin -> Total 100 poin
+      status: { key: 'sewa', value: 'Lahan yang tersedia untuk disewakan', label: 'Tersedia Disewakan' },
+      isEligible: true,
+      isInBuffer: true,
+      isInBuffer500: true,
+    },
+    {
+      id: 'CAND-02',
+      name: 'Lahan Cukup Dekat Tanpa Data Sewa',
+      distanceM: 400, // proximity 30 poin
+      areaSqm: null,
+      rentalPriceYr: null, // Total 30 poin
+      status: { key: 'kosong', value: 'Lahan kosong', label: 'Lahan Kosong' },
+      isEligible: true,
+      isInBuffer: true,
+      isInBuffer500: true,
+    },
+    {
+      id: 'CAND-03',
+      name: 'Rumah Non-Eligible Sangat Dekat',
+      distanceM: 100, // proximity 40 poin tapi ineligble
+      areaSqm: 200,
+      rentalPriceYr: null,
+      status: { key: 'rumah', value: 'Rumah atau bangunan tempat tinggal', label: 'Rumah' },
+      isEligible: false,
+      isInBuffer: true,
+      isInBuffer500: true,
+    },
+  ];
+
+  // Hitung poin kelayakan untuk masing-masing
+  const score1 = calculateFeasibilityPoints({ distance_meters: 250, area_sqm: 150, rental_price_yr: 45_000_000 });
+  assert.equal(score1.points, 100);
+  const score2 = calculateFeasibilityPoints({ distance_meters: 400, area_sqm: null, rental_price_yr: null });
+  assert.equal(score2.points, 30);
+
+  // Mock DOM Element helper untuk Test 27
+  const createTestEl = (tag = 'div', id = '') => {
+    const children = [];
+    const attrs = {};
+    const dataset = {};
+    const listeners = {};
+    const el = {
+      tagName: tag.toUpperCase(),
+      id,
+      className: '',
+      textContent: '',
+      style: {},
+      children,
+      dataset,
+      attributes: attrs,
+      setAttribute(k, v) {
+        attrs[k] = v;
+        if (k === 'id') el.id = v;
+      },
+      getAttribute(k) { return attrs[k]; },
+      addEventListener(evt, fn) {
+        listeners[evt] = listeners[evt] || [];
+        listeners[evt].push(fn);
+      },
+      click() {
+        if (typeof el.onclick === 'function') el.onclick({ target: el });
+        (listeners['click'] || []).forEach((fn) => fn({ target: el }));
+      },
+      append(...nodes) {
+        for (const n of nodes.flat(Infinity)) {
+          if (n != null && n !== false) {
+            children.push(n);
+            if (typeof n === 'string') el.textContent += n;
+            else if (n.textContent) el.textContent += ' ' + n.textContent;
+          }
+        }
+      },
+      replaceChildren(...nodes) {
+        children.length = 0;
+        el.textContent = '';
+        el.append(...nodes);
+      },
+      querySelector(selector) {
+        const match = this.querySelectorAll(selector);
+        return match.length ? match[0] : null;
+      },
+      querySelectorAll(selector) {
+        const matches = [];
+        const matchNode = (node) => {
+          if (!node || typeof node !== 'object') return;
+          if (selector.startsWith('.') && (node.className || '').includes(selector.slice(1))) {
+            matches.push(node);
+          } else if (selector.startsWith('#') && node.id === selector.slice(1)) {
+            matches.push(node);
+          } else if (selector === 'button' && node.tagName === 'BUTTON') {
+            matches.push(node);
+          } else if (selector.startsWith('button[data-id]')) {
+            if (node.tagName === 'BUTTON' && node.dataset?.id) matches.push(node);
+          }
+          if (Array.isArray(node.children)) {
+            node.children.forEach(matchNode);
+          }
+        };
+        matchNode(this);
+        return matches;
+      },
+      getContext() {
+        return new Proxy({}, {
+          get: (target, prop) => {
+            if (prop in target) return target[prop];
+            return () => {};
+          },
+          set: (target, prop, value) => {
+            target[prop] = value;
+            return true;
+          },
+        });
+      },
+    };
+    return el;
+  };
+
+  const origDoc = global.document;
+  const origWin = global.window;
+  try {
+    global.window = {
+      devicePixelRatio: 1,
+      matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
+    };
+    global.document = {
+      createElement: (tag) => createTestEl(tag),
+      getElementById: (id) => createTestEl('div', id),
+    };
+
+    const rankingListEl = createTestEl('ol', 'ranking-list');
+    const rankingCountEl = createTestEl('span', 'ranking-count');
+    const listEl = createTestEl('ul', 'candidate-list');
+    const countEl = createTestEl('span', 'candidate-count');
+    const inspBody = createTestEl('div', 'inspector-body');
+    const inspTitle = createTestEl('h2', 'inspector-title');
+    const insp = createTestEl('aside', 'inspector');
+
+    let selectedCandidateId = null;
+    let selectedCandidateSource = null;
+    let selectedOsmCafeId = null;
+
+    const mockUI = {
+      vm,
+      actions: {
+        selectCandidate: (id, opts) => {
+          selectedCandidateId = id;
+          selectedCandidateSource = opts?.source;
+        },
+        selectOsmCafe: (id) => {
+          selectedOsmCafeId = id;
+        },
+      },
+      els: {
+        rankingList: rankingListEl,
+        rankingCount: rankingCountEl,
+        list: listEl,
+        count: countEl,
+        inspector: insp,
+        inspectorBody: inspBody,
+        inspectorTitle: inspTitle,
+      },
+      openInspector() {},
+      detailList: MapUI.prototype.detailList,
+      eligibilityBlock: MapUI.prototype.eligibilityBlock,
+    };
+
+    vm.visible.candidates = candidateFixture;
+    vm.data.candidates = { ok: true, items: candidateFixture };
+    vm.data.osmCafes = { ok: true, items: parsedCafes.items };
+
+    // Render ranking panel
+    MapUI.prototype.renderRankingPanel.call(mockUI);
+    assert.equal(rankingCountEl.textContent, '(3)');
+    const rankButtons = rankingListEl.querySelectorAll('.ranking-item');
+    assert.equal(rankButtons.length, 3);
+
+    // Verifikasi urutan peringkat: CAND-01 (#1, 100 poin, eligible) -> CAND-02 (#2, 30 poin, eligible) -> CAND-03 (#3, non-eligible)
+    assert.equal(rankButtons[0].dataset.id, 'CAND-01');
+    assert.ok(rankButtons[0].textContent.includes('#1'));
+    assert.ok(rankButtons[0].textContent.includes('100 poin'));
+
+    assert.equal(rankButtons[1].dataset.id, 'CAND-02');
+    assert.ok(rankButtons[1].textContent.includes('#2'));
+    assert.ok(rankButtons[1].textContent.includes('30 poin'));
+
+    assert.equal(rankButtons[2].dataset.id, 'CAND-03');
+
+    // Klik ranking item memicu selectCandidate dengan source 'ranking'
+    rankButtons[0].click();
+    assert.equal(selectedCandidateId, 'CAND-01');
+    assert.equal(selectedCandidateSource, 'ranking');
+
+    // 5. Inspector: Metrik Poligon, Nilai Null Jujur, Tautan Panorama Street View, & Tautan Kafe Terdekat
+    const observedCandidateItem = {
+      id: 'SV-UNAIR-C-02',
+      name: 'Lahan berpagar disewakan Jl. Mulyorejo Utara 221',
+      address: 'Jl. Mulyorejo Utara No. 221, Surabaya',
+      status: { key: 'sewa', value: 'Lahan yang tersedia untuk disewakan', label: 'Lahan yang tersedia untuk disewakan' },
+      distanceM: 465.77,
+      distanceToPolygonM: 94.96,
+      isInBuffer: true,
+      isInBuffer500: true,
+      isInBuffer1km: true,
+      isEligible: true,
+      isSurvey: true,
+      isFactual: true,
+      areaSqm: null,         // Null jujur
+      rentalPriceYr: null,   // Null jujur
+      evidenceUrl: 'https://www.google.com/maps/@-7.2662639,112.7615137,3a,75y,90h,90t/data=!3m6!1e1!3m4!1stestpano!2e0',
+      panoId: 'testpano12345',
+      headingDeg: 120,
+      imageryDate: '2026-02',
+      locationMethod: 'posisi kamera Street View (pano)',
+      notes: 'Lahan berpagar seng; papan sewa tidak terbaca jelas.',
+      lat: -7.2662,
+      lon: 112.7615,
+    };
+
+    // Render inspector untuk kandidat observasi
+    MapUI.prototype.showLandInspector.call(mockUI, observedCandidateItem);
+
+    // 5.1 Metrik jarak centroid dan jarak perimeter poligon
+    assert.ok(inspBody.textContent.includes('Jarak ke centroid kampus'), 'Inspector harus memuat metrik jarak centroid');
+    assert.ok(inspBody.textContent.includes('466 m') || inspBody.textContent.includes('465 m'));
+    assert.ok(inspBody.textContent.includes('Jarak ke perimeter kampus'), 'Inspector harus memuat metrik jarak poligon');
+    assert.ok(inspBody.textContent.includes('95 m') || inspBody.textContent.includes('94 m'));
+    assert.ok(inspBody.textContent.includes('Status buffer 500 m (baseline)'));
+    assert.ok(inspBody.textContent.includes('Status buffer 1 km (skenario)'));
+
+    // 5.2 Penanganan null jujur
+    assert.ok(
+      inspBody.textContent.includes('null (Belum ada data luas)'),
+      'Luas lahan null wajib ditampilkan secara jujur dengan kata null'
+    );
+    assert.ok(
+      inspBody.textContent.includes('null (Belum ada data sewa (tidak ada papan sewa terverifikasi))'),
+      'Harga sewa null wajib ditampilkan secara jujur dengan kata null'
+    );
+
+    // 5.3 Tombol Panorama Google Street View & Metadata
+    const panoramaBtn = inspBody.querySelector('.btn-panorama');
+    assert.ok(panoramaBtn, 'Tombol panorama Google Street View wajib ada di inspector');
+    assert.equal(panoramaBtn.attributes?.href, observedCandidateItem.evidenceUrl);
+    assert.equal(panoramaBtn.attributes?.target, '_blank');
+    assert.ok(inspBody.textContent.includes('testpano12345'), 'ID Pano Street View wajib ditampilkan');
+    assert.ok(inspBody.textContent.includes('120°'), 'Sudut pandang heading wajib ditampilkan');
+    assert.ok(inspBody.textContent.includes('2026-02'), 'Tanggal gambar imagery wajib ditampilkan');
+
+    // 5.4 Tautan Kafe Terdekat
+    const nearestCafeBtn = inspBody.querySelector('.nearest-cafe-btn');
+    assert.ok(nearestCafeBtn, 'Tombol kafe OSM terdekat wajib ada di inspector');
+    nearestCafeBtn.click();
+    assert.ok(selectedOsmCafeId != null, 'Mengklik kafe terdekat wajib memanggil selectOsmCafe dengan ID kafe');
+  } finally {
+    global.document = origDoc;
+    global.window = origWin;
+  }
 });
 

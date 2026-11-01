@@ -8,6 +8,7 @@ import {
   MARKER_RADIUS,
   OUT_OF_BUFFER_ALPHA,
   BUFFER_STYLE,
+  BUFFER_1KM_STYLE,
   OSM_BUILDING_STYLE,
   OSM_CAFE_STYLE,
   FALLBACK_ELIGIBLE_STATUSES,
@@ -21,6 +22,7 @@ import {
   drawOsmCafeMarker,
 } from './symbols.js';
 import { buildLandData } from './data.js';
+import { calculateFeasibilityPoints } from './planner.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -89,6 +91,38 @@ export function findMatchingAreaSummary(candidate, areaSummaries) {
   return null;
 }
 
+export function findNearestOsmCafe(c, cafes) {
+  if (!cafes || !cafes.length) return null;
+  if (c.nearestCafeId) {
+    const matched = cafes.find((cafe) => cafe.id === c.nearestCafeId);
+    if (matched) {
+      return { cafe: matched, distanceM: c.nearestCafeDistM ?? null };
+    }
+  }
+  if (c.lat == null || c.lon == null) return null;
+  let best = null;
+  let minDist = Infinity;
+  const lat1 = c.lat;
+  const lon1 = c.lon;
+  for (const cafe of cafes) {
+    if (cafe.lat == null || cafe.lon == null) continue;
+    const dLat = ((cafe.lat - lat1) * Math.PI) / 180;
+    const dLon = ((cafe.lon - lon1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((cafe.lat * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const d = 6371000 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    if (d < minDist) {
+      minDist = d;
+      best = { cafe, distanceM: d };
+    }
+  }
+  return best;
+}
+
 export function evaluateCandidateEligibility(c, eligibleStatuses) {
   const inRadius = c.distanceM != null ? c.distanceM <= 1000.0 : c.isInBuffer !== false;
   const isStatusOk = Array.isArray(eligibleStatuses) && eligibleStatuses.includes(c.status?.value);
@@ -123,6 +157,8 @@ export class MapUI {
       legend: $('legend-body'),
       list: $('candidate-list'),
       count: $('candidate-count'),
+      rankingList: $('ranking-list'),
+      rankingCount: $('ranking-count'),
       inspector: $('inspector'),
       inspectorBody: $('inspector-body'),
       inspectorTitle: $('inspector-title'),
@@ -182,10 +218,12 @@ export class MapUI {
     , 26);
     const campusCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
     paintSwatch(campusCanvas, (ctx, x, y) => drawCampusMarker(ctx, x, y + 9, 7), 26);
-    const bufferCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
-    paintSwatch(bufferCanvas, (ctx, x, y) => {
+
+    // Buffer 500m baseline
+    const buffer500Canvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
+    paintSwatch(buffer500Canvas, (ctx, x, y) => {
       ctx.beginPath();
-      ctx.arc(x, y, 10, 0, Math.PI * 2);
+      ctx.arc(x, y, 8, 0, Math.PI * 2);
       ctx.fillStyle = BUFFER_STYLE.fill;
       ctx.fill();
       ctx.setLineDash(BUFFER_STYLE.dash.map((d) => d / 2));
@@ -193,6 +231,20 @@ export class MapUI {
       ctx.lineWidth = 1.5;
       ctx.stroke();
     }, 26);
+
+    // Buffer 1km skenario
+    const buffer1kmCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
+    paintSwatch(buffer1kmCanvas, (ctx, x, y) => {
+      ctx.beginPath();
+      ctx.arc(x, y, 11, 0, Math.PI * 2);
+      ctx.fillStyle = BUFFER_1KM_STYLE.fill;
+      ctx.fill();
+      ctx.setLineDash(BUFFER_1KM_STYLE.dash.map((d) => d / 2));
+      ctx.strokeStyle = BUFFER_1KM_STYLE.stroke;
+      ctx.lineWidth = 1.25;
+      ctx.stroke();
+    }, 26);
+
     const osmBuildingCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
     paintSwatch(osmBuildingCanvas, (ctx, x, y) => {
       ctx.beginPath();
@@ -211,12 +263,14 @@ export class MapUI {
     this.els.listingLegendItem = h('li', { id: 'legend-listing-item' }, listingCanvas, this.els.listingLegendText);
 
     list.append(
-      h('li', { class: 'legend-sep' }, outCanvas, h('span', { text: 'Pudar + garis putus di dalam = di luar buffer 1 km' })),
+      h('li', { class: 'legend-sep' }, outCanvas, h('span', { text: 'Pudar = di luar buffer 500 m (baseline)' })),
       h('li', {}, campusCanvas, h('span', { text: 'Titik kampus (pin)' })),
       h('li', {}, osmBuildingCanvas, h('span', { text: 'Perimeter kampus (OSM faktual)' })),
-      h('li', {}, bufferCanvas, h('span', { text: 'Buffer 1 km dari kampus' })),
-      h('li', {}, osmCafeCanvas, h('span', { text: 'Kafe eksisting (OSM faktual)' })),
-      this.els.listingLegendItem
+      h('li', {}, buffer500Canvas, h('span', { text: 'Buffer 500 m (baseline)' })),
+      h('li', {}, buffer1kmCanvas, h('span', { text: 'Skenario buffer 1 km (opsional)' })),
+      h('li', {}, osmCafeCanvas, h('span', { text: 'Kafe eksisting (OSM faktual; 4 tanpa nama)' })),
+      this.els.listingLegendItem,
+      h('li', { class: 'legend-units-note' }, h('small', { class: 'muted', text: 'Satuan: jarak (m), luas (m²), sewa (Rp/tahun), kelayakan (poin 0–100)' }))
     );
     this.els.legend.replaceChildren(list);
   }
@@ -252,7 +306,18 @@ export class MapUI {
       if (cafeCount === 0) {
         cafeLabel.textContent = 'Kafe eksisting (data OSM belum tersedia)';
       } else {
-        cafeLabel.textContent = `Kafe eksisting OSM (${cafeCount} kafe)`;
+        cafeLabel.textContent = `Kafe eksisting OSM (${cafeCount} kafe; 4 tanpa nama)`;
+      }
+    }
+
+    const candInput = document.querySelector('input[data-layer="candidates"]');
+    const candLabel = document.getElementById('layer-candidates-label') || candInput?.nextElementSibling;
+    const candCount = this.vm.data.candidates?.items?.length || 0;
+    if (candLabel) {
+      if (candCount === 0) {
+        candLabel.textContent = 'Kandidat lahan observasi (Street View faktual)';
+      } else {
+        candLabel.textContent = `Kandidat lahan observasi (${candCount} lokasi Street View)`;
       }
     }
 
@@ -485,19 +550,18 @@ export class MapUI {
     }
 
     if (!vm.layers.candidates) {
-      const nonActiveLabel = scenarioCount > 0 ? `${scenarioCount} skenario · ${demoCount} demo nonaktif` : `${demoCount} demo nonaktif`;
-      this.els.count.textContent = `(0 survei faktual · ${nonActiveLabel})`;
+      const parts = [`${factualCount} survei faktual`];
+      if (scenarioCount > 0) parts.push(`${scenarioCount} skenario`);
+      if (demoCount > 0) parts.push(`${demoCount} demo`);
+      this.els.count.textContent = `(${parts.join(' · ')} nonaktif)`;
+
+      const extraText = (demoCount + scenarioCount > 0) ? ` · ${demoCount + scenarioCount} simulasi skenario/demo` : '';
       this.els.list.replaceChildren(
         h(
           'li',
-          { class: 'muted survey-empty-notice' },
-          h('strong', { text: '📍 Status Survei Lahan Faktual: ' }),
-          'Belum ada data survei lapangan empiris (menunggu hasil observasi lapangan / Google Street View dari tim). Seluruh koordinat dan batas lahan riil memerlukan verifikasi langsung.'
-        ),
-        h(
-          'li',
           { class: 'muted candidate-hidden-notice' },
-          `ℹ️ Kandidat lahan sintetis (${demoCount + scenarioCount} titik simulasi/skenario) disembunyikan secara default demi memprioritaskan data faktual. Aktifkan checkbox "Kandidat lahan (observasi Street View)" di kontrol layer jika ingin menampilkan simulasi demo/skenario.`
+          h('strong', { text: '👁️ Lapisan Kandidat Lahan Dinonaktifkan: ' }),
+          `Lapisan kandidat lahan sedang disembunyikan (${factualCount} lokasi observasi Street View faktual${extraText} dinonaktifkan). Centang opsi "Kandidat lahan observasi (Street View faktual)" pada kontrol lapisan untuk menampilkan seluruh titik kandidat di peta.`
         )
       );
       return;
@@ -587,6 +651,113 @@ export class MapUI {
     this.els.list.replaceChildren(...items);
   }
 
+  // ---------- Panel Peringkat Kelayakan Lahan ----------
+
+  renderRankingPanel() {
+    if (!this.els.rankingList) return;
+    const cand = this.vm.data.candidates;
+    if (!cand.ok || !this.vm.layers.candidates) {
+      if (this.els.rankingCount) this.els.rankingCount.textContent = '';
+      this.els.rankingList.replaceChildren(
+        h('li', { class: 'muted', text: 'Kandidat lahan tidak aktif atau belum dimuat.' })
+      );
+      return;
+    }
+
+    const visible = [...this.vm.visible.candidates];
+    if (!visible.length) {
+      if (this.els.rankingCount) this.els.rankingCount.textContent = '(0)';
+      this.els.rankingList.replaceChildren(
+        h('li', { class: 'muted', text: 'Tidak ada kandidat yang cocok dengan filter.' })
+      );
+      return;
+    }
+
+    // Hitung skor kelayakan untuk tiap kandidat yang terlihat
+    const scored = visible.map((c) => {
+      const score = calculateFeasibilityPoints({
+        distance_meters: c.distanceM,
+        area_sqm: c.areaSqm,
+        rental_price_yr: c.rentalPriceYr,
+      });
+      const in500 = c.isInBuffer500 ?? (c.distanceM != null ? c.distanceM <= 500.0 : true);
+      const isEligible = Boolean(c.isEligible && in500);
+      return {
+        candidate: c,
+        score,
+        isEligible,
+      };
+    });
+
+    // Urutkan: Lahan eligible diutamakan, lalu total poin tertinggi, lalu jarak metrik terdekat
+    scored.sort((a, b) => {
+      if (a.isEligible !== b.isEligible) return a.isEligible ? -1 : 1;
+      if (b.score.points !== a.score.points) return b.score.points - a.score.points;
+      return (a.candidate.distanceM ?? Infinity) - (b.candidate.distanceM ?? Infinity);
+    });
+
+    if (this.els.rankingCount) {
+      this.els.rankingCount.textContent = `(${scored.length})`;
+    }
+
+    const selectedId = this.vm.selection?.kind === 'land' ? this.vm.selection.id : null;
+    const items = scored.map((item, idx) => {
+      const c = item.candidate;
+      const { points, grade, breakdown } = item.score;
+      const badgeClass = points >= 70 ? 'score-high' : points >= 40 ? 'score-mid' : 'score-low';
+      const isSelected = c.id === selectedId;
+
+      return h(
+        'li',
+        {},
+        h(
+          'button',
+          {
+            type: 'button',
+            class: 'ranking-item',
+            'aria-pressed': String(isSelected),
+            dataset: { id: c.id },
+            title: `Peringkat #${idx + 1}: ${c.name} (${points} poin - ${grade}). Klik untuk memilih di peta.`,
+            onclick: () => this.actions.selectCandidate(c.id, { source: 'ranking' }),
+          },
+          h('span', { class: 'ranking-pos', text: `#${idx + 1}` }),
+          statusSwatch(c.status, 22, {
+            alpha: c.isInBuffer === false ? OUT_OF_BUFFER_ALPHA : 1,
+            outOfBuffer: c.isInBuffer === false,
+            isScenario: Boolean(c.isScenario || c.simulated || c.dataKind === 'scenario'),
+          }),
+          h(
+            'div',
+            { class: 'ranking-info' },
+            h('span', { class: 'ranking-name', text: c.name }),
+            h('span', {
+              class: 'ranking-meta',
+              text: `${c.status.key === 'rumah' || c.status.key === 'fungsi_lain' ? 'Tidak Disewakan/Dijual' : c.status.label} · ${formatMeters(c.distanceM).split(' (')[0]}${c.isInBuffer500 === false ? ' (di luar buffer 500m)' : ''}`,
+            })
+          ),
+          h(
+            'span',
+            {
+              class: `ranking-score-badge ${badgeClass}`,
+              title: `Kedekatan: ${breakdown.proximity} poin, Ruang: ${breakdown.space} poin, Biaya: ${breakdown.cost_efficiency} poin`,
+            },
+            `${points} poin`
+          )
+        )
+      );
+    });
+
+    this.els.rankingList.replaceChildren(...items);
+  }
+
+  syncRankingSelection() {
+    if (!this.els.rankingList) return;
+    const id = this.vm.selection?.kind === 'land' ? this.vm.selection.id : null;
+    this.els.rankingList.querySelectorAll('button[data-id]').forEach((btn) => {
+      btn.setAttribute('aria-pressed', String(btn.dataset.id === id));
+    });
+  }
+
   // ---------- Inspector ----------
 
   eligibilityBlock(c, eligibleStatuses = FALLBACK_ELIGIBLE_STATUSES) {
@@ -647,9 +818,23 @@ export class MapUI {
       ['Alamat', c.address || '—'],
       ['Status lahan', h('span', { class: 'status-inline' }, statusSwatch(c.status, 22), statusDisplay)],
       ['Kampus terdekat', c.nearestUniversityName || c.nearestUniversityId || '—'],
-      ['Jarak', formatMeters(c.distanceM)],
-      ['Jenis data', c.provenanceLabel || DATA_KIND_TEXT[c.dataKind] || 'Simulasi Akademik'],
+      ['Jarak ke centroid kampus', formatMeters(c.distanceM)],
     ];
+
+    const distPoly = c.distanceToPolygonM ?? c.properties?.distance_to_polygon_meters;
+    if (distPoly != null) {
+      rows.push(['Jarak ke perimeter kampus', formatMeters(distPoly)]);
+    }
+    const in500 = c.isInBuffer500 ?? (c.distanceM != null ? c.distanceM <= 500.0 : null);
+    if (in500 != null) {
+      rows.push(['Status buffer 500 m (baseline)', in500 ? '✓ Di dalam buffer 500 m' : '✕ Di luar buffer 500 m']);
+    }
+    const in1km = c.isInBuffer1km ?? (c.distanceM != null ? c.distanceM <= 1000.0 : null);
+    if (in1km != null) {
+      rows.push(['Status buffer 1 km (skenario)', in1km ? '✓ Di dalam skenario 1 km' : '✕ Di luar skenario 1 km']);
+    }
+
+    rows.push(['Jenis data', c.provenanceLabel || DATA_KIND_TEXT[c.dataKind] || 'Simulasi Akademik']);
 
     if (isScenario) {
       if (c.areaSqm) {
@@ -690,12 +875,12 @@ export class MapUI {
         rows.push(['Harga sewa', 'Belum ada data (wajib diisi di planner)']);
       }
     } else {
-      if (c.areaSqm) {
+      if (c.areaSqm != null) {
         rows.push(['Luas lahan', `${numberID.format(c.areaSqm)} m² (hasil observasi/survei)`]);
       } else {
-        rows.push(['Luas lahan', 'Belum ada data luas']);
+        rows.push(['Luas lahan', 'null (Belum ada data luas)']);
       }
-      if (c.rentalPriceYr) {
+      if (c.rentalPriceYr != null) {
         const priceLabel = c.properties?.price_kind === 'estimate' ? 'estimasi dari rentang listing' : 'harga listing/survei';
         rows.push([`Harga sewa / thn (${priceLabel})`, rupiah.format(c.rentalPriceYr)]);
         if (c.priceSourceUrl || c.properties?.price_source_url) {
@@ -705,7 +890,7 @@ export class MapUI {
           ]);
         }
       } else {
-        rows.push(['Harga sewa', 'Belum ada data sewa (tidak ada papan sewa terverifikasi)']);
+        rows.push(['Harga sewa', 'null (Belum ada data sewa (tidak ada papan sewa terverifikasi))']);
       }
       if (c.surveyMethod || c.properties?.survey_method) {
         rows.push(['Metode survei', String(c.surveyMethod || c.properties.survey_method)]);
@@ -719,9 +904,43 @@ export class MapUI {
           h('a', { href: c.evidenceUrl || c.properties.evidence_url, target: '_blank', rel: 'noopener noreferrer' }, 'Tautan Bukti Observasi ↗'),
         ]);
       }
+      const pano = c.panoId || c.properties?.pano_id;
+      if (pano) rows.push(['ID Pano (Street View)', String(pano)]);
+      const head = c.headingDeg ?? c.properties?.heading_deg;
+      if (head != null) rows.push(['Sudut pandang (heading)', `${head}°`]);
+      const imgDate = c.imageryDate || c.properties?.imagery_date;
+      if (imgDate) rows.push(['Tanggal gambar Street View', String(imgDate)]);
+      const locMethod = c.locationMethod || c.properties?.location_method;
+      if (locMethod) rows.push(['Metode penentuan lokasi', String(locMethod)]);
+      const notes = c.notes || c.properties?.notes;
+      if (notes) rows.push(['Catatan observasi', String(notes)]);
       if (c.surveyedBy || c.properties?.surveyed_by) {
         rows.push(['Disurvei oleh', String(c.surveyedBy || c.properties.surveyed_by)]);
       }
+    }
+
+    // Tautan kafe OSM terdekat
+    const nearCafeInfo = findNearestOsmCafe(c, this.vm.data.osmCafes?.items);
+    if (nearCafeInfo && nearCafeInfo.cafe) {
+      rows.push([
+        'Kafe OSM terdekat',
+        h(
+          'button',
+          {
+            type: 'button',
+            class: 'nearest-cafe-btn',
+            title: `Pusatkan ke ${nearCafeInfo.cafe.name} di peta`,
+            onclick: () => {
+              if (typeof this.actions.selectOsmCafe === 'function') {
+                this.actions.selectOsmCafe(nearCafeInfo.cafe.id);
+              } else {
+                this.vm.select({ kind: 'osm_cafe', id: nearCafeInfo.cafe.id });
+              }
+            },
+          },
+          `☕ ${nearCafeInfo.cafe.name}${nearCafeInfo.distanceM != null ? ` (~${formatMeters(nearCafeInfo.distanceM)})` : ''} ↗`
+        ),
+      ]);
     }
 
     if (c.properties?.source) rows.push(['Sumber', String(c.properties.source)]);
@@ -824,11 +1043,28 @@ export class MapUI {
     }
     callouts.push(this.eligibilityBlock(c, eligibleStatuses));
 
+    const actionButtons = [];
+    if (c.evidenceUrl || c.properties?.evidence_url) {
+      actionButtons.push(
+        h(
+          'a',
+          {
+            class: 'btn-panorama',
+            href: c.evidenceUrl || c.properties.evidence_url,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+          },
+          '🔗 Buka Panorama Google Street View ↗'
+        )
+      );
+    }
+    actionButtons.push(planBtn);
+
     this.els.inspectorTitle.textContent = c.name;
     this.els.inspectorBody.replaceChildren(
       ...callouts,
       this.detailList(rows),
-      planBtn,
+      ...actionButtons,
       handlerText ? h('p', { class: `handler-note handler-${handlerStatus}`, text: handlerText }) : null
     );
     this.openInspector();

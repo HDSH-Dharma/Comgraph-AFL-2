@@ -107,9 +107,13 @@
 
         <fieldset class="control-group">
           <legend>Lapisan</legend>
-          <label class="check-row">
-            <input type="checkbox" data-layer="buffers" checked />
-            <span class="check-label">Buffer 1 km</span>
+          <label class="check-row" id="layer-buffer-row">
+            <input type="checkbox" data-layer="buffers" id="layer-buffers-input" checked />
+            <span class="check-label" id="layer-buffers-label">Buffer 500 m (baseline)</span>
+          </label>
+          <label class="check-row" id="layer-buffer1km-row">
+            <input type="checkbox" data-layer="buffer1km" id="layer-buffer1km-input" />
+            <span class="check-label" id="layer-buffer1km-label">Skenario buffer 1 km</span>
           </label>
           <label class="check-row">
             <input type="checkbox" data-layer="campuses" checked />
@@ -123,9 +127,9 @@
             <input type="checkbox" data-layer="osmCafes" id="layer-osm-cafes-input" checked />
             <span class="check-label" id="layer-osm-cafes-label">Kafe eksisting (OSM faktual)</span>
           </label>
-          <label class="check-row">
-            <input type="checkbox" data-layer="candidates" />
-            <span class="check-label">Kandidat lahan (observasi Street View)</span>
+          <label class="check-row" id="layer-candidates-row">
+            <input type="checkbox" data-layer="candidates" id="layer-candidates-input" checked />
+            <span class="check-label" id="layer-candidates-label">Kandidat lahan observasi (Street View faktual)</span>
           </label>
           <label class="check-row" id="layer-scenarios-row">
             <input type="checkbox" data-layer="scenarios" id="layer-scenarios-input" />
@@ -157,6 +161,16 @@
           <ul class="candidate-list" id="candidate-list">
             <li class="muted">Memuat…</li>
           </ul>
+        </section>
+
+        <section class="control-group" id="ranking-section" aria-labelledby="ranking-title">
+          <div class="ranking-header">
+            <h2 id="ranking-title">Peringkat Kelayakan Lahan <span class="count" id="ranking-count"></span></h2>
+          </div>
+          <p class="section-hint">Skor kelayakan (0–100 poin) dihitung dari kedekatan ke kampus, kecukupan ruang, dan efisiensi sewa.</p>
+          <ol class="ranking-list" id="ranking-list">
+            <li class="muted">Memuat…</li>
+          </ol>
         </section>
 
         <section class="control-group" aria-labelledby="plans-title">

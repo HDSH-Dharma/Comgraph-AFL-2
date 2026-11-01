@@ -218,13 +218,17 @@ export function drawOsmCafeMarker(ctx, x, y, r = 7, { highlight = false, alpha =
 
 /** Gambar simbol ke kanvas kecil (legenda, daftar, inspector). */
 export function paintSwatch(canvas, draw, cssSize = 28) {
-  const dpr = window.devicePixelRatio || 1;
+  if (!canvas) return;
+  const dpr = typeof window !== 'undefined' && window?.devicePixelRatio ? window.devicePixelRatio : 1;
   canvas.width = Math.round(cssSize * dpr);
   canvas.height = Math.round(cssSize * dpr);
-  canvas.style.width = `${cssSize}px`;
-  canvas.style.height = `${cssSize}px`;
-  const ctx = canvas.getContext('2d');
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, cssSize, cssSize);
-  draw(ctx, cssSize / 2, cssSize / 2);
+  if (canvas.style && typeof canvas.style === 'object') {
+    canvas.style.width = `${cssSize}px`;
+    canvas.style.height = `${cssSize}px`;
+  }
+  const ctx = typeof canvas.getContext === 'function' ? canvas.getContext('2d') : null;
+  if (!ctx) return;
+  if (typeof ctx.setTransform === 'function') ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  if (typeof ctx.clearRect === 'function') ctx.clearRect(0, 0, cssSize, cssSize);
+  if (typeof draw === 'function') draw(ctx, cssSize / 2, cssSize / 2);
 }

@@ -35,7 +35,15 @@ except ImportError:
 
 # Import konstanta terpercaya dari gis_pipeline
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from scripts.gis_pipeline import SURABAYA_BBOX
+from scripts.gis_pipeline import (
+    SURABAYA_BBOX,
+    BASELINE_RADIUS_METERS,
+    SCENARIO_RADIUS_METERS,
+    SUPPORTED_RADII_METERS,
+    RADIUS_CONFIG,
+    TEAM_SCORING_ASSUMPTIONS,
+    calculate_transparent_feasibility_score,
+)
 
 MIN_COMPARABLE_LISTINGS = 3
 ALLOWED_PORTALS = {"Rumah123", "Ray White", "Brighton"}
@@ -463,7 +471,7 @@ class RentalMarketService:
         }
 
         with open(summary_out_path, "w", encoding="utf-8") as f:
-            json.dump(summary_payload, f, indent=2, ensure_ascii=False)
+            json.dump(summary_payload, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         # Ekspor Listing Riil Terproses (GeoJSON) - Menghasilkan FeatureCollection kosong jika tidak ada listing valid
         listings_out_path = os.path.join(output_dir, "real_rental_listings.geojson")
@@ -487,7 +495,7 @@ class RentalMarketService:
         }
 
         with open(listings_out_path, "w", encoding="utf-8") as f:
-            json.dump(listings_geojson, f, indent=2, ensure_ascii=False)
+            json.dump(listings_geojson, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         return {
             "total_listings": len(validated_listings),

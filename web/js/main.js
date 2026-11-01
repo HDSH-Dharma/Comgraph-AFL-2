@@ -29,6 +29,7 @@ const ui = new MapUI(vm, {
   jumpTo,
   selectCandidate,
   selectListing,
+  selectOsmCafe,
   clearSelection,
 });
 
@@ -263,6 +264,7 @@ vm.onChange((reason) => {
       ui.renderDataErrors();
       ui.updateListingLayerState();
       ui.renderCandidateList();
+      ui.renderRankingPanel();
       ui.updateMapMessage();
       break;
     case 'layers':
@@ -270,6 +272,7 @@ vm.onChange((reason) => {
       if (!vm.selection) ui.hideInspector();
       ui.updateListingLayerState();
       ui.renderCandidateList();
+      ui.renderRankingPanel();
       ui.updateMapMessage();
       ui.updateBasemapNote(vm.layers.basemap, tiles.status);
       clearTimeout(announceTimer);
@@ -277,6 +280,7 @@ vm.onChange((reason) => {
       break;
     case 'selection':
       syncListSelection();
+      ui.syncRankingSelection();
       break;
     default:
       break;
