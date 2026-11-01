@@ -163,6 +163,13 @@
               <button type="button" class="link-button" id="btn-clear-plans" hidden title="Hapus seluruh rencana tersimpan">Hapus semua</button>
             </div>
           </div>
+          <div id="clear-plans-confirm" class="inline-confirm-box" role="alertdialog" aria-labelledby="clear-plans-msg" hidden>
+            <span id="clear-plans-msg">Hapus seluruh rencana tersimpan?</span>
+            <div class="inline-confirm-actions">
+              <button type="button" class="btn-sm btn-danger" id="btn-confirm-clear-yes">Ya, Hapus Semua</button>
+              <button type="button" class="btn-sm" id="btn-confirm-clear-no">Batal</button>
+            </div>
+          </div>
           <ul class="saved-plans-list" id="saved-plans-list">
             <li class="muted saved-plans-empty">
               Belum ada rencana tersimpan. Klik marker lahan eligible di peta atau tombol "Rencanakan Modal Kafe" untuk memulai.
@@ -183,6 +190,11 @@
             <span aria-hidden="true">×</span>
           </button>
         </header>
+
+        <div id="planner-demo-warning" class="planner-demo-warning" role="note" hidden>
+          <span aria-hidden="true">⚠️</span>
+          <span><strong>Data lahan demo — angka sewa &amp; luas bukan data nyata.</strong> Silakan sesuaikan luas dan harga sewa pada formulir di bawah ini.</span>
+        </div>
 
         <div id="planner-guard-alert" class="alert alert-error" role="alert" hidden></div>
 
@@ -232,29 +244,33 @@
 
             <fieldset class="form-section">
               <legend>Estimasi Biaya Operasional &amp; Fisik</legend>
+              <p class="section-assumption-note"><em>Catatan: Nilai default berikut merupakan asumsi internal tim simulasi AFL 2 (bukan data survei pasar komersial). Dapat disesuaikan sesuai kebutuhan Anda.</em></p>
               <div class="form-group">
                 <label for="input-renovation-rate">Renovasi &amp; Desain Interior (Rp / m²)</label>
                 <input type="number" id="input-renovation-rate" name="renovation_cost_per_sqm" min="0" step="100000" value="1500000" />
-                <span class="field-hint">Standar coffee shop Surabaya: Rp 1,5 jt / m²</span>
+                <span class="field-hint">Asumsi tim simulasi (bukan data pasar): Rp 1,5 jt / m²</span>
               </div>
               <div class="form-group">
                 <label for="input-equipment-cost">Peralatan &amp; Mesin Kopi (Rp)</label>
                 <input type="number" id="input-equipment-cost" name="equipment_cost" min="0" step="1000000" value="45000000" />
-                <span class="field-hint">Espresso machine, grinder, POS, chiller</span>
+                <span class="field-hint">Asumsi tim simulasi: Espresso machine, grinder, POS, chiller</span>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="input-monthly-ops">Operasional / Bulan (Rp)</label>
                   <input type="number" id="input-monthly-ops" name="monthly_operational_cost" min="0" step="500000" value="15000000" />
+                  <span class="field-hint">Asumsi: gaji, bahan baku, listrik</span>
                 </div>
                 <div class="form-group">
                   <label for="input-working-months">Cadangan (Bulan)</label>
                   <input type="number" id="input-working-months" name="working_capital_months" min="1" max="12" step="1" value="3" />
+                  <span class="field-hint">Asumsi runway 3 bulan</span>
                 </div>
               </div>
               <div class="form-group">
                 <label for="input-contingency-cost">Perizinan &amp; Kontingensi (Rp)</label>
                 <input type="number" id="input-contingency-cost" name="contingency_cost" min="0" step="500000" value="10000000" />
+                <span class="field-hint">Asumsi perizinan NIB &amp; dana darurat</span>
               </div>
               <div class="form-group">
                 <label for="input-budget-limit">Target Batas Anggaran (Rp - Opsional)</label>
@@ -267,9 +283,20 @@
           <aside class="calculator-panel" aria-label="Rincian Kalkulasi Modal">
             <div class="calculator-card">
               <div class="calc-points-banner" id="calc-points-banner">
-                <span class="points-label">POIN KELAYAKAN KAFE</span>
+                <span class="points-label">SKOR ILUSTRATIF KELAYAKAN</span>
                 <span class="points-value" id="calc-feasibility-points">0 / 100 Poin</span>
                 <span class="points-grade" id="calc-feasibility-grade">—</span>
+                <details class="points-formula-details">
+                  <summary>Transparansi Rumus &amp; Ambang Skor</summary>
+                  <div class="points-formula-content">
+                    <p class="formula-intro"><em>Skor ilustratif simulasi akademik (bukan penilaian pasar resmi). Data kosong dihitung 0 poin:</em></p>
+                    <ul class="formula-list">
+                      <li><strong>Proksimitas Kampus (Maks 40 pt):</strong> &le;300m = 40, &le;600m = 30, &le;1km = 20, data kosong / &gt;1km = 0</li>
+                      <li><strong>Luas Lahan (Maks 30 pt):</strong> 80&ndash;250 m&sup2; = 30, 50&ndash;79 atau 251&ndash;400 m&sup2; = 20, lainnya = 10, data kosong = 0</li>
+                      <li><strong>Efisiensi Sewa/m&sup2; (Maks 30 pt):</strong> &le;Rp 400rb/m&sup2;/th = 30, &le;Rp 700rb/m&sup2;/th = 20, &gt;Rp 700rb = 10, data kosong = 0</li>
+                    </ul>
+                  </div>
+                </details>
               </div>
 
               <h3 class="calc-title">Rincian Estimasi Modal</h3>
@@ -304,7 +331,7 @@
               <div id="calc-budget-status" class="budget-status" hidden></div>
 
               <p class="calc-note">
-                💡 Estimasi dihitung otomatis. Perhitungan modal ini tersimpan di browser (LocalStorage) untuk presentasi dan evaluasi bisnis kafe.
+                💡 Estimasi dihitung otomatis berbasis asumsi simulasi. Perhitungan modal ini tersimpan di browser (LocalStorage) untuk presentasi dan evaluasi bisnis kafe.
               </p>
             </div>
           </aside>

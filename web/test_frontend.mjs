@@ -41,7 +41,10 @@ import {
   downloadJsonFile,
   ELIGIBLE_LAND_STATUSES,
   DEFAULT_PLAN_COSTS,
+  COST_ASSUMPTIONS,
+  escapeHtml,
   PlanStorage,
+  PlannerUI,
   initPlanner,
 } from './js/planner.js';
 
@@ -1378,6 +1381,214 @@ test('22. Penegakan Provenans Faktual, Non-Planner Status, & Pembukaan Planner L
   };
   const cafeGuard = canPlanForLand(existingCafePayload);
   assert.equal(cafeGuard.eligible, false, 'Kafe eksisting tidak dapat direncanakan sebagai kafe baru');
+});
+
+test('23. Prompt B: Layout Responsif, Peringatan Demo, Nilai Kosong, Asumsi Biaya, & Sanitasi ID', () => {
+  // A. Metadata Asumsi Biaya (COST_ASSUMPTIONS)
+  assert.equal(COST_ASSUMPTIONS.renovation_cost_per_sqm.is_market_data, false);
+  assert.ok(COST_ASSUMPTIONS.renovation_cost_per_sqm.note.includes('bukan data pasar'));
+  assert.equal(COST_ASSUMPTIONS.equipment_cost.is_market_data, false);
+  assert.equal(DEFAULT_PLAN_COSTS.renovation_cost_per_sqm, 1_500_000);
+  assert.equal(DEFAULT_PLAN_COSTS.equipment_cost, 45_000_000);
+
+  // B. Sanitasi XSS / escapeHtml
+  assert.equal(escapeHtml('<script>alert("xss")</script>'), '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;');
+  assert.equal(escapeHtml('PLAN-123" onclick="evil()\''), 'PLAN-123&quot; onclick=&quot;evil()&#39;');
+  assert.equal(escapeHtml(null), '');
+  assert.equal(escapeHtml(undefined), '');
+
+  // C. Skor Ilustratif Kelayakan (Data kosong = 0 poin)
+  // 1. Data lengkap -> skor normal
+  const fullScore = calculateFeasibilityPoints({
+    distance_meters: 250,
+    area_sqm: 150,
+    rental_price_yr: 50_000_000,
+  });
+  assert.equal(fullScore.points, 100);
+  assert.equal(fullScore.grade, 'Sangat Strategis ★★★');
+
+  // 2. Data jarak kosong / null -> 0 poin proksimitas
+  const nullDistScore = calculateFeasibilityPoints({
+    distance_meters: null,
+    area_sqm: 100,
+    rental_price_yr: 60_000_000,
+  });
+  assert.equal(nullDistScore.breakdown.proximity, 0, 'Jarak null harus bernilai 0 poin, bukan default 20');
+  assert.equal(nullDistScore.points, 50); // 0 + 30 + 20
+
+  // 3. Data sewa kosong / null -> 0 poin efisiensi sewa
+  const nullRentScore = calculateFeasibilityPoints({
+    distance_meters: 200,
+    area_sqm: 100,
+    rental_price_yr: null,
+  });
+  assert.equal(nullRentScore.breakdown.cost_efficiency, 0, 'Sewa null harus bernilai 0 poin, bukan default 15');
+  assert.equal(nullRentScore.points, 70); // 40 + 30 + 0
+
+  // 4. Data luas kosong / null -> 0 poin luas & 0 poin sewa
+  const nullAreaScore = calculateFeasibilityPoints({
+    distance_meters: 200,
+    area_sqm: null,
+    rental_price_yr: 50_000_000,
+  });
+  assert.equal(nullAreaScore.breakdown.space, 0, 'Luas null harus bernilai 0 poin');
+  assert.equal(nullAreaScore.breakdown.cost_efficiency, 0, 'Tanpa luas valid, efisiensi sewa bernilai 0 poin');
+  assert.equal(nullAreaScore.points, 40); // 40 + 0 + 0
+
+  // 5. Seluruh data kosong -> total 0 poin & grade "Data Belum Lengkap"
+  const emptyScore = calculateFeasibilityPoints({});
+  assert.equal(emptyScore.points, 0, 'Data kosong harus menghasilkan 0 poin');
+  assert.equal(emptyScore.grade, 'Data Belum Lengkap');
+
+  // D. Kalkulator Modal Awal dengan Nilai Kosong (calculateInitialCapital)
+  const calcNull = calculateInitialCapital({
+    area_sqm: null,
+    rental_price_yr: null,
+  });
+  assert.equal(calcNull.area_sqm, null);
+  assert.equal(calcNull.rental_price_yr, null);
+  assert.equal(calcNull.subtotal_rental, 0);
+  assert.equal(calcNull.subtotal_renovation, 0);
+  assert.equal(calcNull.feasibility_points, 0);
+  assert.equal(calcNull.feasibility_grade, 'Data Belum Lengkap');
+
+  // E. Verifikasi Berkas CSS untuk Responsivitas Modal (iPhone 13 / Layar Kecil)
+  const cssContent = fs.readFileSync(path.join(__dirname, 'css/map.css'), 'utf-8');
+  assert.ok(cssContent.includes('min-width: 0'), 'CSS wajib memiliki min-width: 0 untuk mencegah pelebaran fieldset/form-group');
+  assert.ok(cssContent.includes('@media (max-width: 480px)'), 'CSS wajib memiliki breakpoint @media (max-width: 480px)');
+  assert.ok(cssContent.includes('grid-template-columns: 1fr'), 'CSS wajib mengubah form-row menjadi 1 kolom di layar kecil');
+  assert.ok(cssContent.includes('overflow-x: hidden'), 'Modal wajib mencegah overflow horizontal');
+  assert.ok(cssContent.includes('.planner-demo-warning'), 'CSS wajib memiliki gaya untuk .planner-demo-warning');
+
+  // F. Verifikasi HTML Markup Modal
+  const htmlContent = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
+  assert.ok(htmlContent.includes('id="planner-demo-warning"'), 'HTML wajib memiliki elemen id="planner-demo-warning"');
+  assert.ok(htmlContent.includes('Data lahan demo — angka sewa &amp; luas bukan data nyata'), 'HTML wajib menampilkan teks peringatan demo yang jujur');
+  assert.ok(!htmlContent.includes('Standar coffee shop Surabaya'), 'Teks tidak berdasar "Standar coffee shop Surabaya" wajib dihapus');
+  assert.ok(htmlContent.includes('Asumsi tim simulasi (bukan data pasar)'), 'HTML wajib melabeli asumsi biaya dengan jujur');
+  assert.ok(htmlContent.includes('id="clear-plans-confirm"'), 'HTML wajib memiliki kontainer konfirmasi inline untuk clear plans');
+
+  // G. Simulasi Mock DOM untuk Pengujian Alur UI Planner (openModal & renderSavedPlans)
+  const mockElements = {};
+  const createMockEl = (tag = 'div', id = '') => {
+    const listeners = {};
+    const el = {
+      tagName: tag.toUpperCase(),
+      id,
+      className: '',
+      hidden: false,
+      value: '',
+      placeholder: '',
+      textContent: '',
+      innerHTML: '',
+      children: [],
+      style: {},
+      attributes: {},
+      setAttribute(k, v) { el.attributes[k] = v; },
+      removeAttribute(k) { delete el.attributes[k]; },
+      getAttribute(k) { return el.attributes[k]; },
+      addEventListener(evt, fn) {
+        listeners[evt] = listeners[evt] || [];
+        listeners[evt].push(fn);
+      },
+      trigger(evt, eventObj = {}) {
+        (listeners[evt] || []).forEach(fn => fn(eventObj));
+      },
+      focus() { el.isFocused = true; },
+      showModal() { el.open = true; },
+      close() { el.open = false; },
+      open: false,
+    };
+    if (id) mockElements[id] = el;
+    return el;
+  };
+
+  // Mock global document
+  const origDoc = global.document;
+  const origWindow = global.window;
+  const mockStorageInstance = {
+    getItem: () => null,
+    setItem: () => {},
+    removeItem: () => {},
+  };
+
+  try {
+    global.document = {
+      getElementById: (id) => mockElements[id] || createMockEl('div', id),
+      createElement: (tag) => createMockEl(tag),
+      activeElement: null,
+    };
+    global.window = {
+      handleLandMarkerClick: null,
+      handleLandClick: null,
+    };
+
+    // Siapkan elemen-elemen DOM
+    createMockEl('dialog', 'planner-modal');
+    createMockEl('div', 'planner-demo-warning');
+    createMockEl('input', 'input-area-sqm');
+    createMockEl('input', 'input-rental-price');
+    createMockEl('ul', 'saved-plans-list');
+    const clearBtnEl = createMockEl('button', 'btn-clear-plans');
+    const clearConfirmEl = createMockEl('div', 'clear-plans-confirm');
+    const confirmNoEl = createMockEl('button', 'btn-confirm-clear-no');
+
+    const ui = new PlannerUI({ storage: new PlanStorage(mockStorageInstance) });
+
+    // 1. Uji Kandidat Demo -> Banner Demo Muncul
+    const demoLand = {
+      id: 'CAND-DEMO-01',
+      name: 'Kavling Demo',
+      status: 'Lahan kosong',
+      distance_meters: 300,
+      data_kind: 'synthetic_academic_demo',
+      is_in_buffer: true,
+      area_sqm: 120,
+      rental_price_yr: 40_000_000,
+    };
+    ui.openModal(demoLand);
+    assert.equal(ui.els.demoWarning.hidden, false, 'Banner data demo wajib tampil jika lahan demo');
+
+    // 2. Uji Kandidat Faktual Terverifikasi -> Banner Demo Tersembunyi
+    const factualLand = {
+      id: 'CAND-FACTUAL-01',
+      name: 'Kavling Survei',
+      status: 'Lahan yang tersedia untuk disewakan',
+      distance_meters: 250,
+      data_kind: 'verified_listing',
+      is_verified_public: true,
+      is_factual: true,
+      is_in_buffer: true,
+      area_sqm: 100,
+      rental_price_yr: 30_000_000,
+    };
+    ui.openModal(factualLand);
+    assert.equal(ui.els.demoWarning.hidden, true, 'Banner data demo wajib disembunyikan jika lahan terverifikasi');
+
+    // 3. Uji Nilai Kosong (area_sqm & rental_price_yr null) -> Field input dikosongkan (bukan 0)
+    const emptyLand = {
+      id: 'CAND-EMPTY-01',
+      name: 'Kavling Tanpa Data Sewa',
+      status: 'Lahan kosong',
+      distance_meters: 400,
+      data_kind: 'synthetic_academic_demo',
+      is_in_buffer: true,
+      area_sqm: null,
+      rental_price_yr: null,
+    };
+    ui.openModal(emptyLand);
+    assert.equal(ui.els.areaInput.value, '', 'Input luas wajib kosong jika area_sqm null (tidak boleh diisi 0 atau fallback dummy)');
+    assert.equal(ui.els.rentalPriceInput.value, '', 'Input sewa wajib kosong jika rental_price_yr null (tidak boleh diisi 0 atau fallback dummy)');
+
+    // 4. Uji Konfirmasi Inline Clear Plans (tanpa confirm())
+    clearBtnEl.trigger('click');
+    assert.equal(clearConfirmEl.hidden, false, 'Klik clear-plans harus memunculkan dialog konfirmasi inline');
+    confirmNoEl.trigger('click');
+    assert.equal(clearConfirmEl.hidden, true, 'Klik batal harus menutup dialog konfirmasi inline');
+  } finally {
+    global.document = origDoc;
+    global.window = origWindow;
+  }
 });
 
 

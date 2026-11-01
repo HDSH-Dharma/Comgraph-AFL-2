@@ -62,6 +62,11 @@ NON_RENTABLE_OR_SALE_STATUSES = {
 
 ELIGIBLE_STATUSES = RENTABLE_OR_SALE_STATUSES
 
+# Taksonomi metode survei dan jenis data survei lapangan / Google Street View (Prompt A)
+VALID_SURVEY_METHODS = {"street_view", "google_maps", "lapangan"}
+VALID_SURVEY_DATA_KINDS = {"survey_google_maps", "survey_lapangan"}
+
+
 # Boundary geografis terpercaya kawasan Surabaya & sekitarnya
 SURABAYA_BBOX = {
     "min_lon": 112.50,
@@ -70,64 +75,211 @@ SURABAYA_BBOX = {
     "max_lat": -7.15
 }
 
-# Poligon perimeter kampus WGS84 berbasis footprint OpenStreetMap way
+# Poligon perimeter kampus WGS84 berbasis footprint OpenStreetMap way asli (Overpass/API v0.6)
 CAMPUS_POLYGONS_WGS84: Dict[str, List[List[float]]] = {
     "UNAIR-KAMPUS-A": [
-        [112.75730, -7.26560],
-        [112.75980, -7.26560],
-        [112.75980, -7.26380],
-        [112.75730, -7.26380],
-        [112.75730, -7.26560]
+        [112.7571763, -7.263713],
+        [112.7568544, -7.2653188],
+        [112.7568585, -7.2654757],
+        [112.7569886, -7.2656141],
+        [112.7601334, -7.2656952],
+        [112.7601924, -7.2656261],
+        [112.7602246, -7.2645192],
+        [112.7602286, -7.2640429],
+        [112.7597371, -7.2639465],
+        [112.7591986, -7.2638807],
+        [112.7582726, -7.2638667],
+        [112.7582726, -7.2638002],
+        [112.7571763, -7.263713],
     ],
     "UNAIR-KAMPUS-B": [
-        [112.75700, -7.27380],
-        [112.76010, -7.27380],
-        [112.76010, -7.27080],
-        [112.75700, -7.27080],
-        [112.75700, -7.27380]
+        [112.7605703, -7.2726689],
+        [112.760538, -7.2734611],
+        [112.7605122, -7.27397],
+        [112.7586081, -7.2739094],
+        [112.7569431, -7.2738549],
+        [112.7567702, -7.2738493],
+        [112.7564353, -7.2738383],
+        [112.7564873, -7.2720881],
+        [112.7564939, -7.2718662],
+        [112.7565106, -7.2713027],
+        [112.7565222, -7.2709113],
+        [112.7565291, -7.2706788],
+        [112.756564, -7.2706123],
+        [112.7566337, -7.2706076],
+        [112.7569306, -7.2706181],
+        [112.7576125, -7.2706568],
+        [112.7601917, -7.2707599],
+        [112.7601944, -7.2714611],
+        [112.7606072, -7.2713504],
+        [112.7605703, -7.2726689],
     ],
     "UNAIR-KAMPUS-C": [
-        [112.78350, -7.26880],
-        [112.78850, -7.26880],
-        [112.78850, -7.26380],
-        [112.78350, -7.26380],
-        [112.78350, -7.26880]
+        [112.7894399, -7.2693777],
+        [112.7894339, -7.2701737],
+        [112.789435, -7.2708221],
+        [112.7888833, -7.2707626],
+        [112.7876562, -7.2706003],
+        [112.7855909, -7.2703496],
+        [112.7853106, -7.270309],
+        [112.7852114, -7.2702957],
+        [112.7841463, -7.270176],
+        [112.7840567, -7.2701307],
+        [112.7840137, -7.2700828],
+        [112.7838421, -7.2700669],
+        [112.7837506, -7.2701541],
+        [112.7828395, -7.2700471],
+        [112.7823508, -7.2699897],
+        [112.7823159, -7.2699697],
+        [112.7823025, -7.2699338],
+        [112.7823065, -7.2698713],
+        [112.7824458, -7.2693092],
+        [112.7824862, -7.2691463],
+        [112.782603, -7.2683543],
+        [112.783071, -7.2651792],
+        [112.7831823, -7.2641895],
+        [112.7831957, -7.263966],
+        [112.783197, -7.2636759],
+        [112.7836342, -7.2636826],
+        [112.7837951, -7.2636826],
+        [112.7846722, -7.2634764],
+        [112.7846421, -7.2633653],
+        [112.7848917, -7.2632705],
+        [112.7852518, -7.2631337],
+        [112.7851515, -7.2636907],
+        [112.785098, -7.264043],
+        [112.7850652, -7.2642587],
+        [112.7853871, -7.2643032],
+        [112.7854925, -7.2635986],
+        [112.7858226, -7.2636118],
+        [112.7859824, -7.2635788],
+        [112.7861863, -7.2631931],
+        [112.786307, -7.2631638],
+        [112.786409, -7.2630627],
+        [112.7865028, -7.2628511],
+        [112.7867236, -7.2627561],
+        [112.7873813, -7.2625438],
+        [112.7885391, -7.2620687],
+        [112.7885695, -7.2620898],
+        [112.7885733, -7.2621746],
+        [112.7888139, -7.262125],
+        [112.7888512, -7.2620117],
+        [112.7896272, -7.2617689],
+        [112.7895753, -7.2642586],
+        [112.7896009, -7.2650249],
+        [112.7894913, -7.267542],
+        [112.789464, -7.2683694],
+        [112.7894439, -7.2692687],
+        [112.7894399, -7.2693777],
     ],
     "UKWMS-DINOYO": [
-        [112.74380, -7.28240],
-        [112.74600, -7.28240],
-        [112.74600, -7.28050],
-        [112.74380, -7.28050],
-        [112.74380, -7.28240]
+        [112.7442426, -7.2811131],
+        [112.7442267, -7.2814752],
+        [112.7441977, -7.2819285],
+        [112.7445625, -7.2820083],
+        [112.7447207, -7.2820456],
+        [112.7447254, -7.2820749],
+        [112.7449293, -7.2820469],
+        [112.7450044, -7.2819884],
+        [112.7455361, -7.2817982],
+        [112.7455629, -7.2817702],
+        [112.7455757, -7.281737],
+        [112.7455723, -7.2817017],
+        [112.7452934, -7.2812707],
+        [112.74517, -7.281159],
+        [112.7448562, -7.2809155],
+        [112.744773, -7.2808796],
+        [112.7446496, -7.2808809],
+        [112.7444847, -7.2809102],
+        [112.7443546, -7.280982],
+        [112.7442426, -7.2811131],
     ],
     "UKWMS-KALIJUDAN": [
-        [112.77180, -7.26100],
-        [112.77440, -7.26100],
-        [112.77440, -7.25880],
-        [112.77180, -7.25880],
-        [112.77180, -7.26100]
+        [112.7743804, -7.2607086],
+        [112.7745281, -7.2604878],
+        [112.773639, -7.2598991],
+        [112.7730568, -7.2594809],
+        [112.7724548, -7.2590483],
+        [112.7717064, -7.2596031],
+        [112.7726933, -7.2603777],
+        [112.7732165, -7.2608024],
+        [112.7732592, -7.2607439],
+        [112.7733794, -7.2605754],
+        [112.7733689, -7.260568],
+        [112.77351, -7.2603703],
+        [112.7735163, -7.2603648],
+        [112.7735728, -7.2602895],
+        [112.7735896, -7.2603019],
+        [112.7736192, -7.2602624],
+        [112.7736872, -7.2601718],
+        [112.7737237, -7.2601977],
+        [112.7738548, -7.2603028],
+        [112.7738635, -7.2603077],
+        [112.7739461, -7.2603739],
+        [112.7741004, -7.2604895],
+        [112.7743804, -7.2607086],
     ],
     "UKWMS-PAKUWON": [
-        [112.81050, -7.27160],
-        [112.81300, -7.27160],
-        [112.81300, -7.26950],
-        [112.81050, -7.26950],
-        [112.81050, -7.27160]
+        [112.8112087, -7.2719107],
+        [112.8101653, -7.2708438],
+        [112.8108282, -7.2702362],
+        [112.8110129, -7.2700669],
+        [112.8125954, -7.2691888],
+        [112.8132847, -7.2705511],
+        [112.812534, -7.2709401],
+        [112.8120267, -7.2712029],
+        [112.8118434, -7.2713615],
+        [112.8112087, -7.2719107],
     ],
     "UBAYA-NGAGEL": [
-        [112.76010, -7.29420],
-        [112.76260, -7.29420],
-        [112.76260, -7.29200],
-        [112.76010, -7.29200],
-        [112.76010, -7.29420]
+        [112.760828, -7.2928811],
+        [112.760828, -7.2935474],
+        [112.7617338, -7.2935382],
+        [112.7618324, -7.2926825],
+        [112.7614843, -7.2927346],
+        [112.7614781, -7.2928872],
+        [112.760828, -7.2928811],
     ],
     "UBAYA-TENGGILIS": [
-        [112.76600, -7.32250],
-        [112.76980, -7.32250],
-        [112.76980, -7.31830],
-        [112.76600, -7.31830],
-        [112.76600, -7.32250]
-    ]
+        [112.7674363, -7.3181116],
+        [112.7673265, -7.3192483],
+        [112.7671524, -7.3209734],
+        [112.766921, -7.3223881],
+        [112.7668734, -7.3227359],
+        [112.7670598, -7.3229966],
+        [112.7671778, -7.3230512],
+        [112.7673773, -7.3229866],
+        [112.767777, -7.3230052],
+        [112.7683506, -7.3228789],
+        [112.7685417, -7.3228024],
+        [112.7685602, -7.3222936],
+        [112.7686581, -7.3218414],
+        [112.7685414, -7.3218121],
+        [112.7683792, -7.3216937],
+        [112.768469, -7.3214357],
+        [112.7685709, -7.3214024],
+        [112.768583, -7.3211404],
+        [112.7685562, -7.3210752],
+        [112.7685495, -7.3208225],
+        [112.768632, -7.3204866],
+        [112.7687734, -7.3194803],
+        [112.7687256, -7.3193962],
+        [112.768762, -7.3192788],
+        [112.7688001, -7.3191867],
+        [112.7687593, -7.3189961],
+        [112.7688244, -7.3189722],
+        [112.7688217, -7.3186463],
+        [112.7686863, -7.318645],
+        [112.7686879, -7.3183916],
+        [112.7682211, -7.3180642],
+        [112.7679105, -7.3180508],
+        [112.7679003, -7.3178986],
+        [112.7676514, -7.3178739],
+        [112.7676594, -7.3177875],
+        [112.7674308, -7.3177413],
+        [112.7673919, -7.3177443],
+        [112.7674363, -7.3181116],
+    ],
 }
 
 CAMPUS_OSM_WAYS: Dict[str, str] = {
@@ -286,15 +438,140 @@ class GISPipeline:
         """
         Normalisasi status lahan ke 5 status persis.
         Jika tidak terkonfirmasi, kosong, atau invalid, default ke 'Lahan yang statusnya belum terverifikasi'.
+        Mendukung varian teks dari prompt (e.g. 'Lahan kosong siap bangun' -> 'Lahan kosong').
         """
         if not raw_status or not isinstance(raw_status, str):
             return DEFAULT_LAND_STATUS
 
         trimmed = raw_status.strip()
+        if trimmed == "Lahan kosong siap bangun":
+            return "Lahan kosong"
         if trimmed in VALID_LAND_STATUSES:
             return trimmed
 
         return DEFAULT_LAND_STATUS
+
+    def validate_survey_candidate(self, feature: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Validasi ketat skema kandidat lahan hasil survei lapangan / Google Street View (Prompt A Task 1).
+        Menegakkan 11 field wajib, integritas bukti (URL/foto), tanggal observasi ISO,
+        dan menolak harga/luas tanpa sumber empiris.
+        """
+        import re
+        if not isinstance(feature, dict) or feature.get("type") != "Feature":
+            raise ValueError("Kandidat survei harus berupa GeoJSON Feature yang valid.")
+
+        geom = feature.get("geometry", {})
+        if not isinstance(geom, dict) or geom.get("type") != "Point":
+            raise ValueError("Geometri kandidat survei harus bertipe Point.")
+
+        coords = geom.get("coordinates", [])
+        if not isinstance(coords, (list, tuple)) or len(coords) < 2:
+            raise ValueError("Koordinat Point kandidat survei tidak lengkap.")
+
+        fid = feature.get("properties", {}).get("id", "unknown") if isinstance(feature.get("properties"), dict) else "unknown"
+        lon, lat = self.validate_coordinate(coords[0], coords[1], name=f"Kandidat survei {fid}")
+
+        props = feature.get("properties", {})
+        if not isinstance(props, dict):
+            raise ValueError("Properti kandidat survei harus berupa objek dict.")
+
+        # 1. ID, Name, Address
+        cid = props.get("id")
+        if not cid or not isinstance(cid, str) or not cid.strip():
+            raise ValueError("Kandidat survei wajib memiliki 'id' non-kosong.")
+        cid = cid.strip()
+
+        name = props.get("name")
+        if not name or not isinstance(name, str) or not name.strip():
+            raise ValueError(f"Kandidat survei {cid} wajib memiliki 'name' non-kosong.")
+
+        address = props.get("address")
+        if not address or not isinstance(address, str) or not address.strip():
+            raise ValueError(f"Kandidat survei {cid} wajib memiliki 'address' non-kosong.")
+
+        # 2. Status Taksonomi 5 Status
+        status = props.get("status")
+        normalized_status = self.normalize_status(status)
+        if normalized_status == DEFAULT_LAND_STATUS and status != DEFAULT_LAND_STATUS:
+            raise ValueError(f"Status '{status}' pada kandidat survei {cid} tidak valid. Wajib salah satu dari VALID_LAND_STATUSES.")
+
+        # 3. Metode Survei & Bukti
+        method = props.get("survey_method")
+        if method not in VALID_SURVEY_METHODS:
+            raise ValueError(f"Metode survei '{method}' pada {cid} tidak valid. Wajib salah satu dari {list(VALID_SURVEY_METHODS)}.")
+
+        evidence_url = props.get("evidence_url")
+        evidence_photo = props.get("evidence_photo")
+        has_url = isinstance(evidence_url, str) and evidence_url.strip().startswith("http")
+        has_photo = isinstance(evidence_photo, str) and len(evidence_photo.strip()) > 0
+        if not (has_url or has_photo):
+            raise ValueError(f"Kandidat survei {cid} wajib menyertakan 'evidence_url' (link Street View/G-Maps) atau 'evidence_photo' (path foto).")
+
+        # 4. Tanggal Observasi (YYYY-MM-DD)
+        observed_at = props.get("observed_at")
+        if not observed_at or not isinstance(observed_at, str):
+            raise ValueError(f"Kandidat survei {cid} wajib memiliki 'observed_at' tanggal ISO YYYY-MM-DD.")
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", observed_at.strip()):
+            raise ValueError(f"Format 'observed_at' ({observed_at}) pada {cid} tidak valid. Wajib format YYYY-MM-DD.")
+
+        # 5. Surveyor & Data Kind
+        surveyed_by = props.get("surveyed_by")
+        if not surveyed_by or not isinstance(surveyed_by, str) or not surveyed_by.strip():
+            raise ValueError(f"Kandidat survei {cid} wajib memiliki 'surveyed_by'.")
+
+        data_kind = props.get("data_kind")
+        if data_kind not in VALID_SURVEY_DATA_KINDS:
+            raise ValueError(f"'data_kind' ({data_kind}) pada {cid} tidak valid. Wajib salah satu dari {list(VALID_SURVEY_DATA_KINDS)}.")
+
+        # 6. Area & Harga Sewa (Null jika tidak ada bukti sumber)
+        area_sqm = props.get("area_sqm")
+        if area_sqm is not None:
+            try:
+                area_sqm = float(area_sqm)
+                if not (math.isfinite(area_sqm) and area_sqm > 0):
+                    raise ValueError()
+            except Exception:
+                raise ValueError(f"Luas 'area_sqm' ({props.get('area_sqm')}) pada {cid} tidak valid. Wajib float positif atau null.")
+
+        rental_price_yr = props.get("rental_price_yr")
+        price_source_url = props.get("price_source_url")
+        if rental_price_yr is not None:
+            try:
+                rental_price_yr = float(rental_price_yr)
+                if not (math.isfinite(rental_price_yr) and rental_price_yr > 0):
+                    raise ValueError()
+            except Exception:
+                raise ValueError(f"Harga sewa 'rental_price_yr' ({props.get('rental_price_yr')}) pada {cid} tidak valid. Wajib float positif atau null.")
+
+            if not price_source_url or not isinstance(price_source_url, str) or not price_source_url.strip().startswith("http"):
+                raise ValueError(f"Kandidat {cid} memiliki rental_price_yr={rental_price_yr} tetapi tidak memiliki 'price_source_url' valid. Dilarang mengarang harga sewa!")
+
+        return {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [round(lon, 7), round(lat, 7)]
+            },
+            "properties": {
+                **props,
+                "id": cid,
+                "name": name.strip(),
+                "address": address.strip(),
+                "status": normalized_status,
+                "survey_method": method,
+                "evidence_url": evidence_url.strip() if has_url else None,
+                "evidence_photo": evidence_photo.strip() if has_photo else None,
+                "observed_at": observed_at.strip(),
+                "surveyed_by": surveyed_by.strip(),
+                "notes": str(props.get("notes") or "").strip(),
+                "area_sqm": area_sqm,
+                "rental_price_yr": rental_price_yr,
+                "price_source_url": price_source_url.strip() if price_source_url else None,
+                "data_kind": data_kind
+            }
+        }
+
 
     def create_radial_buffer_polygon(
         self,
@@ -617,6 +894,19 @@ class GISPipeline:
             cand_geojson = json.load(f)
 
         cand_features = cand_geojson.get("features", [])
+        is_survey_dataset = "survey" in os.path.basename(candidates_path)
+
+        # Fallback ke dataset kandidat demo jika berkas survei masih kosong (0 fitur)
+        if len(cand_features) == 0 and is_survey_dataset:
+            fallback_candidates_path = "data/raw/land_candidates.geojson"
+            if os.path.exists(fallback_candidates_path):
+                print(f"[INFO] Berkas survei '{candidates_path}' memuat 0 fitur (menunggu observasi tim). "
+                      f"Menggunakan kandidat demo fallback '{fallback_candidates_path}'.")
+                with open(fallback_candidates_path, "r", encoding="utf-8") as f:
+                    cand_geojson = json.load(f)
+                cand_features = cand_geojson.get("features", [])
+                is_survey_dataset = False
+
         processed_candidates: List[Dict[str, Any]] = []
         cand_ids_seen = set()
 
@@ -632,6 +922,9 @@ class GISPipeline:
         }
 
         for idx, feat in enumerate(cand_features):
+            if is_survey_dataset:
+                feat = self.validate_survey_candidate(feat)
+
             geom = feat.get("geometry", {})
             props = feat.get("properties", {})
 
@@ -901,19 +1194,157 @@ class GISPipeline:
         with open(candidates_out_path, "w", encoding="utf-8") as f:
             json.dump(exported_candidates, f, indent=2, ensure_ascii=False)
 
+        # 8. Export Processed OSM Existing Cafes (ODbL Context Layer)
+        raw_cafes_path = "data/raw/osm/overpass_cafes_raw.json"
+        cafes_res = self.process_osm_cafes(raw_cafes_path, output_dir, processed_campuses)
+
+        outputs = {
+            "universities": universities_out_path,
+            "universities_polygons": universities_polygons_out_path,
+            "buffer_1km": buffer_out_path,
+            "buffer_polygon_1km": buffer_polygon_out_path,
+            "land_candidates": candidates_out_path
+        }
+        if cafes_res.get("output_path"):
+            outputs["osm_cafes"] = cafes_res["output_path"]
+
         return {
             "universities_count": len(processed_campuses),
             "buffers_count": len(buffer_features),
             "polygon_buffers_count": len(polygon_buffer_features),
             "candidates_count": len(processed_candidates),
+            "cafes_count": cafes_res["total_cafes"],
+            "cafes_in_buffer_count": cafes_res["in_buffer_count"],
             "stats": stats,
-            "outputs": {
-                "universities": universities_out_path,
-                "universities_polygons": universities_polygons_out_path,
-                "buffer_1km": buffer_out_path,
-                "buffer_polygon_1km": buffer_polygon_out_path,
-                "land_candidates": candidates_out_path
-            }
+            "outputs": outputs
+        }
+
+    def process_osm_cafes(
+        self,
+        raw_overpass_path: str,
+        output_dir: str,
+        processed_campuses: List[Dict[str, Any]],
+        raw_geojson_path: Optional[str] = "data/raw/osm/osm_cafes.geojson"
+    ) -> Dict[str, Any]:
+        """
+        Memproses kafe OSM eksisting dari payload mentah Overpass API (data/raw/osm/overpass_cafes_raw.json).
+        Menghasilkan data/processed/osm_cafes.geojson dengan metrik jarak, ODbL attribution,
+        is_existing_cafe=True, dan is_planner_allowed=False.
+        """
+        if not os.path.exists(raw_overpass_path):
+            return {"total_cafes": 0, "in_buffer_count": 0, "output_path": None}
+
+        with open(raw_overpass_path, "r", encoding="utf-8") as f:
+            raw_data = json.load(f)
+
+        elements = raw_data.get("elements", [])
+        cafe_features: List[Dict[str, Any]] = []
+        in_buf_count = 0
+
+        for el in elements:
+            osm_id = el.get("id")
+            osm_type = el.get("type")
+            tags = el.get("tags", {})
+            if osm_type == "node":
+                lat, lon = el.get("lat"), el.get("lon")
+            elif osm_type == "way":
+                c = el.get("center", {})
+                lat, lon = c.get("lat"), c.get("lon")
+            else:
+                continue
+
+            if lat is None or lon is None:
+                continue
+
+            try:
+                lon, lat = self.validate_coordinate(lon, lat, name=f"OSM {osm_type} {osm_id}")
+            except ValueError:
+                continue
+
+            lx, ly = self.transformer_fwd.transform(lon, lat)
+
+            min_dist = float("inf")
+            min_poly_dist = float("inf")
+            nearest_camp: Optional[Dict[str, Any]] = None
+
+            for camp in processed_campuses:
+                d_ref = math.sqrt((lx - camp["x_utm"]) ** 2 + (ly - camp["y_utm"]) ** 2)
+                d_poly = self.point_to_polygon_distance_metric(lx, ly, camp["polygon_utm"])
+                if d_ref < min_dist:
+                    min_dist = d_ref
+                    nearest_camp = camp
+                if d_poly < min_poly_dist:
+                    min_poly_dist = d_poly
+
+            if nearest_camp is None:
+                continue
+
+            is_in_buf = bool(min_dist <= 1000.0)
+            if is_in_buf:
+                in_buf_count += 1
+
+            cafe_name = tags.get("name") or "Kafe OSM Eksisting"
+
+            cafe_features.append({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [round(lon, 7), round(lat, 7)]
+                },
+                "properties": {
+                    "id": f"OSM-CAFE-{osm_type.upper()}-{osm_id}",
+                    "name": cafe_name,
+                    "amenity": "cafe",
+                    "cuisine": tags.get("cuisine"),
+                    "brand": tags.get("brand"),
+                    "opening_hours": tags.get("opening_hours"),
+                    "operator": tags.get("operator"),
+                    "source": "OpenStreetMap contributors (ODbL 1.0)",
+                    "osm_id": osm_id,
+                    "osm_type": osm_type,
+                    "osm_tags": tags,
+                    "osm_url": f"https://www.openstreetmap.org/{osm_type}/{osm_id}",
+                    "verified_at": "2026-11-01",
+                    "downloaded_at": raw_data.get("osm3s", {}).get("timestamp_osm_base", "2026-11-01T09:42:01Z"),
+                    "is_existing_cafe": True,
+                    "is_planner_allowed": False,
+                    "is_factual": True,
+                    "data_kind": "osm_cafe",
+                    "nearest_university_id": nearest_camp["id"],
+                    "nearest_university_name": nearest_camp["campus_name"],
+                    "distance_meters": round(min_dist, 2),
+                    "distance_to_polygon_meters": round(min_poly_dist, 2),
+                    "is_in_buffer": is_in_buf
+                }
+            })
+
+        fc = {
+            "type": "FeatureCollection",
+            "metadata": {
+                "title": "Kafe Eksisting Faktual Sekitar Kampus Surabaya (OpenStreetMap)",
+                "source": "OpenStreetMap (Overpass API amenity=cafe)",
+                "licence": "ODbL 1.0 (OpenStreetMap contributors)",
+                "total_features": len(cafe_features),
+                "in_buffer_1km_count": in_buf_count,
+                "downloaded_at": raw_data.get("osm3s", {}).get("timestamp_osm_base", "2026-11-01T09:42:01Z"),
+                "verified_at": "2026-11-01"
+            },
+            "features": cafe_features
+        }
+
+        if raw_geojson_path:
+            os.makedirs(os.path.dirname(raw_geojson_path), exist_ok=True)
+            with open(raw_geojson_path, "w", encoding="utf-8") as f:
+                json.dump(fc, f, indent=2, ensure_ascii=False)
+
+        proc_path = os.path.join(output_dir, "osm_cafes.geojson")
+        with open(proc_path, "w", encoding="utf-8") as f:
+            json.dump(fc, f, indent=2, ensure_ascii=False)
+
+        return {
+            "total_cafes": len(cafe_features),
+            "in_buffer_count": in_buf_count,
+            "output_path": proc_path
         }
 
 
@@ -938,6 +1369,8 @@ def main():
         print(f"  - Buffer Radial (1.000m)    : {results['buffers_count']}")
         print(f"  - Buffer Dilatasi Poligon   : {results['polygon_buffers_count']}")
         print(f"  - Kandidat Lahan Dievaluasi : {results['candidates_count']}")
+        if "cafes_count" in results:
+            print(f"  - Kafe OSM Terproses        : {results['cafes_count']} (Dalam buffer 1km: {results['cafes_in_buffer_count']})")
         print("\nStatistik Kelayakan:")
         stats = results["stats"]
         print(f"  - Dalam Buffer 1 km         : {stats['in_buffer_count']}")
@@ -953,6 +1386,7 @@ def main():
     except Exception as e:
         print(f"\n[ERROR] Pipeline gagal: {e}", file=sys.stderr)
         sys.exit(1)
+
 
 
 if __name__ == "__main__":
