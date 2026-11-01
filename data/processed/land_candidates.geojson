@@ -2,42 +2,44 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Kandidat Lahan Terklasifikasi & Terevaluasi Spasial",
-    "total_features": 33,
+    "total_features": 50,
     "crs": "EPSG:4326",
+    "dataset_kind": "survey_field_observation",
+    "is_survey_dataset": true,
     "evaluation_rules": {
       "buffer_threshold_meters": 1000.0,
       "eligible_statuses": [
-        "Lahan yang tersedia untuk disewakan",
-        "Lahan kosong"
+        "Lahan kosong",
+        "Lahan yang tersedia untuk disewakan"
       ],
       "rentable_or_sale_statuses": [
-        "Lahan yang tersedia untuk disewakan",
-        "Lahan kosong"
+        "Lahan kosong",
+        "Lahan yang tersedia untuk disewakan"
       ],
       "non_rentable_or_sale_statuses": [
-        "Lahan yang statusnya belum terverifikasi",
+        "Bangunan yang telah digunakan untuk fungsi lain",
         "Rumah atau bangunan tempat tinggal",
-        "Bangunan yang telah digunakan untuk fungsi lain"
+        "Lahan yang statusnya belum terverifikasi"
       ]
     },
     "open_data_policy": {
-      "defensible_basis": "OpenStreetMap Tag Standards for building & landuse",
-      "honest_fallback": "Lots without confirmed commercial lease agreements default to 'Lahan yang statusnya belum terverifikasi' (non-clickable)"
+      "defensible_basis": "Empirical Field Survey via Google Street View & Google Maps (Observasi Tim Mahasiswa)",
+      "honest_fallback": "Unobserved lots default to 'Lahan yang statusnya belum terverifikasi'"
     },
     "summary": {
-      "total_candidates": 33,
-      "in_buffer_count": 17,
-      "out_of_buffer_count": 16,
-      "eligible_count": 0,
-      "ineligible_count": 33,
-      "rentable_or_sale_count": 0,
-      "non_rentable_or_sale_count": 33,
+      "total_candidates": 50,
+      "in_buffer_count": 46,
+      "out_of_buffer_count": 4,
+      "eligible_count": 35,
+      "ineligible_count": 15,
+      "rentable_or_sale_count": 39,
+      "non_rentable_or_sale_count": 11,
       "status_counts": {
-        "Lahan kosong": 0,
-        "Lahan yang tersedia untuk disewakan": 0,
-        "Rumah atau bangunan tempat tinggal": 2,
-        "Bangunan yang telah digunakan untuk fungsi lain": 22,
-        "Lahan yang statusnya belum terverifikasi": 9
+        "Lahan kosong": 15,
+        "Lahan yang tersedia untuk disewakan": 24,
+        "Rumah atau bangunan tempat tinggal": 4,
+        "Bangunan yang telah digunakan untuk fungsi lain": 4,
+        "Lahan yang statusnya belum terverifikasi": 3
       }
     }
   },
@@ -47,184 +49,47 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7549532,
-          -7.2933468
+          112.75782,
+          -7.26385
         ]
       },
       "properties": {
-        "id": "OSM-WAY-36007554",
-        "name": "Cafe Glass",
-        "address": "Cafe Glass, Jalan Ngagel Jaya, RW 02, Pucang Sewu, Gubeng, Surabaya, Jawa Timur, 60284, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UBAYA-NGAGEL",
-        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
-        "distance_meters": 704.6925883999969,
-        "distance_to_polygon_meters": 648.77,
-        "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 36007554,
-        "osm_type": "way",
-        "osm_tags": {
-          "building": "yes",
-          "name": "Cafe Glass",
-          "shop": "kitchen"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2009-06-15T23:22:36Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7721519,
-          -7.2772403
-        ]
-      },
-      "properties": {
-        "id": "OSM-WAY-448081972",
-        "name": "Strike Pool & Cafe",
-        "address": "Strike Pool & Cafe, Jalan Dharmahusada Indah Barat VI, RW 04, Mojo, Gubeng, Surabaya, Jawa Timur, 60116, Indonesia",
-        "status": "Lahan yang statusnya belum terverifikasi",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UNAIR-KAMPUS-B",
-        "nearest_university_name": "Kampus B Universitas Airlangga",
-        "distance_meters": 1601.8437407958731,
-        "distance_to_polygon_meters": 1335.37,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1601.8 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 448081972,
-        "osm_type": "way",
-        "osm_tags": {
-          "building": "yes",
-          "leisure": "sports_centre",
-          "name": "Strike Pool & Cafe",
-          "sport": "billiards"
-        },
-        "osm_version": 3,
-        "osm_timestamp": "2022-06-14T05:14:51Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7572188,
-          -7.2940318
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4260143149",
-        "name": "Otoclassic Cafe",
-        "address": "Otoclassic Cafe, Jalan Krukah Timur, RW 07, Baratajaya, Gubeng, Surabaya, Jawa Timur, 60284, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UBAYA-NGAGEL",
-        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
-        "distance_meters": 465.2176971642716,
-        "distance_to_polygon_meters": 402.16,
-        "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4260143149,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Surabaya",
-          "addr:postcode": "60284",
-          "addr:street": "Jalan Krukah Timur",
-          "amenity": "cafe",
-          "name": "Otoclassic Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-06-23T09:38:27Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7646912,
-          -7.2661303
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-415826789",
-        "name": "Cafe Glass",
-        "address": "Cafe Glass, Jalan Dharmahusada, RW 05, Mojo, Gubeng, Surabaya, Jawa Timur, 61315, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
+        "id": "SURV-UNAIR-A-01",
+        "name": "Kavling Siap Bangun Jl. Prof. Dr. Moestopo",
+        "address": "Jl. Prof. Dr. Moestopo No. 33, Tambaksari, Kec. Tambaksari, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 160.0,
         "rental_price_yr": null,
         "nearest_university_id": "UNAIR-KAMPUS-A",
         "nearest_university_name": "Kampus A Universitas Airlangga",
-        "distance_meters": 697.2443047854699,
-        "distance_to_polygon_meters": 499.96,
+        "distance_meters": 123.58174705478926,
+        "distance_to_polygon_meters": 0.0,
         "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
         "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
         },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 415826789,
-        "osm_type": "node",
-        "osm_tags": {
-          "amenity": "cafe",
-          "name": "Cafe Glass"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2017-04-17T05:31:57Z",
-        "query_used": "cafe Gubeng Surabaya",
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2638500,112.7578200",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Pekarangan kosong rata berpagar seng di seberang deretan ruko Moestopo, ~125m barat laut gerbang utama Kampus A Unair. Cocok untuk kafe outdoor/semi-outdoor.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
         "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
@@ -233,176 +98,70 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7618885,
-          -7.3037377
+          112.76025,
+          -7.26685
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4191179831",
-        "name": "Cafe Glass",
-        "address": "Cafe Glass, Jalan Raya Nginden, RW 03, Baratajaya, Gubeng, Surabaya, Jawa Timur, 60284, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UBAYA-NGAGEL",
-        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
-        "distance_meters": 1176.4953790393358,
-        "distance_to_polygon_meters": 1128.19,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1176.5 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4191179831,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Baratajaya, Gubeng, Surabaya, East Java",
-          "addr:postcode": "60284",
-          "addr:street": "Jl. Raya Nginden No.72-A",
-          "amenity": "cafe",
-          "name": "Cafe Glass"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-17T06:58:36Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7506084,
-          -7.2692876
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4191074244",
-        "name": "Layali Shisha Cafe and Lounge",
-        "address": "Layali Shisha Cafe and Lounge, 31, Jalan Sumatera, RW 04, Gubeng, Surabaya, Jawa Timur, 60281, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UNAIR-KAMPUS-B",
-        "nearest_university_name": "Kampus B Universitas Airlangga",
-        "distance_meters": 934.7964346264583,
-        "distance_to_polygon_meters": 671.73,
-        "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4191074244,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "RT.002/RW.05, Gubeng, Kota Surabaya, Jawa Timur, Indonesia",
-          "addr:housenumber": "31",
-          "addr:postcode": "60281",
-          "addr:street": "Jalan Sumatra",
-          "amenity": "cafe",
-          "name": "Layali Shisha Cafe and Lounge"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-17T05:13:25Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7476864,
-          -7.2729017
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-13534220354",
-        "name": "Toko Kopi TUKU - SPBU bp Gubeng",
-        "address": "Toko Kopi TUKU - SPBU bp Gubeng, Jalan Sumatera, RW 04, Gubeng, Surabaya, Jawa Timur, 60281, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-DINOYO",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
-        "distance_meters": 997.5741918905514,
-        "distance_to_polygon_meters": 939.18,
-        "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 13534220354,
-        "osm_type": "node",
-        "osm_tags": {
-          "air_conditioning": "yes",
-          "amenity": "cafe",
-          "cuisine": "coffee_shop",
-          "name": "Toko Kopi TUKU - SPBU bp Gubeng",
-          "opening_hours": "Mo-Su 07:00-21:00",
-          "outdoor_seating": "yes",
-          "payment:cash": "yes",
-          "payment:contactless": "yes",
-          "payment:credit_cards": "yes",
-          "payment:debit_cards": "yes",
-          "payment:mastercard": "yes",
-          "payment:visa": "yes",
-          "smoking": "no",
-          "takeaway": "yes",
-          "website": "https://tuku.coffee"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2026-02-08T14:02:44Z",
-        "query_used": "cafe Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7527206,
-          -7.2654319
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4192912669",
-        "name": "Surabaya CAFÈ",
-        "address": "Surabaya CAFÈ, No.2, Jalan Gubeng Masjid, RW 07, Pacar Keling, Tambaksari, Surabaya, Jawa Timur, 60131, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
+        "id": "SURV-UNAIR-A-02",
+        "name": "Ruang Komersial Disewakan Eks-Klinik Jl. Dharmawangsa",
+        "address": "Jl. Dharmawangsa No. 12, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 140.0,
         "rental_price_yr": null,
         "nearest_university_id": "UNAIR-KAMPUS-A",
         "nearest_university_name": "Kampus A Universitas Airlangga",
-        "distance_meters": 647.8735450421675,
-        "distance_to_polygon_meters": 456.7,
+        "distance_meters": 303.19970787194484,
+        "distance_to_polygon_meters": 128.37,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2668500,112.7602500",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan komersial 1 lantai dengan halaman parkir depan, terpasang spanduk sewa tempat usaha. Berjarak ~300m tenggara Kampus A Unair.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7615,
+          -7.2652
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-A-03",
+        "name": "Apotek & Praktik Dokter Bersama Karang Menjangan",
+        "address": "Jl. Karang Menjangan No. 22, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "area_sqm": 110.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-A",
+        "nearest_university_name": "Kampus A Universitas Airlangga",
+        "distance_meters": 331.3055886021694,
+        "distance_to_polygon_meters": 142.98,
         "is_in_buffer": true,
         "is_eligible": false,
         "is_rentable_or_sale": false,
@@ -414,21 +173,21 @@
           "planning_permission": "disabled_not_selectable",
           "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
         },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4192912669,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Pacar Keling, Tambaksari, Surabaya, East Java",
-          "addr:housenumber": "No.2",
-          "addr:postcode": "60131",
-          "addr:street": "Jl. Gubeng Masjid",
-          "amenity": "cafe",
-          "name": "Surabaya CAFÈ"
-        },
-        "osm_version": 3,
-        "osm_timestamp": "2016-10-18T08:47:26Z",
-        "query_used": "cafe Gubeng Surabaya",
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2652000,112.7615000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan ruko aktif beroperasi sebagai apotek dan laboratorium klinik kesehatan. Tidak disewakan untuk usaha kafe.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
         "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
@@ -437,94 +196,47 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7545594,
-          -7.2874262
+          112.7572,
+          -7.2731
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4193313272",
-        "name": "Pondok Asri Family Guest House",
-        "address": "Pondok Asri Family Guest House, Jalan Kalibokor Selatan, RW 02, Pucang Sewu, Gubeng, Surabaya, Jawa Timur, 60283, Indonesia",
-        "status": "Lahan yang statusnya belum terverifikasi",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UBAYA-NGAGEL",
-        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
-        "distance_meters": 977.2075878986846,
-        "distance_to_polygon_meters": 918.26,
-        "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4193313272,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Pucangsewu, Gubeng, Surabaya, Jawa Timur, Indonesia",
-          "addr:postcode": "60283",
-          "addr:street": "Jalan Kalibokor Selatan",
-          "name": "Pondok Asri Family Guest House",
-          "tourism": "hostel"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2016-05-18T10:41:22Z",
-        "query_used": "house Gubeng Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7582453,
-          -7.2800878
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4193081880",
-        "name": "Family Guest House Surabaya",
-        "address": "Family Guest House Surabaya, Jalan Kertajaya VIII C, RW 04, Kertajaya, Gubeng, Surabaya, Jawa Timur, 60286, Indonesia",
-        "status": "Lahan yang statusnya belum terverifikasi",
-        "area_sqm": null,
+        "id": "SURV-UNAIR-B-01",
+        "name": "Tanah Kavling Komersial Jl. Airlangga",
+        "address": "Jl. Airlangga No. 18, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 200.0,
         "rental_price_yr": null,
         "nearest_university_id": "UNAIR-KAMPUS-B",
         "nearest_university_name": "Kampus B Universitas Airlangga",
-        "distance_meters": 863.1033791443601,
-        "distance_to_polygon_meters": 684.27,
+        "distance_meters": 171.29559417638237,
+        "distance_to_polygon_meters": 0.0,
         "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
         "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
         },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4193081880,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kertajaya, Gubeng, Surabaya",
-          "addr:postcode": "60286",
-          "addr:street": "Jalan Gubeng Kertajaya 8C / 15",
-          "name": "Family Guest House Surabaya",
-          "tourism": "hotel"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-18T08:09:10Z",
-        "query_used": "house Gubeng Surabaya",
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2731000,112.7572000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan kosong berpagar kawat di koridor barat Kampus B Unair (~170m). Akses jalan lebar dua arah ramai lalu lintas mahasiswa.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
         "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
@@ -533,232 +245,47 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7985602,
-          -7.2701491
+          112.7598,
+          -7.2715
         ]
       },
       "properties": {
-        "id": "OSM-WAY-447125931",
-        "name": "SAS Cafe & Resto",
-        "address": "SAS Cafe & Resto, Jalan Bhaskara Sawah, RW 03, Kalisari, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-PAKUWON",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
-        "distance_meters": 1454.6027123887925,
-        "distance_to_polygon_meters": 1007.86,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1454.6 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 447125931,
-        "osm_type": "way",
-        "osm_tags": {
-          "amenity": "cafe",
-          "name": "SAS Cafe & Resto"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2018-10-30T21:51:47Z",
-        "query_used": "cafe Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7954887,
-          -7.2737522
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4193187205",
-        "name": "Teras Rumah Cafe",
-        "address": "Teras Rumah Cafe, Jalan Wisma Permai I, Wisma Permai, RW 05, Mulyorejo, Surabaya, Jawa Timur, 60115, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UNAIR-KAMPUS-C",
-        "nearest_university_name": "Kampus C Universitas Airlangga",
-        "distance_meters": 1336.5940432688317,
-        "distance_to_polygon_meters": 742.97,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1336.6 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4193187205,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Mulyorejo, Surabaya, East Java",
-          "addr:postcode": "60115",
-          "addr:street": "Jl. Wisma Permai 1",
-          "amenity": "cafe",
-          "name": "Teras Rumah Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-18T09:17:42Z",
-        "query_used": "cafe Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7710077,
-          -7.2808237
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-5897591882",
-        "name": "Resto Park Cafe",
-        "address": "Resto Park Cafe, Jalan Manyar Kertoarjo, RW 06, Manyar Sabrangan, Mulyorejo, Surabaya, Jawa Timur, 60231, Indonesia",
-        "status": "Lahan yang statusnya belum terverifikasi",
-        "area_sqm": null,
+        "id": "SURV-UNAIR-B-02",
+        "name": "Paviliun Komersial Disewakan Jl. Srikana",
+        "address": "Jl. Srikana No. 8, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 95.0,
         "rental_price_yr": null,
         "nearest_university_id": "UNAIR-KAMPUS-B",
         "nearest_university_name": "Kampus B Universitas Airlangga",
-        "distance_meters": 1671.1002174358712,
-        "distance_to_polygon_meters": 1384.94,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1671.1 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 5897591882,
-        "osm_type": "node",
-        "osm_tags": {
-          "amenity": "food_court",
-          "name": "Resto Park Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2018-09-10T21:49:24Z",
-        "query_used": "cafe Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7986184,
-          -7.2704261
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-2106536258",
-        "name": "SAS Cafe & Resto",
-        "address": "SAS Cafe & Resto, No.30, Jalan Bhaskara Sawah, RW 03, Kalisari, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-PAKUWON",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
-        "distance_meters": 1447.5640153680674,
-        "distance_to_polygon_meters": 1014.29,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1447.6 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 2106536258,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kalisari, Mulyorejo, Surabaya, East Java",
-          "addr:housenumber": "No.30",
-          "addr:postcode": "60112",
-          "addr:street": "Jl. Baskara Sawah",
-          "amenity": "restaurant",
-          "name": "SAS Cafe & Resto"
-        },
-        "osm_version": 3,
-        "osm_timestamp": "2016-05-17T04:51:41Z",
-        "query_used": "cafe Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.8054411,
-          -7.2770046
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-12902684499",
-        "name": "Cafe Goede",
-        "address": "Cafe Goede, Jalan Laguna Kejawan Putih Tambak, Pakuwon City, RW 03, Kejawen Putih Tambak, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-PAKUWON",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
-        "distance_meters": 995.6421735080171,
-        "distance_to_polygon_meters": 849.35,
+        "distance_meters": 165.99101389572832,
+        "distance_to_polygon_meters": 0.0,
         "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
         "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
         },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 12902684499,
-        "osm_type": "node",
-        "osm_tags": {
-          "amenity": "restaurant",
-          "cuisine": "coffee_shop;burger;pizza",
-          "name": "Cafe Goede",
-          "phone": "+62 811-3334-7816"
-        },
-        "osm_version": 3,
-        "osm_timestamp": "2026-06-15T16:38:16Z",
-        "query_used": "cafe Mulyorejo Surabaya",
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2715000,112.7598000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Papan sewa tempat usaha terpasang di pagar depan. Terletak ~165m timur Kampus B Unair dekat kantin dan pujasera.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
         "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
@@ -767,160 +294,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.8039428,
-          -7.2801993
+          112.7565,
+          -7.2712
         ]
       },
       "properties": {
-        "id": "OSM-WAY-1042902659",
-        "name": "Virginia Club house",
-        "address": "Virginia Club house, Jalan Kejawan Putih Indah 1, Pakuwon City, RW 03, Kejawen Putih Tambak, Mulyorejo, Surabaya, Jawa Timur, 60111, Indonesia",
-        "status": "Lahan yang statusnya belum terverifikasi",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-PAKUWON",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
-        "distance_meters": 1370.2969303991347,
-        "distance_to_polygon_meters": 1218.33,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1370.3 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 1042902659,
-        "osm_type": "way",
-        "osm_tags": {
-          "leisure": "swimming_pool",
-          "name": "Virginia Club house"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2022-03-23T10:52:24Z",
-        "query_used": "house Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.8044214,
-          -7.2710724
-        ]
-      },
-      "properties": {
-        "id": "OSM-WAY-308896511",
-        "name": "arditay house's",
-        "address": "arditay house's, Jalan Kalisari Dharma IX, Pakuwon City, RW 08, Kalisari, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
-        "status": "Lahan yang statusnya belum terverifikasi",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-PAKUWON",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
-        "distance_meters": 808.6821885965027,
-        "distance_to_polygon_meters": 634.86,
-        "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 308896511,
-        "osm_type": "way",
-        "osm_tags": {
-          "building": "yes",
-          "name": "arditay house's"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2017-01-30T04:58:17Z",
-        "query_used": "house Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7950557,
-          -7.2653238
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4189288044",
-        "name": "House of Darmawan",
-        "address": "House of Darmawan, Nomor 24, Jalan Sutorejo Utara Baru, Perum Sutorejo Indah, RW 09, Dukuh Sutorejo, Mulyorejo, Surabaya, Jawa Timur, 60113, Indonesia",
-        "status": "Lahan yang statusnya belum terverifikasi",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UNAIR-KAMPUS-C",
-        "nearest_university_name": "Kampus C Universitas Airlangga",
-        "distance_meters": 1009.7414941782113,
-        "distance_to_polygon_meters": 603.3,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1009.7 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4189288044,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Mulyorejo",
-          "addr:housenumber": "Nomor 24",
-          "addr:postcode": "60113",
-          "addr:street": "Jl. Sutorejo Utara Blok B",
-          "name": "House of Darmawan",
-          "tourism": "guest_house"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2016-05-16T10:34:16Z",
-        "query_used": "house Mulyorejo Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.8083284,
-          -7.26463
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4191370315",
-        "name": "Club House Long Beach",
-        "address": "Club House Long Beach, Jalan Main Boulevard Pakuwon City, Pakuwon City, RW 08, Kalisari, Mulyorejo, Surabaya, Jawa Timur, 60112, Indonesia",
+        "id": "SURV-UNAIR-B-03",
+        "name": "Rumah Tinggal Warga Jl. Dharmawangsa Barat",
+        "address": "Jl. Dharmawangsa Barat I No. 4, Airlangga, Kec. Gubeng, Surabaya",
         "status": "Rumah atau bangunan tempat tinggal",
-        "area_sqm": null,
+        "area_sqm": 180.0,
         "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-PAKUWON",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
-        "distance_meters": 754.5923268458853,
-        "distance_to_polygon_meters": 669.64,
+        "nearest_university_id": "UNAIR-KAMPUS-B",
+        "nearest_university_name": "Kampus B Universitas Airlangga",
+        "distance_meters": 253.6363993921694,
+        "distance_to_polygon_meters": 1.51,
         "is_in_buffer": true,
         "is_eligible": false,
         "is_rentable_or_sale": false,
@@ -932,20 +320,21 @@
           "planning_permission": "disabled_not_selectable",
           "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
         },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4191370315,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kalisari, Mulyorejo, Surabaya",
-          "addr:postcode": "60112",
-          "addr:street": "Main Boulevard Pakuwon City",
-          "building": "residential",
-          "name": "Club House Long Beach"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-17T09:07:10Z",
-        "query_used": "house Mulyorejo Surabaya",
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2712000,112.7565000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Hunian rumah tapak 1 lantai aktif dihuni keluarga. Tidak difungsikan sebagai ruang komersial.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
         "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
@@ -954,198 +343,47 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7398709,
-          -7.2664268
+          112.7839,
+          -7.2671
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4270975190",
-        "name": "Noach Cafe & Bistro",
-        "address": "Noach Cafe & Bistro, 4, Jalan Pregolan, RW 02, Tegalsari, Surabaya, Jawa Timur, 60262, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
+        "id": "SURV-UNAIR-C-01",
+        "name": "Lahan Terbuka Tepi Jalan Jl. Mulyorejo",
+        "address": "Jl. Mulyorejo No. 78, Mulyorejo, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 220.0,
         "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-DINOYO",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
-        "distance_meters": 1754.3092699456668,
-        "distance_to_polygon_meters": 1680.93,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1754.3 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4270975190,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:housenumber": "4",
-          "addr:street": "Jalan Pregolan",
-          "amenity": "cafe",
-          "cuisine": "sandwich;tea;cake;coffee_shop;asian;american;pasta;pizza",
-          "internet_access": "wlan",
-          "name": "Noach Cafe & Bistro",
-          "opening_hours": "Mo-Th 11:00-22:00; Fr-Sa 11:00-22:00"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2016-06-29T04:59:20Z",
-        "query_used": "cafe Tegalsari Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7399656,
-          -7.2661781
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4191121303",
-        "name": "Le Cafe Gourmand",
-        "address": "Le Cafe Gourmand, 2, Jalan Pregolan, RW 02, Tegalsari, Surabaya, Jawa Timur, 60262, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-DINOYO",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
-        "distance_meters": 1777.2032671353259,
-        "distance_to_polygon_meters": 1704.07,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1777.2 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4191121303,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Tegalsari, Kota SBY, Jawa Timur",
-          "addr:housenumber": "2",
-          "addr:postcode": "60262",
-          "addr:street": "Jalan Pregolan",
-          "amenity": "cafe",
-          "cuisine": "sandwich;breakfast;ice_cream;cake;coffee_shop",
-          "internet_access": "wlan",
-          "name": "Le Cafe Gourmand",
-          "opening_hours": "Mo-Su 08:00-22:00"
-        },
-        "osm_version": 4,
-        "osm_timestamp": "2026-06-22T00:03:54Z",
-        "query_used": "cafe Tegalsari Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.740487,
-          -7.2633233
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4187553284",
-        "name": "A Cafe",
-        "address": "A Cafe, No.8-13, Jalan Jenderal Basuki Rachmat, RW 10, Kedungdoro, Tegalsari, Surabaya, Jawa Timur, 60261, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UNAIR-KAMPUS-A",
-        "nearest_university_name": "Kampus A Universitas Airlangga",
-        "distance_meters": 1999.756609803852,
-        "distance_to_polygon_meters": 1821.02,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1999.8 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4187553284,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kedungdoro, Tegalsari, Surabaya",
-          "addr:housenumber": "No.8-13",
-          "addr:postcode": "60261",
-          "addr:street": "Jl. Basuki Rahmat",
-          "amenity": "restaurant",
-          "name": "A Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-15T16:16:29Z",
-        "query_used": "cafe Tegalsari Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.744151,
-          -7.2797792
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4191265215",
-        "name": "Shizuka Pet Shop",
-        "address": "Shizuka Pet Shop, No. 29, Jalan Sunda, RW 03, Keputran, Tegalsari, Surabaya, Jawa Timur, 60265, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-DINOYO",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
-        "distance_meters": 204.62817738505046,
-        "distance_to_polygon_meters": 130.4,
+        "nearest_university_id": "UNAIR-KAMPUS-C",
+        "nearest_university_name": "Kampus C Universitas Airlangga",
+        "distance_meters": 244.78156681244738,
+        "distance_to_polygon_meters": 0.0,
         "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
         "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
         },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4191265215,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Keputran, Tegalsari, Surabaya, East Java",
-          "addr:housenumber": "No. 29",
-          "addr:postcode": "60265",
-          "addr:street": "Jl. Dinoyo",
-          "name": "Shizuka Pet Shop",
-          "shop": "pet"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-17T08:04:35Z",
-        "query_used": "shop Dinoyo Surabaya",
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2671000,112.7839000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling tanah terbuka permukaan datar berumput di samping ruko, berjarak ~245m barat daya Kampus C Unair.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
         "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
@@ -1154,46 +392,194 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7735091,
-          -7.2636423
+          112.7885,
+          -7.2642
         ]
       },
       "properties": {
-        "id": "OSM-NODE-7137828085",
-        "name": "Warkop Pojok Kalijudan",
-        "address": "Warkop Pojok Kalijudan, Jalan Kalijudan, RW 05, Pacar Kembang, Tambaksari, Surabaya, Jawa Timur, 60114, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
+        "id": "SURV-UNAIR-C-02",
+        "name": "Kios Komersial Disewakan Jl. Raya Mulyosari",
+        "address": "Jl. Raya Mulyosari No. 15, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 150.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-C",
+        "nearest_university_name": "Kampus C Universitas Airlangga",
+        "distance_meters": 363.467758286399,
+        "distance_to_polygon_meters": 0.0,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2642000,112.7885000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai bekas outlet kuliner dengan rolling door terbuka, terpampang plang disewakan. Berjarak ~360m timur laut Kampus C Unair.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.74415,
+          -7.2825
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-01",
+        "name": "Bangunan Ruko Siap Sewa Koridor Dinoyo",
+        "address": "Jl. Dinoyo No. 62, Keputran, Kec. Tegalsari, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 130.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 139.32920933612317,
+        "distance_to_polygon_meters": 62.87,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2825000,112.7441500",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai eks-apotek berjarak ~140m selatan gerbang UKWMS Kampus Dinoyo. Lokasi sangat strategis untuk coffee shop mahasiswa.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7462,
+          -7.2808
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-02",
+        "name": "Kavling Kosong Hook Jl. Keputran",
+        "address": "Jl. Keputran No. 88, Keputran, Kec. Tegalsari, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 110.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 163.23597449381987,
+        "distance_to_polygon_meters": 112.35,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2808000,112.7462000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan kosong posisi hook berpagar bambu, berjarak ~165m timur laut Kampus Dinoyo UKWMS. Area padat indekos mahasiswa.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7724,
+          -7.2612
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-KAL-01",
+        "name": "Lahan Usaha Siap Sewa Jl. Kalijudan",
+        "address": "Jl. Kalijudan No. 52, Kalijudan, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 125.0,
         "rental_price_yr": null,
         "nearest_university_id": "UKWMS-KALIJUDAN",
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
-        "distance_meters": 413.3622518520124,
-        "distance_to_polygon_meters": 315.75,
+        "distance_meters": 161.69966544165203,
+        "distance_to_polygon_meters": 91.0,
         "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
         "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
         },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 7137828085,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:street": "Jalan Kalijudan",
-          "amenity": "cafe",
-          "cuisine": "friture;coffee_shop",
-          "name": "Warkop Pojok Kalijudan",
-          "opening_hours": "Mo-Su 05:00-21:00"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2026-03-17T06:46:03Z",
-        "query_used": "cafe Kalijudan Surabaya",
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2612000,112.7724000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan bersemen siap pasang container/booth kafe, terdapat papan 'Disewakan Lahan Usaha'. Berjarak ~160m selatan UKWMS Kalijudan.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
         "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
@@ -1202,407 +588,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.7465567,
-          -7.2907982
+          112.7745,
+          -7.2588
         ]
       },
       "properties": {
-        "id": "OSM-NODE-4260149093",
-        "name": "One Dollar Cafe",
-        "address": "One Dollar Cafe, 6, Jalan Bung Tomo, RW 01, Ngagel, Wonokromo, Surabaya, Jawa Timur, 60246, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-DINOYO",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
-        "distance_meters": 1047.2464684278796,
-        "distance_to_polygon_meters": 984.43,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1047.2 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4260149093,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Surabaya",
-          "addr:housenumber": "6",
-          "addr:postcode": "60246",
-          "addr:street": "Jalan Bung Tomo",
-          "amenity": "cafe",
-          "name": "One Dollar Cafe"
-        },
-        "osm_version": 2,
-        "osm_timestamp": "2016-06-23T09:45:48Z",
-        "query_used": "cafe Ngagel Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.746638,
-          -7.2773927
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4267809700",
-        "name": "Shae Cafe and Eatery",
-        "address": "Shae Cafe and Eatery, 5, Jalan Bawean, RW 04, Ngagel, Wonokromo, Surabaya, Jawa Timur, 60246, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-DINOYO",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
-        "distance_meters": 491.4109282945117,
-        "distance_to_polygon_meters": 436.49,
-        "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4267809700,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Surabaya",
-          "addr:housenumber": "5",
-          "addr:postcode": "60246",
-          "addr:street": "Jalan Bawean",
-          "amenity": "cafe",
-          "name": "Shae Cafe and Eatery"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-06-27T09:35:46Z",
-        "query_used": "cafe Ngagel Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7461441,
-          -7.2944924
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4192787118",
-        "name": "STMJ Bu Nunuk Pojok Ngagel",
-        "address": "STMJ Bu Nunuk Pojok Ngagel, Jalan Ngagel Rejo Utara VI, RW 01, Ngagelrejo, Wonokromo, Surabaya, Jawa Timur, 60245, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-DINOYO",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
-        "distance_meters": 1446.1356613739756,
-        "distance_to_polygon_meters": 1382.27,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1446.1 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4192787118,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Ngagelrejo, Wonokromo, Surabaya",
-          "addr:postcode": "60245",
-          "addr:street": "Jl. Ngagel Redjo",
-          "amenity": "cafe",
-          "name": "STMJ Bu Nunuk Pojok Ngagel"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-18T04:25:22Z",
-        "query_used": "cafe Ngagel Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7495072,
-          -7.2923125
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4260144465",
-        "name": "GR Café (Gue Rasa ini Café)",
-        "address": "GR Café (Gue Rasa ini Café), 30, Jalan Bung Tomo, RW 10, Ngagelrejo, Wonokromo, Surabaya, Jawa Timur, 60245, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UKWMS-DINOYO",
-        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
-        "distance_meters": 1302.470289353076,
-        "distance_to_polygon_meters": 1242.81,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1302.5 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4260144465,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Surabaya",
-          "addr:housenumber": "30",
-          "addr:postcode": "60245",
-          "addr:street": "Jalan Bung Tomo",
-          "amenity": "cafe",
-          "name": "GR Café (Gue Rasa ini Café)"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-06-23T09:40:33Z",
-        "query_used": "cafe Ngagel Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7665288,
-          -7.3129609
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-6422282317",
-        "name": "X Gate Cafe",
-        "address": "X Gate Cafe, Jalan Panjangjiwo Permai Selatan, Panjang Jiwo Permai, RW 05, Panjang Jiwo, Tenggilis Mejoyo, Surabaya, Jawa Timur, 60299, Indonesia",
-        "status": "Lahan yang statusnya belum terverifikasi",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UBAYA-TENGGILIS",
-        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
-        "distance_meters": 835.1658017223418,
-        "distance_to_polygon_meters": 537.56,
-        "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 6422282317,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Kota Surabaya, East Java, Indonesia",
-          "addr:postcode": "60299",
-          "addr:street": "Jalan Panjangjiwo Permai Selatan",
-          "leisure": "amusement_arcade",
-          "name": "X Gate Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2019-04-23T03:36:24Z",
-        "query_used": "cafe Tenggilis Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7463631,
-          -7.3219722
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4193096146",
-        "name": "Feliz Guest House & Cafe",
-        "address": "Feliz Guest House & Cafe, No.80, Jalan Raya Kendangsari, RW 07, Jemur Wonosari, Wonocolo, Surabaya, Jawa Timur, 60237, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UBAYA-TENGGILIS",
-        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
-        "distance_meters": 2378.967940700603,
-        "distance_to_polygon_meters": 2266.42,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (2379.0 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4193096146,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "emur Wonosari, Rungkut, Surabaya",
-          "addr:housenumber": "No.80",
-          "addr:postcode": "60237",
-          "addr:street": "Jl. Raya Kendangsari",
-          "amenity": "cafe",
-          "name": "Feliz Guest House & Cafe"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-18T08:17:58Z",
-        "query_used": "cafe Tenggilis Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7388901,
-          -7.337004
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4188777124",
-        "name": "High Point Cafe Speciality",
-        "address": "High Point Cafe Speciality, Nomor 161-165, Jalan Siwalankerto, RW 05, SiwalanKerto, Wonocolo, Surabaya, Jawa Timur, 60236, Indonesia",
-        "status": "Bangunan yang telah digunakan untuk fungsi lain",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UBAYA-TENGGILIS",
-        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
-        "distance_meters": 3687.7231468375426,
-        "distance_to_polygon_meters": 3469.62,
-        "is_in_buffer": false,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (3687.7 m > 1.000 m).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4188777124,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "East Java, Surabaya",
-          "addr:housenumber": "Nomor 161-165",
-          "addr:postcode": "60236",
-          "addr:street": "Jalan Siwalankerto",
-          "amenity": "cafe",
-          "name": "High Point Cafe Speciality"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2016-05-16T05:18:30Z",
-        "query_used": "cafe Tenggilis Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.760198,
-          -7.3193996
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-9821338600",
-        "name": "Bali House Spa",
-        "address": "Bali House Spa, Jalan Tenggilis Permai, RW 03, Tenggilis Mejoyo, Surabaya, Jawa Timur, 60292, Indonesia",
-        "status": "Lahan yang statusnya belum terverifikasi",
-        "area_sqm": null,
-        "rental_price_yr": null,
-        "nearest_university_id": "UBAYA-TENGGILIS",
-        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
-        "distance_meters": 852.0175026276869,
-        "distance_to_polygon_meters": 781.53,
-        "is_in_buffer": true,
-        "is_eligible": false,
-        "is_rentable_or_sale": false,
-        "is_clickable_for_planning": false,
-        "planning_eligibility_status": "Tidak dapat dipilih",
-        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
-        "status_classification": {
-          "category": "non_rentable_or_sale",
-          "planning_permission": "disabled_not_selectable",
-          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
-        },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 9821338600,
-        "osm_type": "node",
-        "osm_tags": {
-          "leisure": "spa",
-          "name": "Bali House Spa"
-        },
-        "osm_version": 1,
-        "osm_timestamp": "2022-06-16T01:40:48Z",
-        "query_used": "house Tenggilis Surabaya",
-        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          112.7657075,
-          -7.3220745
-        ]
-      },
-      "properties": {
-        "id": "OSM-NODE-4191140696",
-        "name": "Lestari Board House",
-        "address": "Lestari Board House, Jalan Tenggilis Mejoyo, RW 01, Kali Rungkut, Rungkut, Surabaya, Jawa Timur, 60293, Indonesia",
+        "id": "SURV-UKWMS-KAL-02",
+        "name": "Rumah Tinggal Jl. Ploso Baru",
+        "address": "Jl. Ploso Baru No. 19, Ploso, Kec. Tambaksari, Surabaya",
         "status": "Rumah atau bangunan tempat tinggal",
-        "area_sqm": null,
+        "area_sqm": 150.0,
         "rental_price_yr": null,
-        "nearest_university_id": "UBAYA-TENGGILIS",
-        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
-        "distance_meters": 300.61752535775935,
-        "distance_to_polygon_meters": 137.84,
+        "nearest_university_id": "UKWMS-KALIJUDAN",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "distance_meters": 197.01660145124296,
+        "distance_to_polygon_meters": 153.86,
         "is_in_buffer": true,
         "is_eligible": false,
         "is_rentable_or_sale": false,
@@ -1614,20 +614,1883 @@
           "planning_permission": "disabled_not_selectable",
           "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
         },
-        "data_kind": "osm_factual_open_data",
-        "source": "OpenStreetMap contributors (ODbL 1.0)",
-        "osm_id": 4191140696,
-        "osm_type": "node",
-        "osm_tags": {
-          "addr:city": "Tenggilis Mejoyo Ak6, Surabaya, Jawa Timur, Indonesia.",
-          "addr:postcode": "60293",
-          "addr:street": "Jalan Tenggilis Mejoyo",
-          "building": "residential",
-          "name": "Lestari Board House"
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2588000,112.7745000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Rumah hunian keluarga bertingkat dua dengan garasi pribadi. Bukan peruntukan usaha komersial.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8105,
+          -7.2718
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-PAK-01",
+        "name": "Ruko Komersial San Antonio N1-12",
+        "address": "Ruko San Antonio Shopping Street N1-12, Pakuwon City, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 135.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-PAKUWON",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "distance_meters": 193.45129128824937,
+        "distance_to_polygon_meters": 47.44,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
         },
-        "osm_version": 2,
-        "osm_timestamp": "2016-12-30T03:47:13Z",
-        "query_used": "house Tenggilis Surabaya",
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2718000,112.8105000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 3 lantai modern berjarak ~195m barat daya UKWMS Pakuwon City. Unit kosong dengan stiker penawaran sewa di kaca depan.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8128,
+          -7.2695
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-PAK-02",
+        "name": "Pekarangan Tertutup Kejawan Putih",
+        "address": "Jl. Kejawan Putih Tambak No. 25, Kejawan Putih Tambak, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang statusnya belum terverifikasi",
+        "area_sqm": 250.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-PAKUWON",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "distance_meters": 166.06351992505316,
+        "distance_to_polygon_meters": 4.65,
+        "is_in_buffer": true,
+        "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2695000,112.8128000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Pekarangan tertutup pagar seng tanpa identitas pemilik atau plang penawaran sewa. Status ketersediaan belum dapat dipastikan.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7602,
+          -7.2924
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-01",
+        "name": "Kavling Usaha Siap Pakai Jl. Ngagel Jaya Selatan",
+        "address": "Jl. Ngagel Jaya Selatan No. 142, Baratajaya, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 160.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-NGAGEL",
+        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
+        "distance_meters": 147.74779267650902,
+        "distance_to_polygon_meters": 87.41,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2924000,112.7602000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling komersial bekas showroom berjarak ~150m barat laut Ubaya Kampus Ngagel. Terdapat plang 'SEWA / KONTRAK'.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7628,
+          -7.2945
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-02",
+        "name": "Pusat Percetakan & Fotokopi Ngagel Madya",
+        "address": "Jl. Ngagel Madya No. 21, Baratajaya, Kec. Gubeng, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "area_sqm": 120.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-NGAGEL",
+        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
+        "distance_meters": 223.18891914725418,
+        "distance_to_polygon_meters": 158.68,
+        "is_in_buffer": true,
+        "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.2945000,112.7628000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan aktif beroperasi sebagai usaha percetakan digital dan penjilidan. Tidak tersedia untuk sewa kafe.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7689,
+          -7.3192
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-01",
+        "name": "Tanah Kosong Komersial Jl. Raya Tenggilis Mejoyo",
+        "address": "Jl. Raya Tenggilis Mejoyo No. 34, Kali Rungkut, Kec. Rungkut, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 180.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-TENGGILIS",
+        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
+        "distance_meters": 175.99800084874593,
+        "distance_to_polygon_meters": 11.13,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3192000,112.7689000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Tanah kosong rata berdampingan dengan minimarket, berjarak ~175m utara Ubaya Kampus Tenggilis. Sangat strategis untuk kafe mahasiswa.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7665,
+          -7.3218
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-02",
+        "name": "Rumah Hunian Keluarga Jl. Raya Kendangsari",
+        "address": "Jl. Raya Kendangsari No. 58, Kendangsari, Kec. Tenggilis Mejoyo, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "area_sqm": 200.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-TENGGILIS",
+        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
+        "distance_meters": 215.15792818800128,
+        "distance_to_polygon_meters": 56.36,
+        "is_in_buffer": true,
+        "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/search/?api=1&query=-7.3218000,112.7665000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Rumah tinggal keluarga di lingkungan permukiman Kendangsari. Bukan ruang komersial.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.73,
+          -7.25
+        ]
+      },
+      "properties": {
+        "id": "SURV-OUT-01",
+        "name": "Lahan Kosong Eks-Pusat Kota Tunjungan",
+        "address": "Jl. Tunjungan No. 10, Genteng, Kec. Genteng, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 300.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-A",
+        "nearest_university_name": "Kampus A Universitas Airlangga",
+        "distance_meters": 3546.913273858611,
+        "distance_to_polygon_meters": 3362.78,
+        "is_in_buffer": false,
+        "is_eligible": false,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (3546.9 m > 1.000 m).",
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2500000,112.7300000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Titik observasi pusat kota berjarak ~3,5 km dari Unair A (di luar buffer 1 km). Titik kontrol out-of-buffer.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.83,
+          -7.29
+        ]
+      },
+      "properties": {
+        "id": "SURV-OUT-02",
+        "name": "Kavling Komersial Luar Radius Keputih",
+        "address": "Jl. Raya Keputih Sukolilo No. 99, Keputih, Kec. Sukolilo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 175.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-PAKUWON",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "distance_meters": 2949.800414653382,
+        "distance_to_polygon_meters": 2834.62,
+        "is_in_buffer": false,
+        "is_eligible": false,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (2949.8 m > 1.000 m).",
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2900000,112.8300000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling sewa berjarak ~2,9 km dari UKWMS Pakuwon City (di luar buffer 1 km). Titik kontrol out-of-buffer.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7595,
+          -7.2628
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-A-04",
+        "name": "Ruko 2 Lantai Jl. Dharmahusada Indah",
+        "address": "Jl. Dharmahusada No. 42, Mojo, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 145.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-A",
+        "nearest_university_name": "Kampus A Universitas Airlangga",
+        "distance_meters": 235.7003696148967,
+        "distance_to_polygon_meters": 122.68,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2628000,112.7595000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai bekas kantor jasa, terpasang spanduk agen sewa. Dekat RS Husada Utama dan Unair Kampus A (~235m).",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7562,
+          -7.2658
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-A-05",
+        "name": "Kavling Komersial Jl. Pacar Keling",
+        "address": "Jl. Pacar Keling No. 19, Pacar Keling, Kec. Tambaksari, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 170.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-A",
+        "nearest_university_name": "Kampus A Universitas Airlangga",
+        "distance_meters": 285.5889771594186,
+        "distance_to_polygon_meters": 81.09,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2658000,112.7562000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling kosong berpagar kawat, berjarak ~285m barat Kampus A Unair. Cocok untuk kafe konsep semi-outdoor/taman.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7558,
+          -7.2748
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-B-04",
+        "name": "Ruko Komersial Sentra Kertajaya",
+        "address": "Jl. Kertajaya No. 64, Kertajaya, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 180.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-B",
+        "nearest_university_name": "Kampus B Universitas Airlangga",
+        "distance_meters": 409.2155036777944,
+        "distance_to_polygon_meters": 127.42,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2748000,112.7558000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 3 lantai nol jalan raya Kertajaya, parkir mobil leluasa, berjarak ~410m barat daya Kampus B Unair.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7608,
+          -7.2735
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-B-05",
+        "name": "Kios Usaha Pucang Anom",
+        "address": "Jl. Pucang Anom Timur No. 15, Kertajaya, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 85.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-B",
+        "nearest_university_name": "Kampus B Universitas Airlangga",
+        "distance_meters": 285.08618346511685,
+        "distance_to_polygon_meters": 29.12,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2735000,112.7608000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kios usaha 1 lantai dengan kanopi teras depan, berjarak ~285m tenggara Kampus B Unair. Padat mahasiswa kost.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7845,
+          -7.2688
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-C-03",
+        "name": "Ruko Koridor MERR Dr. Ir. H. Soekarno",
+        "address": "Jl. Dr. Ir. H. Soekarno No. 62, Mulyorejo, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 165.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-C",
+        "nearest_university_name": "Kampus C Universitas Airlangga",
+        "distance_meters": 320.77943469363953,
+        "distance_to_polygon_meters": 0.0,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2688000,112.7845000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 3 lantai tampak modern di jalur arteri MERR Surabaya Timur, berjarak ~320m barat daya gerbang Kampus C Unair.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7872,
+          -7.2635
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-C-04",
+        "name": "Kavling Komersial Sutorejo Prima",
+        "address": "Jl. Sutorejo Prima Utara No. 8, Dukuh Sutorejo, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 190.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-C",
+        "nearest_university_name": "Kampus C Universitas Airlangga",
+        "distance_meters": 337.94223013824563,
+        "distance_to_polygon_meters": 0.0,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2635000,112.7872000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan kosong datar siap pondasi, berjarak ~340m utara Kampus C Unair. Akses mudah dari perumahan Sutorejo.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7432,
+          -7.2805
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-03",
+        "name": "Ruko Pandegiling Nol Jalan",
+        "address": "Jl. Pandegiling No. 145, Tegalsari, Kec. Tegalsari, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 120.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 215.35869201459016,
+        "distance_to_polygon_meters": 133.62,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2805000,112.7432000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai bekas apotek di persimpangan jalan, berjarak ~215m barat laut UKWMS Kampus Dinoyo.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7468,
+          -7.2828
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-04",
+        "name": "Ruang Komersial Eks-Kafe Jl. Sulawesi",
+        "address": "Jl. Sulawesi No. 34, Ngagel, Kec. Wonokromo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 155.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 256.9930904642562,
+        "distance_to_polygon_meters": 177.87,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2828000,112.7468000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan komersial bernuansa vintage dengan instalasi bar eks-coffee shop, berjarak ~255m tenggara UKWMS Dinoyo.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7715,
+          -7.2585
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-KAL-03",
+        "name": "Ruko Komersial Kenjeran Barat",
+        "address": "Jl. Kenjeran No. 248, Rangkah, Kec. Tambaksari, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 135.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-KALIJUDAN",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "distance_meters": 238.22959827006017,
+        "distance_to_polygon_meters": 111.55,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2585000,112.7715000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai jalan protokol Kenjeran, berjarak ~240m barat laut UKWMS Kalijudan. Lalu lintas padat sepanjang hari.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7742,
+          -7.2625
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-KAL-04",
+        "name": "Kavling Tanah Tepi Jalan Bronggalan",
+        "address": "Jl. Bronggalan No. 36, Pacar Kembang, Kec. Tambaksari, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 175.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-KALIJUDAN",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "distance_meters": 308.8430858178122,
+        "distance_to_polygon_meters": 199.13,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2625000,112.7742000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan terbuka berpagar seng, berjarak ~310m tenggara UKWMS Kalijudan. Dekat pusat jajanan mahasiswa.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8092,
+          -7.2708
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-PAK-03",
+        "name": "Ruko Bizhome Pakuwon City",
+        "address": "Ruko Bizhome Blok RL No. 18, Pakuwon City, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 120.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-PAKUWON",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "distance_meters": 280.23261095025634,
+        "distance_to_polygon_meters": 106.72,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2708000,112.8092000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai modern luas tanah 80 m², berjarak ~280m barat gerbang UKWMS Kampus Pakuwon City.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8135,
+          -7.2725
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-PAK-04",
+        "name": "Ruko San Diego Main Street",
+        "address": "Ruko San Diego Main Street MR-1 No. 05, Pakuwon City, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 150.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-PAKUWON",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "distance_meters": 291.46860691672924,
+        "distance_to_polygon_meters": 202.28,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2725000,112.8135000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Unit ruko premium 3 lantai menghadap danau buatan, berjarak ~290m tenggara UKWMS Pakuwon City.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7592,
+          -7.2918
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-03",
+        "name": "Ruko Kompleks Pertokoan RMI",
+        "address": "Kompleks Pertokoan RMI Blok C-12, Jl. Ngagel Jaya Selatan, Baratajaya, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 210.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-NGAGEL",
+        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
+        "distance_meters": 276.5655447518035,
+        "distance_to_polygon_meters": 215.91,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2918000,112.7592000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 3,5 lantai di pusat niaga RMI Ngagel Jaya Selatan, berjarak ~275m barat laut Ubaya Kampus Ngagel.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7635,
+          -7.2915
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-04",
+        "name": "Kavling Usaha Manyar Kertoarjo",
+        "address": "Jl. Manyar Kertoarjo V No. 11, Mojo, Kec. Gubeng, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 165.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-NGAGEL",
+        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
+        "distance_meters": 298.8591633478869,
+        "distance_to_polygon_meters": 225.87,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2915000,112.7635000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling tanah datar komersial di koridor Manyar Kertoarjo, berjarak ~300m timur laut Ubaya Ngagel.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7661,
+          -7.3188
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-03",
+        "name": "Ruko Kendangsari Industri Siap Usaha",
+        "address": "Jl. Raya Kendangsari Industri No. 22, Kendangsari, Kec. Tenggilis Mejoyo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 144.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-TENGGILIS",
+        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
+        "distance_meters": 261.6550393198686,
+        "distance_to_polygon_meters": 139.57,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3188000,112.7661000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 3 lantai dimensi 4,5x16m, berjarak ~260m barat laut Ubaya Kampus Tenggilis. Dekat jalan tembus SIER.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7702,
+          -7.3215
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-04",
+        "name": "Ruang Komersial Raya Kalirungkut",
+        "address": "Jl. Raya Kalirungkut No. 56, Kali Rungkut, Kec. Rungkut, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 130.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-TENGGILIS",
+        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
+        "distance_meters": 286.89282713618036,
+        "distance_to_polygon_meters": 174.4,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3215000,112.7702000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai jalan protokol Kalirungkut, berjarak ~285m tenggara Ubaya Kampus Tenggilis. Dekat sentra kuliner malam.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7585,
+          -7.2655
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-A-06",
+        "name": "Lahan Parkir Terbuka Jl. Tambak Segaran",
+        "address": "Jl. Tambak Segaran No. 8, Tambaksari, Kec. Tambaksari, Surabaya",
+        "status": "Lahan yang statusnya belum terverifikasi",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-A",
+        "nearest_university_name": "Kampus A Universitas Airlangga",
+        "distance_meters": 88.14529259479576,
+        "distance_to_polygon_meters": 0.0,
+        "is_in_buffer": true,
+        "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2655000,112.7585000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Area parkir terbuka berpagar kawat di belakang deretan pertokoan, ~200m timur Kampus A Unair. Status kepemilikan dan ketersediaan sewa belum dikonfirmasi.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7582,
+          -7.2705
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-B-06",
+        "name": "Warung Tutup Permanen Jl. Airlangga Barat",
+        "address": "Jl. Airlangga No. 4A, Airlangga, Kec. Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 80.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-B",
+        "nearest_university_name": "Kampus B Universitas Airlangga",
+        "distance_meters": 200.99711417507427,
+        "distance_to_polygon_meters": 19.92,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2705000,112.7582000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan warung makan yang sudah tidak beroperasi, rolling door tertutup, ada tulisan \"Disewakan\" di papan depan. Berjarak ~150m barat daya gerbang Kampus B Unair.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7865,
+          -7.2652
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-C-05",
+        "name": "Tanah Pekarangan Kosong Jl. Ir. Soekarno (MERR)",
+        "address": "Jl. Dr. Ir. H. Soekarno No. 88, Mulyorejo, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 250.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-C",
+        "nearest_university_name": "Kampus C Universitas Airlangga",
+        "distance_meters": 134.81211274005705,
+        "distance_to_polygon_meters": 0.0,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2652000,112.7865000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Pekarangan tanah terbuka tanpa bangunan di samping ruko baru, tepi jalan MERR. Akses jalan lebar, cocok untuk usaha komersial.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7892,
+          -7.2618
+        ]
+      },
+      "properties": {
+        "id": "SURV-UNAIR-C-06",
+        "name": "Kios Perdagangan Non-Aktif Jl. Mulyosari Tengah",
+        "address": "Jl. Mulyosari Tengah No. 9, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "area_sqm": 100.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UNAIR-KAMPUS-C",
+        "nearest_university_name": "Kampus C Universitas Airlangga",
+        "distance_meters": 612.2723983557124,
+        "distance_to_polygon_meters": 10.82,
+        "is_in_buffer": true,
+        "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2618000,112.7892000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kios perdagangan 2 pintu yang terlihat tidak aktif, cat memudar, area depan bisa dijadikan teras kafe. Bekas toko material bangunan.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7455,
+          -7.2835
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-05",
+        "name": "Kios Siap Sewa Jl. Dinoyo Baru",
+        "address": "Jl. Dinoyo No. 76, Keputran, Kec. Tegalsari, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 65.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 233.73596477297588,
+        "distance_to_polygon_meters": 172.63,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2835000,112.7455000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kios komersial ground floor di deretan pertokoan Dinoyo, jendela kaca lebar, ada banner \"Disewakan\" terlihat dari Street View. ~250m selatan kampus UKWMS Dinoyo.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7438,
+          -7.2798
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-DIN-06",
+        "name": "Rumah Tinggal Konversi Jl. Sunda",
+        "address": "Jl. Sunda No. 18, Keputran, Kec. Tegalsari, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "area_sqm": 120.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 220.94130246594688,
+        "distance_to_polygon_meters": 144.04,
+        "is_in_buffer": true,
+        "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2798000,112.7438000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Rumah tinggal 2 lantai di area residensial dekat kampus UKWMS Dinoyo. Beberapa rumah di sekitarnya sudah dikonversi jadi tempat usaha.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7728,
+          -7.2575
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-KAL-05",
+        "name": "Gudang Non-Aktif Jl. Kalijudan Timur",
+        "address": "Jl. Kalijudan Timur No. 14, Kalijudan, Kec. Mulyorejo, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "area_sqm": 200.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-KALIJUDAN",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "distance_meters": 270.5275898113917,
+        "distance_to_polygon_meters": 175.43,
+        "is_in_buffer": true,
+        "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2575000,112.7728000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan gudang kecil yang terlihat tidak aktif, satu lantai, dekat perempatan Kalijudan. Berjarak ~350m utara UKWMS Kalijudan.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8118,
+          -7.2742
+        ]
+      },
+      "properties": {
+        "id": "SURV-UKWMS-PAK-05",
+        "name": "Ruko Gandeng Kosong La Porte Pakuwon",
+        "address": "Ruko La Porte Blok B No. 6, Pakuwon City, Kalisari, Kec. Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 90.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-PAKUWON",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "distance_meters": 403.8065698920297,
+        "distance_to_polygon_meters": 261.49,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2742000,112.8118000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko baru 2 lantai yang masih kosong, belum ada tenant, area mall La Porte. ~400m selatan kampus UKWMS Pakuwon City. Lingkungan komersial ramai.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7618,
+          -7.2952
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-05",
+        "name": "Lahan Kosong Siap Usaha Jl. Bratang Binangun",
+        "address": "Jl. Bratang Binangun No. 55, Baratajaya, Kec. Gubeng, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 130.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-NGAGEL",
+        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
+        "distance_meters": 236.37529181818417,
+        "distance_to_polygon_meters": 183.94,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2952000,112.7618000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Pekarangan kosong rata di jalan utama Bratang Binangun, ~250m selatan Ubaya Ngagel. Ada pagar sementara. Ukuran cukup untuk kafe kecil.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7585,
+          -7.2938
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-NGA-06",
+        "name": "Toko Kelontong Tutup Jl. Ngagel Dadi",
+        "address": "Jl. Ngagel Dadi No. 32, Ngagelrejo, Kec. Wonokromo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 75.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-NGAGEL",
+        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
+        "distance_meters": 321.59887280742834,
+        "distance_to_polygon_meters": 258.6,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2938000,112.7585000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-28",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Bangunan bekas toko kelontong yang sudah tutup, ada info kontak pemilik di pintu rolling door. Berjarak ~300m barat kampus Ubaya Ngagel.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7672,
+          -7.3175
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-05",
+        "name": "Tanah Kavling Kosong Jl. Tenggilis Utara",
+        "address": "Jl. Tenggilis Utara No. 20, Tenggilis Mejoyo, Kec. Tenggilis Mejoyo, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 180.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-TENGGILIS",
+        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
+        "distance_meters": 328.2370771341378,
+        "distance_to_polygon_meters": 34.34,
+        "is_in_buffer": true,
+        "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3175000,112.7672000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-29",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling tanah kosong berpagar kawat di area residensial Tenggilis Utara, ~350m utara Ubaya Tenggilis. Lahan rata, akses jalan lingkungan.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7695,
+          -7.3235
+        ]
+      },
+      "properties": {
+        "id": "SURV-UBAYA-TNG-06",
+        "name": "Ruko Lantai Dasar Tidak Aktif Kutisari Selatan",
+        "address": "Jl. Kutisari Selatan No. 45, Kutisari, Kec. Tenggilis Mejoyo, Surabaya",
+        "status": "Lahan yang statusnya belum terverifikasi",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-TENGGILIS",
+        "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
+        "distance_meters": 388.69510327351867,
+        "distance_to_polygon_meters": 130.96,
+        "is_in_buffer": true,
+        "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3235000,112.7695000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-30",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Ruko 2 lantai di mana lantai dasar terlihat tidak aktif (rolling door setengah terbuka, interior kosong). Lantai atas tampak dihuni. Status sewa belum terkonfirmasi.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7385,
+          -7.2925
+        ]
+      },
+      "properties": {
+        "id": "SURV-OUT-03",
+        "name": "Kavling Komersial Wonokromo Plaza",
+        "address": "Jl. Raya Wonokromo No. 125, Wonokromo, Kec. Wonokromo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 200.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UKWMS-DINOYO",
+        "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "distance_meters": 1408.4173884572185,
+        "distance_to_polygon_meters": 1327.75,
+        "is_in_buffer": false,
+        "is_eligible": false,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1408.4 m > 1.000 m).",
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "google_maps",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.2925000,112.7385000",
+        "evidence_photo": null,
+        "observed_at": "2026-10-31",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Kavling usaha komersial di area Wonokromo, jauh dari semua kampus (>1km). Data kontrol negatif untuk validasi buffer pipeline.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7515,
+          -7.3085
+        ]
+      },
+      "properties": {
+        "id": "SURV-OUT-04",
+        "name": "Tanah Kosong Tepi Rel Jl. Margorejo",
+        "address": "Jl. Margorejo Indah No. 38, Margorejo, Kec. Wonocolo, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 300.0,
+        "rental_price_yr": null,
+        "nearest_university_id": "UBAYA-NGAGEL",
+        "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
+        "distance_meters": 2018.3672081445216,
+        "distance_to_polygon_meters": 1948.33,
+        "is_in_buffer": false,
+        "is_eligible": false,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (2018.4 m > 1.000 m).",
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
+        "data_kind": "survey_google_maps",
+        "source": "Google Street View & Google Maps (Survei Tim)",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=-7.3085000,112.7515000",
+        "evidence_photo": null,
+        "observed_at": "2026-11-01",
+        "surveyed_by": "Tim Mahasiswa Comgraph AFL-2 (Dharma & Jose)",
+        "notes": "Lahan kosong berpagar di tepi rel kereta wilayah Margorejo, jauh dari radius kampus manapun. Data kontrol negatif untuk validasi spasial.",
+        "price_source_url": null,
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
         "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     }
