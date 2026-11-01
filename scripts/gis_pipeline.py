@@ -969,8 +969,8 @@ class GISPipeline:
             else:
                 rental_price_yr = None
 
-            data_kind = props.get("data_kind", "osm_factual_open_data")
-            source = props.get("source", "OpenStreetMap contributors (ODbL 1.0)")
+            data_kind = props.get("data_kind", "survey_google_maps" if is_survey_dataset else "osm_factual_open_data")
+            source = props.get("source", "Google Street View & Google Maps (Survei Tim)" if is_survey_dataset else "OpenStreetMap contributors (ODbL 1.0)")
 
             coords = geom.get("coordinates", [])
             if len(coords) < 2:
@@ -1073,6 +1073,13 @@ class GISPipeline:
                     "status_classification": status_class_info,
                     "data_kind": data_kind,
                     "source": source,
+                    "survey_method": props.get("survey_method"),
+                    "evidence_url": props.get("evidence_url"),
+                    "evidence_photo": props.get("evidence_photo"),
+                    "observed_at": props.get("observed_at"),
+                    "surveyed_by": props.get("surveyed_by"),
+                    "notes": props.get("notes"),
+                    "price_source_url": props.get("price_source_url"),
                     "osm_id": props.get("osm_id"),
                     "osm_type": props.get("osm_type"),
                     "osm_tags": osm_tags if osm_tags else props.get("osm_tags"),
@@ -1171,12 +1178,24 @@ class GISPipeline:
 
         # 7. Export Processed Land Candidates
         candidates_out_path = os.path.join(output_dir, "land_candidates.geojson")
+        defensible_basis = (
+            "Empirical Field Survey via Google Street View & Google Maps (Observasi Tim Mahasiswa)"
+            if is_survey_dataset
+            else "OpenStreetMap Tag Standards for building & landuse"
+        )
+        honest_fallback = (
+            "Unobserved lots default to 'Lahan yang statusnya belum terverifikasi'"
+            if is_survey_dataset
+            else "Lots without confirmed commercial lease agreements default to 'Lahan yang statusnya belum terverifikasi' (non-clickable)"
+        )
         exported_candidates = {
             "type": "FeatureCollection",
             "metadata": {
                 "title": "Kandidat Lahan Terklasifikasi & Terevaluasi Spasial",
                 "total_features": len(processed_candidates),
                 "crs": "EPSG:4326",
+                "dataset_kind": "survey_field_observation" if is_survey_dataset else "osm_factual_open_data",
+                "is_survey_dataset": is_survey_dataset,
                 "evaluation_rules": {
                     "buffer_threshold_meters": 1000.0,
                     "eligible_statuses": list(ELIGIBLE_STATUSES),
@@ -1184,8 +1203,8 @@ class GISPipeline:
                     "non_rentable_or_sale_statuses": list(NON_RENTABLE_OR_SALE_STATUSES)
                 },
                 "open_data_policy": {
-                    "defensible_basis": "OpenStreetMap Tag Standards for building & landuse",
-                    "honest_fallback": "Lots without confirmed commercial lease agreements default to 'Lahan yang statusnya belum terverifikasi' (non-clickable)"
+                    "defensible_basis": defensible_basis,
+                    "honest_fallback": honest_fallback
                 },
                 "summary": stats
             },
@@ -1351,7 +1370,19 @@ class GISPipeline:
 def main():
     parser = argparse.ArgumentParser(description="GIS Processing Pipeline - Proyek Buka Kafe Surabaya")
     parser.add_argument("--universities", default="data/raw/universities.geojson", help="Path file input universities.geojson")
-    parser.add_argument("--candidates", default="data/raw/land_candidates.geojson", help="Path file input land_candidates.geojson")
+
+    default_candidates = "data/raw/land_candidates.geojson"
+    survey_path = "data/raw/survey_land_candidates.geojson"
+    if os.path.exists(survey_path):
+        try:
+            with open(survey_path, "r", encoding="utf-8") as f:
+                s_data = json.load(f)
+                if len(s_data.get("features", [])) > 0:
+                    default_candidates = survey_path
+        except Exception:
+            pass
+
+    parser.add_argument("--candidates", default=default_candidates, help="Path file input land_candidates.geojson")
     parser.add_argument("--output", default="data/processed", help="Direktori output GeoJSON")
 
     args = parser.parse_args()

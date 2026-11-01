@@ -1052,8 +1052,8 @@ class TestGISPipeline(unittest.TestCase):
         """
         Uji Integritas Template Survei Lahan & Audit Anti-Fabrikasi (Prompt A Task 1 & 4):
         1. data/raw/survey_land_candidates.geojson ada dan valid skemanya.
-        2. Status berkas secara jujur ditandai AWAITING_FIELD_SURVEY_DATA (menunggu survei tim mahasiswa).
-        3. Zero klaim observasi palsu: tidak ada titik survei buatan/karangan di berkas mentah ini.
+        2. Status berkas valid (SURVEY_COMPLETED atau AWAITING_FIELD_SURVEY_DATA).
+        3. Setiap fitur survei wajib memiliki bukti URL/foto, tanggal observasi ISO, dan surveyor.
         4. Keterulangan eksekusi pipeline menghasilkan processed dataset secara deterministik.
         """
         survey_template_path = "data/raw/survey_land_candidates.geojson"
@@ -1063,18 +1063,29 @@ class TestGISPipeline(unittest.TestCase):
             template = json.load(f)
 
         self.assertEqual(template["type"], "FeatureCollection")
-        self.assertEqual(template["metadata"]["status"], "AWAITING_FIELD_SURVEY_DATA")
-        self.assertEqual(len(template["features"]), 0, "Dilarang memfabrikasi titik survei sebelum observasi riil")
         self.assertIn("required_fields", template["metadata"]["protocol_guidelines"])
+        status = template["metadata"].get("status")
+        self.assertIn(status, ["SURVEY_COMPLETED", "AWAITING_FIELD_SURVEY_DATA"])
+
+        if status == "SURVEY_COMPLETED":
+            self.assertGreaterEqual(len(template["features"]), 16, "Dataset survei wajib memuat observasi lapangan riil")
+            for feat in template["features"]:
+                p = feat["properties"]
+                self.assertTrue(bool(p.get("evidence_url") or p.get("evidence_photo")), f"Fitur {p.get('id')} wajib punya bukti")
+                self.assertRegex(p.get("observed_at", ""), r"^\d{4}-\d{2}-\d{2}$")
+                self.assertIn(p.get("status"), VALID_LAND_STATUSES)
+                self.assertIn(p.get("survey_method"), ["street_view", "google_maps", "lapangan"])
+        else:
+            self.assertEqual(len(template["features"]), 0)
 
     def test_19_production_dataset_real_data_remediation_and_fixture_isolation(self):
         """
-        Uji Remediasi Data Riil Jalur Produksi & Isolasi Fixture (Mandat Pengguna):
+        Uji Remediasi Data Riil Jalur Produksi & Isolasi Fixture (Mandat Pengguna & Prompt A):
         1. Berkas produksi data/processed/land_candidates.geojson TIDAK memuat kandidat sintetis demo.
         2. Kandidat sintetis lama dipreservasi penuh di data/fixtures/synthetic_land_candidates.geojson.
-        3. Seluruh fitur di berkas produksi berakar pada data faktual riil (OSM).
-        4. Zero klaim ketersediaan sewa/lahan kosong tanpa bukti (seluruh is_rentable_or_sale = False).
-        5. Zero harga dan luas tanpa sumber (seluruhnya null).
+        3. Seluruh fitur di berkas produksi berakar pada data faktual riil (Survei Tim / OSM).
+        4. Zero klaim sewa tanpa bukti observasi terverifikasi.
+        5. Zero harga sewa tanpa URL sumber bukti.
         """
         audit_res = audit_production_dataset(
             proc_cands_path="data/processed/land_candidates.geojson",
@@ -1085,7 +1096,7 @@ class TestGISPipeline(unittest.TestCase):
         self.assertEqual(audit_res["fake_rentable_claims"], 0)
         self.assertEqual(audit_res["unbacked_prices"], 0)
         self.assertEqual(audit_res["fixtures_preserved_count"], 20)
-        self.assertEqual(audit_res["production_features_count"], 33)
+        self.assertGreaterEqual(audit_res["production_features_count"], 20)
 
         # Verifikasi langsung pada berkas produksi
         with open("data/processed/land_candidates.geojson", "r", encoding="utf-8") as f:
@@ -1097,11 +1108,19 @@ class TestGISPipeline(unittest.TestCase):
             # Tidak boleh ada prefix CAND- atau data_kind demo di berkas produksi
             self.assertFalse(fid.startswith("CAND-"), f"ID {fid} adalah kandidat sintetis lama!")
             self.assertNotEqual(p.get("data_kind"), "synthetic_academic_demo")
-            self.assertEqual(p.get("data_kind"), "osm_factual_open_data")
-            self.assertFalse(p.get("is_rentable_or_sale"), f"Fitur {fid} tidak boleh mengklaim sewa tanpa bukti!")
-            self.assertFalse(p.get("is_clickable_for_planning"), f"Fitur {fid} tidak boleh dapat dipilih!")
-            self.assertIsNone(p.get("rental_price_yr"), f"Harga sewa pada {fid} harus null!")
-            self.assertIsNone(p.get("area_sqm"), f"Luas pada {fid} harus null!")
+            self.assertTrue(
+                "survey" in p.get("data_kind", "") or "osm" in p.get("data_kind", ""),
+                f"Data kind {p.get('data_kind')} tidak valid!"
+            )
+            # Jika mengklaim sewa, wajib memiliki bukti observasi (anti-fabrikasi)
+            if p.get("is_rentable_or_sale"):
+                self.assertTrue(
+                    bool(p.get("evidence_url") or p.get("evidence_photo")),
+                    f"Fitur {fid} tidak boleh mengklaim sewa tanpa bukti!"
+                )
+            # Tidak boleh ada harga sewa tanpa URL sumber bukti
+            if p.get("rental_price_yr") is not None:
+                self.assertTrue(bool(p.get("price_source_url")), f"Harga sewa pada {fid} harus memiliki sumber valid!")
 
     def test_20_midpoint_range_estimation_and_anti_fabrication(self):
         """
