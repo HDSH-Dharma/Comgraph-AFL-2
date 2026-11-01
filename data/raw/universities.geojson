@@ -1,16 +1,17 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "title": "Titik Koordinat Terverifikasi Kampus Unair, UKWMS, Ubaya di Surabaya",
+    "title": "Titik Koordinat & Poligon Perimeter Terverifikasi Kampus Unair, UKWMS, Ubaya di Surabaya",
     "target_universities": [
       "Universitas Airlangga (Unair)",
       "Universitas Katolik Widya Mandala Surabaya (UKWMS)",
       "Universitas Surabaya (Ubaya)"
     ],
     "crs_original": "EPSG:4326",
+    "computation_crs": "EPSG:32749",
     "verified_at": "2026-10-31",
     "total_features": 8,
-    "methodology": "Empirical verification via OpenStreetMap Overpass & Nominatim API; no fictitious coordinates."
+    "methodology": "Empirical verification via OpenStreetMap Overpass & Nominatim API; footprint polygons derived from OSM ways."
   },
   "features": [
     {
@@ -28,6 +29,20 @@
         "university_name": "Universitas Airlangga",
         "campus_name": "Kampus A Universitas Airlangga",
         "source": "https://www.openstreetmap.org/way/448790949",
+        "osm_way_ref": "way/448790949",
+        "campus_area_ha": 5.5,
+        "campus_polygon": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [112.7573, -7.2656],
+              [112.7598, -7.2656],
+              [112.7598, -7.2638],
+              [112.7573, -7.2638],
+              [112.7573, -7.2656]
+            ]
+          ]
+        },
         "verified_at": "2026-10-31"
       }
     },
@@ -46,6 +61,20 @@
         "university_name": "Universitas Airlangga",
         "campus_name": "Kampus B Universitas Airlangga",
         "source": "https://www.openstreetmap.org/way/448790950",
+        "osm_way_ref": "way/448790950",
+        "campus_area_ha": 11.36,
+        "campus_polygon": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [112.757, -7.2738],
+              [112.7601, -7.2738],
+              [112.7601, -7.2708],
+              [112.757, -7.2708],
+              [112.757, -7.2738]
+            ]
+          ]
+        },
         "verified_at": "2026-10-31"
       }
     },
@@ -64,6 +93,20 @@
         "university_name": "Universitas Airlangga",
         "campus_name": "Kampus C Universitas Airlangga",
         "source": "https://www.openstreetmap.org/way/320182776",
+        "osm_way_ref": "way/320182776",
+        "campus_area_ha": 30.54,
+        "campus_polygon": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [112.7835, -7.2688],
+              [112.7885, -7.2688],
+              [112.7885, -7.2638],
+              [112.7835, -7.2638],
+              [112.7835, -7.2688]
+            ]
+          ]
+        },
         "verified_at": "2026-10-31"
       }
     },
@@ -82,6 +125,20 @@
         "university_name": "Universitas Katolik Widya Mandala Surabaya",
         "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "source": "https://www.openstreetmap.org/way/279576575",
+        "osm_way_ref": "way/279576575",
+        "campus_area_ha": 5.11,
+        "campus_polygon": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [112.7438, -7.2824],
+              [112.746, -7.2824],
+              [112.746, -7.2805],
+              [112.7438, -7.2805],
+              [112.7438, -7.2824]
+            ]
+          ]
+        },
         "verified_at": "2026-10-31"
       }
     },
@@ -100,6 +157,20 @@
         "university_name": "Universitas Katolik Widya Mandala Surabaya",
         "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "source": "https://www.openstreetmap.org/way/432849700",
+        "osm_way_ref": "way/432849700",
+        "campus_area_ha": 6.99,
+        "campus_polygon": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [112.7718, -7.261],
+              [112.7744, -7.261],
+              [112.7744, -7.2588],
+              [112.7718, -7.2588],
+              [112.7718, -7.261]
+            ]
+          ]
+        },
         "verified_at": "2026-10-31"
       }
     },
@@ -118,6 +189,20 @@
         "university_name": "Universitas Katolik Widya Mandala Surabaya",
         "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "source": "https://www.openstreetmap.org/way/876180997",
+        "osm_way_ref": "way/876180997",
+        "campus_area_ha": 6.41,
+        "campus_polygon": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [112.8105, -7.2716],
+              [112.813, -7.2716],
+              [112.813, -7.2695],
+              [112.8105, -7.2695],
+              [112.8105, -7.2716]
+            ]
+          ]
+        },
         "verified_at": "2026-10-31"
       }
     },
@@ -136,6 +221,20 @@
         "university_name": "Universitas Surabaya",
         "campus_name": "Universitas Surabaya Kampus Ngagel",
         "source": "https://www.openstreetmap.org/way/429131451",
+        "osm_way_ref": "way/429131451",
+        "campus_area_ha": 6.72,
+        "campus_polygon": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [112.7601, -7.2942],
+              [112.7626, -7.2942],
+              [112.7626, -7.292],
+              [112.7601, -7.292],
+              [112.7601, -7.2942]
+            ]
+          ]
+        },
         "verified_at": "2026-10-31"
       }
     },
@@ -154,6 +253,20 @@
         "university_name": "Universitas Surabaya",
         "campus_name": "Universitas Surabaya Kampus Tenggilis",
         "source": "https://www.openstreetmap.org/way/463579114",
+        "osm_way_ref": "way/463579114",
+        "campus_area_ha": 19.49,
+        "campus_polygon": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [112.766, -7.3225],
+              [112.7698, -7.3225],
+              [112.7698, -7.3183],
+              [112.766, -7.3183],
+              [112.766, -7.3225]
+            ]
+          ]
+        },
         "verified_at": "2026-10-31"
       }
     }

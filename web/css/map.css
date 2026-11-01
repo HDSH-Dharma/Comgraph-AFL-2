@@ -889,6 +889,42 @@ a {
   color: var(--ink);
 }
 
+.calc-points-banner {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.points-label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #166534;
+}
+
+.points-value {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #15803d;
+  margin-top: 2px;
+}
+
+.points-grade {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .calc-total-banner {
   background: var(--accent);
   color: #fff;
@@ -911,6 +947,33 @@ a {
   font-size: 1.45rem;
   font-weight: 800;
   margin-top: 4px;
+}
+
+.budget-status {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.budget-status.status-ok {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.budget-status.status-over {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.saved-plan-score {
+  font-size: 0.78rem;
+  color: #15803d;
+}
+.saved-plan-score strong {
+  color: #166534;
 }
 
 .calc-note {

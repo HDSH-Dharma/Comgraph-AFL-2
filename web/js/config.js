@@ -9,12 +9,41 @@ export const DATA_FILES = Object.freeze({
   universities: '../data/processed/universities.geojson',
   buffers: '../data/processed/buffer_1km.geojson',
   candidates: '../data/processed/land_candidates.geojson',
+  listings: '../data/processed/real_rental_listings.geojson',
+  areaSummary: '../data/processed/area_rental_price_summary.json',
+  osmBuildings: '../data/processed/universities_polygons.geojson',
+  osmCafes: '../data/processed/osm_cafes.geojson',
 });
 
 export const DATA_LABELS = Object.freeze({
-  universities: 'Titik kampus',
+  universities: 'Titik kampus (OSM faktual)',
   buffers: 'Buffer 1 km',
-  candidates: 'Kandidat lahan',
+  candidates: 'Kandidat lahan (simulasi demo - non-faktual)',
+  listings: 'Listing sewa riil publik',
+  osmBuildings: 'Perimeter kampus/bangunan (OSM faktual)',
+  osmCafes: 'Kafe eksisting (OSM faktual)',
+});
+
+export const LISTING_STYLE = Object.freeze({
+  color: '#8B5CF6',
+  radius: 8,
+  glyph: 'L',
+  label: 'Listing sewa riil publik',
+});
+
+export const OSM_BUILDING_STYLE = Object.freeze({
+  fill: 'rgba(51, 65, 85, 0.15)',
+  stroke: '#334155',
+  lineWidth: 1.5,
+  label: 'Perimeter bangunan/kampus OSM (faktual)',
+});
+
+export const OSM_CAFE_STYLE = Object.freeze({
+  color: '#D97706',
+  stroke: '#78350F',
+  radius: 7,
+  glyph: '☕',
+  label: 'Kafe eksisting OSM (faktual)',
 });
 
 // Lima status lahan. `value` harus sama persis dengan VALID_LAND_STATUSES
@@ -25,6 +54,9 @@ export const LAND_STATUSES = Object.freeze([
     key: 'kosong',
     value: 'Lahan kosong',
     label: 'Lahan kosong',
+    badgeLabel: 'Lahan Kosong',
+    actionable: true,
+    isPlannerAllowed: true,
     color: '#10B981',
     ink: '#052E1F',
     glyph: 'K',
@@ -35,6 +67,9 @@ export const LAND_STATUSES = Object.freeze([
     key: 'sewa',
     value: 'Lahan yang tersedia untuk disewakan',
     label: 'Tersedia disewakan',
+    badgeLabel: 'Tersedia Disewakan',
+    actionable: true,
+    isPlannerAllowed: true,
     color: '#3B82F6',
     ink: '#FFFFFF',
     glyph: 'S',
@@ -44,7 +79,10 @@ export const LAND_STATUSES = Object.freeze([
   {
     key: 'rumah',
     value: 'Rumah atau bangunan tempat tinggal',
-    label: 'Rumah tinggal',
+    label: 'Tidak Disewakan atau Dijual (Rumah)',
+    badgeLabel: 'Tidak Disewakan atau Dijual',
+    actionable: false,
+    isPlannerAllowed: false,
     color: '#F59E0B',
     ink: '#2B1700',
     glyph: 'R',
@@ -54,7 +92,10 @@ export const LAND_STATUSES = Object.freeze([
   {
     key: 'fungsi_lain',
     value: 'Bangunan yang telah digunakan untuk fungsi lain',
-    label: 'Bangunan fungsi lain',
+    label: 'Tidak Disewakan atau Dijual (Ruko/Fungsi Lain)',
+    badgeLabel: 'Tidak Disewakan atau Dijual',
+    actionable: false,
+    isPlannerAllowed: false,
     color: '#6B7280',
     ink: '#FFFFFF',
     glyph: 'F',
@@ -65,6 +106,9 @@ export const LAND_STATUSES = Object.freeze([
     key: 'belum',
     value: 'Lahan yang statusnya belum terverifikasi',
     label: 'Belum terverifikasi',
+    badgeLabel: 'Belum Terverifikasi',
+    actionable: false,
+    isPlannerAllowed: false,
     color: '#9CA3AF',
     ink: '#111827',
     glyph: '?',
@@ -110,6 +154,9 @@ export const CAMPUS_STYLE = Object.freeze({
   fill: '#1E1B4B',
   ring: '#FFFFFF',
   size: 13,
+  polygonFill: 'rgba(30, 27, 75, 0.15)',
+  polygonStroke: '#1E1B4B',
+  polygonLineWidth: 1.5,
 });
 
 export const MARKER_RADIUS = 10; // px CSS, konstan di semua zoom

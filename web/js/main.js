@@ -9,7 +9,7 @@ import { loadAllData, mergeBounds, boundsValid, buildLandData, notifyPlanner } f
 import { MapViewModel, institutionLabel } from './mapViewModel.js';
 import { MapRenderer } from './renderer.js';
 import { attachInteractions } from './interaction.js';
-import { MapUI } from './ui.js';
+import { MapUI, evaluateCandidateEligibility } from './ui.js';
 
 const canvas = document.getElementById('map-canvas');
 const stage = document.getElementById('map-stage');
@@ -28,6 +28,7 @@ const ui = new MapUI(vm, {
   fitAll: () => fitAll(true),
   jumpTo,
   selectCandidate,
+  selectListing,
   clearSelection,
 });
 
@@ -92,10 +93,17 @@ function fitTo(bounds, { animate = true, maxZoom = VIEW.maxZoom } = {}) {
 function pointBounds(items) {
   const b = [Infinity, Infinity, -Infinity, -Infinity];
   for (const p of items) {
-    b[0] = Math.min(b[0], p.wx);
-    b[1] = Math.min(b[1], p.wy);
-    b[2] = Math.max(b[2], p.wx);
-    b[3] = Math.max(b[3], p.wy);
+    if (p.bounds) {
+      if (p.bounds[0] < b[0]) b[0] = p.bounds[0];
+      if (p.bounds[1] < b[1]) b[1] = p.bounds[1];
+      if (p.bounds[2] > b[2]) b[2] = p.bounds[2];
+      if (p.bounds[3] > b[3]) b[3] = p.bounds[3];
+    } else {
+      b[0] = Math.min(b[0], p.wx);
+      b[1] = Math.min(b[1], p.wy);
+      b[2] = Math.max(b[2], p.wx);
+      b[3] = Math.max(b[3], p.wy);
+    }
   }
   return b;
 }
@@ -187,12 +195,31 @@ function selectCandidate(id, { source = 'map' } = {}) {
   const c = vm.findCandidate(id);
   if (!c) return;
   vm.select({ kind: 'land', id });
-  const handlerStatus = notifyPlanner(c);
-  ui.showLandInspector(c, { handlerStatus, eligibleStatuses });
+  const evaluation = evaluateCandidateEligibility(c, eligibleStatuses);
+  let handlerStatus = null;
+  // Hanya lahan yang memenuhi syarat (dalam buffer 1 km & berstatus kosong/disewakan)
+  // yang dapat memicu modul planner
+  if (evaluation.isEligible) {
+    handlerStatus = notifyPlanner(c);
+  }
+  ui.showLandInspector(c, {
+    handlerStatus,
+    eligibleStatuses,
+    areaSummary: vm.data.areaSummary?.summaries,
+  });
   revealSelected(c, { forceZoom: source === 'list' && viewport.zoom < 14 });
   const verdict =
     c.isEligible === true ? 'Memenuhi syarat.' : c.isEligible === false ? 'Tidak memenuhi syarat.' : 'Kelayakan belum dihitung.';
   ui.announce(`${c.name}: ${c.status.label}. ${verdict}`);
+}
+
+function selectListing(id, { source = 'map' } = {}) {
+  const l = vm.findListing(id);
+  if (!l) return;
+  vm.select({ kind: 'listing', id });
+  ui.showListingInspector(l);
+  revealSelected(l, { forceZoom: source === 'list' && viewport.zoom < 14 });
+  ui.announce(`Listing: ${l.title}. Rp ${l.rentalPriceYr.toLocaleString('id-ID')}/tahun.`);
 }
 
 function selectCampus(id) {
@@ -200,6 +227,24 @@ function selectCampus(id) {
   if (!u) return;
   vm.select({ kind: 'campus', id });
   ui.showCampusInspector(u);
+}
+
+function selectOsmCafe(id) {
+  const c = vm.findOsmCafe(id);
+  if (!c) return;
+  vm.select({ kind: 'osm_cafe', id });
+  ui.showOsmCafeInspector(c);
+  revealSelected(c);
+  ui.announce(`Kafe OSM: ${c.name}. Faktual.`);
+}
+
+function selectOsmBuilding(id) {
+  const b = vm.findOsmBuilding(id);
+  if (!b) return;
+  vm.select({ kind: 'osm_building', id });
+  ui.showOsmBuildingInspector(b);
+  if (b.wx != null && b.wy != null) revealSelected(b);
+  ui.announce(`Perimeter Kampus: ${b.campusName || b.id}. Faktual.`);
 }
 
 function clearSelection() {
@@ -215,12 +260,14 @@ vm.onChange((reason) => {
       ui.renderQuickJump();
       ui.renderDataNotice();
       ui.renderDataErrors();
+      ui.updateListingLayerState();
       ui.renderCandidateList();
       ui.updateMapMessage();
       break;
     case 'layers':
     case 'filters':
       if (!vm.selection) ui.hideInspector();
+      ui.updateListingLayerState();
       ui.renderCandidateList();
       ui.updateMapMessage();
       ui.updateBasemapNote(vm.layers.basemap, tiles.status);
@@ -260,6 +307,9 @@ attachInteractions(canvas, {
   onTap: (hit) => {
     if (!hit) return clearSelection();
     if (hit.kind === 'land') selectCandidate(hit.item.id, { source: 'map' });
+    else if (hit.kind === 'listing') selectListing(hit.item.id, { source: 'map' });
+    else if (hit.kind === 'osm_cafe') selectOsmCafe(hit.item.id);
+    else if (hit.kind === 'osm_building') selectOsmBuilding(hit.item.id);
     else selectCampus(hit.item.id);
   },
   onFit: () => fitAll(true),
@@ -290,7 +340,8 @@ async function init() {
   allBounds = mergeBounds(
     ...data.buffers.items.map((b) => b.bounds),
     data.universities.items.length ? pointBounds(data.universities.items) : null,
-    data.candidates.items.length ? pointBounds(data.candidates.items) : null
+    data.candidates.items.length ? pointBounds(data.candidates.items) : null,
+    data.osmBuildings?.items?.length ? mergeBounds(...data.osmBuildings.items.map((b) => b.bounds)) : null
   );
 
   ui.hideMessage();

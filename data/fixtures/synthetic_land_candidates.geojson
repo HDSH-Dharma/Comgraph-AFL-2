@@ -1,0 +1,418 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "Kandidat Lahan Usaha Kafe Surabaya (Dataset Uji Simulasi Akademik)",
+    "total_features": 20,
+    "crs": "EPSG:4326",
+    "status_taxonomy": [
+      "Lahan kosong",
+      "Lahan yang tersedia untuk disewakan",
+      "Rumah atau bangunan tempat tinggal",
+      "Bangunan yang telah digunakan untuk fungsi lain",
+      "Lahan yang statusnya belum terverifikasi"
+    ],
+    "note": "Dataset sintetis eksplisit untuk pengujian grafika komputer AFL 2; bukan data kepemilikan riil."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7881968,
+          -7.264049
+        ]
+      },
+      "properties": {
+        "id": "CAND-UNAIR-C-01",
+        "name": "Kavling Mulyorejo Utara",
+        "address": "Jl. Mulyorejo No. 12, Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 250.0,
+        "rental_price_yr": 75000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7834578,
+          -7.2619987
+        ]
+      },
+      "properties": {
+        "id": "CAND-UNAIR-C-02",
+        "name": "Ruko Komersial Sutorejo",
+        "address": "Jl. Raya Sutorejo Prima No. 8, Sutorejo, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 120.0,
+        "rental_price_yr": 60000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7553916,
+          -7.2741093
+        ]
+      },
+      "properties": {
+        "id": "CAND-UNAIR-B-01",
+        "name": "Rumah Warga Dharmawangsa",
+        "address": "Jl. Dharmawangsa Barat No. 22, Airlangga, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "area_sqm": 180.0,
+        "rental_price_yr": 45000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7607322,
+          -7.2634298
+        ]
+      },
+      "properties": {
+        "id": "CAND-UNAIR-A-01",
+        "name": "Gedung Kantor Apotek Moestopo",
+        "address": "Jl. Prof. Dr. Moestopo No. 15, Gubeng, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "area_sqm": 200.0,
+        "rental_price_yr": 90000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7891556,
+          -7.2717641
+        ]
+      },
+      "properties": {
+        "id": "CAND-UNAIR-C-03",
+        "name": "Lahan Survei Awal Kalisari",
+        "address": "Jl. Kalisari Damai No. 5, Mulyorejo, Surabaya",
+        "status": "Lahan yang statusnya belum terverifikasi",
+        "area_sqm": 300.0,
+        "rental_price_yr": 0,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7462523,
+          -7.2833708
+        ]
+      },
+      "properties": {
+        "id": "CAND-UKWMS-DIN-01",
+        "name": "Kavling Komersial Dinoyo",
+        "address": "Jl. Dinoyo No. 68, Keputran, Tegalsari, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 180.0,
+        "rental_price_yr": 65000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7441515,
+          -7.2786772
+        ]
+      },
+      "properties": {
+        "id": "CAND-UKWMS-DIN-02",
+        "name": "Ruko Usaha Mojopahit",
+        "address": "Jl. Mojopahit No. 12, Keputran, Tegalsari, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 150.0,
+        "rental_price_yr": 75000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7741949,
+          -7.2576608
+        ]
+      },
+      "properties": {
+        "id": "CAND-UKWMS-KAL-01",
+        "name": "Kavling Siap Bangun Kalijudan",
+        "address": "Jl. Kalijudan No. 42, Kalijudan, Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 220.0,
+        "rental_price_yr": 70000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8092009,
+          -7.2733627
+        ]
+      },
+      "properties": {
+        "id": "CAND-UKWMS-PAK-01",
+        "name": "Paviliun Hunian Kejawan Putih",
+        "address": "Jl. Kejawan Putih Tambak No. 18, Mulyorejo, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "area_sqm": 175.0,
+        "rental_price_yr": 45000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7620692,
+          -7.2903173
+        ]
+      },
+      "properties": {
+        "id": "CAND-UBAYA-NGA-01",
+        "name": "Ruko Hook Ngagel Jaya",
+        "address": "Jl. Ngagel Jaya Selatan No. 102, Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 135.0,
+        "rental_price_yr": 80000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7719277,
+          -7.3188958
+        ]
+      },
+      "properties": {
+        "id": "CAND-UBAYA-TENG-01",
+        "name": "Lahan Terbuka Kali Rungkut",
+        "address": "Jl. Raya Kalirungkut No. 27, Rungkut, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 350.0,
+        "rental_price_yr": 110000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7650607,
+          -7.3252619
+        ]
+      },
+      "properties": {
+        "id": "CAND-UBAYA-TENG-02",
+        "name": "Klinik Pratama Tenggilis",
+        "address": "Jl. Tenggilis Mejoyo Blok AJ No. 1, Tenggilis, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "area_sqm": 190.0,
+        "rental_price_yr": 85000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8144789,
+          -7.2611582
+        ]
+      },
+      "properties": {
+        "id": "CAND-OUT-01",
+        "name": "Kavling Kosong Kenjeran Pesisir",
+        "address": "Jl. Pantai Kenjeran No. 50, Bulak, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 500.0,
+        "rental_price_yr": 95000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.6953061,
+          -7.2797261
+        ]
+      },
+      "properties": {
+        "id": "CAND-OUT-02",
+        "name": "Ruko Sewa Darmo Indah",
+        "address": "Jl. Darmo Indah Timur Blok B No. 9, Tandes, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 150.0,
+        "rental_price_yr": 85000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7702383,
+          -7.2705694
+        ]
+      },
+      "properties": {
+        "id": "CAND-OUT-03",
+        "name": "Rumah Mewah Kertajaya Indah",
+        "address": "Jl. Kertajaya Indah Timur XI No. 14, Sukolilo, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "area_sqm": 280.0,
+        "rental_price_yr": 95000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7941851,
+          -7.269521
+        ]
+      },
+      "properties": {
+        "id": "CAND-OUT-04",
+        "name": "Kantor Ekspedisi Perak Barat",
+        "address": "Jl. Perak Barat No. 80, Pabean Cantian, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "area_sqm": 400.0,
+        "rental_price_yr": 150000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7518413,
+          -7.3070914
+        ]
+      },
+      "properties": {
+        "id": "CAND-OUT-05",
+        "name": "Tanah Lapangan Rungkut Industri",
+        "address": "Jl. Rungkut Industri Raya No. 10, Rungkut, Surabaya",
+        "status": "Lahan yang statusnya belum terverifikasi",
+        "area_sqm": 800.0,
+        "rental_price_yr": 0,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7796831,
+          -7.2726177
+        ]
+      },
+      "properties": {
+        "id": "CAND-EDGE-IN-01",
+        "name": "Kavling Perbatasan Manyar Sabrangan",
+        "address": "Jl. Manyar Sabrangan No. 99, Mulyorejo, Surabaya",
+        "status": "Lahan kosong",
+        "area_sqm": 190.0,
+        "rental_price_yr": 68000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.779428,
+          -7.2728744
+        ]
+      },
+      "properties": {
+        "id": "CAND-EDGE-OUT-01",
+        "name": "Ruko Perbatasan Manyar Kertoarjo",
+        "address": "Jl. Manyar Kertoarjo No. 150, Gubeng, Surabaya",
+        "status": "Lahan yang tersedia untuk disewakan",
+        "area_sqm": 130.0,
+        "rental_price_yr": 72000000,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7787222,
+          -7.2636954
+        ]
+      },
+      "properties": {
+        "id": "CAND-DEFAULT-TEST-01",
+        "name": "Lahan Tanpa Keterangan Status Gebang",
+        "address": "Jl. Gebang Putih No. 18, Sukolilo, Surabaya",
+        "status": "",
+        "area_sqm": 210.0,
+        "rental_price_yr": 0,
+        "data_kind": "synthetic_academic_demo",
+        "source": "Simulasi Akademik AFL 2 2026"
+      }
+    }
+  ]
+}

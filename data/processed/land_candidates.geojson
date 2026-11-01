@@ -7,9 +7,22 @@
     "evaluation_rules": {
       "buffer_threshold_meters": 1000.0,
       "eligible_statuses": [
-        "Lahan yang tersedia untuk disewakan",
-        "Lahan kosong"
+        "Lahan kosong",
+        "Lahan yang tersedia untuk disewakan"
+      ],
+      "rentable_or_sale_statuses": [
+        "Lahan kosong",
+        "Lahan yang tersedia untuk disewakan"
+      ],
+      "non_rentable_or_sale_statuses": [
+        "Lahan yang statusnya belum terverifikasi",
+        "Rumah atau bangunan tempat tinggal",
+        "Bangunan yang telah digunakan untuk fungsi lain"
       ]
+    },
+    "open_data_policy": {
+      "defensible_basis": "OpenStreetMap Tag Standards for building & landuse",
+      "honest_fallback": "Lots without confirmed commercial lease agreements default to 'Lahan yang statusnya belum terverifikasi' (non-clickable)"
     },
     "summary": {
       "total_candidates": 20,
@@ -17,6 +30,8 @@
       "out_of_buffer_count": 5,
       "eligible_count": 8,
       "ineligible_count": 12,
+      "rentable_or_sale_count": 11,
+      "non_rentable_or_sale_count": 9,
       "status_counts": {
         "Lahan kosong": 6,
         "Lahan yang tersedia untuk disewakan": 5,
@@ -46,10 +61,27 @@
         "nearest_university_id": "UNAIR-KAMPUS-C",
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 349.99868209227577,
+        "distance_to_polygon_meters": 0.0,
         "is_in_buffer": true,
         "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -71,10 +103,27 @@
         "nearest_university_id": "UNAIR-KAMPUS-C",
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 550.0031764028362,
+        "distance_to_polygon_meters": 199.28,
         "is_in_buffer": true,
         "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -96,10 +145,27 @@
         "nearest_university_id": "UNAIR-KAMPUS-B",
         "nearest_university_name": "Kampus B Universitas Airlangga",
         "distance_meters": 400.0043874623415,
+        "distance_to_polygon_meters": 180.89,
         "is_in_buffer": true,
         "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -121,10 +187,27 @@
         "nearest_university_id": "UNAIR-KAMPUS-A",
         "nearest_university_name": "Kampus A Universitas Airlangga",
         "distance_meters": 279.9962962706173,
+        "distance_to_polygon_meters": 110.79,
         "is_in_buffer": true,
         "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -146,10 +229,27 @@
         "nearest_university_id": "UNAIR-KAMPUS-C",
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 700.0021385066451,
+        "distance_to_polygon_meters": 335.73,
         "is_in_buffer": true,
         "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -171,10 +271,27 @@
         "nearest_university_id": "UKWMS-DINOYO",
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 258.06869646163943,
+        "distance_to_polygon_meters": 110.93,
         "is_in_buffer": true,
         "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -196,10 +313,27 @@
         "nearest_university_id": "UKWMS-DINOYO",
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 320.15349175469936,
+        "distance_to_polygon_meters": 201.6,
         "is_in_buffer": true,
         "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -221,10 +355,27 @@
         "nearest_university_id": "UKWMS-KALIJUDAN",
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "distance_meters": 277.30724278658175,
+        "distance_to_polygon_meters": 126.0,
         "is_in_buffer": true,
         "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -246,10 +397,27 @@
         "nearest_university_id": "UKWMS-PAKUWON",
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "distance_meters": 417.7325466403946,
+        "distance_to_polygon_meters": 242.06,
         "is_in_buffer": true,
         "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -271,10 +439,27 @@
         "nearest_university_id": "UBAYA-NGAGEL",
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 319.99533012255415,
+        "distance_to_polygon_meters": 186.11,
         "is_in_buffer": true,
         "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -296,10 +481,27 @@
         "nearest_university_id": "UBAYA-TENGGILIS",
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 480.00420211982106,
+        "distance_to_polygon_meters": 234.95,
         "is_in_buffer": true,
         "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -321,10 +523,27 @@
         "nearest_university_id": "UBAYA-TENGGILIS",
         "nearest_university_name": "Universitas Surabaya Kampus Tenggilis",
         "distance_meters": 619.9977624148294,
+        "distance_to_polygon_meters": 322.6,
         "is_in_buffer": true,
         "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -346,10 +565,27 @@
         "nearest_university_id": "UKWMS-PAKUWON",
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "distance_meters": 1082.3480344556683,
+        "distance_to_polygon_meters": 936.97,
         "is_in_buffer": false,
         "is_eligible": false,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1082.3 m > 1.000 m).",
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -371,10 +607,27 @@
         "nearest_university_id": "UKWMS-DINOYO",
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "distance_meters": 5478.759916369144,
+        "distance_to_polygon_meters": 5356.02,
         "is_in_buffer": false,
         "is_eligible": false,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (5478.8 m > 1.000 m).",
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -396,10 +649,27 @@
         "nearest_university_id": "UKWMS-KALIJUDAN",
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "distance_meters": 1219.407766515588,
+        "distance_to_polygon_meters": 1072.34,
         "is_in_buffer": false,
         "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1219.4 m > 1.000 m).",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -421,10 +691,27 @@
         "nearest_university_id": "UNAIR-KAMPUS-C",
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 975.4287959320209,
+        "distance_to_polygon_meters": 632.91,
         "is_in_buffer": true,
         "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -446,10 +733,27 @@
         "nearest_university_id": "UBAYA-NGAGEL",
         "nearest_university_name": "Universitas Surabaya Kampus Ngagel",
         "distance_meters": 1867.4828717659614,
+        "distance_to_polygon_meters": 1692.52,
         "is_in_buffer": false,
         "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1867.5 m > 1.000 m).",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -471,10 +775,27 @@
         "nearest_university_id": "UNAIR-KAMPUS-C",
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 984.9988654807622,
+        "distance_to_polygon_meters": 596.64,
         "is_in_buffer": true,
         "is_eligible": true,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": true,
+        "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
+        "unavailability_reason": null,
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "clickable_modal_trigger",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -496,10 +817,27 @@
         "nearest_university_id": "UNAIR-KAMPUS-C",
         "nearest_university_name": "Kampus C Universitas Airlangga",
         "distance_meters": 1024.995972874172,
+        "distance_to_polygon_meters": 636.64,
         "is_in_buffer": false,
         "is_eligible": false,
+        "is_rentable_or_sale": true,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Lokasi berada di luar radius buffer 1 km (1025.0 m > 1.000 m).",
+        "status_classification": {
+          "category": "rentable_or_usable",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Lahan terbuka / kavling komersial siap pakai"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     },
     {
@@ -521,10 +859,27 @@
         "nearest_university_id": "UKWMS-KALIJUDAN",
         "nearest_university_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "distance_meters": 746.3549109703856,
+        "distance_to_polygon_meters": 527.79,
         "is_in_buffer": true,
         "is_eligible": false,
+        "is_rentable_or_sale": false,
+        "is_clickable_for_planning": false,
+        "planning_eligibility_status": "Tidak dapat dipilih",
+        "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
+        "status_classification": {
+          "category": "non_rentable_or_sale",
+          "planning_permission": "disabled_not_selectable",
+          "defensible_open_data_basis": "Bukan peruntukan komersial kafe baru / hunian / fungsi lain"
+        },
         "data_kind": "synthetic_academic_demo",
-        "source": "Simulasi Akademik AFL 2 2026"
+        "source": "Simulasi Akademik AFL 2 2026",
+        "osm_id": null,
+        "osm_type": null,
+        "osm_tags": null,
+        "osm_version": null,
+        "osm_timestamp": null,
+        "query_used": null,
+        "query_attribution": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"
       }
     }
   ]

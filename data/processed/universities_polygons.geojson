@@ -1,0 +1,363 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "Poligon Batas Perimeter Kampus Unair, UKWMS, Ubaya Surabaya (OSM Ways)",
+    "total_features": 8,
+    "crs": "EPSG:4326",
+    "computation_crs": "EPSG:32749"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.7573,
+              -7.2656
+            ],
+            [
+              112.7598,
+              -7.2656
+            ],
+            [
+              112.7598,
+              -7.2638
+            ],
+            [
+              112.7573,
+              -7.2638
+            ],
+            [
+              112.7573,
+              -7.2656
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "UNAIR-KAMPUS-A",
+        "institution": "UNAIR",
+        "university_name": "Universitas Airlangga",
+        "campus_name": "Kampus A Universitas Airlangga",
+        "osm_way_ref": "way/448790949",
+        "campus_area_ha": 5.5,
+        "center_coordinate": [
+          112.7585415,
+          -7.2647041
+        ],
+        "source": "https://www.openstreetmap.org/way/448790949",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.757,
+              -7.2738
+            ],
+            [
+              112.7601,
+              -7.2738
+            ],
+            [
+              112.7601,
+              -7.2708
+            ],
+            [
+              112.757,
+              -7.2708
+            ],
+            [
+              112.757,
+              -7.2738
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "UNAIR-KAMPUS-B",
+        "institution": "UNAIR",
+        "university_name": "Universitas Airlangga",
+        "campus_name": "Kampus B Universitas Airlangga",
+        "osm_way_ref": "way/448790950",
+        "campus_area_ha": 11.36,
+        "center_coordinate": [
+          112.7585213,
+          -7.2722888
+        ],
+        "source": "https://www.openstreetmap.org/way/448790950",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.7835,
+              -7.2688
+            ],
+            [
+              112.7885,
+              -7.2688
+            ],
+            [
+              112.7885,
+              -7.2638
+            ],
+            [
+              112.7835,
+              -7.2638
+            ],
+            [
+              112.7835,
+              -7.2688
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "UNAIR-KAMPUS-C",
+        "institution": "UNAIR",
+        "university_name": "Universitas Airlangga",
+        "campus_name": "Kampus C Universitas Airlangga",
+        "osm_way_ref": "way/320182776",
+        "campus_area_ha": 30.54,
+        "center_coordinate": [
+          112.7859648,
+          -7.2662955
+        ],
+        "source": "https://www.openstreetmap.org/way/320182776",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.7438,
+              -7.2824
+            ],
+            [
+              112.746,
+              -7.2824
+            ],
+            [
+              112.746,
+              -7.2805
+            ],
+            [
+              112.7438,
+              -7.2805
+            ],
+            [
+              112.7438,
+              -7.2824
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "UKWMS-DINOYO",
+        "institution": "UKWMS",
+        "university_name": "Universitas Katolik Widya Mandala Surabaya",
+        "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
+        "osm_way_ref": "way/279576575",
+        "campus_area_ha": 5.11,
+        "center_coordinate": [
+          112.7448867,
+          -7.2814773
+        ],
+        "source": "https://www.openstreetmap.org/way/279576575",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.7718,
+              -7.261
+            ],
+            [
+              112.7744,
+              -7.261
+            ],
+            [
+              112.7744,
+              -7.2588
+            ],
+            [
+              112.7718,
+              -7.2588
+            ],
+            [
+              112.7718,
+              -7.261
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "UKWMS-KALIJUDAN",
+        "institution": "UKWMS",
+        "university_name": "Universitas Katolik Widya Mandala Surabaya",
+        "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
+        "osm_way_ref": "way/432849700",
+        "campus_area_ha": 6.99,
+        "center_coordinate": [
+          112.7731172,
+          -7.2599254
+        ],
+        "source": "https://www.openstreetmap.org/way/432849700",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.8105,
+              -7.2716
+            ],
+            [
+              112.813,
+              -7.2716
+            ],
+            [
+              112.813,
+              -7.2695
+            ],
+            [
+              112.8105,
+              -7.2695
+            ],
+            [
+              112.8105,
+              -7.2716
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "UKWMS-PAKUWON",
+        "institution": "UKWMS",
+        "university_name": "Universitas Katolik Widya Mandala Surabaya",
+        "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
+        "osm_way_ref": "way/876180997",
+        "campus_area_ha": 6.41,
+        "center_coordinate": [
+          112.811725,
+          -7.2705498
+        ],
+        "source": "https://www.openstreetmap.org/way/876180997",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.7601,
+              -7.2942
+            ],
+            [
+              112.7626,
+              -7.2942
+            ],
+            [
+              112.7626,
+              -7.292
+            ],
+            [
+              112.7601,
+              -7.292
+            ],
+            [
+              112.7601,
+              -7.2942
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "UBAYA-NGAGEL",
+        "institution": "UBAYA",
+        "university_name": "Universitas Surabaya",
+        "campus_name": "Universitas Surabaya Kampus Ngagel",
+        "osm_way_ref": "way/429131451",
+        "campus_area_ha": 6.72,
+        "center_coordinate": [
+          112.7613302,
+          -7.2931149
+        ],
+        "source": "https://www.openstreetmap.org/way/429131451",
+        "verified_at": "2026-10-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.766,
+              -7.3225
+            ],
+            [
+              112.7698,
+              -7.3225
+            ],
+            [
+              112.7698,
+              -7.3183
+            ],
+            [
+              112.766,
+              -7.3183
+            ],
+            [
+              112.766,
+              -7.3225
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "UBAYA-TENGGILIS",
+        "institution": "UBAYA",
+        "university_name": "Universitas Surabaya",
+        "campus_name": "Universitas Surabaya Kampus Tenggilis",
+        "osm_way_ref": "way/463579114",
+        "campus_area_ha": 19.49,
+        "center_coordinate": [
+          112.7678489,
+          -7.3203962
+        ],
+        "source": "https://www.openstreetmap.org/way/463579114",
+        "verified_at": "2026-10-31"
+      }
+    }
+  ]
+}

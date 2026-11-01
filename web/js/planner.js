@@ -190,6 +190,59 @@ export function canPlanForLand(landData, eligibleStatuses = ELIGIBLE_LAND_STATUS
 }
 
 /**
+ * Kalkulator Poin Kelayakan / Skor Potensi Bisnis Kafe (0 - 100 Poin)
+ * Menilai aspek strategis dalam lingkup game "Buka Kafe":
+ * 1. Proksimitas kampus (jarak metrik <= 1000m): maks 40 poin
+ * 2. Kesesuaian luas lahan (80 - 250 m² optimal untuk kafe mahasiswa): maks 30 poin
+ * 3. Efisiensi harga sewa per m²: maks 30 poin
+ *
+ * @param {Object} params
+ * @returns {{ points: number, grade: string, breakdown: { proximity: number, space: number, cost_efficiency: number } }}
+ */
+export function calculateFeasibilityPoints({ distance_meters = null, area_sqm = 0, rental_price_yr = 0 } = {}) {
+  let proximityScore = 20; // default dalam buffer 1km
+  const dist = typeof distance_meters === 'number' && Number.isFinite(distance_meters) ? distance_meters : null;
+  if (dist != null) {
+    if (dist <= 300) proximityScore = 40;
+    else if (dist <= 600) proximityScore = 30;
+    else if (dist <= 1000) proximityScore = 20;
+    else proximityScore = 0;
+  }
+
+  let spaceScore = 15;
+  const area = typeof area_sqm === 'number' && Number.isFinite(area_sqm) ? area_sqm : 0;
+  if (area >= 80 && area <= 250) spaceScore = 30;
+  else if ((area >= 50 && area < 80) || (area > 250 && area <= 400)) spaceScore = 20;
+  else if (area > 0) spaceScore = 10;
+  else spaceScore = 0;
+
+  let costScore = 15;
+  const rent = typeof rental_price_yr === 'number' && Number.isFinite(rental_price_yr) ? rental_price_yr : 0;
+  if (area > 0 && rent > 0) {
+    const costPerSqm = rent / area;
+    if (costPerSqm <= 400_000) costScore = 30;
+    else if (costPerSqm <= 700_000) costScore = 20;
+    else costScore = 10;
+  }
+
+  const totalPoints = proximityScore + spaceScore + costScore;
+  let grade = 'Kurang Layak';
+  if (totalPoints >= 85) grade = 'Sangat Strategis ★★★';
+  else if (totalPoints >= 70) grade = 'Strategis ★★';
+  else if (totalPoints >= 50) grade = 'Cukup Layak ★';
+
+  return {
+    points: totalPoints,
+    grade,
+    breakdown: {
+      proximity: proximityScore,
+      space: spaceScore,
+      cost_efficiency: costScore,
+    },
+  };
+}
+
+/**
  * Kalkulator Estimasi Modal Awal Kafe
  * Menghitung rincian biaya:
  * - Sewa = rental_price_yr * rental_duration_yr
@@ -197,11 +250,13 @@ export function canPlanForLand(landData, eligibleStatuses = ELIGIBLE_LAND_STATUS
  * - Peralatan = equipment_cost
  * - Cadangan Operasional = monthly_operational_cost * working_capital_months
  * - Kontingensi / Perizinan = contingency_cost
+ * Serta mengevaluasi poin kelayakan kafe dan kesesuaian target anggaran.
  * 
  * @param {Object} params Parameter finansial
- * @returns {Object} Rincian biaya dan total estimasi modal awal
+ * @param {Object} [landData] Objek data kandidat lahan
+ * @returns {Object} Rincian biaya, total estimasi modal awal, dan skor kelayakan
  */
-export function calculateInitialCapital(params = {}) {
+export function calculateInitialCapital(params = {}, landData = null) {
   const num = (v, def = 0) => {
     const parsed = typeof v === 'number' ? v : Number(v);
     return Number.isFinite(parsed) && parsed >= 0 ? parsed : def;
@@ -215,6 +270,7 @@ export function calculateInitialCapital(params = {}) {
   const monthly_operational_cost = num(params.monthly_operational_cost, DEFAULT_PLAN_COSTS.monthly_operational_cost);
   const working_capital_months = Math.max(0, Math.round(num(params.working_capital_months, DEFAULT_PLAN_COSTS.working_capital_months)));
   const contingency_cost = num(params.contingency_cost, DEFAULT_PLAN_COSTS.contingency_cost);
+  const budget_limit = num(params.budget_limit, 0);
 
   const subtotal_rental = Math.round(rental_price_yr * rental_duration_yr);
   const subtotal_renovation = Math.round(area_sqm * renovation_cost_per_sqm);
@@ -224,6 +280,20 @@ export function calculateInitialCapital(params = {}) {
 
   const total_initial_capital =
     subtotal_rental + subtotal_renovation + subtotal_equipment + subtotal_operational + subtotal_contingency;
+
+  const rawDist = params.distance_meters ?? landData?.distance_meters ?? landData?.distanceM ?? null;
+  const distance_meters = typeof rawDist === 'number' && Number.isFinite(rawDist) ? rawDist : (Number(rawDist) || null);
+  const feasibility = calculateFeasibilityPoints({
+    distance_meters,
+    area_sqm,
+    rental_price_yr,
+  });
+
+  const is_within_budget = budget_limit > 0 ? total_initial_capital <= budget_limit : true;
+  const budget_difference = budget_limit > 0 ? budget_limit - total_initial_capital : 0;
+  const budget_status = budget_limit > 0
+    ? (total_initial_capital <= budget_limit ? 'SESUAI_ANGGARAN' : 'MELEBIHI_ANGGARAN')
+    : 'TIDAK_DIBATASI';
 
   return {
     area_sqm,
@@ -240,6 +310,13 @@ export function calculateInitialCapital(params = {}) {
     subtotal_operational,
     subtotal_contingency,
     total_initial_capital,
+    budget_limit,
+    is_within_budget,
+    budget_difference,
+    budget_status,
+    feasibility_points: feasibility.points,
+    feasibility_grade: feasibility.grade,
+    feasibility_breakdown: feasibility.breakdown,
   };
 }
 
@@ -446,6 +523,7 @@ export class PlannerUI {
       monthlyOpsInput: document.getElementById('input-monthly-ops'),
       workingMonthsInput: document.getElementById('input-working-months'),
       contingencyInput: document.getElementById('input-contingency-cost'),
+      budgetLimitInput: document.getElementById('input-budget-limit'),
       // Breakdown output elemen
       outSubtotalRental: document.getElementById('calc-subtotal-rental'),
       outSubtotalRenovation: document.getElementById('calc-subtotal-renovation'),
@@ -453,6 +531,9 @@ export class PlannerUI {
       outSubtotalOperational: document.getElementById('calc-subtotal-operational'),
       outSubtotalContingency: document.getElementById('calc-subtotal-contingency'),
       outTotalCapital: document.getElementById('calc-total-capital'),
+      outFeasibilityPoints: document.getElementById('calc-feasibility-points'),
+      outFeasibilityGrade: document.getElementById('calc-feasibility-grade'),
+      outBudgetStatus: document.getElementById('calc-budget-status'),
       // Saved plans list di sidebar
       savedPlansList: document.getElementById('saved-plans-list'),
       savedPlansCount: document.getElementById('saved-plans-count'),
@@ -635,6 +716,9 @@ export class PlannerUI {
       this.els.contingencyInput.value =
         existingPlan?.params?.contingency_cost ?? DEFAULT_PLAN_COSTS.contingency_cost;
     }
+    if (this.els.budgetLimitInput) {
+      this.els.budgetLimitInput.value = existingPlan?.params?.budget_limit || '';
+    }
 
     // Jalankan rekalkulasi awal
     this.updateCalculator();
@@ -687,12 +771,13 @@ export class PlannerUI {
       monthly_operational_cost: Number(this.els.monthlyOpsInput?.value || 0),
       working_capital_months: Number(this.els.workingMonthsInput?.value || 0),
       contingency_cost: Number(this.els.contingencyInput?.value || 0),
+      budget_limit: Number(this.els.budgetLimitInput?.value || 0),
     };
   }
 
   updateCalculator() {
     const params = this.getFormParams();
-    const result = calculateInitialCapital(params);
+    const result = calculateInitialCapital(params, this.currentLand);
 
     if (this.els.outSubtotalRental) {
       this.els.outSubtotalRental.textContent = formatRupiah(result.subtotal_rental);
@@ -712,6 +797,26 @@ export class PlannerUI {
     if (this.els.outTotalCapital) {
       this.els.outTotalCapital.textContent = formatRupiah(result.total_initial_capital);
     }
+    if (this.els.outFeasibilityPoints) {
+      this.els.outFeasibilityPoints.textContent = `${result.feasibility_points} / 100 Poin`;
+    }
+    if (this.els.outFeasibilityGrade) {
+      this.els.outFeasibilityGrade.textContent = result.feasibility_grade;
+    }
+    if (this.els.outBudgetStatus) {
+      if (result.budget_limit > 0) {
+        if (result.is_within_budget) {
+          this.els.outBudgetStatus.className = 'budget-status status-ok';
+          this.els.outBudgetStatus.textContent = `✓ Sesuai Anggaran (Sisa: ${formatRupiah(result.budget_difference)})`;
+        } else {
+          this.els.outBudgetStatus.className = 'budget-status status-over';
+          this.els.outBudgetStatus.textContent = `✕ Melebihi Anggaran (+${formatRupiah(Math.abs(result.budget_difference))})`;
+        }
+        this.els.outBudgetStatus.hidden = false;
+      } else {
+        this.els.outBudgetStatus.hidden = true;
+      }
+    }
 
     return result;
   }
@@ -725,7 +830,7 @@ export class PlannerUI {
     const cafeName = (this.els.cafeNameInput?.value || '').trim() || 'Rencana Kafe Baru';
     const targetCustomer = (this.els.targetCustInput?.value || '').trim();
     const params = this.getFormParams();
-    const calculation = calculateInitialCapital(params);
+    const calculation = calculateInitialCapital(params, this.currentLand);
 
     const planPayload = {
       id: this.currentPlanId || `PLAN-${Date.now()}`,
@@ -764,7 +869,7 @@ export class PlannerUI {
     const cafeName = (this.els.cafeNameInput?.value || '').trim() || 'Rencana Kafe Baru';
     const targetCustomer = (this.els.targetCustInput?.value || '').trim();
     const params = this.getFormParams();
-    const calculation = calculateInitialCapital(params);
+    const calculation = calculateInitialCapital(params, this.currentLand);
 
     const planPayload = {
       id: this.currentPlanId,
@@ -844,6 +949,7 @@ export class PlannerUI {
         </div>
         <div class="saved-plan-capital">
           Total: <strong>${formatRupiah(p.calculation?.total_initial_capital)}</strong>
+          ${p.calculation?.feasibility_points != null ? `<span class="saved-plan-score"> · Skor: <strong>${p.calculation.feasibility_points}/100</strong> (${escapeHtml(p.calculation.feasibility_grade || '')})</span>` : ''}
         </div>
         <div class="saved-plan-actions">
           <button type="button" class="btn-sm btn-open-plan" data-id="${p.id}">Buka &amp; Edit</button>
@@ -929,6 +1035,7 @@ export function initPlanner() {
       ui,
       canPlanForLand,
       calculateInitialCapital,
+      calculateFeasibilityPoints,
       formatRupiah,
       downloadPlanAsJson,
       triggerFileDownload,

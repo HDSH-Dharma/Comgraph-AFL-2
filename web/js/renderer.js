@@ -2,8 +2,22 @@
 // setiap kali ada perubahan (dibatch dengan requestAnimationFrame).
 // Urutan layer: latar → basemap → buffer → kampus → kandidat → sorotan → label.
 
-import { BUFFER_STYLE, CAMPUS_STYLE, MARKER_RADIUS, OUT_OF_BUFFER_ALPHA } from './config.js';
-import { drawStatusMarker, drawHighlightRing, drawCampusMarker, campusHeadCenter } from './symbols.js';
+import {
+  BUFFER_STYLE,
+  CAMPUS_STYLE,
+  MARKER_RADIUS,
+  OUT_OF_BUFFER_ALPHA,
+  OSM_BUILDING_STYLE,
+  OSM_CAFE_STYLE,
+} from './config.js';
+import {
+  drawStatusMarker,
+  drawHighlightRing,
+  drawCampusMarker,
+  drawListingMarker,
+  drawOsmCafeMarker,
+  campusHeadCenter,
+} from './symbols.js';
 import { worldToLonLat } from './viewport.js';
 
 const BACKGROUND = '#EEF2F6';
@@ -58,7 +72,10 @@ export class MapRenderer {
 
     const visible = this.vm.visible;
     this.drawBuffers(visible.buffers);
+    this.drawOsmBuildings(visible.osmBuildings);
     this.drawCampuses(visible.campuses);
+    this.drawOsmCafes(visible.osmCafes);
+    this.drawListings(visible.listings);
     this.drawCandidates(visible.candidates);
     this.drawLabels(visible);
     this.afterRender?.();
@@ -145,8 +162,52 @@ export class MapRenderer {
     ctx.restore();
   }
 
+  drawOsmBuildings(buildings) {
+    if (!buildings || !buildings.length) return;
+    const { ctx } = this;
+    const { selection, hover } = this.vm;
+    ctx.save();
+    for (const b of buildings) {
+      if (!b.rings || !b.rings.length || !this.inView(b.bounds)) continue;
+      const isSelected = selection?.kind === 'osm_building' && selection.id === b.id;
+      const isHovered = hover?.kind === 'osm_building' && hover.id === b.id;
+
+      ctx.fillStyle = isSelected
+        ? 'rgba(59, 130, 246, 0.35)'
+        : isHovered
+          ? 'rgba(71, 85, 105, 0.28)'
+          : OSM_BUILDING_STYLE.fill;
+      this.tracePolygon(b.rings);
+      ctx.fill('evenodd');
+
+      ctx.strokeStyle = isSelected ? '#1D4ED8' : OSM_BUILDING_STYLE.stroke;
+      ctx.lineWidth = isSelected ? 2.5 : OSM_BUILDING_STYLE.lineWidth;
+      ctx.setLineDash([]);
+      this.tracePolygon(b.rings);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
   drawCampuses(campuses) {
     const { selection, hover } = this.vm;
+    // Gambar poligon batas area kampus jika tersedia di data
+    for (const u of campuses) {
+      if (u.rings && u.rings.length > 0) {
+        if (!this.inView(u.bounds)) continue;
+        this.ctx.save();
+        this.ctx.fillStyle = CAMPUS_STYLE.polygonFill || 'rgba(30, 27, 75, 0.15)';
+        this.tracePolygon(u.rings);
+        this.ctx.fill('evenodd');
+        this.ctx.strokeStyle = CAMPUS_STYLE.polygonStroke || '#1E1B4B';
+        this.ctx.lineWidth = CAMPUS_STYLE.polygonLineWidth || 1.5;
+        this.ctx.setLineDash([]);
+        this.tracePolygon(u.rings);
+        this.ctx.stroke();
+        this.ctx.restore();
+      }
+    }
+    // Gambar penanda pin kampus
     for (const u of campuses) {
       const [x, y] = this.viewport.worldToScreen(u.wx, u.wy);
       if (x < -40 || y < -60 || x > this.viewport.width + 40 || y > this.viewport.height + 40) continue;
@@ -184,6 +245,42 @@ export class MapRenderer {
     }
   }
 
+  drawOsmCafes(cafes) {
+    if (!cafes || !cafes.length) return;
+    const { ctx, viewport: vp } = this;
+    const { selection, hover } = this.vm;
+    const r = OSM_CAFE_STYLE.radius || 7;
+    for (const c of cafes) {
+      const [x, y] = vp.worldToScreen(c.wx, c.wy);
+      if (x < -30 || y < -30 || x > vp.width + 30 || y > vp.height + 30) continue;
+      const isSelected = selection?.kind === 'osm_cafe' && selection.id === c.id;
+      const isHovered = hover?.kind === 'osm_cafe' && hover.id === c.id;
+      if (isSelected) drawHighlightRing(ctx, x, y, r, { selected: true, warn: false });
+      else if (isHovered) drawHighlightRing(ctx, x, y, r);
+      drawOsmCafeMarker(ctx, x, y, r, {
+        highlight: isSelected || isHovered,
+      });
+    }
+  }
+
+  drawListings(listings) {
+    if (!listings || !listings.length) return;
+    const { ctx, viewport: vp } = this;
+    const { selection, hover } = this.vm;
+    const r = 8;
+    for (const l of listings) {
+      const [x, y] = vp.worldToScreen(l.wx, l.wy);
+      if (x < -30 || y < -30 || x > vp.width + 30 || y > vp.height + 30) continue;
+      const isSelected = selection?.kind === 'listing' && selection.id === l.id;
+      const isHovered = hover?.kind === 'listing' && hover.id === l.id;
+      drawListingMarker(ctx, x, y, r, {
+        highlight: isSelected || isHovered,
+        isInBuffer: l.isInBuffer !== false,
+        alpha: l.isInBuffer === false && !isSelected ? 0.6 : 1,
+      });
+    }
+  }
+
   drawText(text, x, y, { align = 'left', weight = 600, size = 12 } = {}) {
     const { ctx } = this;
     ctx.font = `${weight} ${size}px system-ui, -apple-system, "Segoe UI", sans-serif`;
@@ -215,6 +312,18 @@ export class MapRenderer {
         this.drawText(c.name, x + MARKER_RADIUS + 7, y, { weight: 600, size: 11 });
       }
     }
+    if (z >= 16.5 && visible.listings?.length) {
+      for (const l of visible.listings) {
+        const [x, y] = vp.worldToScreen(l.wx, l.wy);
+        this.drawText(l.title, x + 12, y, { weight: 600, size: 10 });
+      }
+    }
+    if (z >= 16.5 && visible.osmCafes?.length) {
+      for (const c of visible.osmCafes) {
+        const [x, y] = vp.worldToScreen(c.wx, c.wy);
+        this.drawText(c.name, x + 12, y, { weight: 600, size: 10 });
+      }
+    }
     this.ctx.restore();
   }
 
@@ -238,6 +347,37 @@ export class MapRenderer {
       }
     }
     if (best) return best;
+
+    // Hit test listing sewa riil publik
+    if (visible.listings?.length) {
+      const lr = 8 + tolerance;
+      for (let i = visible.listings.length - 1; i >= 0; i--) {
+        const l = visible.listings[i];
+        const [x, y] = vp.worldToScreen(l.wx, l.wy);
+        const d = Math.hypot(sx - x, sy - y);
+        if (d <= lr && (!best || d < best.d - 0.5)) {
+          best = { kind: 'listing', item: l, d };
+          break;
+        }
+      }
+      if (best) return best;
+    }
+
+    // Hit test kafe eksisting OSM
+    if (visible.osmCafes?.length) {
+      const cr = (OSM_CAFE_STYLE.radius || 7) + tolerance;
+      for (let i = visible.osmCafes.length - 1; i >= 0; i--) {
+        const c = visible.osmCafes[i];
+        const [x, y] = vp.worldToScreen(c.wx, c.wy);
+        const d = Math.hypot(sx - x, sy - y);
+        if (d <= cr && (!best || d < best.d - 0.5)) {
+          best = { kind: 'osm_cafe', item: c, d };
+          break;
+        }
+      }
+      if (best) return best;
+    }
+
     for (const u of visible.campuses) {
       const [x, y] = vp.worldToScreen(u.wx, u.wy);
       const [hx, hy] = campusHeadCenter(x, y);
@@ -245,6 +385,21 @@ export class MapRenderer {
       const inStem = Math.abs(sx - x) <= 6 + tolerance && sy <= y + tolerance && sy >= hy;
       if (inHead || inStem) return { kind: 'campus', item: u, d: 0 };
     }
+
+    // Hit test perimeter kampus OSM (berdasarkan titik tengah)
+    if (visible.osmBuildings?.length) {
+      const br = 12 + tolerance;
+      for (const b of visible.osmBuildings) {
+        if (b.wx != null && b.wy != null) {
+          const [x, y] = vp.worldToScreen(b.wx, b.wy);
+          const d = Math.hypot(sx - x, sy - y);
+          if (d <= br) {
+            return { kind: 'osm_building', item: b, d };
+          }
+        }
+      }
+    }
+
     return null;
   }
 }

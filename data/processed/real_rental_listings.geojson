@@ -1,0 +1,15 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "title": "Listing Sewa Properti Riil Publik (Status: Kosong / Unsupported Research Report)",
+    "total_features": 0,
+    "crs": "EPSG:4326",
+    "contract_version": "2.0.0",
+    "status": "EMPTY_UNVERIFIED",
+    "evidence_source": "None (research claims unsupported)",
+    "unlocated_features_count": 0,
+    "geocoded_features_count": 0,
+    "description": "Tidak ada listing properti riil yang lolos verifikasi independen (laporan riset dinyatakan unsupported). Dataset listing dikosongkan guna mencegah pengiriman data buatan / fabrikasi."
+  },
+  "features": []
+}

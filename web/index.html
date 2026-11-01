@@ -116,8 +116,20 @@
             <span class="check-label">Titik kampus</span>
           </label>
           <label class="check-row">
-            <input type="checkbox" data-layer="candidates" checked />
-            <span class="check-label">Kandidat lahan</span>
+            <input type="checkbox" data-layer="osmBuildings" checked />
+            <span class="check-label">Perimeter kampus (OSM faktual)</span>
+          </label>
+          <label class="check-row" id="layer-osm-cafes-row">
+            <input type="checkbox" data-layer="osmCafes" id="layer-osm-cafes-input" checked />
+            <span class="check-label" id="layer-osm-cafes-label">Kafe eksisting (OSM faktual)</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" data-layer="candidates" />
+            <span class="check-label">Kandidat lahan (demo)</span>
+          </label>
+          <label class="check-row" id="layer-listings-row">
+            <input type="checkbox" data-layer="listings" id="layer-listings-input" checked />
+            <span class="check-label" id="layer-listings-label">Listing sewa riil publik</span>
           </label>
           <label class="check-row">
             <input type="checkbox" data-layer="basemap" checked />
@@ -244,11 +256,22 @@
                 <label for="input-contingency-cost">Perizinan &amp; Kontingensi (Rp)</label>
                 <input type="number" id="input-contingency-cost" name="contingency_cost" min="0" step="500000" value="10000000" />
               </div>
+              <div class="form-group">
+                <label for="input-budget-limit">Target Batas Anggaran (Rp - Opsional)</label>
+                <input type="number" id="input-budget-limit" name="budget_limit" min="0" step="5000000" placeholder="Contoh: 500000000" />
+                <span class="field-hint">Batas maksimal anggaran modal awal kafe</span>
+              </div>
             </fieldset>
           </form>
 
           <aside class="calculator-panel" aria-label="Rincian Kalkulasi Modal">
             <div class="calculator-card">
+              <div class="calc-points-banner" id="calc-points-banner">
+                <span class="points-label">POIN KELAYAKAN KAFE</span>
+                <span class="points-value" id="calc-feasibility-points">0 / 100 Poin</span>
+                <span class="points-grade" id="calc-feasibility-grade">—</span>
+              </div>
+
               <h3 class="calc-title">Rincian Estimasi Modal</h3>
               <dl class="calc-breakdown">
                 <div class="calc-row">
@@ -277,6 +300,8 @@
                 <span class="total-label">TOTAL ESTIMASI MODAL AWAL</span>
                 <span class="total-value" id="calc-total-capital">Rp 0</span>
               </div>
+
+              <div id="calc-budget-status" class="budget-status" hidden></div>
 
               <p class="calc-note">
                 💡 Estimasi dihitung otomatis. Perhitungan modal ini tersimpan di browser (LocalStorage) untuk presentasi dan evaluasi bisnis kafe.
