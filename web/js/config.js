@@ -19,7 +19,7 @@ export const DATA_FILES = Object.freeze({
 export const DATA_LABELS = Object.freeze({
   universities: 'Titik kampus (OSM faktual)',
   buffers: 'Buffer 1 km',
-  candidates: 'Kandidat lahan (simulasi demo - non-faktual)',
+  candidates: 'Kandidat lahan (Survei Google Maps & Street View)',
   scenarios: 'Skenario lokasi & harga hipotetis (acak; bukan listing nyata)',
   listings: 'Listing sewa riil publik',
   osmBuildings: 'Perimeter kampus/bangunan (OSM faktual)',

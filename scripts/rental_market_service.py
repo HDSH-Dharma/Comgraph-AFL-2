@@ -677,7 +677,9 @@ def audit_production_dataset(
             synthetic_in_prod += 1
 
         if props.get("is_rentable_or_sale") is True or props.get("is_clickable_for_planning") is True:
-            fake_rentable_claims += 1
+            has_evidence = bool(props.get("evidence_url") or props.get("evidence_photo") or props.get("price_source_url"))
+            if not has_evidence:
+                fake_rentable_claims += 1
 
         if props.get("rental_price_yr") is not None and not props.get("price_source_url"):
             unbacked_prices += 1
