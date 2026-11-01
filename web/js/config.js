@@ -13,12 +13,14 @@ export const DATA_FILES = Object.freeze({
   areaSummary: '../data/processed/area_rental_price_summary.json',
   osmBuildings: '../data/processed/universities_polygons.geojson',
   osmCafes: '../data/processed/osm_cafes.geojson',
+  scenarios: '../data/fixtures/synthetic_scenario_candidates.geojson',
 });
 
 export const DATA_LABELS = Object.freeze({
   universities: 'Titik kampus (OSM faktual)',
   buffers: 'Buffer 1 km',
   candidates: 'Kandidat lahan (simulasi demo - non-faktual)',
+  scenarios: 'Skenario lokasi & harga hipotetis (acak; bukan listing nyata)',
   listings: 'Listing sewa riil publik',
   osmBuildings: 'Perimeter kampus/bangunan (OSM faktual)',
   osmCafes: 'Kafe eksisting (OSM faktual)',

@@ -253,6 +253,7 @@ function parseBuffers(json) {
 export function classifyDataKind(raw) {
   const v = str(raw).toLowerCase();
   if (!v) return 'unknown';
+  if (/(scenario|skenario)/.test(v)) return 'scenario';
   if (/(demo|synthetic|simulasi|dummy|sample)/.test(v)) return 'demo';
   if (/(survey|survei|field|lapangan|verified|terverifikasi)/.test(v)) return 'verified';
   if (/(listing|marketplace|properti)/.test(v)) return 'listing';
@@ -279,15 +280,36 @@ function parseCandidates(json) {
     }
     const w = lonLatToWorld(c[0], c[1]);
     const kind = classifyDataKind(p.data_kind);
+    const isScenario =
+      kind === 'scenario' ||
+      p.data_kind === 'synthetic_scenario' ||
+      /(scenario|skenario)/.test(String(p.data_kind || '')) ||
+      p.is_scenario === true;
+    const isSimulated =
+      p.simulated === true ||
+      isScenario ||
+      p.is_synthetic_demo === true ||
+      kind === 'demo' ||
+      /(scenario|skenario|synthetic|demo|simulasi)/.test(String(p.data_kind || ''));
+    const isRandomPlacement = Boolean(
+      p.random_placement === true ||
+      p.is_random_placement === true ||
+      p.placement === 'random' ||
+      p.is_random === true
+    );
     const hasOsmProvenance = Boolean(p.osm_id || p.osm_way_ref || String(p.source || '').includes('OpenStreetMap'));
-    const isSurvey = (kind === 'verified' || /(survey|survei)/.test(String(p.data_kind || ''))) &&
+    const isSurvey = !isSimulated && !isScenario && (kind === 'verified' || /(survey|survei)/.test(String(p.data_kind || ''))) &&
       (Boolean(p.survey_method || p.evidence_url || p.observed_at) || String(p.data_kind || '').includes('survei') || String(p.data_kind || '').includes('survey'));
-    const isFactual = (p.is_factual === true && hasOsmProvenance) || isSurvey;
-    const provenanceLabel = isSurvey
-      ? `Survei Lapangan Empiris (${p.survey_method || 'Terverifikasi'})`
-      : (hasOsmProvenance && p.is_factual)
-        ? 'Faktual OpenStreetMap (ODbL 1.0)'
-        : 'Simulasi Akademik (Tanpa Provenans Faktual)';
+    const isFactual = !isSimulated && !isScenario && kind !== 'demo' && ((p.is_factual === true && hasOsmProvenance) || isSurvey);
+    const provenanceLabel = isScenario
+      ? (isRandomPlacement
+          ? 'Skenario Sintetis (Penempatan Spasial Acak)'
+          : 'Skenario Sintetis (Simulasi Hipotetis)')
+      : isSurvey
+        ? `Survei Lapangan Empiris (${p.survey_method || 'Terverifikasi'})`
+        : (hasOsmProvenance && p.is_factual)
+          ? 'Faktual OpenStreetMap (ODbL 1.0)'
+          : 'Simulasi Akademik (Tanpa Provenans Faktual)';
 
     items.push({
       id,
@@ -301,13 +323,16 @@ function parseCandidates(json) {
       address: str(p.address),
       status,
       distanceM: num(p.distance_meters),
-      nearestUniversityId: str(p.nearest_university_id) || null,
-      nearestUniversityName: str(p.nearest_university_name),
+      nearestUniversityId: str(p.nearest_university_id || p.target_campus_id) || null,
+      nearestUniversityName: str(p.nearest_university_name || p.target_campus_name),
       isInBuffer: typeof p.is_in_buffer === 'boolean' ? p.is_in_buffer : null,
       isEligible: typeof p.is_eligible === 'boolean' ? p.is_eligible : null,
-      dataKind: kind,
+      dataKind: isScenario ? 'scenario' : kind,
       isFactual,
       isSurvey,
+      isScenario,
+      simulated: isSimulated || isScenario,
+      isRandomPlacement,
       surveyMethod: str(p.survey_method) || null,
       evidenceUrl: str(p.evidence_url) || null,
       observedAt: str(p.observed_at) || null,
@@ -350,6 +375,16 @@ export function isGenericListingUrl(url) {
  */
 export function isValidEvidenceListing(featureOrProps) {
   const p = featureOrProps?.properties ?? featureOrProps ?? {};
+  // Defense-in-depth: Tolak mentah-mentah fitur skenario sintetis, demo, atau data simulasi
+  if (
+    p.simulated === true ||
+    p.data_kind === 'synthetic_scenario' ||
+    p.is_scenario === true ||
+    p.is_synthetic_demo === true ||
+    /(scenario|skenario|synthetic|demo|simulasi)/.test(String(p.data_kind || ''))
+  ) {
+    return false;
+  }
   const url = typeof p.source_url === 'string' ? p.source_url.trim() : '';
   if (!url || isGenericListingUrl(url)) return false;
   const isVerified =
@@ -408,8 +443,8 @@ function parseListings(json) {
       sourcePortal: str(p.source_portal),
       sourceUrl: str(p.source_url),
       verificationDate: str(p.verification_date),
-      nearestUniversityId: str(p.nearest_university_id) || null,
-      nearestUniversityName: str(p.nearest_university_name),
+      nearestUniversityId: str(p.nearest_university_id || p.target_campus_id) || null,
+      nearestUniversityName: str(p.nearest_university_name || p.target_campus_name),
       distanceM: num(p.distance_meters),
       isInBuffer: typeof p.is_in_buffer === 'boolean' ? p.is_in_buffer : null,
       isVerifiedPublic: true,
@@ -613,13 +648,14 @@ export const PARSERS = {
   universities: parseUniversities,
   buffers: parseBuffers,
   candidates: parseCandidates,
+  scenarios: parseCandidates,
   listings: parseListings,
   areaSummary: parseAreaSummary,
   osmBuildings: parseOsmBuildings,
   osmCafes: parseOsmCafes,
 };
 
-const OPTIONAL_DATA_KEYS = new Set(['listings', 'areaSummary', 'osmCafes', 'osmBuildings']);
+const OPTIONAL_DATA_KEYS = new Set(['listings', 'areaSummary', 'osmCafes', 'osmBuildings', 'scenarios']);
 
 /**
  * Muat file spasial secara paralel. Tidak pernah melempar error: tiap layer
@@ -692,8 +728,9 @@ export function linkInstitutions(result) {
       }
     }
   }
-  if (result.candidates?.items) {
-    for (const c of result.candidates.items) {
+  for (const key of ['candidates', 'scenarios']) {
+    if (!result[key]?.items) continue;
+    for (const c of result[key].items) {
       c.institution =
         (c.nearestUniversityId && (byId.get(c.nearestUniversityId) || byId.get(c.nearestUniversityId.toLowerCase()))) ||
         (c.properties?.institution ? str(c.properties.institution) : null);
@@ -722,10 +759,51 @@ export function linkInstitutions(result) {
 
 /** Objek yang dikirim ke modul perencanaan kafe: properti GeoJSON + koordinat [lon, lat] + institusi. */
 export function buildLandData(c) {
+  const props = c.properties || c;
+  const isScenario = Boolean(
+    c.isScenario ||
+    c.dataKind === 'scenario' ||
+    props?.data_kind === 'synthetic_scenario' ||
+    /(scenario|skenario)/.test(String(props?.data_kind || '')) ||
+    props?.is_scenario === true
+  );
+  const simulated = Boolean(
+    c.simulated ||
+    isScenario ||
+    props?.simulated === true ||
+    props?.is_synthetic_demo === true
+  );
+  const isRandomPlacement = Boolean(
+    c.isRandomPlacement ||
+    props?.random_placement === true ||
+    props?.is_random_placement === true ||
+    props?.placement === 'random' ||
+    props?.is_random === true
+  );
+
   return {
-    ...c.properties,
-    institution: c.institution || c.properties?.institution || null,
-    coordinates: [c.lon, c.lat],
+    ...props,
+    nearest_university_id:
+      c.nearestUniversityId ||
+      props?.nearest_university_id ||
+      props?.target_campus_id ||
+      null,
+    nearest_university_name:
+      c.nearestUniversityName ||
+      props?.nearest_university_name ||
+      props?.target_campus_name ||
+      null,
+    institution: c.institution || props?.institution || null,
+    coordinates: Array.isArray(c.coordinates)
+      ? c.coordinates
+      : (c.lon != null && c.lat != null ? [c.lon, c.lat] : (props?.coordinates || null)),
+    data_kind: isScenario
+      ? 'synthetic_scenario'
+      : (props?.data_kind || (c.dataKind === 'demo' ? 'synthetic_academic_demo' : null)),
+    simulated,
+    is_scenario: isScenario,
+    is_random_placement: isRandomPlacement,
+    is_factual: isScenario || simulated ? false : Boolean(c.isFactual ?? props?.is_factual),
   };
 }
 

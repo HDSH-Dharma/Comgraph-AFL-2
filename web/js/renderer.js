@@ -77,6 +77,7 @@ export class MapRenderer {
     this.drawOsmCafes(visible.osmCafes);
     this.drawListings(visible.listings);
     this.drawCandidates(visible.candidates);
+    if (visible.scenarios?.length) this.drawCandidates(visible.scenarios);
     this.drawLabels(visible);
     this.afterRender?.();
   }
@@ -241,6 +242,7 @@ export class MapRenderer {
       drawStatusMarker(ctx, c.status, x, y, r, {
         alpha: c.isInBuffer === false && !isSelected ? OUT_OF_BUFFER_ALPHA : 1,
         outOfBuffer: c.isInBuffer === false,
+        isScenario: Boolean(c.isScenario || c.simulated || c.dataKind === 'scenario'),
       });
     }
   }
@@ -307,7 +309,10 @@ export class MapRenderer {
       }
     }
     if (z >= 16) {
-      for (const c of visible.candidates) {
+      const candidatesToLabel = visible.scenarios?.length
+        ? [...visible.candidates, ...visible.scenarios]
+        : visible.candidates;
+      for (const c of candidatesToLabel) {
         const [x, y] = vp.worldToScreen(c.wx, c.wy);
         this.drawText(c.name, x + MARKER_RADIUS + 7, y, { weight: 600, size: 11 });
       }
@@ -334,7 +339,10 @@ export class MapRenderer {
   hitTest(sx, sy, tolerance = 4) {
     const vp = this.viewport;
     const visible = this.vm.visible;
-    const ordered = this.orderedCandidates(visible.candidates);
+    const allCandidates = visible.scenarios?.length
+      ? [...visible.candidates, ...visible.scenarios]
+      : visible.candidates;
+    const ordered = this.orderedCandidates(allCandidates);
     const r = MARKER_RADIUS + tolerance;
     let best = null;
     for (let i = ordered.length - 1; i >= 0; i--) {

@@ -10,6 +10,7 @@ import {
   BUFFER_STYLE,
   OSM_BUILDING_STYLE,
   OSM_CAFE_STYLE,
+  FALLBACK_ELIGIBLE_STATUSES,
 } from './config.js';
 import { NO_INSTITUTION, institutionLabel } from './mapViewModel.js';
 import {
@@ -48,6 +49,7 @@ export function formatMeters(m) {
 }
 
 const DATA_KIND_TEXT = {
+  scenario: 'Skenario sintetis (simulasi hipotetis / penempatan acak), bukan data faktual',
   demo: 'Data demo (simulasi akademik), belum diverifikasi lapangan',
   verified: 'Survei lapangan empiris terverifikasi',
   listing: 'Listing properti eksternal (terverifikasi)',
@@ -55,6 +57,7 @@ const DATA_KIND_TEXT = {
   unknown: 'Sumber data belum jelas',
 };
 const DATA_KIND_SHORT = {
+  scenario: 'Skenario Sintetis',
   demo: 'Simulasi Demo',
   verified: 'Survei Faktual',
   listing: 'Listing Riil',
@@ -250,6 +253,17 @@ export class MapUI {
         cafeLabel.textContent = 'Kafe eksisting (data OSM belum tersedia)';
       } else {
         cafeLabel.textContent = `Kafe eksisting OSM (${cafeCount} kafe)`;
+      }
+    }
+
+    const scenarioInput = document.querySelector('input[data-layer="scenarios"]');
+    const scenarioLabel = document.getElementById('layer-scenarios-label') || scenarioInput?.nextElementSibling;
+    const scenarioCount = this.vm.data.scenarios?.items?.length || 0;
+    if (scenarioLabel) {
+      if (scenarioCount === 0) {
+        scenarioLabel.textContent = '🧪 Skenario sintetis (simulasi acak)';
+      } else {
+        scenarioLabel.textContent = `🧪 Skenario sintetis (${scenarioCount} simulasi acak)`;
       }
     }
     if (this.els.listingLegendItem && this.els.listingLegendText) {
@@ -461,7 +475,8 @@ export class MapUI {
       (a, b) => (a.distanceM ?? Infinity) - (b.distanceM ?? Infinity)
     );
     const factualCount = (cand.items || []).filter((c) => c.isFactual).length;
-    const demoCount = (cand.items || []).filter((c) => !c.isFactual).length;
+    const scenarioCount = (cand.items || []).filter((c) => c.isScenario || c.dataKind === 'scenario').length;
+    const demoCount = (cand.items || []).filter((c) => !c.isFactual && !c.isScenario && c.dataKind !== 'scenario').length;
 
     if (!cand.ok) {
       this.els.count.textContent = '';
@@ -470,7 +485,8 @@ export class MapUI {
     }
 
     if (!vm.layers.candidates) {
-      this.els.count.textContent = `(0 survei faktual · ${demoCount} demo nonaktif)`;
+      const nonActiveLabel = scenarioCount > 0 ? `${scenarioCount} skenario · ${demoCount} demo nonaktif` : `${demoCount} demo nonaktif`;
+      this.els.count.textContent = `(0 survei faktual · ${nonActiveLabel})`;
       this.els.list.replaceChildren(
         h(
           'li',
@@ -481,15 +497,16 @@ export class MapUI {
         h(
           'li',
           { class: 'muted candidate-hidden-notice' },
-          `ℹ️ Kandidat lahan sintetis (${demoCount} titik demo akademik) disembunyikan secara default demi memprioritaskan data faktual. Aktifkan checkbox "Kandidat lahan (demo)" di kontrol layer jika ingin menampilkan simulasi demo.`
+          `ℹ️ Kandidat lahan sintetis (${demoCount + scenarioCount} titik simulasi/skenario) disembunyikan secara default demi memprioritaskan data faktual. Aktifkan checkbox "Kandidat lahan (demo)" di kontrol layer jika ingin menampilkan simulasi demo/skenario.`
         )
       );
       return;
     }
 
+    const scenarioText = scenarioCount > 0 ? `${scenarioCount} skenario · ` : '';
     this.els.count.textContent = factualCount > 0
-      ? `${visible.length} terlihat (${factualCount} faktual · ${demoCount} demo)`
-      : `${visible.length} terlihat (${demoCount} simulasi demo · 0 faktual)`;
+      ? `${visible.length} terlihat (${factualCount} faktual · ${scenarioText}${demoCount} demo)`
+      : `${visible.length} terlihat (${scenarioText}${demoCount} simulasi demo · 0 faktual)`;
 
     if (!visible.length) {
       this.els.list.replaceChildren(
@@ -501,14 +518,14 @@ export class MapUI {
     const selectedId = vm.selection?.kind === 'land' ? vm.selection.id : null;
     const items = [];
 
-    // Jika seluruh kandidat yang aktif adalah data demo (0 faktual), sematkan callout peringatan di atas daftar
+    // Jika seluruh kandidat yang aktif adalah data demo / skenario (0 faktual), sematkan callout peringatan di atas daftar
     if (factualCount === 0) {
       items.push(
         h(
           'li',
           { class: 'callout callout-warn candidate-demo-list-banner', role: 'note' },
-          h('strong', { text: '⚠️ Simulasi Akademik Demo: ' }),
-          `Menampilkan ${visible.length} titik simulasi demo (0 data survei faktual). Angka sewa & luas adalah estimasi asumsi, bukan harga pasar nyata.`
+          h('strong', { text: '⚠️ Simulasi Akademik Demo & Skenario: ' }),
+          `Menampilkan ${visible.length} titik simulasi (0 data survei faktual). Angka sewa & luas adalah parameter skenario/asumsi, bukan harga pasar nyata.`
         )
       );
     }
@@ -527,11 +544,20 @@ export class MapUI {
               dataset: { id: c.id },
               onclick: () => this.actions.selectCandidate(c.id, { source: 'list' }),
             },
-            statusSwatch(c.status, 26, { alpha: c.isInBuffer === false ? OUT_OF_BUFFER_ALPHA : 1, outOfBuffer: c.isInBuffer === false }),
+            statusSwatch(c.status, 26, {
+              alpha: c.isInBuffer === false ? OUT_OF_BUFFER_ALPHA : 1,
+              outOfBuffer: c.isInBuffer === false,
+              isScenario: Boolean(c.isScenario || c.simulated || c.dataKind === 'scenario'),
+            }),
             h(
               'span',
               { class: 'candidate-text' },
-              h('span', { class: 'candidate-name', text: c.name }),
+              h(
+                'span',
+                { class: 'candidate-name' },
+                c.name,
+                c.isScenario ? h('span', { class: 'tag-scenario', text: c.isRandomPlacement ? '🎲 Acak' : '🧪 Skenario' }) : null
+              ),
               h('span', {
                 class: 'candidate-meta',
                 text: [
@@ -540,9 +566,13 @@ export class MapUI {
                     : c.status.label,
                   c.distanceM != null ? formatMeters(c.distanceM).split(' (')[0] : null,
                   c.isInBuffer === false ? 'di luar buffer' : null,
-                  !c.isFactual ? 'Estimasi Demo' : 'Survei Faktual',
+                  c.isScenario
+                    ? (c.isRandomPlacement ? 'Skenario (Penempatan Acak)' : 'Skenario Sintetis')
+                    : (!c.isFactual ? 'Estimasi Demo' : 'Survei Faktual'),
                   c.rentalPriceYr
-                    ? (!c.isFactual ? `${rupiah.format(c.rentalPriceYr)} (est. demo)` : rupiah.format(c.rentalPriceYr))
+                    ? (c.isScenario
+                        ? `${rupiah.format(c.rentalPriceYr)} (harga skenario)`
+                        : (!c.isFactual ? `${rupiah.format(c.rentalPriceYr)} (est. demo)` : rupiah.format(c.rentalPriceYr)))
                     : 'Sewa: n/a',
                 ]
                   .filter(Boolean)
@@ -559,7 +589,7 @@ export class MapUI {
 
   // ---------- Inspector ----------
 
-  eligibilityBlock(c, eligibleStatuses) {
+  eligibilityBlock(c, eligibleStatuses = FALLBACK_ELIGIBLE_STATUSES) {
     const evaluation = evaluateCandidateEligibility(c, eligibleStatuses);
     if (evaluation.isEligible) {
       return h(
@@ -592,10 +622,24 @@ export class MapUI {
     return h('div', { class: 'callout', role: 'status', text: 'Kelayakan belum dihitung oleh pipeline GIS.' });
   }
 
-  showLandInspector(c, { handlerStatus, eligibleStatuses, areaSummary } = {}) {
+  showLandInspector(c, { handlerStatus, eligibleStatuses = FALLBACK_ELIGIBLE_STATUSES, areaSummary } = {}) {
     const evaluation = evaluateCandidateEligibility(c, eligibleStatuses);
     const isNonActionable = c.status?.key === 'rumah' || c.status?.key === 'fungsi_lain' || c.status?.isPlannerAllowed === false;
-    const isDemo = c.dataKind === 'demo' || !c.isFactual;
+    const isScenario = Boolean(
+      c.isScenario ||
+      c.dataKind === 'scenario' ||
+      c.properties?.data_kind === 'synthetic_scenario' ||
+      c.properties?.simulated === true ||
+      /(scenario|skenario)/.test(String(c.properties?.data_kind || ''))
+    );
+    const isRandomPlacement = Boolean(
+      c.isRandomPlacement ||
+      c.properties?.random_placement === true ||
+      c.properties?.is_random_placement === true ||
+      c.properties?.placement === 'random' ||
+      c.properties?.is_random === true
+    );
+    const isDemo = isScenario || c.dataKind === 'demo' || !c.isFactual;
     const statusDisplay = isNonActionable
       ? `Tidak Disewakan atau Dijual (${c.status?.label || c.status?.value})`
       : `${c.status.label} (${c.status.glyph})`;
@@ -607,7 +651,34 @@ export class MapUI {
       ['Jenis data', c.provenanceLabel || DATA_KIND_TEXT[c.dataKind] || 'Simulasi Akademik'],
     ];
 
-    if (isDemo) {
+    if (isScenario) {
+      if (c.areaSqm) {
+        rows.push(['Luas lahan', `${numberID.format(c.areaSqm)} m² (nilai skenario simulasi)`]);
+      } else {
+        rows.push(['Luas lahan', 'Belum ditentukan (wajib diisi di planner)']);
+      }
+      if (c.rentalPriceYr) {
+        rows.push(['Estimasi sewa skenario', `${rupiah.format(c.rentalPriceYr)} (nilai skenario simulasi, bukan harga pasar)`]);
+      } else {
+        rows.push(['Harga sewa', 'Belum ada data (wajib diisi di planner)']);
+      }
+      if (isRandomPlacement) {
+        rows.push(['Penempatan spasial', 'Koordinat acak (Random Placement untuk simulasi)']);
+      }
+      rows.push(['Status simulasi', 'Skenario Hipotetis (simulated=true)']);
+      if (c.properties?.price_basis) {
+        rows.push(['Basis estimasi sewa', String(c.properties.price_basis)]);
+      }
+      if (Array.isArray(c.properties?.source_range) && c.properties.source_range.length === 2) {
+        rows.push([
+          'Rentang riset pembanding',
+          `${rupiah.format(c.properties.source_range[0])} – ${rupiah.format(c.properties.source_range[1])}/thn (reports/research.md)`,
+        ]);
+      }
+      if (c.properties?.generation_method) {
+        rows.push(['Metode simulasi', `${c.properties.generation_method} (seed: ${c.properties.seed ?? 42})`]);
+      }
+    } else if (isDemo) {
       if (c.areaSqm) {
         rows.push(['Luas lahan', `${numberID.format(c.areaSqm)} m² (estimasi asumsi demo)`]);
       } else {
@@ -685,6 +756,12 @@ export class MapUI {
       error: 'Modul perencanaan gagal memproses lokasi ini (cek console).',
     }[handlerStatus];
 
+    const planBtnText = isScenario
+      ? '☕ Rencanakan Modal Kafe (Skenario Sintetis)'
+      : isDemo
+        ? '☕ Rencanakan Modal Kafe (Simulasi Demo)'
+        : '☕ Rencanakan Modal Kafe';
+
     const planBtn = evaluation.isEligible
       ? h(
           'button',
@@ -699,7 +776,7 @@ export class MapUI {
               }
             },
           },
-          isDemo ? '☕ Rencanakan Modal Kafe (Simulasi Demo)' : '☕ Rencanakan Modal Kafe'
+          planBtnText
         )
       : h(
           'button',
@@ -717,7 +794,16 @@ export class MapUI {
         );
 
     const callouts = [];
-    if (isDemo) {
+    if (isScenario) {
+      callouts.push(
+        h(
+          'div',
+          { class: 'callout callout-warn scenario-inspector-callout', role: 'alert' },
+          h('strong', { text: isRandomPlacement ? '🎲 Skenario Sintetis (Penempatan Acak): ' : '🧪 Skenario Sintetis (Simulasi Hipotetis): ' }),
+          `Lokasi ini merupakan titik simulasi skenario ${isRandomPlacement ? 'dengan penempatan spasial acak (random placement)' : ''}. Bukan merupakan listing properti faktual maupun hasil survei riil. Seluruh harga dan luas adalah parameter simulasi murni.`
+        )
+      );
+    } else if (isDemo) {
       callouts.push(
         h(
           'div',
@@ -936,17 +1022,28 @@ export class MapUI {
     }
     if (hit.kind === 'land') {
       const c = hit.item;
+      const isScenario = Boolean(c.isScenario || c.dataKind === 'scenario' || c.simulated);
       const isNonActionable = c.status?.key === 'rumah' || c.status?.key === 'fungsi_lain';
       const statusText = isNonActionable
         ? 'Tidak Disewakan atau Dijual'
         : `${c.status.label} (${c.status.glyph})`;
+      const kindLabel = isScenario
+        ? (c.isRandomPlacement ? 'Skenario (Acak)' : 'Skenario Sintetis')
+        : (DATA_KIND_SHORT[c.dataKind] || 'Kandidat');
+      const priceText = c.rentalPriceYr
+        ? (isScenario
+            ? `${rupiah.format(c.rentalPriceYr)}/thn (harga skenario)`
+            : (!c.isFactual ? `${rupiah.format(c.rentalPriceYr)}/thn (est. demo)` : `${rupiah.format(c.rentalPriceYr)}/thn`))
+        : null;
+
       el.replaceChildren(
         h('strong', { text: c.name }),
         h('span', { text: statusText }),
         h('span', {
           text: `${formatMeters(c.distanceM).split(' (')[0]} dari ${c.nearestUniversityName || 'kampus'}${c.isInBuffer === false ? ' · di luar buffer' : ''}`,
         }),
-        h('span', { class: 'tooltip-kind', text: DATA_KIND_SHORT[c.dataKind] })
+        priceText ? h('span', { text: priceText }) : null,
+        h('span', { class: `tooltip-kind ${isScenario ? 'tooltip-kind-scenario' : ''}`.trim(), text: kindLabel })
       );
     } else if (hit.kind === 'listing') {
       const l = hit.item;

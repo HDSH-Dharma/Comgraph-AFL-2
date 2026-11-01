@@ -27,6 +27,7 @@ import os
 import sys
 import math
 import json
+import random
 import argparse
 from typing import Dict, List, Tuple, Any, Optional
 
@@ -291,6 +292,83 @@ CAMPUS_OSM_WAYS: Dict[str, str] = {
     "UKWMS-PAKUWON": "way/876180997",
     "UBAYA-NGAGEL": "way/429131451",
     "UBAYA-TENGGILIS": "way/463579114"
+}
+
+# Basis harga sewa empiris terverifikasi per koridor kampus dari reports/research.md
+# Digunakan khusus untuk mengalibrasi parameter harga skenario simulasi sintetis (tanpa rekayasa spekulatif)
+RESEARCH_RENT_BASIS: Dict[str, Dict[str, Any]] = {
+    "UNAIR-KAMPUS-A": {
+        "source_listing_ids": ["UNAIR-A-01", "UNAIR-A-02"],
+        "source_range": [75000000.0, 135000000.0],
+        "rental_price_yr": 105000000.0,
+        "price_basis": "Estimasi titik tengah rentang sewa ruko komersial koridor Unair A (Moestopo/Tambaksari): Rp 75.000.000 - Rp 135.000.000/thn berdasarkan listing UNAIR-A-01 (Rumah123 shr10058906) dan UNAIR-A-02 (Ray White 393372) di reports/research.md.",
+        "area_sqm": 80.0,
+        "building_area_sqm": 150.0,
+        "suggested_name": "Situs Simulasi Ruko Dharmahusada (Unair A)"
+    },
+    "UNAIR-KAMPUS-B": {
+        "source_listing_ids": ["UNAIR-B-01", "UNAIR-B-02"],
+        "source_range": [140000000.0, 150000000.0],
+        "rental_price_yr": 145000000.0,
+        "price_basis": "Estimasi titik tengah rentang sewa komersial koridor Unair B (Dharmawangsa/Gubeng): Rp 140.000.000 - Rp 150.000.000/thn berdasarkan listing UNAIR-B-01 (Ray White 449388) dan UNAIR-B-02 (Ray White 339003) di reports/research.md.",
+        "area_sqm": 100.0,
+        "building_area_sqm": 250.0,
+        "suggested_name": "Situs Simulasi Ruko Dharmawangsa (Unair B)"
+    },
+    "UNAIR-KAMPUS-C": {
+        "source_listing_ids": ["UNAIR-C-01"],
+        "source_range": [85000000.0, 85000000.0],
+        "rental_price_yr": 85000000.0,
+        "price_basis": "Estimasi harga sewa ruko koridor Unair C (Raya Mulyosari): Rp 85.000.000/thn berdasarkan listing UNAIR-C-01 (Ray White 494389) di reports/research.md.",
+        "area_sqm": 120.0,
+        "building_area_sqm": 120.0,
+        "suggested_name": "Situs Simulasi Ruko Raya Mulyosari (Unair C)"
+    },
+    "UKWMS-DINOYO": {
+        "source_listing_ids": ["UKWMS-DIN-01"],
+        "source_range": [250000000.0, 250000000.0],
+        "rental_price_yr": 250000000.0,
+        "price_basis": "Estimasi harga sewa ruko koridor UKWMS Dinoyo (Raya Dinoyo/Tegalsari): Rp 250.000.000/thn berdasarkan listing UKWMS-DIN-01 (Ray White 425870) di reports/research.md.",
+        "area_sqm": 142.5,
+        "building_area_sqm": 360.0,
+        "suggested_name": "Situs Simulasi Ruko Raya Dinoyo (UKWMS Dinoyo)"
+    },
+    "UKWMS-KALIJUDAN": {
+        "source_listing_ids": ["UKWMS-KAL-01", "UKWMS-KAL-02"],
+        "source_range": [40000000.0, 110000000.0],
+        "rental_price_yr": 75000000.0,
+        "price_basis": "Estimasi titik tengah rentang sewa ruko koridor UKWMS Kalijudan (Kalijudan/Kaliwaron): Rp 40.000.000 - Rp 110.000.000/thn berdasarkan listing UKWMS-KAL-01 (Ray White 525829) dan UKWMS-KAL-02 (Ray White 543328) di reports/research.md.",
+        "area_sqm": 100.0,
+        "building_area_sqm": 180.0,
+        "suggested_name": "Situs Simulasi Ruko Kalijudan (UKWMS Kalijudan)"
+    },
+    "UKWMS-PAKUWON": {
+        "source_listing_ids": ["UKWMS-PAK-01", "UKWMS-PAK-02"],
+        "source_range": [125000000.0, 125000000.0],
+        "rental_price_yr": 125000000.0,
+        "price_basis": "Estimasi harga sewa ruko koridor UKWMS Pakuwon City (San Antonio Shopping Street): Rp 125.000.000/thn berdasarkan listing UKWMS-PAK-01 (Ray White 521563) dan UKWMS-PAK-02 (Ray White 455790) di reports/research.md.",
+        "area_sqm": 63.0,
+        "building_area_sqm": 90.0,
+        "suggested_name": "Situs Simulasi Ruko San Antonio (UKWMS Pakuwon City)"
+    },
+    "UBAYA-NGAGEL": {
+        "source_listing_ids": ["UBAYA-NGA-01", "UBAYA-NGA-02"],
+        "source_range": [110000000.0, 175000000.0],
+        "rental_price_yr": 142500000.0,
+        "price_basis": "Estimasi titik tengah rentang sewa ruko koridor Ubaya Ngagel (Ngagel/Ngagel Jaya Selatan): Rp 110.000.000 - Rp 175.000.000/thn berdasarkan listing UBAYA-NGA-01 (Ray White 306708) dan UBAYA-NGA-02 (Ray White 475541) di reports/research.md.",
+        "area_sqm": 95.0,
+        "building_area_sqm": 300.0,
+        "suggested_name": "Situs Simulasi Ruko Ngagel Jaya (Ubaya Ngagel)"
+    },
+    "UBAYA-TENGGILIS": {
+        "source_listing_ids": ["UBAYA-TENG-01", "UBAYA-TENG-02", "UBAYA-TENG-03"],
+        "source_range": [65000000.0, 123500000.0],
+        "rental_price_yr": 70000000.0,
+        "price_basis": "Estimasi harga sewa ruko koridor Ubaya Tenggilis (Raya Tenggilis/Mejoyo): nilai median Rp 70.000.000/thn (rentang Rp 65.000.000 - Rp 123.500.000/thn) berdasarkan kuorum 3 listing UBAYA-TENG-01 (Ray White 513122), UBAYA-TENG-02 (Ray White 453365), dan UBAYA-TENG-03 (Ray White 491945) di reports/research.md.",
+        "area_sqm": 52.5,
+        "building_area_sqm": 100.0,
+        "suggested_name": "Situs Simulasi Ruko Raya Tenggilis (Ubaya Tenggilis)"
+    }
 }
 
 
@@ -1347,16 +1425,327 @@ class GISPipeline:
             "output_path": proc_path
         }
 
+    def generate_synthetic_scenario_fixture(
+        self,
+        universities_path: str = "data/raw/universities.geojson",
+        output_path: str = "data/fixtures/synthetic_scenario_candidates.geojson",
+        seed: int = 42
+    ) -> Dict[str, Any]:
+        """
+        Pembangkitan fixture skenario simulasi sintetis terpisah melalui instansi GISPipeline.
+        """
+        return generate_synthetic_scenario_fixture(
+            universities_path=universities_path,
+            output_path=output_path,
+            seed=seed,
+            pipeline=self
+        )
+
+
+def generate_synthetic_scenario_fixture(
+    universities_path: str = "data/raw/universities.geojson",
+    output_path: str = "data/fixtures/synthetic_scenario_candidates.geojson",
+    seed: int = 42,
+    pipeline: Optional["GISPipeline"] = None
+) -> Dict[str, Any]:
+    """
+    Pembangkitan Fixture Skenario Simulasi Sintetis Terpisah (4-10 Situs Kafe Hipotetis):
+    - Ditempatkan secara acak terkontrol (pseudo-random dengan seed tetap) dalam radius valid 1km buffer kampus target.
+    - Setiap fitur memuat metadata wajib anti-fabrikasi:
+        data_kind='synthetic_scenario', is_real=False, simulated=True,
+        is_factual=False, is_verified=False, is_eligible_as_verified=False,
+        generated_date='2026-11-01', generation_method='reproducible_fixed_seed_buffer_sampling',
+        seed=seed, price_basis=..., source_listing_ids=..., source_range=...
+    - Angka harga sewa dilabeli secara eksplisit sebagai estimasi matematis (is_price_estimate=True, price_type='simulated_estimate').
+    - Data faktual OSM di data/processed/land_candidates.geojson sama sekali TIDAK diubah.
+    """
+    if pipeline is None:
+        pipeline = GISPipeline()
+
+    if not os.path.exists(universities_path):
+        raise FileNotFoundError(f"Berkas kampus {universities_path} tidak ditemukan.")
+
+    with open(universities_path, "r", encoding="utf-8") as f:
+        unis_data = json.load(f)
+
+    uni_features = unis_data.get("features", [])
+    if not uni_features:
+        raise ValueError(f"Tidak ada fitur kampus ditemukan pada {universities_path}.")
+
+    rng = random.Random(seed)
+    scenario_features: List[Dict[str, Any]] = []
+
+    for idx, u_feat in enumerate(uni_features):
+        u_props = u_feat.get("properties", {})
+        u_geom = u_feat.get("geometry", {})
+        cid = u_props.get("id")
+        cname = u_props.get("campus_name", cid)
+
+        coords = u_geom.get("coordinates", [])
+        if len(coords) < 2:
+            continue
+        clon, clat = coords[0], coords[1]
+        cx, cy = pipeline.transformer_fwd.transform(clon, clat)
+
+        # Sampling polar terdistribusi dalam buffer 1km: radius [250m, 750m] menjamin <= 1000m
+        radius_m = rng.uniform(250.0, 750.0)
+        theta_rad = rng.uniform(0.0, 2.0 * math.pi)
+
+        px = cx + radius_m * math.cos(theta_rad)
+        py = cy + radius_m * math.sin(theta_rad)
+
+        lon, lat = pipeline.transformer_inv.transform(px, py)
+        lon, lat = pipeline.validate_coordinate(lon, lat, name=f"Scenario site for {cid}")
+
+        # Hitung jarak metrik Euclidean terverifikasi
+        dist_ref = math.hypot(px - cx, py - cy)
+
+        # Poligon kampus untuk jarak ke batas perimeter
+        poly_wgs = CAMPUS_POLYGONS_WGS84.get(cid, [])
+        poly_utm = [pipeline.transformer_fwd.transform(pt[0], pt[1]) for pt in poly_wgs]
+        dist_poly = pipeline.point_to_polygon_distance_metric(px, py, poly_utm) if poly_utm else dist_ref
+
+        basis = RESEARCH_RENT_BASIS.get(cid, {})
+        site_seq = idx + 1
+        site_id = f"SCENARIO-SITE-{site_seq:02d}-{cid}"
+
+        rent_yr = basis.get("rental_price_yr", 100000000.0)
+        rent_label = f"Rp {rent_yr:,.0f} / tahun (Estimasi Simulasi Hipotetis)"
+
+        scenario_features.append({
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [round(lon, 7), round(lat, 7)]
+            },
+            "properties": {
+                "id": site_id,
+                "name": basis.get("suggested_name", f"Situs Kafe Hipotetis #{site_seq} ({cname})"),
+                "address": f"Plot Simulasi #{site_seq} Sekitar {cname}, Surabaya",
+                "status": "Lahan yang tersedia untuk disewakan",
+                "land_status": "Lahan yang tersedia untuk disewakan",
+                "is_rentable_or_sale": True,
+                "is_clickable_for_planning": True,
+                "is_eligible": True,
+                # Metadata penanda simulasi sintetis wajib (Anti-Fabrication Contract)
+                "data_kind": "synthetic_scenario",
+                "is_real": False,
+                "simulated": True,
+                "is_scenario": True,
+                "is_factual": False,
+                "is_verified": False,
+                "is_eligible_as_verified": False,
+                # Penanda penempatan spasial acak secara konsisten (kompatibel penuh dengan parser frontend)
+                "random_placement": True,
+                "is_random_placement": True,
+                "placement": "random",
+                # Bukti metodologi & reproduktibilitas
+                "generated_date": "2026-11-01",
+                "generation_method": "reproducible_fixed_seed_buffer_sampling",
+                "seed": seed,
+                "source": "Generator Skenario Sintetis AFL 2 2026",
+                # Bukti harga dari riset empiris
+                "price_basis": basis.get("price_basis", "Estimasi berbasis data sewa komersial riset"),
+                "source_listing_ids": basis.get("source_listing_ids", []),
+                "source_range": basis.get("source_range", [rent_yr, rent_yr]),
+                # Penandaan estimasi eksplisit
+                "is_price_estimate": True,
+                "price_type": "simulated_estimate",
+                "is_transaction_price": False,
+                "rental_price_yr": rent_yr,
+                "rental_price_label": rent_label,
+                "area_sqm": basis.get("area_sqm", 100.0),
+                "building_area_sqm": basis.get("building_area_sqm", 150.0),
+                # Hubungan kampus target (kompatibilitas eksplisit dengan nearest_university_id/name parser frontend)
+                "nearest_university_id": cid,
+                "nearest_university_name": cname,
+                "target_campus_id": cid,
+                "target_campus_name": cname,
+                # Metrik spasial
+                "distance_meters": round(dist_ref, 2),
+                "distance_to_polygon_meters": round(dist_poly, 2),
+                "is_in_buffer": bool(dist_ref <= 1000.0),
+                "disclaimer": (
+                    "Data ini merupakan skenario simulasi sintetis hipotetis untuk keperluan pemodelan spasial "
+                    "dan pengujian perangkat lunak grafika komputer. Bukan listing properti riil dan dilarang "
+                    "diperlakukan sebagai data faktual terverifikasi."
+                )
+            }
+        })
+
+    fc = {
+        "type": "FeatureCollection",
+        "metadata": {
+            "title": "Fixture Skenario Simulasi Lahan Kafe Sintetis Sekitar Kampus Surabaya",
+            "data_kind": "synthetic_scenario",
+            "is_real": False,
+            "simulated": True,
+            "is_scenario": True,
+            "random_placement": True,
+            "is_random_placement": True,
+            "is_factual": False,
+            "is_verified": False,
+            "is_eligible_as_verified": False,
+            "total_features": len(scenario_features),
+            "generated_date": "2026-11-01",
+            "generation_method": "reproducible_fixed_seed_buffer_sampling",
+            "seed": seed,
+            "sampling_radius_range_m": [250.0, 750.0],
+            "buffer_threshold_m": 1000.0,
+            "research_evidence_source": "reports/research.md",
+            "disclaimer": (
+                "Seluruh fitur di dalam berkas ini merupakan situs hipotesis yang dibangkitkan "
+                "secara deterministik (pseudo-random fixed seed). Angka harga sewa berakar pada rentang "
+                "iklan sewa publik yang terdokumentasi pada reports/research.md, namun titik lokasi dan ketersediaan "
+                "bersifat simulasi skenario (synthetic scenario)."
+            )
+        },
+        "features": scenario_features
+    }
+
+    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(fc, f, indent=2, ensure_ascii=False)
+
+    return {
+        "status": "SUCCESS",
+        "total_sites": len(scenario_features),
+        "seed": seed,
+        "output_path": output_path,
+        "features": scenario_features
+    }
+
+
+def audit_synthetic_scenario_fixture(fixture_path: str = "data/fixtures/synthetic_scenario_candidates.geojson") -> Dict[str, Any]:
+    """
+    Audit Validasi Skema & Kontrak Fixture Skenario Simulasi Sintetis:
+    1. Memverifikasi berkas ada dan merupakan GeoJSON FeatureCollection valid.
+    2. Memverifikasi jumlah fitur dalam batas 4–10 situs hipotetis.
+    3. Memverifikasi seluruh klausul wajib anti-fabrikasi (data_kind, is_real=False, simulated=True, is_factual=False, is_verified=False).
+    4. Memverifikasi harga sewa dilabeli secara eksplisit sebagai estimasi (is_price_estimate=True, price_type='simulated_estimate').
+    5. Memverifikasi keterlacakan basis harga (price_basis, source_listing_ids, source_range) terhadap reports/research.md.
+    6. Memverifikasi seluruh titik berada di dalam buffer 1km (distance_meters <= 1000.0).
+    """
+    if not os.path.exists(fixture_path):
+        raise FileNotFoundError(f"Berkas fixture simulasi {fixture_path} tidak ditemukan.")
+
+    with open(fixture_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    if data.get("type") != "FeatureCollection":
+        raise AssertionError(f"Format berkas harus FeatureCollection, ditemukan: {data.get('type')}")
+
+    meta = data.get("metadata", {})
+    if meta.get("data_kind") != "synthetic_scenario":
+        raise AssertionError(f"Metadata data_kind harus 'synthetic_scenario', ditemukan: {meta.get('data_kind')}")
+    if meta.get("simulated") is not True or meta.get("is_real") is not False:
+        raise AssertionError("Metadata wajib menandai simulated=True dan is_real=False.")
+
+    features = data.get("features", [])
+    count = len(features)
+    if count < 4 or count > 10:
+        raise AssertionError(f"Jumlah situs simulasi harus antara 4 hingga 10, ditemukan: {count}")
+
+    for idx, feat in enumerate(features):
+        p = feat.get("properties", {})
+        fid = p.get("id", f"index-{idx}")
+
+        # Kontrak wajib
+        if p.get("data_kind") != "synthetic_scenario":
+            raise AssertionError(f"{fid}: data_kind harus 'synthetic_scenario'")
+        if p.get("is_real") is not False:
+            raise AssertionError(f"{fid}: is_real harus False")
+        if p.get("simulated") is not True:
+            raise AssertionError(f"{fid}: simulated harus True")
+        if p.get("is_factual") is not False:
+            raise AssertionError(f"{fid}: is_factual harus False")
+        if p.get("is_verified") is not False:
+            raise AssertionError(f"{fid}: is_verified harus False")
+        if p.get("is_eligible_as_verified") is not False:
+            raise AssertionError(f"{fid}: is_eligible_as_verified harus False")
+
+        # Reproduktibilitas
+        if not p.get("generated_date"):
+            raise AssertionError(f"{fid}: generated_date wajib terisi")
+        if not p.get("generation_method"):
+            raise AssertionError(f"{fid}: generation_method wajib terisi")
+        if "seed" not in p or not isinstance(p["seed"], int):
+            raise AssertionError(f"{fid}: seed wajib integer")
+
+        # Penanda penempatan spasial acak konsisten
+        if p.get("random_placement") is not True:
+            raise AssertionError(f"{fid}: random_placement wajib bernilai True")
+        if p.get("is_random_placement") is not True:
+            raise AssertionError(f"{fid}: is_random_placement wajib bernilai True")
+
+        # Hubungan kampus target (cocok dengan parser frontend nearest_university_id/name)
+        if not p.get("nearest_university_id"):
+            raise AssertionError(f"{fid}: nearest_university_id wajib terisi")
+        if not p.get("nearest_university_name"):
+            raise AssertionError(f"{fid}: nearest_university_name wajib terisi")
+        if p.get("target_campus_id") and p.get("nearest_university_id") != p.get("target_campus_id"):
+            raise AssertionError(f"{fid}: nearest_university_id harus cocok dengan target_campus_id")
+
+        # Label estimasi harga
+        if p.get("is_price_estimate") is not True:
+            raise AssertionError(f"{fid}: is_price_estimate harus True")
+        if p.get("price_type") != "simulated_estimate":
+            raise AssertionError(f"{fid}: price_type harus 'simulated_estimate'")
+        if p.get("is_transaction_price") is not False:
+            raise AssertionError(f"{fid}: is_transaction_price harus False")
+
+        # Keterlacakan bukti sewa
+        if not p.get("price_basis") or not isinstance(p["price_basis"], str):
+            raise AssertionError(f"{fid}: price_basis wajib string penjelasan")
+        if not isinstance(p.get("source_listing_ids"), list) or len(p["source_listing_ids"]) == 0:
+            raise AssertionError(f"{fid}: source_listing_ids wajib memuat ID listing riset")
+        if not isinstance(p.get("source_range"), list) or len(p["source_range"]) != 2:
+            raise AssertionError(f"{fid}: source_range wajib list [min, max]")
+
+        # Spasial buffer 1km
+        dist = p.get("distance_meters")
+        if dist is None or dist > 1000.0:
+            raise AssertionError(f"{fid}: distance_meters ({dist}) harus <= 1000.0m")
+        if p.get("is_in_buffer") is not True:
+            raise AssertionError(f"{fid}: is_in_buffer harus True")
+
+    return {
+        "status": "PASSED",
+        "fixture_path": fixture_path,
+        "features_count": count,
+        "seed": meta.get("seed")
+    }
+
 
 def main():
     parser = argparse.ArgumentParser(description="GIS Processing Pipeline - Proyek Buka Kafe Surabaya")
     parser.add_argument("--universities", default="data/raw/universities.geojson", help="Path file input universities.geojson")
     parser.add_argument("--candidates", default="data/raw/land_candidates.geojson", help="Path file input land_candidates.geojson")
     parser.add_argument("--output", default="data/processed", help="Direktori output GeoJSON")
+    parser.add_argument("--generate-scenario", action="store_true", help="Pembangkitan fixture skenario simulasi sintetis")
+    parser.add_argument("--scenario-output", default="data/fixtures/synthetic_scenario_candidates.geojson", help="Path output fixture simulasi")
+    parser.add_argument("--seed", type=int, default=42, help="Seed bilangan acak untuk pembangkitan simulasi")
 
     args = parser.parse_args()
 
     pipeline = GISPipeline()
+
+    if args.generate_scenario:
+        print("=== Menjalankan Pembangkitan Fixture Skenario Simulasi Sintetis ===")
+        print(f"Universities Input : {args.universities}")
+        print(f"Scenario Output    : {args.scenario_output}")
+        print(f"Random Seed        : {args.seed}")
+        res = generate_synthetic_scenario_fixture(
+            universities_path=args.universities,
+            output_path=args.scenario_output,
+            seed=args.seed,
+            pipeline=pipeline
+        )
+        print(f"[SUCCESS] Fixture skenario simulasi berhasil dibangkitkan: {res['total_sites']} situs ({res['output_path']}).")
+        audit_res = audit_synthetic_scenario_fixture(res["output_path"])
+        print(f"[AUDIT] Validasi kontrak skenario: {audit_res['status']}.")
+        return
+
     print("=== Menjalankan GIS Processing Pipeline Surabaya (Enhanced Architecture) ===")
     print(f"Input Universities: {args.universities}")
     print(f"Input Candidates  : {args.candidates}")

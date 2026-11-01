@@ -29,7 +29,10 @@ from scripts.gis_pipeline import (
     NON_RENTABLE_OR_SALE_STATUSES,
     classify_land_building_from_open_data,
     CAMPUS_POLYGONS_WGS84,
-    SURABAYA_BBOX
+    SURABAYA_BBOX,
+    generate_synthetic_scenario_fixture,
+    audit_synthetic_scenario_fixture,
+    RESEARCH_RENT_BASIS
 )
 from scripts.rental_market_service import (
     RentalMarketService,
@@ -1130,6 +1133,166 @@ class TestGISPipeline(unittest.TestCase):
         # C. Kasus batas terbalik (min > max) memicu ValueError
         with self.assertRaises(ValueError):
             calculate_range_midpoint_estimate(100000000.0, 50000000.0)
+
+    def test_21_synthetic_scenario_fixture_reproducibility_and_contract(self):
+        """
+        Uji Pembangkitan Reproduktibel Fixed-Seed & Kontrak Fixture Skenario Simulasi Sintetis:
+        1. Fixture data/fixtures/synthetic_scenario_candidates.geojson ada dan valid skemanya.
+        2. Keterulangan eksekusi (reproducibility): Menjalankan pembangkitan dua kali dengan seed=42
+           menghasilkan payload yang identik (koordinat, ID, properti persis sama).
+        3. Efektivitas seed: Menjalankan dengan seed berbeda (seed=999) menghasilkan koordinat berbeda.
+        4. Batasan cacah: Jumlah fitur berada dalam rentang 4–10 situs kafe (tepat 8 situs).
+        5. Kontrak anti-fabrikasi:
+           - Setiap fitur memiliki data_kind='synthetic_scenario', is_real=False, simulated=True,
+             is_factual=False, is_verified=False, is_eligible_as_verified=False.
+           - generated_date='2026-11-01', generation_method='reproducible_fixed_seed_buffer_sampling', seed=42.
+        6. Penandaan harga estimasi:
+           - is_price_estimate=True, price_type='simulated_estimate', is_transaction_price=False.
+           - rental_price_yr adalah angka positif berhingga.
+        7. Keterlacakan bukti harga:
+           - price_basis berupa penjelasan non-kosong.
+           - source_listing_ids memuat ID listing sewa terverifikasi dari reports/research.md.
+           - source_range berupa list [min, max] dengan min <= max.
+        8. Validitas spasial buffer:
+           - Setiap titik berada di dalam buffer 1km kampus (distance_meters <= 1000.0, is_in_buffer=True).
+           - Koordinat berada dalam batas terpercaya SURABAYA_BBOX.
+        9. Isolasi dataset produksi:
+           - data/processed/land_candidates.geojson tetap memuat 33 fitur faktual OSM tanpa perubahan.
+           - data/fixtures/synthetic_land_candidates.geojson tetap memuat 20 kandidat demo lama.
+        """
+        fixture_path = "data/fixtures/synthetic_scenario_candidates.geojson"
+        self.assertTrue(os.path.exists(fixture_path), f"Fixture {fixture_path} harus tersedia di filesystem.")
+
+        # 1. Audit Skema & Kontrak Fixture
+        audit_res = audit_synthetic_scenario_fixture(fixture_path)
+        self.assertEqual(audit_res["status"], "PASSED")
+        self.assertEqual(audit_res["seed"], 42)
+
+        # 2. Verifikasi Batasan Cacah Fitur (4–10 situs)
+        self.assertGreaterEqual(audit_res["features_count"], 4)
+        self.assertLessEqual(audit_res["features_count"], 10)
+        self.assertEqual(audit_res["features_count"], 8)
+
+        # 3. Verifikasi Ulang Keterulangan Pembangkitan (Fixed-Seed Reproducibility)
+        file_run1 = os.path.join(self.temp_dir, "scenario_run1.geojson")
+        file_run2 = os.path.join(self.temp_dir, "scenario_run2.geojson")
+        file_run_diff_seed = os.path.join(self.temp_dir, "scenario_diff_seed.geojson")
+
+        res1 = generate_synthetic_scenario_fixture(
+            universities_path="data/raw/universities.geojson",
+            output_path=file_run1,
+            seed=42,
+            pipeline=self.pipeline
+        )
+        res2 = generate_synthetic_scenario_fixture(
+            universities_path="data/raw/universities.geojson",
+            output_path=file_run2,
+            seed=42,
+            pipeline=self.pipeline
+        )
+        res_diff = generate_synthetic_scenario_fixture(
+            universities_path="data/raw/universities.geojson",
+            output_path=file_run_diff_seed,
+            seed=999,
+            pipeline=self.pipeline
+        )
+
+        with open(file_run1, "r", encoding="utf-8") as f1, open(file_run2, "r", encoding="utf-8") as f2:
+            data1 = json.load(f1)
+            data2 = json.load(f2)
+
+        # Harus identik bit-for-bit antara dua pemanggilan ber-seed sama
+        self.assertEqual(data1, data2, "Pembangkitan dengan seed sama (seed=42) harus deterministik dan identik.")
+
+        with open(file_run_diff_seed, "r", encoding="utf-8") as fd:
+            data_diff = json.load(fd)
+
+        # Seed berbeda harus menghasilkan koordinat yang berbeda
+        c1 = data1["features"][0]["geometry"]["coordinates"]
+        c_diff = data_diff["features"][0]["geometry"]["coordinates"]
+        self.assertNotEqual(c1, c_diff, "Seed berbeda harus menghasilkan koordinat titik yang berbeda.")
+
+        # 4. Verifikasi Kontrak Detail Setiap Fitur pada Fixture
+        with open(fixture_path, "r", encoding="utf-8") as f:
+            fixture_data = json.load(f)
+
+        features = fixture_data["features"]
+        verified_prefix_patterns = ("UNAIR-", "UKWMS-", "UBAYA-")
+
+        for idx, feat in enumerate(features):
+            props = feat["properties"]
+            fid = props["id"]
+
+            # Kontrak Anti-Fabrikasi
+            self.assertEqual(props["data_kind"], "synthetic_scenario")
+            self.assertFalse(props["is_real"])
+            self.assertTrue(props["simulated"])
+            self.assertFalse(props["is_factual"])
+            self.assertFalse(props["is_verified"])
+            self.assertFalse(props["is_eligible_as_verified"])
+
+            # Penanda Estimasi Harga
+            self.assertTrue(props["is_price_estimate"])
+            self.assertEqual(props["price_type"], "simulated_estimate")
+            self.assertFalse(props["is_transaction_price"])
+            self.assertIsInstance(props["rental_price_yr"], (int, float))
+            self.assertGreater(props["rental_price_yr"], 0.0)
+
+            # Metadata Reproduktibilitas & Penanda Penempatan Acak Konsisten
+            self.assertEqual(props["generated_date"], "2026-11-01")
+            self.assertEqual(props["generation_method"], "reproducible_fixed_seed_buffer_sampling")
+            self.assertEqual(props["seed"], 42)
+            self.assertTrue(props["random_placement"], f"{fid}: random_placement harus True")
+            self.assertTrue(props["is_random_placement"], f"{fid}: is_random_placement harus True")
+            self.assertEqual(props["placement"], "random")
+            self.assertTrue(props["is_scenario"], f"{fid}: is_scenario harus True")
+
+            # Kompatibilitas Skema Frontend (nearest_university_id & nearest_university_name)
+            self.assertIn("nearest_university_id", props)
+            self.assertIn("nearest_university_name", props)
+            self.assertEqual(props["nearest_university_id"], props["target_campus_id"])
+            self.assertEqual(props["nearest_university_name"], props["target_campus_name"])
+            self.assertIn(props["nearest_university_id"], CAMPUS_POLYGONS_WGS84)
+
+            # Keterlacakan Bukti Riset
+            self.assertIsInstance(props["price_basis"], str)
+            self.assertGreater(len(props["price_basis"]), 15)
+            self.assertIsInstance(props["source_listing_ids"], list)
+            self.assertGreater(len(props["source_listing_ids"]), 0)
+            for lid in props["source_listing_ids"]:
+                self.assertTrue(
+                    any(lid.startswith(pfx) for pfx in verified_prefix_patterns),
+                    f"ID listing {lid} tidak sesuai konvensi listing terverifikasi di reports/research.md"
+                )
+
+            self.assertIsInstance(props["source_range"], list)
+            self.assertEqual(len(props["source_range"]), 2)
+            self.assertLessEqual(props["source_range"][0], props["source_range"][1])
+
+            # Metrik Jarak Spasial
+            coords = feat["geometry"]["coordinates"]
+            self.assertEqual(len(coords), 2)
+            lon, lat = coords[0], coords[1]
+
+            # Bounding box Surabaya
+            self.assertGreaterEqual(lon, SURABAYA_BBOX["min_lon"])
+            self.assertLessEqual(lon, SURABAYA_BBOX["max_lon"])
+            self.assertGreaterEqual(lat, SURABAYA_BBOX["min_lat"])
+            self.assertLessEqual(lat, SURABAYA_BBOX["max_lat"])
+
+            # Jarak dalam buffer 1km
+            self.assertLessEqual(props["distance_meters"], 1000.0)
+            self.assertTrue(props["is_in_buffer"])
+            self.assertLessEqual(props["distance_to_polygon_meters"], 1000.0)
+
+        # 5. Verifikasi Isolasi Mutlak Dataset Produksi & Fixture Lama
+        audit_prod = audit_production_dataset(
+            proc_cands_path="data/processed/land_candidates.geojson",
+            fixtures_path="data/fixtures/synthetic_land_candidates.geojson"
+        )
+        self.assertEqual(audit_prod["status"], "PASSED")
+        self.assertEqual(audit_prod["production_features_count"], 33)
+        self.assertEqual(audit_prod["fixtures_preserved_count"], 20)
 
 if __name__ == "__main__":
     unittest.main()
