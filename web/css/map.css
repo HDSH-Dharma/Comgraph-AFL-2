@@ -1,29 +1,53 @@
-/* Buka Kafe — layout & UI peta */
+/* ==========================================================================
+   Buka Kafe — Lembar Gaya WebGIS Analisis Spasial Mahasiswa (AFL 2 Computer Graphics)
+   Fokus Desain: Estetika perangkat analitis/workbench GIS akademis yang praktis,
+   kontras tinggi, tipografi tertib, palet netral (slate/steel-blue), tanpa efek
+   overdecorated / glassy pill / gradien berlebih khas landing page generik.
+   ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   1. Variabel Desain Sistem WebGIS (Tokens)
+   Menggunakan palet Slate profesional dengan aksen Steel Blue terukur.
+   Radius sudut dibuat tegas (2px–6px) khas instrumen pemetaan teknis.
+   -------------------------------------------------------------------------- */
 :root {
-  --ink: #0f172a;
-  --ink-2: #334155;
-  --muted: #475569;
-  --line: #cbd5e1;
-  --line-soft: #e2e8f0;
-  --bg: #f1f5f9;
-  --surface: #ffffff;
-  --accent: #4338ca;
-  --accent-soft: #eef2ff;
-  --warn-ink: #7c2d12;
-  --warn-bg: #fff7ed;
-  --warn-line: #ea580c;
-  --ok-ink: #065f46;
-  --ok-bg: #ecfdf5;
-  --ok-line: #10b981;
-  --error-ink: #7f1d1d;
+  /* Warna Teks & Latar Netral */
+  --ink: #0f172a;        /* Slate 900: Teks judul & data utama */
+  --ink-2: #334155;      /* Slate 700: Teks label & isi kontrol */
+  --muted: #475569;      /* Slate 600: Teks keterangan, satuan, & metadata */
+  --line: #cbd5e1;       /* Slate 300: Garis pembatas komponen & input */
+  --line-soft: #e2e8f0;  /* Slate 200: Garis pemisah baris data */
+  --bg: #f8fafc;         /* Slate 50: Latar meja kerja GIS */
+  --surface: #ffffff;    /* Putih murni: Latar panel kartu & dialog */
+
+  /* Warna Aksen Fungsional */
+  --accent: #1d4ed8;      /* Blue 700: Biru baja teknis untuk aksi primer & seleksi */
+  --accent-soft: #eff6ff; /* Blue 50: Latar seleksi elemen aktif */
+  --accent-border: #93c5fd;
+
+  /* Umpan Balik Status Analitis */
+  --warn-ink: #9a3412;
+  --warn-bg: #fffbeb;
+  --warn-line: #fdba74;
+  --ok-ink: #166534;
+  --ok-bg: #f0fdf4;
+  --ok-line: #86efac;
+  --error-ink: #991b1b;
   --error-bg: #fef2f2;
-  --error-line: #dc2626;
-  --radius: 12px;
-  --shadow: 0 1px 2px rgba(15, 23, 42, 0.08), 0 4px 14px rgba(15, 23, 42, 0.12);
-  --tap: 44px;
-  --sidebar-w: 360px;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --error-line: #fca5a5;
+
+  /* Geometri & Elevasi Fungsional (Menghindari bubble card dan floaty glow) */
+  --radius: 4px;          /* Sudut tegas standar komponen kontrol GIS */
+  --radius-sm: 2px;       /* Sudut micro untuk badge dan tag atribut */
+  --radius-md: 6px;       /* Sudut panel modal dan inspektur */
+  --shadow: 0 1px 3px rgba(15, 23, 42, 0.08); /* Bayangan utilitas minimal */
+
+  /* Dimensi & Grid Tata Letak */
+  --tap: 34px;            /* Ukuran standar target interaksi kompak */
+  --sidebar-w: 380px;     /* Lebar sidebar kontrol analitis */
+
+  /* Tipografi Sistem Bersih */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--ink);
   background: var(--bg);
   line-height: 1.45;
@@ -58,8 +82,8 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
 }
 
 [hidden] {
@@ -83,11 +107,13 @@ a {
   left: 12px;
   top: -60px;
   z-index: 100;
-  padding: 10px 14px;
+  padding: 8px 12px;
   background: var(--ink);
   color: #fff;
-  border-radius: 8px;
+  border-radius: var(--radius);
   text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 .skip-link:focus {
   top: 12px;
@@ -97,43 +123,50 @@ a {
   color: var(--muted);
 }
 
-/* ---------------------------------------------------------------- header */
-
+/* --------------------------------------------------------------------------
+   2. Header Aplikasi & Identitas Proyek Akademis
+   Format bersih ala GIS desktop dengan informasi batasan data yang jelas.
+   -------------------------------------------------------------------------- */
 .app-header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 10px 24px;
-  padding: 12px 20px;
+  gap: 8px 20px;
+  padding: 10px 18px;
   background: var(--surface);
   border-bottom: 1px solid var(--line);
 }
 
 .brand h1 {
-  font-size: 1.5rem;
-  line-height: 1.15;
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.25;
   letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .tagline {
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 400;
 }
 
 .data-notice {
-  flex: 1 1 320px;
-  max-width: 680px;
-  padding: 8px 12px;
-  font-size: 0.85rem;
+  flex: 1 1 300px;
+  max-width: 650px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  line-height: 1.35;
   color: var(--warn-ink);
   background: var(--warn-bg);
-  border-left: 4px solid var(--warn-line);
-  border-radius: 8px;
+  border-left: 3px solid var(--warn-line);
+  border-radius: var(--radius-sm);
 }
 
-/* ---------------------------------------------------------------- layout */
-
+/* --------------------------------------------------------------------------
+   3. Tata Letak Kanvas Peta & Panel Analisis (Workbench Grid)
+   -------------------------------------------------------------------------- */
 .app-main {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -148,16 +181,16 @@ a {
 
 .map-stage {
   position: relative;
-  height: 62svh;
+  height: 60svh;
   min-height: 320px;
   max-height: 760px;
   overflow: hidden;
-  background: #eef2f6;
+  background: #e2e8f0;
 }
 
 .sidebar {
   min-width: 0;
-  padding: 16px;
+  padding: 14px 16px;
   background: var(--surface);
 }
 .sidebar:focus {
@@ -191,8 +224,9 @@ a {
   }
 }
 
-/* ---------------------------------------------------------------- canvas */
-
+/* --------------------------------------------------------------------------
+   4. Kanvas Peta Spasial (HTML5 2D Canvas)
+   -------------------------------------------------------------------------- */
 #map-canvas {
   position: absolute;
   inset: 0;
@@ -208,20 +242,22 @@ a {
   cursor: grabbing;
 }
 #map-canvas:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: -3px;
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
-/* ---------------------------------------------------------------- overlay */
-
+/* --------------------------------------------------------------------------
+   5. Tombol Kontrol Peta (Toolbar GIS)
+   Tombol navigasi berukuran rapi, tegas, tanpa efek glow mengambang.
+   -------------------------------------------------------------------------- */
 .map-toolbar {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 10px;
+  left: 10px;
   z-index: 3;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .icon-button {
@@ -230,36 +266,43 @@ a {
   width: var(--tap);
   height: var(--tap);
   padding: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   line-height: 1;
-  color: var(--ink);
+  color: var(--ink-2);
   text-decoration: none;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   cursor: pointer;
+  transition: background 0.1s ease, border-color 0.1s ease;
 }
 .icon-button:hover {
-  background: var(--accent-soft);
+  background: var(--bg);
+  border-color: var(--muted);
+  color: var(--ink);
 }
 .icon-button.small {
-  width: 40px;
-  height: 40px;
-  font-size: 1.4rem;
+  width: 30px;
+  height: 30px;
+  font-size: 1.15rem;
   box-shadow: none;
 }
 
+/* --------------------------------------------------------------------------
+   6. Legenda Peta Spasial (Layer Legend Overlay)
+   Format kotak inspeksi rapi dengan tipografi mikro berstruktur.
+   -------------------------------------------------------------------------- */
 .legend {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 10px;
+  right: 10px;
   z-index: 3;
-  max-width: min(290px, calc(100% - 80px));
-  max-height: calc(100% - 24px);
+  max-width: min(290px, calc(100% - 70px));
+  max-height: calc(100% - 20px);
   overflow: auto;
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.96);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -267,27 +310,32 @@ a {
 .legend summary {
   display: flex;
   align-items: center;
-  min-height: var(--tap);
-  padding: 0 14px;
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 0.78rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
   cursor: pointer;
   list-style-position: inside;
 }
 .legend-list {
   margin: 0;
-  padding: 0 12px 12px;
+  padding: 4px 10px 10px;
   list-style: none;
 }
 .legend-list li {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 3px 0;
-  font-size: 0.85rem;
+  padding: 2.5px 0;
+  font-size: 0.8rem;
+  color: var(--ink);
 }
 .legend-list li.legend-sep {
   margin-top: 6px;
-  padding-top: 8px;
+  padding-top: 6px;
   border-top: 1px solid var(--line-soft);
 }
 .legend-hint {
@@ -299,10 +347,13 @@ a {
   display: block;
 }
 
+/* --------------------------------------------------------------------------
+   7. Pesan Notifikasi Peta & Indikator Pemuatan (Status Message & Spinner)
+   -------------------------------------------------------------------------- */
 .map-message {
   position: absolute;
   left: 50%;
-  bottom: 16px;
+  bottom: 14px;
   z-index: 3;
   transform: translateX(-50%);
   display: flex;
@@ -312,20 +363,21 @@ a {
   gap: 4px 10px;
   width: max-content;
   max-width: calc(100% - 32px);
-  padding: 10px 16px;
-  font-size: 0.9rem;
+  padding: 6px 14px;
+  font-size: 0.82rem;
   font-weight: 600;
   text-align: center;
+  color: var(--ink-2);
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow);
 }
 
 .spinner {
-  width: 16px;
-  height: 16px;
-  border: 2.5px solid var(--line);
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--line);
   border-top-color: var(--accent);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -336,6 +388,7 @@ a {
   }
 }
 
+/* Tooltip Hover Peta */
 .map-tooltip {
   position: absolute;
   top: 0;
@@ -345,60 +398,72 @@ a {
   flex-direction: column;
   gap: 1px;
   max-width: 260px;
-  padding: 8px 10px;
-  font-size: 0.8rem;
+  padding: 6px 9px;
+  font-size: 0.78rem;
   color: #fff;
   background: rgba(15, 23, 42, 0.94);
-  border-radius: 8px;
+  border-radius: var(--radius);
   pointer-events: none;
 }
 .tooltip-kind {
   color: #fde68a;
   font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
 }
 
+/* --------------------------------------------------------------------------
+   8. Panel Inspektur Fitur Terpilih (Feature Attribute Inspector)
+   Menampilkan atribut tabular lahan/titik kafe yang sedang diklik pengguna.
+   -------------------------------------------------------------------------- */
 .inspector {
   position: absolute;
-  left: 12px;
-  bottom: 12px;
+  left: 10px;
+  bottom: 10px;
   z-index: 5;
-  width: min(370px, calc(100% - 24px));
-  max-height: calc(100% - 236px);
+  width: min(360px, calc(100% - 20px));
+  max-height: calc(100% - 200px);
   min-height: 0;
   overflow-y: auto;
-  padding: 12px 16px 16px;
+  padding: 12px 14px;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
 }
 .inspector-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 6px;
 }
 .inspector-head h2 {
-  padding-top: 8px;
-  font-size: 1.05rem;
+  font-size: 0.98rem;
+  font-weight: 700;
   line-height: 1.3;
+  color: var(--ink);
   overflow-wrap: anywhere;
 }
 
 .detail-list {
   display: grid;
-  grid-template-columns: fit-content(40%) minmax(0, 1fr);
-  gap: 6px 12px;
-  margin: 12px 0 0;
-  font-size: 0.9rem;
+  grid-template-columns: fit-content(42%) minmax(0, 1fr);
+  gap: 4px 10px;
+  margin: 8px 0 0;
+  font-size: 0.82rem;
 }
 .detail-list dt {
   color: var(--muted);
+  font-weight: 500;
 }
 .detail-list dd {
   margin: 0;
+  color: var(--ink);
   overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
 }
 .status-inline {
   display: inline-flex;
@@ -407,15 +472,16 @@ a {
 }
 
 .callout {
-  padding: 8px 12px;
-  font-size: 0.88rem;
-  border-left: 4px solid var(--line);
-  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  border-left: 3px solid var(--line);
+  border-radius: var(--radius-sm);
   background: var(--bg);
 }
 .callout ul {
   margin: 4px 0 0;
-  padding-left: 18px;
+  padding-left: 16px;
 }
 .callout-ok {
   color: var(--ok-ink);
@@ -429,23 +495,24 @@ a {
 }
 
 .handler-note {
-  margin-top: 12px;
-  font-size: 0.82rem;
+  margin-top: 10px;
+  font-size: 0.78rem;
   color: var(--muted);
 }
 .handler-error {
   color: var(--error-ink);
 }
 
-/* ---------------------------------------------------------------- footer */
-
+/* --------------------------------------------------------------------------
+   9. Footer Peta & Informasi Skala Grafis (Scale Bar & Attribution)
+   -------------------------------------------------------------------------- */
 .map-footer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 16px;
-  padding: 6px 12px;
-  font-size: 0.78rem;
+  padding: 5px 12px;
+  font-size: 0.76rem;
   color: var(--ink-2);
   background: var(--surface);
   border-top: 1px solid var(--line);
@@ -457,8 +524,8 @@ a {
 }
 .scale-line {
   display: inline-block;
-  height: 8px;
-  border: 2px solid var(--ink);
+  height: 6px;
+  border: 1.5px solid var(--ink);
   border-top: none;
 }
 .scale-label {
@@ -472,10 +539,11 @@ a {
   margin-left: auto;
 }
 
-/* ---------------------------------------------------------------- sidebar */
-
+/* --------------------------------------------------------------------------
+   10. Kontrol Sidebar & Pengaturan Lapisan GIS (Sidebar Controls)
+   -------------------------------------------------------------------------- */
 .control-group {
-  margin: 0 0 20px;
+  margin: 0 0 16px;
   padding: 0;
   border: 0;
   min-width: 0;
@@ -484,12 +552,12 @@ a {
 .control-group > h2 {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 6px;
   padding: 0;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--ink-2);
 }
@@ -503,66 +571,79 @@ a {
 .check-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: var(--tap);
-  padding: 4px 8px;
-  margin: 0 -8px;
-  border-radius: 8px;
+  gap: 8px;
+  min-height: 28px;
+  padding: 2px 6px;
+  margin: 0 -6px;
+  border-radius: var(--radius);
   cursor: pointer;
+  transition: background 0.1s ease;
 }
 .check-row:hover {
   background: var(--bg);
 }
 .check-row input {
   flex: none;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   margin: 0;
   accent-color: var(--accent);
 }
 .check-label {
   flex: 1 1 auto;
   min-width: 0;
+  font-size: 0.83rem;
+  color: var(--ink);
 }
 .count {
   flex: none;
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
 
+/* --------------------------------------------------------------------------
+   11. Tombol Navigasi Cepat Kampus (Quick-Jump Segmented Buttons)
+   Bentuk tombol kotak fungsional alih-alih kapsul/pill bulat SaaS.
+   -------------------------------------------------------------------------- */
 .chip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 .chip {
-  min-height: var(--tap);
-  padding: 0 16px;
-  font-weight: 600;
-  background: var(--surface);
-  border: 1.5px solid var(--accent);
-  border-radius: 999px;
-  color: var(--accent);
+  min-height: 28px;
+  padding: 3px 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink-2);
   cursor: pointer;
+  transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
 }
 .chip:hover:not(:disabled) {
-  background: var(--accent-soft);
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 .chip:disabled {
   color: var(--muted);
   border-style: dashed;
-  border-color: var(--line);
+  border-color: var(--line-soft);
+  opacity: 0.6;
   cursor: not-allowed;
 }
 .chip-note {
   font-weight: 400;
-  font-size: 0.82rem;
+  font-size: 0.74rem;
 }
 
 .link-button {
-  min-height: var(--tap);
+  min-height: 30px;
   padding: 0 4px;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--accent);
   text-decoration: underline;
@@ -571,6 +652,10 @@ a {
   cursor: pointer;
 }
 
+/* --------------------------------------------------------------------------
+   12. Daftar Kandidat Lahan & Peringkat Rekomendasi (Candidate & Ranking Items)
+   Tampilan daftar terstruktur dengan indikator jarak dan skor analitis.
+   -------------------------------------------------------------------------- */
 .candidate-list {
   display: grid;
   gap: 4px;
@@ -581,15 +666,16 @@ a {
 .candidate-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  min-height: 52px;
-  padding: 6px 10px;
+  min-height: 44px;
+  padding: 6px 8px;
   text-align: left;
   background: var(--surface);
   border: 1px solid var(--line-soft);
-  border-radius: 10px;
+  border-radius: var(--radius);
   cursor: pointer;
+  transition: border-color 0.1s, background 0.1s;
 }
 .candidate-item:hover {
   border-color: var(--line);
@@ -605,50 +691,53 @@ a {
   min-width: 0;
 }
 .candidate-name {
+  font-size: 0.84rem;
   font-weight: 600;
+  color: var(--ink);
   overflow-wrap: anywhere;
 }
 .candidate-meta {
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .survey-empty-notice {
-  background: var(--surface);
+  background: var(--bg);
   border: 1px dashed var(--line);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 0.82rem;
-  line-height: 1.4;
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  line-height: 1.35;
   color: var(--ink-2);
   margin-bottom: 6px;
 }
 
 .candidate-hidden-notice {
-  font-size: 0.82rem;
-  line-height: 1.4;
+  font-size: 0.78rem;
+  line-height: 1.35;
 }
 
 .candidate-demo-list-banner {
   margin: 0 0 6px 0;
-  border-radius: 8px;
-  font-size: 0.8rem;
+  border-radius: var(--radius);
+  font-size: 0.78rem;
   line-height: 1.35;
 }
 
 .alert {
-  margin-bottom: 16px;
-  padding: 10px 12px;
-  font-size: 0.86rem;
-  border-left: 4px solid var(--line);
-  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  border-left: 3px solid var(--line);
+  border-radius: var(--radius-sm);
 }
 .alert ul {
-  margin: 6px 0 0;
-  padding-left: 18px;
+  margin: 4px 0 0;
+  padding-left: 16px;
 }
 .alert code {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   overflow-wrap: anywhere;
 }
 .alert-title {
@@ -665,76 +754,35 @@ a {
   border-left-color: var(--warn-line);
 }
 
-/* ---------------------------------------------------------------- layar kecil */
-
-@media (max-width: 899px) {
-  .app-header {
-    padding: 10px 14px;
-  }
-  .brand h1 {
-    font-size: 1.3rem;
-  }
-  .map-toolbar {
-    flex-direction: row;
-  }
-  .inspector {
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    width: auto;
-    /* Sisakan ruang di atas supaya marker terpilih tetap terlihat. */
-    max-height: 55%;
-  }
-  .data-notice {
-    font-size: 0.8rem;
-  }
-  .attribution {
-    margin-left: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .spinner {
-    animation: none;
-  }
-}
-
-@media (forced-colors: active) {
-  .icon-button,
-  .chip,
-  .candidate-item {
-    border: 1px solid ButtonText;
-  }
-}
-
-/* ---------------------------------------------------------------- Modul Planner & Dialog Modal */
-
+/* --------------------------------------------------------------------------
+   13. Modul Dialog Modal Perencana Anggaran Kafe (Planner Modal)
+   Desain jendela desktop workbench, menghilangkan backdrop blur berlebihan.
+   -------------------------------------------------------------------------- */
 .planner-modal {
   box-sizing: border-box;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   background: var(--surface);
   color: var(--ink);
   padding: 0;
   max-width: 860px;
   width: 92vw;
   max-height: 90vh;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.18);
   overflow-y: auto;
   overflow-x: hidden;
 }
 
 .planner-modal::backdrop {
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(2px);
+  background: rgba(15, 23, 42, 0.45);
 }
 
 .modal-content {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 24px;
+  gap: 12px;
+  padding: 18px 20px;
   min-width: 0;
   max-width: 100%;
 }
@@ -742,13 +790,13 @@ a {
 .planner-scenario-warning {
   box-sizing: border-box;
   background: #f5f3ff;
-  border: 1.5px dashed #9333ea;
+  border: 1px dashed #9333ea;
   color: #581c87;
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 12px;
-  font-size: 0.86rem;
-  line-height: 1.4;
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  font-size: 0.82rem;
+  line-height: 1.35;
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -768,17 +816,17 @@ a {
   background: #f5f3ff;
   color: #7e22ce;
   border: 1px solid #d8b4fe;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  padding: 1px 6px;
-  border-radius: 4px;
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
   margin-left: 6px;
   vertical-align: middle;
 }
 
 .scenario-inspector-callout {
   background: #f5f3ff;
-  border: 1.5px dashed #9333ea;
+  border: 1px dashed #9333ea;
   color: #581c87;
 }
 
@@ -793,10 +841,10 @@ a {
   background: #fef3c7;
   border: 1px solid #f59e0b;
   color: #92400e;
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 0.86rem;
-  line-height: 1.4;
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  line-height: 1.35;
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -809,28 +857,28 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
+  gap: 14px;
   border-bottom: 1px solid var(--line-soft);
-  padding-bottom: 12px;
+  padding-bottom: 10px;
 }
 
 .modal-title-group h2 {
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--ink);
 }
 
 .modal-subtitle {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--muted);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .planner-land-summary {
-  background: var(--accent-soft);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 12px 16px;
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 10px 14px;
 }
 
 .land-summary-header {
@@ -841,7 +889,7 @@ a {
 }
 
 .land-name {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--ink);
   margin: 0;
@@ -851,23 +899,23 @@ a {
   background: var(--ok-bg);
   color: var(--ok-ink);
   border: 1px solid var(--ok-line);
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-size: 0.78rem;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  font-size: 0.74rem;
   font-weight: 600;
 }
 
 .land-address {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--ink-2);
-  margin: 4px 0 8px;
+  margin: 2px 0 6px;
 }
 
 .land-summary-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  font-size: 0.82rem;
+  gap: 14px;
+  font-size: 0.78rem;
   color: var(--muted);
 }
 
@@ -878,7 +926,7 @@ a {
 .modal-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  gap: 20px;
+  gap: 16px;
   align-items: start;
   min-width: 0;
   box-sizing: border-box;
@@ -887,7 +935,7 @@ a {
 .planner-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   min-width: 0;
   box-sizing: border-box;
 }
@@ -895,34 +943,34 @@ a {
 fieldset.form-section,
 .form-section {
   border: 1px solid var(--line-soft);
-  border-radius: 8px;
-  padding: 12px 14px;
+  border-radius: var(--radius);
+  padding: 10px 12px;
   margin: 0;
   min-width: 0;
   box-sizing: border-box;
 }
 
 .form-section legend {
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 700;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 0 6px;
+  padding: 0 4px;
 }
 
 .section-assumption-note {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--muted);
-  margin: 0 0 10px 0;
-  line-height: 1.35;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-bottom: 10px;
+  gap: 3px;
+  margin-bottom: 8px;
   min-width: 0;
   box-sizing: border-box;
 }
@@ -931,7 +979,7 @@ fieldset.form-section,
 }
 
 .form-group label {
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--ink-2);
 }
@@ -940,10 +988,10 @@ fieldset.form-section,
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 8px 10px;
+  padding: 6px 8px;
   border: 1px solid var(--line);
-  border-radius: 6px;
-  font-size: 0.9rem;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
   background: var(--surface);
   color: var(--ink);
 }
@@ -956,25 +1004,25 @@ fieldset.form-section,
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
   box-sizing: border-box;
 }
 
 .field-hint {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--muted);
-  line-height: 1.3;
+  line-height: 1.25;
 }
 
 .points-formula-details {
-  margin-top: 8px;
+  margin-top: 6px;
   text-align: left;
-  font-size: 0.76rem;
+  font-size: 0.74rem;
 }
 .points-formula-details summary {
   cursor: pointer;
-  color: #166534;
+  color: var(--ok-ink);
   font-weight: 600;
   outline: none;
 }
@@ -982,42 +1030,42 @@ fieldset.form-section,
   text-decoration: underline;
 }
 .points-formula-content {
-  margin-top: 6px;
-  padding: 8px 10px;
+  margin-top: 4px;
+  padding: 6px 8px;
   background: #ffffff;
   border: 1px solid #bbf7d0;
-  border-radius: 6px;
+  border-radius: var(--radius);
   color: #14532d;
 }
 .points-formula-content .formula-intro {
-  margin: 0 0 6px 0;
-  font-size: 0.74rem;
+  margin: 0 0 4px 0;
+  font-size: 0.72rem;
 }
 .points-formula-content .formula-list {
   margin: 0;
-  padding-left: 16px;
+  padding-left: 14px;
 }
 .points-formula-content .formula-list li {
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .inline-confirm-box {
   background: #fef2f2;
   border: 1px solid #fecaca;
-  border-radius: 8px;
-  padding: 10px 12px;
+  border-radius: var(--radius);
+  padding: 8px 10px;
   margin: 6px 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 0.82rem;
+  gap: 6px;
+  font-size: 0.78rem;
   color: #991b1b;
   box-sizing: border-box;
   min-width: 0;
 }
 .inline-confirm-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 .btn-danger {
   background: #dc2626 !important;
@@ -1027,35 +1075,36 @@ fieldset.form-section,
 .btn-danger:hover {
   background: #b91c1c !important;
 }
-  color: var(--muted);
-}
 
+/* --------------------------------------------------------------------------
+   14. Kartu Kalkulator & Ringkasan Kelayakan (Calculator Card)
+   -------------------------------------------------------------------------- */
 .calculator-card {
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: var(--radius);
+  padding: 12px 14px;
 }
 
 .calc-title {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: var(--ink);
 }
 
 .calc-breakdown {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 0 0 16px;
+  gap: 6px;
+  margin: 0 0 12px;
 }
 
 .calc-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-size: 0.86rem;
+  font-size: 0.82rem;
 }
 
 .calc-row dt {
@@ -1066,75 +1115,79 @@ fieldset.form-section,
   margin: 0;
   font-weight: 600;
   color: var(--ink);
+  font-variant-numeric: tabular-nums;
 }
 
 .calc-points-banner {
   background: #f0fdf4;
   border: 1px solid #bbf7d0;
-  border-radius: 10px;
-  padding: 12px 14px;
+  border-radius: var(--radius);
+  padding: 10px 12px;
   text-align: center;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .points-label {
   display: block;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: #166534;
 }
 
 .points-value {
   display: block;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: #15803d;
-  margin-top: 2px;
+  margin-top: 1px;
+  font-variant-numeric: tabular-nums;
 }
 
 .points-grade {
   display: inline-block;
-  margin-top: 4px;
-  padding: 2px 8px;
-  border-radius: 999px;
+  margin-top: 3px;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
   background: #dcfce7;
   color: #166534;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
 .calc-total-banner {
-  background: var(--accent);
-  color: #fff;
-  border-radius: 10px;
-  padding: 14px 16px;
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  border-radius: var(--radius);
+  padding: 10px 12px;
   text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .total-label {
   display: block;
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  opacity: 0.9;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
 }
 
 .total-value {
   display: block;
-  font-size: 1.45rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  margin-top: 4px;
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
 }
 
 .budget-status {
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.82rem;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .budget-status.status-ok {
   background: #ecfdf5;
@@ -1148,7 +1201,7 @@ fieldset.form-section,
 }
 
 .saved-plan-score {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: #15803d;
 }
 .saved-plan-score strong {
@@ -1156,27 +1209,30 @@ fieldset.form-section,
 }
 
 .calc-note {
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   color: var(--muted);
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .modal-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 10px;
   border-top: 1px solid var(--line-soft);
-  padding-top: 14px;
+  padding-top: 12px;
 }
 
+/* --------------------------------------------------------------------------
+   15. Tombol Aksi Umum & Aksi Lahan (Buttons)
+   -------------------------------------------------------------------------- */
 .btn {
-  padding: 9px 18px;
-  border-radius: 8px;
-  font-size: 0.9rem;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: background 0.15s ease, opacity 0.15s ease;
+  transition: background 0.1s ease, opacity 0.1s ease;
 }
 
 .btn-primary {
@@ -1198,20 +1254,20 @@ fieldset.form-section,
 
 .btn-plan-action {
   width: 100%;
-  margin-top: 12px;
-  padding: 10px 14px;
-  font-size: 0.9rem;
+  margin-top: 10px;
+  padding: 8px 12px;
+  font-size: 0.84rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: var(--radius);
   cursor: pointer;
   background: var(--accent);
   color: #fff;
-  border: none;
+  border: 1px solid transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+  box-shadow: none;
 }
 .btn-plan-action:hover {
   opacity: 0.92;
@@ -1224,19 +1280,20 @@ fieldset.form-section,
   box-shadow: none;
 }
 
-/* ---------------------------------------------------------------- Saved Plans di Sidebar */
-
+/* --------------------------------------------------------------------------
+   16. Daftar Rencana Tersimpan di Sidebar (Saved Plans)
+   -------------------------------------------------------------------------- */
 .plans-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .plans-header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .saved-plans-list {
@@ -1245,22 +1302,22 @@ fieldset.form-section,
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .saved-plans-empty {
-  font-size: 0.84rem;
-  line-height: 1.4;
+  font-size: 0.8rem;
+  line-height: 1.35;
 }
 
 .saved-plan-card {
   background: var(--surface);
   border: 1px solid var(--line-soft);
-  border-radius: 8px;
-  padding: 10px 12px;
+  border-radius: var(--radius);
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 .saved-plan-card:hover {
   border-color: var(--line);
@@ -1270,29 +1327,29 @@ fieldset.form-section,
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
 }
 
 .saved-plan-title {
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 700;
   color: var(--ink);
   overflow-wrap: anywhere;
 }
 
 .saved-plan-date {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--muted);
   white-space: nowrap;
 }
 
 .saved-plan-meta {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 
 .saved-plan-capital {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--ink-2);
   margin-top: 2px;
 }
@@ -1302,14 +1359,14 @@ fieldset.form-section,
 
 .saved-plan-actions {
   display: flex;
-  gap: 8px;
-  margin-top: 6px;
+  gap: 6px;
+  margin-top: 4px;
 }
 
 .btn-sm {
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  border-radius: 5px;
+  font-size: 0.72rem;
+  padding: 3px 6px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--line);
   background: var(--bg);
   cursor: pointer;
@@ -1318,6 +1375,187 @@ fieldset.form-section,
 .btn-sm:hover {
   background: var(--surface);
   border-color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   17. Panel Peringkat Analisis Kelayakan Kafe (Ranking Panel)
+   Format baris data tabular dengan badge skor yang rapi.
+   -------------------------------------------------------------------------- */
+.section-hint {
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin-top: 2px;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.ranking-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background 0.1s, border-color 0.1s;
+}
+
+.ranking-item:hover,
+.ranking-item:focus-visible {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.ranking-pos {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--muted);
+  min-width: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ranking-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ranking-name {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ranking-meta {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ranking-score-badge {
+  font-weight: 700;
+  font-size: 0.76rem;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-high {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.score-mid {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.score-low {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+/* --------------------------------------------------------------------------
+   18. Tombol Tautan Panorama & Kafe Terdekat (Inspector Actions)
+   -------------------------------------------------------------------------- */
+.btn-panorama {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 7px 10px;
+  margin-top: 8px;
+  background: #0284c7;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.btn-panorama:hover {
+  background: #0369a1;
+  color: #ffffff;
+}
+
+.nearest-cafe-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 0.78rem;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.nearest-cafe-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   19. Tanggap Layar & Aksesibilitas (Responsive & Accessibility Queries)
+   Memenuhi kontrak pemeriksaan test_frontend.mjs (min-width: 0, breakpoint 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 899px) {
+  .app-header {
+    padding: 8px 12px;
+  }
+  .brand h1 {
+    font-size: 1.1rem;
+  }
+  .map-toolbar {
+    flex-direction: row;
+  }
+  .inspector {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto;
+    max-height: 55%;
+  }
+  .data-notice {
+    font-size: 0.76rem;
+  }
+  .attribution {
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1336,7 +1574,7 @@ fieldset.form-section,
     width: 98vw;
     max-width: 98vw;
     margin: auto;
-    border-radius: 10px;
+    border-radius: var(--radius);
     box-sizing: border-box;
   }
   .modal-content {
@@ -1349,13 +1587,13 @@ fieldset.form-section,
     padding-bottom: 8px;
   }
   .modal-title-group h2 {
-    font-size: 1.12rem;
+    font-size: 1.05rem;
   }
   .modal-subtitle {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
   }
   .planner-land-summary {
-    padding: 10px 12px;
+    padding: 8px 10px;
   }
   .land-summary-header {
     flex-direction: column;
@@ -1367,191 +1605,38 @@ fieldset.form-section,
     gap: 4px;
   }
   .form-section {
-    padding: 10px 8px;
+    padding: 8px 6px;
   }
   .form-row {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 6px;
   }
   .form-group input {
-    font-size: 0.88rem;
-    padding: 7px 8px;
+    font-size: 0.84rem;
+    padding: 6px 8px;
     width: 100%;
     box-sizing: border-box;
   }
   .modal-footer {
     flex-direction: column-reverse;
-    gap: 8px;
+    gap: 6px;
   }
   .modal-footer .btn {
     width: 100%;
   }
 }
 
-/* Ranking Panel */
-.section-hint {
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-top: 2px;
-  margin-bottom: 8px;
-  line-height: 1.35;
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
 }
 
-.ranking-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ranking-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.ranking-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 8px 10px;
-  background: var(--surface);
-  border: 1px solid var(--line-soft);
-  border-radius: 8px;
-  text-align: left;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.ranking-item:hover,
-.ranking-item:focus-visible {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-}
-
-.ranking-pos {
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--muted);
-  min-width: 22px;
-}
-
-.ranking-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.ranking-name {
-  display: block;
-  font-size: 0.86rem;
-  font-weight: 600;
-  color: var(--ink);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ranking-meta {
-  display: block;
-  font-size: 0.76rem;
-  color: var(--muted);
-}
-
-.ranking-score-badge {
-  font-weight: 700;
-  font-size: 0.82rem;
-  padding: 2px 7px;
-  border-radius: 6px;
-  white-space: nowrap;
-}
-
-.score-high {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.score-mid {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.score-low {
-  background: #f1f5f9;
-  color: #475569;
-}
-
-/* Panorama Link & Nearest Cafe Button */
-.btn-panorama {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  padding: 8px 12px;
-  margin-top: 8px;
-  background: #0284c7;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-.btn-panorama:hover {
-  background: #0369a1;
-  color: #ffffff;
-}
-
-.nearest-cafe-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 8px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  font-size: 0.82rem;
-  color: var(--ink);
-  cursor: pointer;
-  text-align: left;
-}
-
-.nearest-cafe-btn:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-}
-
-/* ---------------------------------------------------------------- animasi radius */
-
-.radius-anim-help {
-  margin: 0 0 8px;
-  font-size: 0.8rem;
-}
-.radius-anim-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-.radius-anim-slider-label {
-  display: block;
-  font-size: 0.85rem;
-  margin-bottom: 4px;
-}
-#radius-anim-slider {
-  width: 100%;
-  max-width: 100%;
-}
-.radius-anim-status {
-  margin: 6px 0 0;
-  font-size: 0.85rem;
-  font-variant-numeric: tabular-nums;
+@media (forced-colors: active) {
+  .icon-button,
+  .chip,
+  .candidate-item,
+  .ranking-item {
+    border: 1px solid ButtonText;
+  }
 }
