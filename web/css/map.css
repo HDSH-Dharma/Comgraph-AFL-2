@@ -1387,3 +1387,144 @@ fieldset.form-section,
     width: 100%;
   }
 }
+
+/* Ranking Panel */
+.section-hint {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 2px;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.ranking-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.ranking-item:hover,
+.ranking-item:focus-visible {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.ranking-pos {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--muted);
+  min-width: 22px;
+}
+
+.ranking-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ranking-name {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ranking-meta {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.ranking-score-badge {
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 2px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.score-high {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.score-mid {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.score-low {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* Panorama Link & Nearest Cafe Button */
+.btn-panorama {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 12px;
+  margin-top: 8px;
+  background: #0284c7;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.btn-panorama:hover {
+  background: #0369a1;
+  color: #ffffff;
+}
+
+.nearest-cafe-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.nearest-cafe-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}

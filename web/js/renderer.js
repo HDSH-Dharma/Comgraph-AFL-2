@@ -4,6 +4,7 @@
 
 import {
   BUFFER_STYLE,
+  BUFFER_1KM_STYLE,
   CAMPUS_STYLE,
   MARKER_RADIUS,
   OUT_OF_BUFFER_ALPHA,
@@ -16,6 +17,7 @@ import {
   drawCampusMarker,
   drawListingMarker,
   drawOsmCafeMarker,
+  drawGateMarker,
   campusHeadCenter,
 } from './symbols.js';
 import { worldToLonLat } from './viewport.js';
@@ -70,10 +72,23 @@ export class MapRenderer {
     }
     if (!basemapUsable) this.drawGraticule();
 
+    // Urutan Render Kanvas Baku (Canonical Draw Order):
+    // 1. Latar belakang kanvas (#EEF2F6) & Basemap / Graticule (di atas)
+    // 2. Skenario Buffer 1 km (opsional, digambar di bawah buffer 500m)
+    // 3. Baseline Buffer 500 m (fokus utama, kontras lebih tegas)
+    // 4. Poligon perimeter kampus OSM
+    // 5. Pin titik kampus utama (centroid)
+    // 6. Kafe eksisting OSM (faktual)
+    // 7. Listing pasar sewa riil publik
+    // 8. Kandidat lahan observasi Street View faktual
+    // 9. Skenario sintetis acak (jika opt-in diaktifkan)
+    // 10. Label teks, halo sorotan seleksi, dan tooltip hover
     const visible = this.vm.visible;
-    this.drawBuffers(visible.buffers);
+    if (visible.buffers1km?.length) this.drawBuffers(visible.buffers1km, BUFFER_1KM_STYLE);
+    this.drawBuffers(visible.buffers, BUFFER_STYLE);
     this.drawOsmBuildings(visible.osmBuildings);
     this.drawCampuses(visible.campuses);
+    if (visible.gates?.length) this.drawGates(visible.gates);
     this.drawOsmCafes(visible.osmCafes);
     this.drawListings(visible.listings);
     this.drawCandidates(visible.candidates);
@@ -142,19 +157,20 @@ export class MapRenderer {
     return !(bounds[2] < minX - m || bounds[0] > maxX + m || bounds[3] < minY - m || bounds[1] > maxY + m);
   }
 
-  drawBuffers(buffers) {
-    if (!buffers.length) return;
+  // Render geometri poligon buffer; parameter style membedakan visual baseline 500 m vs skenario 1 km.
+  drawBuffers(buffers, style = BUFFER_STYLE) {
+    if (!buffers || !buffers.length) return;
     const { ctx } = this;
     ctx.save();
-    ctx.fillStyle = BUFFER_STYLE.fill;
+    ctx.fillStyle = style.fill;
     for (const b of buffers) {
       if (!this.inView(b.bounds)) continue;
       this.tracePolygon(b.rings);
       ctx.fill('evenodd');
     }
-    ctx.strokeStyle = BUFFER_STYLE.stroke;
-    ctx.lineWidth = BUFFER_STYLE.lineWidth;
-    ctx.setLineDash(BUFFER_STYLE.dash);
+    ctx.strokeStyle = style.stroke;
+    ctx.lineWidth = style.lineWidth;
+    ctx.setLineDash(style.dash);
     for (const b of buffers) {
       if (!this.inView(b.bounds)) continue;
       this.tracePolygon(b.rings);
@@ -215,6 +231,18 @@ export class MapRenderer {
       const highlight =
         (selection?.kind === 'campus' && selection.id === u.id) || (hover?.kind === 'campus' && hover.id === u.id);
       drawCampusMarker(this.ctx, x, y, CAMPUS_STYLE.size, { highlight });
+    }
+  }
+
+  drawGates(gates) {
+    if (!gates || !gates.length) return;
+    const { ctx, viewport: vp } = this;
+    const { selection, hover } = this.vm;
+    for (const g of gates) {
+      const [x, y] = vp.worldToScreen(g.wx, g.wy);
+      if (x < -30 || y < -30 || x > vp.width + 30 || y > vp.height + 30) continue;
+      const highlight = (selection?.kind === 'gate' && selection.id === g.id) || (hover?.kind === 'gate' && hover.id === g.id);
+      drawGateMarker(ctx, x, y, 7, { highlight });
     }
   }
 

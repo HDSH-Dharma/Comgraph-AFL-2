@@ -1,8 +1,12 @@
 {
   "type": "FeatureCollection",
   "metadata": {
-    "title": "Poligon Buffer Radial 1.000m Kampus Surabaya",
+    "title": "Poligon Buffer Radial 1.000m (Skenario) Kampus Surabaya",
+    "source": "Dihitung dari titik koordinat kampus terverifikasi di EPSG:32749",
+    "captured_date": "2026-11-01",
+    "generated_date": "2026-11-01",
     "radius_m": 1000,
+    "radius_mode": "scenario_1km",
     "total_features": 8,
     "crs": "EPSG:4326",
     "calculated_crs": "EPSG:32749"
@@ -538,6 +542,7 @@
         "institution": "UNAIR",
         "campus_name": "Kampus A Universitas Airlangga",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "radial_from_reference_centroid",
         "crs_calculated": "EPSG:32749"
       }
@@ -1072,6 +1077,7 @@
         "institution": "UNAIR",
         "campus_name": "Kampus B Universitas Airlangga",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "radial_from_reference_centroid",
         "crs_calculated": "EPSG:32749"
       }
@@ -1606,6 +1612,7 @@
         "institution": "UNAIR",
         "campus_name": "Kampus C Universitas Airlangga",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "radial_from_reference_centroid",
         "crs_calculated": "EPSG:32749"
       }
@@ -2140,6 +2147,7 @@
         "institution": "UKWMS",
         "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Dinoyo",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "radial_from_reference_centroid",
         "crs_calculated": "EPSG:32749"
       }
@@ -2674,6 +2682,7 @@
         "institution": "UKWMS",
         "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Kalijudan",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "radial_from_reference_centroid",
         "crs_calculated": "EPSG:32749"
       }
@@ -3208,6 +3217,7 @@
         "institution": "UKWMS",
         "campus_name": "Universitas Katolik Widya Mandala Surabaya Kampus Pakuwon City",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "radial_from_reference_centroid",
         "crs_calculated": "EPSG:32749"
       }
@@ -3742,6 +3752,7 @@
         "institution": "UBAYA",
         "campus_name": "Universitas Surabaya Kampus Ngagel",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "radial_from_reference_centroid",
         "crs_calculated": "EPSG:32749"
       }
@@ -4276,6 +4287,7 @@
         "institution": "UBAYA",
         "campus_name": "Universitas Surabaya Kampus Tenggilis",
         "radius_m": 1000,
+        "radius_mode": "scenario_1km",
         "buffer_type": "radial_from_reference_centroid",
         "crs_calculated": "EPSG:32749"
       }

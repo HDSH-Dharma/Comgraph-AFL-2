@@ -1,0 +1,30 @@
+RINGKASAN HASIL ANALISIS SPASIAL - BUKA KAFE DEKAT KAMPUS SURABAYA
+
+Data dan CRS
+- Kampus: 8 kampus (Unair A/B/C, UKWMS Dinoyo/Kalijudan/Pakuwon, Ubaya Ngagel/Tenggilis), poligon dari OpenStreetMap.
+- Kafe eksisting: 206 titik kafe OpenStreetMap (Overpass API, ODbL).
+- Kandidat lahan: 22 titik observasi Google Street View (1-2 Nov 2026), wajib ditinjau tim.
+- Penyimpanan EPSG:4326 (WGS84); perhitungan jarak dan buffer di EPSG:32749 (UTM 49S, meter).
+
+Operasi GIS
+- Buffer 500 m (baseline) dan 1 km (skenario) dari poligon kampus.
+- Spatial join: kandidat lahan dan kafe OSM ke kampus terdekat (point-in-polygon + jarak terdekat).
+
+Baseline 500 m vs skenario 1 km
+- Kafe OSM dalam buffer: 23 (500 m) vs 59 (1 km).
+- Kandidat dalam buffer: 20 (500 m) vs 22 (1 km).
+- Kandidat layak (lahan kosong/disewakan): 4 (500 m) vs 5 (1 km).
+
+Kandidat layak (urut skor baseline 500 m):
+- SV-UBAYA-TENGGILIS-01 Lahan berpagar ditumbuhi semak Jl. Raya Kalirungkut (UBAYA-TENGGILIS, 238.7 m, jalan: utama, skor 500 m: 80.0, cakupan 35.0%)
+- SV-UKWMS-PAKUWON-01 Lahan terbuka bertembok barat UKWMS Pakuwon City (UKWMS-PAKUWON, 258.6 m, jalan: belum diamati, skor 500 m: 72.0, cakupan 25.0%)
+- SV-UKWMS-PAKUWON-02 Lahan terbuka berumput barat laut UKWMS Pakuwon City (UKWMS-PAKUWON, 474.4 m, jalan: belum diamati, skor 500 m: 48.0, cakupan 25.0%)
+- SV-UNAIR-C-02 Lahan berpagar disewakan Jl. Mulyorejo Utara 221 (UNAIR-KAMPUS-C, 465.8 m, jalan: gang, skor 500 m: 42.86, cakupan 35.0%)
+- SV-UBAYA-TENGGILIS-05 Lahan kosong berpagar di jalan samping Raya Kalirungkut (UBAYA-TENGGILIS, 502.6 m, jalan: gang, skor 500 m: 8.57, cakupan 35.0%)
+
+Keterbatasan
+- Observasi lahan memakai Google Street View; tanggal citra bervariasi (2024-2026) sehingga kondisi terkini bisa berbeda.
+- Harga sewa dan luas lahan belum diketahui untuk sebagian besar kandidat, jadi cakupan skor < 60% dan bintang tidak ditampilkan.
+- Lokasi gerbang kampus belum teramati; jarak ke gerbang bernilai null.
+- Indikator keramaian mahasiswa belum disurvei; tipe jalan hanya diisi bila terlihat jelas di Street View.
+- Data kafe OSM bisa tidak lengkap (kafe baru/tutup belum tercatat).

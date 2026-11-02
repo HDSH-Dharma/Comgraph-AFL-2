@@ -1,1 +1,4 @@
 pyproj>=3.6.0
+matplotlib>=3.8.0
+nbclient>=0.10.0
+ipykernel>=6.29.0
