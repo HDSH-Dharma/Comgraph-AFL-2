@@ -3076,37 +3076,37 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
 });
 
 
-test('29. Animasi radius buffer: hitungan kafe & lahan sama dengan pipeline, konversi meter → piksel benar', async () => {
-  const { countWithinRadius, radiusMetersToPixels, RadiusAnimation } = await import('./js/radiusAnimation.js');
-  const cafes = PARSERS.osmCafes(readJson(path.join(__dirname, '..', 'data', 'processed', 'osm_cafes.geojson'))).items;
-  const lands = PARSERS.candidates(readJson(path.join(__dirname, '..', 'data', 'processed', 'land_candidates.geojson'))).items;
-  assert.ok(cafes.length > 0 && lands.length > 0);
+test('29. Verifikasi eliminasi fitur animasi radius: kontrol UI, CSS, dan render hook telah bersih', () => {
+  // A. Verifikasi index.html tidak lagi memuat kontrol animasi radius
+  const htmlContent = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
+  assert.ok(!htmlContent.includes('id="radius-anim-section"'), 'Kontrol animasi #radius-anim-section wajib dihapus dari HTML');
+  assert.ok(!htmlContent.includes('id="radius-anim-play"'), 'Tombol #radius-anim-play wajib dihapus dari HTML');
+  assert.ok(!htmlContent.includes('id="radius-anim-reset"'), 'Tombol #radius-anim-reset wajib dihapus dari HTML');
+  assert.ok(!htmlContent.includes('id="radius-anim-slider"'), 'Input slider #radius-anim-slider wajib dihapus dari HTML');
+  assert.ok(!htmlContent.includes('id="radius-anim-status"'), 'Status teks #radius-anim-status wajib dihapus dari HTML');
 
-  // Hitungan di radius baseline & skenario harus sama dengan flag buffer dari pipeline
-  for (const [r, flagCafe, flagLand] of [[500, 'is_in_buffer_500m', 'is_eligible_500m'], [1000, 'is_in_buffer_1000m', 'is_eligible_1000m']]) {
-    const n = countWithinRadius(cafes, lands, r);
-    const rawCafes = readJson(path.join(__dirname, '..', 'data', 'processed', 'osm_cafes.geojson')).features;
-    const rawLands = readJson(path.join(__dirname, '..', 'data', 'processed', 'land_candidates.geojson')).features;
-    assert.equal(n.cafes, rawCafes.filter((f) => f.properties[flagCafe]).length, `kafe radius ${r}`);
-    assert.equal(n.eligibleLand, rawLands.filter((f) => f.properties[flagLand]).length, `lahan layak radius ${r}`);
-  }
-  assert.deepEqual(countWithinRadius(cafes, lands, 0), { cafes: 0, eligibleLand: 0, land: 0 });
+  // B. Verifikasi map.css tidak lagi memuat aturan gaya animasi radius
+  const cssContent = fs.readFileSync(path.join(__dirname, 'css/map.css'), 'utf-8');
+  assert.ok(!cssContent.includes('.radius-anim-help'), 'Kelas .radius-anim-help wajib dihapus dari CSS');
+  assert.ok(!cssContent.includes('.radius-anim-buttons'), 'Kelas .radius-anim-buttons wajib dihapus dari CSS');
+  assert.ok(!cssContent.includes('.radius-anim-slider-label'), 'Kelas .radius-anim-slider-label wajib dihapus dari CSS');
+  assert.ok(!cssContent.includes('#radius-anim-slider'), 'Selektor #radius-anim-slider wajib dihapus dari CSS');
+  assert.ok(!cssContent.includes('.radius-anim-status'), 'Kelas .radius-anim-status wajib dihapus dari CSS');
 
-  // Di ekuator, skala = keliling bumi → 1 m = 1 px; di lintang 60° jari-jari piksel dua kali lipat
-  const keliling = 2 * Math.PI * 6378137;
-  assert.ok(Math.abs(radiusMetersToPixels(500, 0, keliling) - 500) < 1e-6);
-  assert.ok(Math.abs(radiusMetersToPixels(500, 60, keliling) - 1000) < 1e-6);
+  // C. Verifikasi main.js tidak lagi memuat impor, state, wiring, atau render hook animasi radius
+  const mainContent = fs.readFileSync(path.join(__dirname, 'js/main.js'), 'utf-8');
+  assert.ok(!mainContent.includes('radiusAnimation.js'), 'Impor radiusAnimation.js wajib dihapus dari main.js');
+  assert.ok(!mainContent.includes('RadiusAnimation'), 'Kelas RadiusAnimation wajib dihapus dari main.js');
+  assert.ok(!mainContent.includes('radiusAnim'), 'Objek radiusAnim wajib dihapus dari main.js');
+  assert.ok(!mainContent.includes('updateRadiusControls'), 'Fungsi updateRadiusControls wajib dihapus dari main.js');
+  assert.ok(!mainContent.includes('radius-anim-play'), 'Event listener tombol play animasi wajib dihapus dari main.js');
 
-  // Radius manual dibatasi 0..max, reset menyembunyikan overlay
-  const changes = [];
-  const anim = new RadiusAnimation({ maxRadiusM: 1000, onChange: (a) => changes.push(a.radiusM) });
-  anim.setRadius(1500);
-  assert.equal(anim.radiusM, 1000);
-  anim.setRadius(-20);
-  assert.equal(anim.radiusM, 0);
-  anim.play({ reducedMotion: true });
-  assert.equal(anim.radiusM, 1000);
-  anim.reset();
-  assert.equal(anim.radiusM, null);
-  assert.ok(changes.length >= 4);
+  // D. Verifikasi renderer.js tidak lagi memuat hook atau metode gambar animasi radius
+  const rendererContent = fs.readFileSync(path.join(__dirname, 'js/renderer.js'), 'utf-8');
+  assert.ok(!rendererContent.includes('radiusAnimation'), 'Dependensi radiusAnimation wajib dihapus dari renderer.js');
+  assert.ok(!rendererContent.includes('drawRadiusCircles'), 'Metode drawRadiusCircles wajib dihapus dari renderer.js');
+  assert.ok(!rendererContent.includes('drawRadiusHits'), 'Metode drawRadiusHits wajib dihapus dari renderer.js');
+
+  // E. Verifikasi berkas radiusAnimation.js telah dihapus karena tidak ada consumer tersisa
+  assert.ok(!fs.existsSync(path.join(__dirname, 'js/radiusAnimation.js')), 'Berkas radiusAnimation.js wajib dihapus karena tidak memiliki consumer tersisa');
 });

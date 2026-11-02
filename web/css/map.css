@@ -1530,38 +1530,7 @@ fieldset.form-section,
 }
 
 /* --------------------------------------------------------------------------
-   19. Kontrol Animasi Radius Buffer Spasial (Buffer Animation)
-   -------------------------------------------------------------------------- */
-.radius-anim-help {
-  margin: 0 0 6px;
-  font-size: 0.76rem;
-  color: var(--muted);
-}
-.radius-anim-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-.radius-anim-slider-label {
-  display: block;
-  font-size: 0.8rem;
-  margin-bottom: 3px;
-  color: var(--ink-2);
-}
-#radius-anim-slider {
-  width: 100%;
-  max-width: 100%;
-}
-.radius-anim-status {
-  margin: 4px 0 0;
-  font-size: 0.78rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink-2);
-}
-
-/* --------------------------------------------------------------------------
-   20. Tanggap Layar & Aksesibilitas (Responsive & Accessibility Queries)
+   19. Tanggap Layar & Aksesibilitas (Responsive & Accessibility Queries)
    Memenuhi kontrak pemeriksaan test_frontend.mjs (min-width: 0, breakpoint 480px)
    -------------------------------------------------------------------------- */
 @media (max-width: 899px) {
