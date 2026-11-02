@@ -364,6 +364,9 @@ export class MapRenderer {
    * Cari fitur di titik layar (sx, sy). Toleransi lebih besar untuk sentuhan.
    * Kandidat diperiksa dari yang digambar paling atas.
    */
+  // Klik → objek: posisi klik (piksel layar) dibandingkan dengan posisi layar setiap marker
+  // (worldToScreen). Urutan cek: kandidat lahan → listing → kafe OSM → kampus → perimeter kampus.
+  // Hasil { kind, item } dipakai main.js (onTap) untuk memilih panel yang dibuka.
   hitTest(sx, sy, tolerance = 4) {
     const vp = this.viewport;
     const visible = this.vm.visible;

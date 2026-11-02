@@ -62,6 +62,8 @@ export const OSM_CAFE_STYLE = Object.freeze({
 // Lima status lahan. `value` harus sama persis dengan VALID_LAND_STATUSES
 // di scripts/gis_pipeline.py. Warna sesuai brief UI; bentuk + huruf dipakai
 // supaya status tetap terbaca tanpa membedakan warna.
+// Lima status lahan: label, huruf, bentuk, dan warna ini dipakai bersama oleh
+// marker peta (symbols.js), legenda & filter (ui.js), dan daftar kandidat.
 export const LAND_STATUSES = Object.freeze([
   {
     key: 'kosong',

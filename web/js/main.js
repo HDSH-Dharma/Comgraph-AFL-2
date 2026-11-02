@@ -192,6 +192,10 @@ function revealSelected(item, { forceZoom = false } = {}) {
   flyTo(item.wx - (tx - viewport.width / 2) / s, item.wy - (ty - viewport.height / 2) / s, zoom);
 }
 
+// Klik kandidat lahan (dari peta, daftar, atau panel peringkat):
+//   1. tandai terpilih di ViewModel,
+//   2. cek kelayakan (status kosong/disewakan + di dalam buffer) → jika layak, buka planner,
+//   3. tampilkan panel detail lahan (ui.showLandInspector), termasuk alasan jika tidak layak.
 function selectCandidate(id, { source = 'map' } = {}) {
   const c = vm.findCandidate(id);
   if (!c) return;
@@ -231,6 +235,7 @@ function selectCampus(id) {
   ui.showCampusInspector(u);
 }
 
+// Klik kafe OSM → tandai sebagai terpilih di ViewModel → tampilkan panel kafe (ui.showOsmCafeInspector).
 function selectOsmCafe(id) {
   const c = vm.findOsmCafe(id);
   if (!c) return;
@@ -309,6 +314,8 @@ attachInteractions(canvas, {
     canvas.style.cursor = hit ? 'pointer' : '';
     ui.showTooltip(hit, x, y);
   },
+  // Klik/tap di peta: renderer.hitTest() mencari marker terdekat (dalam piksel layar),
+  // lalu jenisnya menentukan panel yang dibuka di sebelah kiri peta (inspector).
   onTap: (hit) => {
     if (!hit) return clearSelection();
     if (hit.kind === 'land') selectCandidate(hit.item.id, { source: 'map' });

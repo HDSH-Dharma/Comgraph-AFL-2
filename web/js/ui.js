@@ -202,6 +202,16 @@ export class MapUI {
 
   // ---------- Legenda ----------
 
+  // ALUR LEGENDA (kotak "Legenda" di pojok peta):
+  //   dipanggil sekali saat MapUI dibuat → isi #legend-body di index.html.
+  //   1. Lima baris status lahan (Lahan kosong, Tersedia disewakan, Rumah, Ruko/Fungsi Lain,
+  //      Belum terverifikasi) diambil dari LAND_STATUSES di config.js (label, huruf K/S/R/F/?, bentuk).
+  //   2. Setiap ikon digambar ke <canvas> kecil oleh paintSwatch() memakai fungsi yang SAMA
+  //      dengan peta (drawStatusMarker, drawCampusMarker, drawOsmCafeMarker di symbols.js),
+  //      jadi bentuk & warna di legenda selalu identik dengan marker di peta.
+  //   3. Warna buffer 500 m / 1 km diambil dari BUFFER_STYLE / BUFFER_1KM_STYLE di config.js.
+  //   4. Baris "Listing sewa riil" teksnya diperbarui oleh updateListingLayerState()
+  //      sesuai ada/tidaknya listing berkoordinat.
   buildLegend() {
     const list = h('ul', { class: 'legend-list' });
     for (const s of LAND_STATUSES) {
@@ -274,6 +284,7 @@ export class MapUI {
       h('li', {}, gateCanvas, h('span', { text: 'Gerbang kampus (status: belum diobservasi / unobserved)' })),
       h('li', {}, buffer500Canvas, h('span', { text: 'Buffer 500 m (baseline)' })),
       h('li', {}, buffer1kmCanvas, h('span', { text: 'Skenario buffer 1 km (opsional)' })),
+      // "4 tanpa nama" = jumlah kafe OSM tanpa tag name di osm_cafes.geojson (ditandai isUnnamed di data.js).
       h('li', {}, osmCafeCanvas, h('span', { text: 'Kafe eksisting (OSM faktual; 4 tanpa nama)' })),
       this.els.listingLegendItem,
       h('li', { class: 'legend-units-note' }, h('small', { class: 'muted', text: 'Satuan: jarak (m), luas (m²), sewa (Rp/tahun), kelayakan (poin 0–100)' }))
@@ -550,6 +561,12 @@ export class MapUI {
 
   // ---------- Daftar kandidat ----------
 
+  // ALUR DAFTAR KANDIDAT (kartu "Halaman parkir minibus ... · 432 m · Survei Faktual · Sewa: n/a"):
+  //   land_candidates.geojson (hasil gis_pipeline.py)
+  //     → data.js parseCandidates()  : properti GeoJSON → objek kandidat (name, status, distanceM, ...)
+  //     → mapViewModel.js visible.candidates : kandidat yang lolos filter universitas & status
+  //     → fungsi ini: diurutkan dari jarak terdekat ke kampus, lalu dibuat satu tombol per kandidat.
+  //   Klik kartu → actions.selectCandidate() di main.js (sama seperti klik marker di peta).
   renderCandidateList() {
     const { vm } = this;
     const cand = vm.data.candidates;
@@ -642,6 +659,12 @@ export class MapUI {
                 c.name,
                 c.isScenario ? h('span', { class: 'tag-scenario', text: c.isRandomPlacement ? '🎲 Acak' : '🧪 Skenario' }) : null
               ),
+              // Baris kecil di bawah nama kartu, digabung dengan " · ":
+              //   [status] · [jarak ke kampus terdekat] · [jenis data] · [sewa]
+              //   - status   : c.status.label (rumah & fungsi_lain ditampilkan "Tidak Disewakan atau Dijual")
+              //   - jarak    : distance_meters dari pipeline (EPSG:32749), diformat formatMeters()
+              //   - jenis    : "Survei Faktual" untuk observasi Street View
+              //   - sewa     : rental_price_yr; kosong (null) → "Sewa: n/a" karena harga tidak ditebak
               h('span', {
                 class: 'candidate-meta',
                 text: [
@@ -673,6 +696,16 @@ export class MapUI {
 
   // ---------- Panel Peringkat Kelayakan Lahan (Web Task 7) ----------
   // Mengurutkan kandidat berdasarkan skor kelayakan bisnis (0-100 poin) dengan tie-breaker proksimitas
+  // ALUR PANEL PERINGKAT ("#1 ... Kedekatan: 18 pt · Luas: null · Biaya: null (Cakupan 50%) · 78 poin"):
+  //   land_candidates.geojson → properti feasibility_scoring_baseline_500m (dihitung di
+  //   gis_pipeline.py: calculate_transparent_feasibility_score) → dibaca apa adanya di sini.
+  //   - "78 poin"        = score_normalized (skor 0–100 dari komponen yang ada datanya)
+  //   - "Kedekatan: 18 pt" = breakdown.campus_proximity.points
+  //   - "Luas" / "Biaya"   = breakdown.area / breakdown.rent (null = belum ada data, tidak ditebak)
+  //   - "Cakupan 50%"      = coverage (bobot komponen yang ada datanya / 100)
+  //   - "Null: ..."        = daftar komponen yang belum ada datanya (missing)
+  //   Bintang (★) disembunyikan bila cakupan < 60%. Urutan: layak dulu, skor tertinggi, lalu jarak.
+  //   Warna badge: >= 70 hijau, >= 40 kuning, sisanya merah (badgeClass di bawah).
   renderRankingPanel() {
     if (!this.els.rankingList) return;
     const cand = this.vm.data.candidates;
@@ -1316,6 +1349,20 @@ export class MapUI {
     this.openInspector();
   }
 
+  // ALUR PANEL KAFE OSM (contoh: "Warkop Mbak Mar"):
+  //   osm_cafes.geojson (dibuat gis_pipeline.py: process_osm_cafes, sumber OpenStreetMap Overpass)
+  //     → data.js parseOsmCafes()        : properti GeoJSON → objek kafe c
+  //     → renderer.js drawOsmCafes()     : ikon ☕ di peta
+  //     → klik peta: interaction.js → renderer.hitTest() mengembalikan { kind: 'osm_cafe' }
+  //     → main.js onTap → selectOsmCafe(id) → fungsi ini.
+  //   Asal setiap baris:
+  //     Nama Kafe          ← properti name (tanpa nama → "Kafe tanpa nama (OSM)")
+  //     Koordinat          ← geometri titik (lat, lon) dengan 6 angka desimal
+  //     Sumber             ← properti source ("OpenStreetMap contributors (ODbL 1.0)")
+  //     Jam Buka           ← properti opening_hours (hanya tampil kalau ada di OSM)
+  //     Tanggal Verifikasi ← properti verified_at
+  //   Tombol "Non-Planner" sengaja nonaktif: kafe yang sudah beroperasi adalah pesaing,
+  //   bukan lahan yang bisa direncanakan.
   showOsmCafeInspector(c) {
     const rows = [
       ['Nama Kafe', c.name || 'Kafe Eksisting'],

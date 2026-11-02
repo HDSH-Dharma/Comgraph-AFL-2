@@ -662,6 +662,11 @@ export function parseOsmBuildings(json) {
   return { items, skipped, metadata: json.metadata ?? null };
 }
 
+// Kafe OSM: setiap Feature di osm_cafes.geojson menjadi satu objek kafe.
+// Pemetaan properti GeoJSON → field yang dipakai UI:
+//   name → name / isUnnamed     opening_hours → openingHours     verified_at → verifiedAt
+//   source → source             distance_meters → distanceM (jarak ke kampus terdekat, dari pipeline)
+//   koordinat [lon, lat] → lon, lat, lalu lonLatToWorld() → wx, wy (posisi Web Mercator 0–1).
 export function parseOsmCafes(json) {
   if (!json || !Array.isArray(json?.features)) {
     return { items: [], skipped: 0, metadata: null };
