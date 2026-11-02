@@ -2749,7 +2749,7 @@ def main():
     parser.add_argument("--universities", default="data/raw/universities.geojson", help="Path file input universities.geojson")
 
     default_candidates = "data/raw/land_candidates.geojson"
-    survey_path = "data/raw/survey_land_candidates.geojson"
+    survey_path = repo_path("data/raw/survey_land_candidates.geojson")
     if os.path.exists(survey_path):
         try:
             with open(survey_path, "r", encoding="utf-8") as f:
@@ -2767,6 +2767,13 @@ def main():
     parser.add_argument("--seed", type=int, default=42, help="Seed bilangan acak untuk pembangkitan simulasi")
 
     args = parser.parse_args()
+    # Path relatif diselesaikan dari root repo, jadi skrip bisa dijalankan dari folder mana pun
+    # (misalnya dari scripts/ atau lewat tombol Run di VS Code).
+    args.universities = repo_path(args.universities)
+    args.candidates = repo_path(args.candidates)
+    args.gates = repo_path(args.gates) if args.gates else None
+    args.output = repo_path(args.output)
+    args.scenario_output = repo_path(args.scenario_output)
 
     pipeline = GISPipeline()
 
