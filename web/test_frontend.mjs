@@ -3075,3 +3075,38 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
   }
 });
 
+
+test('29. Animasi radius buffer: hitungan kafe & lahan sama dengan pipeline, konversi meter → piksel benar', async () => {
+  const { countWithinRadius, radiusMetersToPixels, RadiusAnimation } = await import('./js/radiusAnimation.js');
+  const cafes = PARSERS.osmCafes(readJson(path.join(__dirname, '..', 'data', 'processed', 'osm_cafes.geojson'))).items;
+  const lands = PARSERS.candidates(readJson(path.join(__dirname, '..', 'data', 'processed', 'land_candidates.geojson'))).items;
+  assert.ok(cafes.length > 0 && lands.length > 0);
+
+  // Hitungan di radius baseline & skenario harus sama dengan flag buffer dari pipeline
+  for (const [r, flagCafe, flagLand] of [[500, 'is_in_buffer_500m', 'is_eligible_500m'], [1000, 'is_in_buffer_1000m', 'is_eligible_1000m']]) {
+    const n = countWithinRadius(cafes, lands, r);
+    const rawCafes = readJson(path.join(__dirname, '..', 'data', 'processed', 'osm_cafes.geojson')).features;
+    const rawLands = readJson(path.join(__dirname, '..', 'data', 'processed', 'land_candidates.geojson')).features;
+    assert.equal(n.cafes, rawCafes.filter((f) => f.properties[flagCafe]).length, `kafe radius ${r}`);
+    assert.equal(n.eligibleLand, rawLands.filter((f) => f.properties[flagLand]).length, `lahan layak radius ${r}`);
+  }
+  assert.deepEqual(countWithinRadius(cafes, lands, 0), { cafes: 0, eligibleLand: 0, land: 0 });
+
+  // Di ekuator, skala = keliling bumi → 1 m = 1 px; di lintang 60° jari-jari piksel dua kali lipat
+  const keliling = 2 * Math.PI * 6378137;
+  assert.ok(Math.abs(radiusMetersToPixels(500, 0, keliling) - 500) < 1e-6);
+  assert.ok(Math.abs(radiusMetersToPixels(500, 60, keliling) - 1000) < 1e-6);
+
+  // Radius manual dibatasi 0..max, reset menyembunyikan overlay
+  const changes = [];
+  const anim = new RadiusAnimation({ maxRadiusM: 1000, onChange: (a) => changes.push(a.radiusM) });
+  anim.setRadius(1500);
+  assert.equal(anim.radiusM, 1000);
+  anim.setRadius(-20);
+  assert.equal(anim.radiusM, 0);
+  anim.play({ reducedMotion: true });
+  assert.equal(anim.radiusM, 1000);
+  anim.reset();
+  assert.equal(anim.radiusM, null);
+  assert.ok(changes.length >= 4);
+});

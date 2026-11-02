@@ -10,6 +10,7 @@ import { MapViewModel, institutionLabel } from './mapViewModel.js';
 import { MapRenderer } from './renderer.js';
 import { attachInteractions } from './interaction.js';
 import { MapUI, evaluateCandidateEligibility } from './ui.js';
+import { RadiusAnimation, countWithinRadius } from './radiusAnimation.js';
 
 const canvas = document.getElementById('map-canvas');
 const stage = document.getElementById('map-stage');
@@ -332,6 +333,57 @@ new ResizeObserver(([entry]) => {
   firstSize = false;
 }).observe(stage);
 
+// ---------------------------------------------------------------- animasi radius
+
+const radiusEls = {
+  play: document.getElementById('radius-anim-play'),
+  reset: document.getElementById('radius-anim-reset'),
+  slider: document.getElementById('radius-anim-slider'),
+  value: document.getElementById('radius-anim-value'),
+  status: document.getElementById('radius-anim-status'),
+};
+
+const radiusAnim = new RadiusAnimation({
+  maxRadiusM: 1000,
+  durationMs: 6000,
+  onChange: (anim) => {
+    renderer.requestRender();
+    updateRadiusControls(anim);
+  },
+});
+renderer.radiusAnimation = radiusAnim;
+
+function updateRadiusControls(anim) {
+  if (!radiusEls.status) return;
+  const r = anim.radiusM;
+  if (radiusEls.play) radiusEls.play.textContent = anim.playing ? '⏸ Jeda' : '▶ Putar 0–1 km';
+  if (r == null) {
+    radiusEls.value.textContent = '–';
+    radiusEls.slider.value = '0';
+    radiusEls.status.textContent = 'Belum diputar.';
+    return;
+  }
+  radiusEls.value.textContent = `${r} m`;
+  radiusEls.slider.value = String(Math.round(r / 50) * 50);
+  const cafes = vm.data.osmCafes?.items || [];
+  const lands = vm.data.candidates?.items || [];
+  const n = countWithinRadius(cafes, lands, r);
+  radiusEls.status.textContent =
+    `Radius ${r} m: ${n.cafes} kafe OSM pesaing, ${n.land} kandidat lahan (${n.eligibleLand} bisa disewa/kosong).`;
+}
+
+radiusEls.play?.addEventListener('click', () => {
+  if (radiusAnim.playing) {
+    radiusAnim.stop();
+    return;
+  }
+  // Di layar sempit panel kontrol ada di bawah peta: gulir ke peta supaya animasinya terlihat.
+  if (window.innerWidth < 760) stage?.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+  radiusAnim.play({ reducedMotion: reduceMotion.matches });
+});
+radiusEls.reset?.addEventListener('click', () => radiusAnim.reset());
+radiusEls.slider?.addEventListener('input', (e) => radiusAnim.setRadius(Number(e.target.value)));
+
 // ---------------------------------------------------------------- mulai
 
 async function init() {
@@ -361,4 +413,4 @@ init().catch((err) => {
 });
 
 // Untuk debug & tes manual di console. Bukan kontrak antarmodul.
-window.bukaKafeMap = Object.freeze({ vm, viewport, renderer });
+window.bukaKafeMap = Object.freeze({ vm, viewport, renderer, radiusAnim });

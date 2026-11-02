@@ -21,6 +21,7 @@ import {
   campusHeadCenter,
 } from './symbols.js';
 import { worldToLonLat } from './viewport.js';
+import { radiusMetersToPixels, isRentable } from './radiusAnimation.js';
 
 const BACKGROUND = '#EEF2F6';
 const GRATICULE_STEPS = [0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1];
@@ -35,6 +36,7 @@ export class MapRenderer {
     this.dpr = 1;
     this.pending = false;
     this.afterRender = null;
+    this.radiusAnimation = null; // diisi main.js: animasi radius buffer 0 → 1 km
   }
 
   resize(width, height) {
@@ -86,6 +88,8 @@ export class MapRenderer {
     const visible = this.vm.visible;
     if (visible.buffers1km?.length) this.drawBuffers(visible.buffers1km, BUFFER_1KM_STYLE);
     this.drawBuffers(visible.buffers, BUFFER_STYLE);
+    const animRadius = this.radiusAnimation?.radiusM;
+    if (animRadius != null) this.drawRadiusCircles(visible.campuses, animRadius);
     this.drawOsmBuildings(visible.osmBuildings);
     this.drawCampuses(visible.campuses);
     if (visible.gates?.length) this.drawGates(visible.gates);
@@ -93,6 +97,7 @@ export class MapRenderer {
     this.drawListings(visible.listings);
     this.drawCandidates(visible.candidates);
     if (visible.scenarios?.length) this.drawCandidates(visible.scenarios);
+    if (animRadius != null) this.drawRadiusHits(visible, animRadius);
     this.drawLabels(visible);
     this.afterRender?.();
   }
@@ -175,6 +180,53 @@ export class MapRenderer {
       if (!this.inView(b.bounds)) continue;
       this.tracePolygon(b.rings);
       ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  /** Animasi radius: lingkaran transparan di setiap titik kampus (radius dalam meter). */
+  drawRadiusCircles(campuses, radiusM) {
+    if (!campuses?.length || radiusM <= 0) return;
+    const { ctx, viewport: vp } = this;
+    ctx.save();
+    ctx.fillStyle = 'rgba(99, 102, 241, 0.16)';
+    ctx.strokeStyle = 'rgba(67, 56, 202, 0.85)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([]);
+    for (const u of campuses) {
+      const [x, y] = vp.worldToScreen(u.wx, u.wy);
+      const r = radiusMetersToPixels(radiusM, u.lat, vp.scale);
+      if (x + r < 0 || y + r < 0 || x - r > vp.width || y - r > vp.height) continue;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  /** Animasi radius: cincin pada kafe OSM dan lahan yang sudah masuk radius. */
+  drawRadiusHits(visible, radiusM) {
+    const { ctx, viewport: vp } = this;
+    const ring = (x, y, r, color, width) => {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.stroke();
+    };
+    ctx.save();
+    for (const c of visible.osmCafes || []) {
+      if (c.distanceM == null || c.distanceM > radiusM) continue;
+      const [x, y] = vp.worldToScreen(c.wx, c.wy);
+      if (x < -20 || y < -20 || x > vp.width + 20 || y > vp.height + 20) continue;
+      ring(x, y, (OSM_CAFE_STYLE.radius || 7) + 3, '#B45309', 2.5);
+    }
+    for (const c of visible.candidates || []) {
+      if (c.distanceM == null || c.distanceM > radiusM) continue;
+      const [x, y] = vp.worldToScreen(c.wx, c.wy);
+      if (x < -30 || y < -30 || x > vp.width + 30 || y > vp.height + 30) continue;
+      ring(x, y, MARKER_RADIUS + 5, isRentable(c) ? '#059669' : '#DC2626', 3);
     }
     ctx.restore();
   }
