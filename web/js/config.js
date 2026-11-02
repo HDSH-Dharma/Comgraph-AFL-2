@@ -14,7 +14,6 @@ export const DATA_FILES = Object.freeze({
   osmBuildings: '../data/processed/universities_polygons.geojson',
   osmCafes: '../data/processed/osm_cafes.geojson',
   scenarios: '../data/fixtures/synthetic_scenario_candidates.geojson',
-  gates: '../data/processed/campus_gates.geojson',
 });
 
 // Radius buffer spasial:
@@ -34,7 +33,6 @@ export const DATA_LABELS = Object.freeze({
   listings: 'Listing sewa riil publik',
   osmBuildings: 'Perimeter kampus/bangunan (OSM faktual)',
   osmCafes: 'Kafe eksisting (OSM faktual)',
-  gates: 'Gerbang kampus (status: belum diobservasi / unobserved)',
 });
 
 export const LISTING_STYLE = Object.freeze({
@@ -55,7 +53,7 @@ export const OSM_CAFE_STYLE = Object.freeze({
   color: '#D97706',
   stroke: '#78350F',
   radius: 7,
-  glyph: '☕',
+  glyph: 'C',
   label: 'Kafe eksisting OSM (faktual)',
 });
 
@@ -172,17 +170,6 @@ export const BUFFER_1KM_STYLE = Object.freeze({
   lineWidth: 1.25,
   dash: [8, 6],
   label: 'Skenario buffer 1 km',
-});
-
-// Gaya visual gerbang kampus (lapisan opsional; status belum diobservasi empiris).
-export const GATE_STYLE = Object.freeze({
-  color: '#E11D48',
-  stroke: '#9F1239',
-  fill: 'rgba(225, 29, 72, 0.25)',
-  lineWidth: 1.5,
-  glyph: '🚪',
-  radius: 7,
-  label: 'Gerbang kampus (status: belum diobservasi / unobserved)',
 });
 
 // Asumsi Penilaian Skor Kelayakan Terpusat (Shared Backend Formula - reports/backend.md Task 8)

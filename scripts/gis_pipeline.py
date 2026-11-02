@@ -524,6 +524,7 @@ def calculate_transparent_feasibility_score(
     # -------------------------------------------------------------------------
     # Normalisasi Proporsional & Cakupan Bobot (Coverage)
     # -------------------------------------------------------------------------
+    # 6. Cakupan data (coverage): Komponen bernilai null dikeluarkan dari pembagi bobot; jika cakupan < 60%, bintang dinonaktifkan.
     theoretical_max = 100.0
     coverage = round((max_available_weight / theoretical_max) * 100.0, 2)
     is_renormalized = len(missing_components) > 0
@@ -1042,6 +1043,7 @@ def classify_land_building_from_open_data(osm_tags: Dict[str, Any]) -> Dict[str,
             "defensible_basis": "OSM Missing Attributes"
         }
 
+    # 8. Klasifikasi open data: Memetakan tag OSM ke 5 status baku; tanpa bukti sewa komersial, fallback ke belum terverifikasi.
     bld = str(osm_tags.get("building", "")).lower().strip()
     landuse = str(osm_tags.get("landuse", "")).lower().strip()
     amenity = str(osm_tags.get("amenity", "")).lower().strip()
@@ -1125,8 +1127,8 @@ def classify_land_building_from_open_data(osm_tags: Dict[str, Any]) -> Dict[str,
 
 class GISPipeline:
     def __init__(self):
-        # Inisialisasi proyektor koordinat dengan always_xy=True
-        # EPSG:4326 [lon, lat] <-> EPSG:32749 [x, y]
+        # 1. Alasan UTM: Proyeksi EPSG:32749 (UTM 49S, meter) wajib dipakai untuk kalkulasi jarak metrik dan buffer
+        #    agar bebas distorsi kelengkungan koordinat derajat WGS84 di kawasan Surabaya (~7°LS).
         self.transformer_fwd = pyproj.Transformer.from_crs("EPSG:4326", "EPSG:32749", always_xy=True)
         self.transformer_inv = pyproj.Transformer.from_crs("EPSG:32749", "EPSG:4326", always_xy=True)
 
@@ -1588,7 +1590,8 @@ class GISPipeline:
             # - Radial centroid buffer (128 segmen) untuk analisis jarak Euclidean titik tengah kampus.
             # - Dilation polygon buffer (Minkowski offset, 8 titik fillet) untuk jarak dari pagar/batas fisik kampus.
 
-            # 1. Buat poligon buffer radial 500m (baseline) dari titik referensi
+            # 2. Radius vs poligon buffer: Buffer radial melingkar dari centroid referensi kampus (Euclidean),
+            #    sedangkan buffer poligon dilatasi memperhitungkan batas pagar perimeter fisik kampus asli OSM.
             radial_ring_500 = self.create_radial_buffer_polygon(lon, lat, radius_m=BASELINE_RADIUS_METERS, num_segments=128)
             buffer_features_500m.append({
                 "type": "Feature",
@@ -1730,6 +1733,7 @@ class GISPipeline:
         }
 
         for idx, feat in enumerate(cand_features):
+            # 3. Validasi kandidat: Menegakkan 11 field wajib, koordinat dalam Surabaya, dan tolak rekayasa harga/luas.
             if is_survey_dataset:
                 feat = self.validate_survey_candidate(feat)
 
@@ -1787,7 +1791,7 @@ class GISPipeline:
             lon, lat = self.validate_coordinate(coords[0], coords[1], name=f"Kandidat {lid}")
             lx, ly = self.transformer_fwd.transform(lon, lat)
 
-            # Hitung jarak Euclidean ke titik referensi seluruh kampus
+            # 4. Jarak kandidat: Menghitung jarak Euclidean ke centroid (d_ref) dan proyeksi ke perimeter poligon (d_poly) dalam meter.
             min_dist = float("inf")
             min_dist_poly = float("inf")
             nearest_campus: Optional[Dict[str, Any]] = None
@@ -1812,7 +1816,7 @@ class GISPipeline:
             # Kompatibilitas mundur: is_in_buffer tetap mengacu pada ambang batas skenario 1km
             is_in_buffer = is_in_buffer_1000m
 
-            # Klasifikasi peruntukan komersial / sewa vs tempat tinggal / fungsi lain
+            # 5. Kelayakan (eligibility): Kandidat wajib masuk radius buffer (<=500m / <=1km) DAN berstatus komersial/sewa.
             is_rentable = bool(status in RENTABLE_OR_SALE_STATUSES)
             # Kelayakan ganda: kandidat 500m wajib disewa DAN berada dalam jangkauan jalan kaki 500m
             is_eligible_500m = bool(is_in_buffer_500m and is_rentable)
@@ -2005,6 +2009,7 @@ class GISPipeline:
                 }
             })
 
+        # 7. Luaran GeoJSON: Seluruh data diekspor dengan allow_nan=False mematuhi RFC 8259 agar aman dibaca web/frontend.
         # 3. Export Processed Universities (Point geometry untuk kompatibilitas Web UI + metadata poligon)
         universities_out_path = os.path.join(output_dir, "universities.geojson")
         exported_unis = {

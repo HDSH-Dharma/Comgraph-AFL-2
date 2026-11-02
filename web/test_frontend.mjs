@@ -24,7 +24,7 @@ import {
   DATA_FILES,
   DATA_LABELS,
   LISTING_STYLE,
-  GATE_STYLE,
+  OSM_CAFE_STYLE,
   TEAM_SCORING_ASSUMPTIONS,
   QUICK_JUMP_TARGETS,
   INSTITUTION_LABELS,
@@ -62,7 +62,7 @@ import {
 } from './js/planner.js';
 import { MapRenderer } from './js/renderer.js';
 import { Viewport } from './js/viewport.js';
-import { drawStatusMarker, drawGateMarker } from './js/symbols.js';
+import { drawStatusMarker } from './js/symbols.js';
 
 test('1. Konfigurasi Institusi Sasaran & Eliminasi Mismatch Unesa', () => {
   // Target institusi resmi proyek adalah tripartit: UNAIR, UKWMS, UBAYA.
@@ -2778,7 +2778,7 @@ test('27. Web Tasks 2 & 7: Baseline 500m & 1km Scenario, Observed Candidates Def
   }
 });
 
-test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapisan Gerbang Kampus, & Atribusi Observasi Faktual', () => {
+test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Atribusi Observasi Faktual, & Eliminasi Gerbang Kampus', () => {
   // 1. Asumsi Skoring Terpusat Tim & Rumus Bersama Backend (Task 8 reports/backend.md)
   assert.equal(TEAM_SCORING_ASSUMPTIONS.weights.proximity, 40.0);
   assert.equal(TEAM_SCORING_ASSUMPTIONS.weights.space, 30.0);
@@ -2825,9 +2825,6 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
 
   assert.ok(parsedCands.items.length > 0);
   for (const c of parsedCands.items) {
-    // Mandat Task 5: Jarak gerbang strictly null dengan status UNOBSERVED
-    assert.equal(c.distanceToNearestGateM, null, 'Jarak gerbang pada kandidat wajib strictly null');
-    assert.equal(c.gateObservationStatus, 'UNOBSERVED', 'Status observasi gerbang wajib UNOBSERVED');
     // Mandat Task 8: Objek scoring backend ada
     assert.ok(c.feasibilityScoring, 'Objek feasibilityScoring backend wajib ada');
     assert.ok(c.feasibilityScoring500m, 'Objek feasibilityScoring500m baseline backend wajib ada');
@@ -2840,28 +2837,35 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
     );
   }
 
-  // 2.1 Verifikasi buildLandData Menyertakan Properti Skema Baru untuk Interop Planner
+  // 2.1 Verifikasi buildLandData Menyertakan Properti Skema untuk Interop Planner (Tanpa Gate Payload)
   const sampleCandidate = parsedCands.items[0];
+  assert.equal(sampleCandidate.distanceToNearestGateM, undefined, 'Parser frontend mengabaikan distanceToNearestGateM');
+  assert.equal(sampleCandidate.gateObservationStatus, undefined, 'Parser frontend mengabaikan gateObservationStatus');
   const landDataPayload = buildLandData(sampleCandidate);
-  assert.equal(landDataPayload.distance_to_nearest_gate_meters, null);
-  assert.equal(landDataPayload.gate_observation_status, 'UNOBSERVED');
   assert.equal(
     landDataPayload.feasibility_scoring_baseline_500m.score_normalized,
     sampleCandidate.feasibilityScoring500m.score_normalized
   );
   assert.equal(landDataPayload.unavailability_reason, sampleCandidate.unavailabilityReason);
 
-  // 3. Verifikasi Lapisan Gerbang Kampus (Opsional, Default-OFF, Simbol Khusus, & Legenda)
+  // 3. Verifikasi Regresi: Lapisan Gerbang Kampus Dieliminasi dari Frontend
   const vm = new MapViewModel();
-  assert.equal(vm.layers.gates, false, 'Lapisan gerbang kampus wajib berstatus default false (default-off)');
-  assert.equal(GATE_STYLE.glyph, '🚪', 'Gaya gerbang wajib memiliki glyph pintu');
-  assert.equal(DATA_LABELS.gates, 'Gerbang kampus (status: belum diobservasi / unobserved)');
+  assert.equal(vm.layers.gates, undefined, 'Lapisan gates wajib tidak lagi terdaftar di vm.layers');
+  assert.equal(DATA_FILES.gates, undefined, 'DATA_FILES.gates wajib dihapus');
+  assert.equal(DATA_LABELS.gates, undefined, 'DATA_LABELS.gates wajib dihapus');
+  assert.equal(PARSERS.gates, undefined, 'PARSERS.gates wajib dihapus dari data.js');
 
-  // Pemeriksaan HTML Lapisan Gerbang
+  // Pemeriksaan HTML: Checkbox dan Label Gerbang telah dihapus
   const htmlPath = path.join(__dirname, 'index.html');
   const htmlContent = fs.readFileSync(htmlPath, 'utf8');
-  assert.ok(htmlContent.includes('data-layer="gates"'), 'index.html wajib memuat checkbox data-layer="gates"');
-  assert.ok(htmlContent.includes('layer-gates-label'), 'index.html wajib memuat id layer-gates-label');
+  assert.ok(!htmlContent.includes('data-layer="gates"'), 'index.html tidak boleh memuat checkbox data-layer="gates"');
+  assert.ok(!htmlContent.includes('layer-gates-label'), 'index.html tidak boleh memuat id layer-gates-label');
+
+  // Pemeriksaan Simbol & Renderer: Simbol dan method gambar gerbang telah dihapus
+  const symbolsContent = fs.readFileSync(path.join(__dirname, 'js/symbols.js'), 'utf8');
+  assert.ok(!symbolsContent.includes('drawGateMarker'), 'drawGateMarker wajib dihapus dari symbols.js');
+  const rendererContent = fs.readFileSync(path.join(__dirname, 'js/renderer.js'), 'utf8');
+  assert.ok(!rendererContent.includes('drawGates'), 'drawGates wajib dihapus dari renderer.js');
 
   // 4. Pengujian UI Ranking Panel & Inspector dengan Mock DOM
   const mockEls = {};
@@ -2971,11 +2975,11 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
       eligibilityBlock: MapUI.prototype.eligibilityBlock,
     };
 
-    // 4.1 Legenda Peta Menyertakan Swatch Gerbang Kampus
+    // 4.1 Legenda Peta Tidak Lagi Menyertakan Swatch Gerbang Kampus
     MapUI.prototype.buildLegend.call(mockUI);
     assert.ok(
-      legendEl.textContent.includes('Gerbang kampus (status: belum diobservasi / unobserved)'),
-      'Legenda wajib menampilkan entri gerbang kampus'
+      !legendEl.textContent.includes('Gerbang kampus'),
+      'Legenda wajib tidak lagi menampilkan entri gerbang kampus'
     );
 
     // 4.2 Ranking Panel: Menampilkan Skor Backend Langsung & Per-Component Breakdown
@@ -2994,7 +2998,7 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
     assert.ok(rankButtons[0].textContent.includes(`Cakupan ${expectedCov}%`), `Ranking item wajib menampilkan cakupan data ${expectedCov}% dari backend`);
     assert.ok(rankButtons[0].textContent.includes('Kedekatan: 12 pt') || rankButtons[0].textContent.includes('Kedekatan: 20 pt'), 'Ranking item wajib merinci komponen kedekatan');
 
-    // 4.3 Inspector: Menampilkan Skor MCDA, Komponen Null, Tipe Jalan Jujur, Alasan, Indikator Siswa, & Gerbang Null
+    // 4.3 Inspector: Menampilkan Skor MCDA, Komponen Null, Tipe Jalan Jujur, Alasan, Indikator Siswa, & Tanpa Baris Gerbang
     MapUI.prototype.showLandInspector.call(mockUI, sampleCandidate);
     assert.ok(inspBody.textContent.includes('Skor kelayakan MCDA'), 'Inspector wajib memuat baris Skor kelayakan MCDA');
     assert.ok(inspBody.textContent.includes(`${expectedScore} / 100 poin`), 'Inspector wajib memuat skor normalisasi');
@@ -3008,7 +3012,8 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
       assert.ok(inspBody.textContent.includes('null (Tipe jalan belum diobservasi / tidak ada data OSM highway)'), 'Tipe jalan wajib jujur null');
     }
     assert.ok(inspBody.textContent.includes('null (Indikator mobilitas mahasiswa belum disurvei lapangan)'), 'Indikator mahasiswa wajib jujur null');
-    assert.ok(inspBody.textContent.includes('null (UNOBSERVED - koordinat gerbang belum diobservasi empiris)'), 'Jarak gerbang wajib jujur null');
+    assert.ok(!inspBody.textContent.includes('gerbang'), 'Inspector tidak boleh memuat baris gerbang kampus');
+    assert.ok(!inspBody.textContent.includes('Status observasi gerbang'), 'Inspector tidak boleh memuat baris status observasi gerbang');
     assert.ok(inspBody.textContent.includes('Observasi Street View (Bukan Survei Fisik Lapangan)'), 'Callout wajib menyatakan bukan survei fisik lapangan');
 
     // 5. Perencana (PlannerUI): Skor Backend Langsung vs Rekalkulasi Saat Pengguna Mengedit Luas/Sewa
@@ -3076,37 +3081,79 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
 });
 
 
-test('29. Verifikasi eliminasi fitur animasi radius: kontrol UI, CSS, dan render hook telah bersih', () => {
-  // A. Verifikasi index.html tidak lagi memuat kontrol animasi radius
+test('29. Animasi radius buffer: hitungan kafe & lahan sama dengan pipeline, konversi meter ke piksel benar', async () => {
+  const { countWithinRadius, radiusMetersToPixels, RadiusAnimation } = await import('./js/radiusAnimation.js');
+  const cafes = PARSERS.osmCafes(readJson(path.join(__dirname, '..', 'data', 'processed', 'osm_cafes.geojson'))).items;
+  const lands = PARSERS.candidates(readJson(path.join(__dirname, '..', 'data', 'processed', 'land_candidates.geojson'))).items;
+  assert.ok(cafes.length > 0 && lands.length > 0);
+
+  // Hitungan di radius baseline & skenario harus sama dengan flag buffer dari pipeline
+  for (const [r, flagCafe, flagLand] of [[500, 'is_in_buffer_500m', 'is_eligible_500m'], [1000, 'is_in_buffer_1000m', 'is_eligible_1000m']]) {
+    const n = countWithinRadius(cafes, lands, r);
+    const rawCafes = readJson(path.join(__dirname, '..', 'data', 'processed', 'osm_cafes.geojson')).features;
+    const rawLands = readJson(path.join(__dirname, '..', 'data', 'processed', 'land_candidates.geojson')).features;
+    assert.equal(n.cafes, rawCafes.filter((f) => f.properties[flagCafe]).length, `kafe radius ${r}`);
+    assert.equal(n.eligibleLand, rawLands.filter((f) => f.properties[flagLand]).length, `lahan layak radius ${r}`);
+  }
+  assert.deepEqual(countWithinRadius(cafes, lands, 0), { cafes: 0, eligibleLand: 0, land: 0 });
+
+  // Di ekuator, skala = keliling bumi -> 1 m = 1 px; di lintang 60 derajat jari-jari piksel dua kali lipat
+  const keliling = 2 * Math.PI * 6378137;
+  assert.ok(Math.abs(radiusMetersToPixels(500, 0, keliling) - 500) < 1e-6);
+  assert.ok(Math.abs(radiusMetersToPixels(500, 60, keliling) - 1000) < 1e-6);
+
+  // Radius manual dibatasi 0..max, reset menyembunyikan overlay
+  const changes = [];
+  const anim = new RadiusAnimation({ maxRadiusM: 1000, onChange: (a) => changes.push(a.radiusM) });
+  anim.setRadius(1500);
+  assert.equal(anim.radiusM, 1000);
+  anim.setRadius(-20);
+  assert.equal(anim.radiusM, 0);
+  anim.play({ reducedMotion: true });
+  assert.equal(anim.radiusM, 1000);
+  anim.reset();
+  assert.equal(anim.radiusM, null);
+  assert.ok(changes.length >= 4);
+
+  // Verifikasi elemen UI terpasang di DOM/HTML
   const htmlContent = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
-  assert.ok(!htmlContent.includes('id="radius-anim-section"'), 'Kontrol animasi #radius-anim-section wajib dihapus dari HTML');
-  assert.ok(!htmlContent.includes('id="radius-anim-play"'), 'Tombol #radius-anim-play wajib dihapus dari HTML');
-  assert.ok(!htmlContent.includes('id="radius-anim-reset"'), 'Tombol #radius-anim-reset wajib dihapus dari HTML');
-  assert.ok(!htmlContent.includes('id="radius-anim-slider"'), 'Input slider #radius-anim-slider wajib dihapus dari HTML');
-  assert.ok(!htmlContent.includes('id="radius-anim-status"'), 'Status teks #radius-anim-status wajib dihapus dari HTML');
+  assert.ok(htmlContent.includes('id="radius-anim-section"'), 'Kontrol animasi #radius-anim-section wajib ada di HTML');
+  assert.ok(htmlContent.includes('id="radius-anim-play"'), 'Tombol #radius-anim-play wajib ada di HTML');
+  assert.ok(htmlContent.includes('id="radius-anim-reset"'), 'Tombol #radius-anim-reset wajib ada di HTML');
+  assert.ok(htmlContent.includes('id="radius-anim-slider"'), 'Input slider #radius-anim-slider wajib ada di HTML');
+  assert.ok(htmlContent.includes('id="radius-anim-status"'), 'Status teks #radius-anim-status wajib ada di HTML');
+});
 
-  // B. Verifikasi map.css tidak lagi memuat aturan gaya animasi radius
-  const cssContent = fs.readFileSync(path.join(__dirname, 'css/map.css'), 'utf-8');
-  assert.ok(!cssContent.includes('.radius-anim-help'), 'Kelas .radius-anim-help wajib dihapus dari CSS');
-  assert.ok(!cssContent.includes('.radius-anim-buttons'), 'Kelas .radius-anim-buttons wajib dihapus dari CSS');
-  assert.ok(!cssContent.includes('.radius-anim-slider-label'), 'Kelas .radius-anim-slider-label wajib dihapus dari CSS');
-  assert.ok(!cssContent.includes('#radius-anim-slider'), 'Selektor #radius-anim-slider wajib dihapus dari CSS');
-  assert.ok(!cssContent.includes('.radius-anim-status'), 'Kelas .radius-anim-status wajib dihapus dari CSS');
+test('30. Verifikasi Eliminasi Seluruh Karakter Emoji pada UI & Berkas Sumber Frontend (HTML/CSS/JS)', () => {
+  // Regex standar Unicode untuk mendeteksi karakter emoji dan simbol berpiktografis
+  const emojiRegex = /[\p{Extended_Pictographic}\p{Emoji_Presentation}]/u;
 
-  // C. Verifikasi main.js tidak lagi memuat impor, state, wiring, atau render hook animasi radius
-  const mainContent = fs.readFileSync(path.join(__dirname, 'js/main.js'), 'utf-8');
-  assert.ok(!mainContent.includes('radiusAnimation.js'), 'Impor radiusAnimation.js wajib dihapus dari main.js');
-  assert.ok(!mainContent.includes('RadiusAnimation'), 'Kelas RadiusAnimation wajib dihapus dari main.js');
-  assert.ok(!mainContent.includes('radiusAnim'), 'Objek radiusAnim wajib dihapus dari main.js');
-  assert.ok(!mainContent.includes('updateRadiusControls'), 'Fungsi updateRadiusControls wajib dihapus dari main.js');
-  assert.ok(!mainContent.includes('radius-anim-play'), 'Event listener tombol play animasi wajib dihapus dari main.js');
+  // 1. Verifikasi konfigurasi glyph kafe OSM menggunakan huruf 'C', bukan emoji cangkir kopi
+  assert.equal(OSM_CAFE_STYLE.glyph, 'C', 'Glyph OSM_CAFE_STYLE wajib menggunakan huruf plain text C');
 
-  // D. Verifikasi renderer.js tidak lagi memuat hook atau metode gambar animasi radius
-  const rendererContent = fs.readFileSync(path.join(__dirname, 'js/renderer.js'), 'utf-8');
-  assert.ok(!rendererContent.includes('radiusAnimation'), 'Dependensi radiusAnimation wajib dihapus dari renderer.js');
-  assert.ok(!rendererContent.includes('drawRadiusCircles'), 'Metode drawRadiusCircles wajib dihapus dari renderer.js');
-  assert.ok(!rendererContent.includes('drawRadiusHits'), 'Metode drawRadiusHits wajib dihapus dari renderer.js');
+  // 2. Pemindaian rekursif seluruh berkas sumber frontend (HTML, CSS, JS) di bawah folder web/
+  const filesToScan = [
+    path.join(__dirname, 'index.html'),
+    path.join(__dirname, 'css/map.css'),
+  ];
 
-  // E. Verifikasi berkas radiusAnimation.js telah dihapus karena tidak ada consumer tersisa
-  assert.ok(!fs.existsSync(path.join(__dirname, 'js/radiusAnimation.js')), 'Berkas radiusAnimation.js wajib dihapus karena tidak memiliki consumer tersisa');
+  const jsDir = path.join(__dirname, 'js');
+  for (const file of fs.readdirSync(jsDir)) {
+    if (file.endsWith('.js')) {
+      filesToScan.push(path.join(jsDir, file));
+    }
+  }
+
+  for (const filePath of filesToScan) {
+    const relativePath = path.relative(__dirname, filePath);
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const lines = content.split('\n');
+
+    lines.forEach((line, lineIdx) => {
+      assert.ok(
+        !emojiRegex.test(line),
+        `Karakter emoji ditemukan pada berkas ${relativePath} baris ${lineIdx + 1}: ${line.trim()}`
+      );
+    });
+  }
 });

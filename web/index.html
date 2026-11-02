@@ -85,7 +85,7 @@
           <p class="basemap-note" id="basemap-note" role="status" hidden></p>
           <p class="attribution">
             <span>Titik kampus</span><span id="attribution-basemap"> &amp; basemap</span>
-            © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.
+            &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.
             Buffer &amp; jarak: pipeline GIS tim (EPSG:32749).
           </p>
         </div>
@@ -123,10 +123,6 @@
             <input type="checkbox" data-layer="osmBuildings" checked />
             <span class="check-label">Perimeter kampus (OSM faktual)</span>
           </label>
-          <label class="check-row" id="layer-gates-row">
-            <input type="checkbox" data-layer="gates" id="layer-gates-input" />
-            <span class="check-label" id="layer-gates-label">🚪 Gerbang kampus (status: belum diobservasi)</span>
-          </label>
           <label class="check-row" id="layer-osm-cafes-row">
             <input type="checkbox" data-layer="osmCafes" id="layer-osm-cafes-input" checked />
             <span class="check-label" id="layer-osm-cafes-label">Kafe eksisting (OSM faktual)</span>
@@ -137,7 +133,7 @@
           </label>
           <label class="check-row" id="layer-scenarios-row">
             <input type="checkbox" data-layer="scenarios" id="layer-scenarios-input" />
-            <span class="check-label" id="layer-scenarios-label">🧪 Skenario sintetis (simulasi acak)</span>
+            <span class="check-label" id="layer-scenarios-label">Skenario sintetis (simulasi acak)</span>
           </label>
           <label class="check-row" id="layer-listings-row">
             <input type="checkbox" data-layer="listings" id="layer-listings-input" checked />
@@ -148,6 +144,18 @@
             <span class="check-label">Basemap OpenStreetMap</span>
           </label>
         </fieldset>
+
+        <section class="control-group" id="radius-anim-section" aria-labelledby="radius-anim-title">
+          <h2 id="radius-anim-title">Animasi radius buffer</h2>
+          <p class="muted radius-anim-help">Lingkaran di setiap kampus membesar dari 0 sampai 1 km. Kafe OSM (cincin cokelat) dan lahan (cincin hijau = bisa disewa, merah = tidak) yang masuk radius ditandai.</p>
+          <div class="radius-anim-buttons">
+            <button type="button" class="btn btn-primary" id="radius-anim-play">Putar 0–1 km</button>
+            <button type="button" class="btn btn-secondary" id="radius-anim-reset">Reset</button>
+          </div>
+          <label class="radius-anim-slider-label" for="radius-anim-slider">Radius manual: <strong id="radius-anim-value">–</strong></label>
+          <input type="range" id="radius-anim-slider" min="0" max="1000" step="50" value="0" />
+          <p class="radius-anim-status" id="radius-anim-status" aria-live="polite">Belum diputar.</p>
+        </section>
 
         <fieldset class="control-group">
           <legend>Universitas</legend>
@@ -214,12 +222,12 @@
         </header>
 
         <div id="planner-scenario-warning" class="planner-scenario-warning" role="alert" hidden>
-          <span aria-hidden="true">🧪</span>
+          <span class="warning-badge-mark" aria-hidden="true">[Skenario]</span>
           <span id="planner-scenario-warning-text"><strong>Peringatan Skenario Sintetis (Simulasi Hipotetis):</strong> Lokasi ini merupakan titik simulasi skenario (bukan listing properti faktual maupun survei riil). Angka sewa dan luas adalah nilai hipotetis yang wajib disesuaikan pada formulir di bawah.</span>
         </div>
 
         <div id="planner-demo-warning" class="planner-demo-warning" role="note" hidden>
-          <span aria-hidden="true">⚠️</span>
+          <span class="warning-badge-mark" aria-hidden="true">[!]</span>
           <span><strong>Data lahan demo — angka sewa &amp; luas bukan data nyata.</strong> Silakan sesuaikan luas dan harga sewa pada formulir di bawah ini.</span>
         </div>
 
@@ -232,8 +240,8 @@
           </div>
           <p id="planner-land-address" class="land-address">—</p>
           <div class="land-summary-meta">
-            <span class="meta-item">🏫 Kampus: <strong id="planner-land-campus">—</strong></span>
-            <span class="meta-item">📏 Jarak: <strong id="planner-land-distance">—</strong></span>
+            <span class="meta-item">Kampus: <strong id="planner-land-campus">—</strong></span>
+            <span class="meta-item">Jarak: <strong id="planner-land-distance">—</strong></span>
           </div>
         </section>
 
@@ -358,7 +366,7 @@
               <div id="calc-budget-status" class="budget-status" hidden></div>
 
               <p class="calc-note">
-                💡 Estimasi dihitung otomatis berbasis asumsi simulasi. Perhitungan modal ini tersimpan di browser (LocalStorage) untuk presentasi dan evaluasi bisnis kafe.
+                Catatan: Estimasi dihitung otomatis berbasis asumsi simulasi. Perhitungan modal ini tersimpan di browser (LocalStorage) untuk presentasi dan evaluasi bisnis kafe.
               </p>
             </div>
           </aside>

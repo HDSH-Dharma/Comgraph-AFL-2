@@ -1640,3 +1640,30 @@ fieldset.form-section,
     border: 1px solid ButtonText;
   }
 }
+
+/* ---------------------------------------------------------------- animasi radius */
+
+.radius-anim-help {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+}
+.radius-anim-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.radius-anim-slider-label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+#radius-anim-slider {
+  width: 100%;
+  max-width: 100%;
+}
+.radius-anim-status {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}

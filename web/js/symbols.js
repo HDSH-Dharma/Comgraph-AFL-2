@@ -195,7 +195,7 @@ export function drawListingMarker(ctx, x, y, r = 8, { highlight = false, isInBuf
 
 /**
  * Marker kafe eksisting OSM (faktual).
- * Berbentuk lingkaran amber/oranye dengan ikon cangkir kopi (☕) atau border cokelat tebal.
+ * Berbentuk lingkaran amber/oranye dengan glyph teks C atau border cokelat tebal.
  */
 export function drawOsmCafeMarker(ctx, x, y, r = 7, { highlight = false, alpha = 1 } = {}) {
   ctx.save();
@@ -212,27 +212,7 @@ export function drawOsmCafeMarker(ctx, x, y, r = 7, { highlight = false, alpha =
   ctx.font = `700 ${Math.round(r * 1.1)}px system-ui, -apple-system, sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('☕', x, y + 0.5);
-  ctx.restore();
-}
-
-/** Gambar simbol gerbang kampus (lapisan opsional). */
-export function drawGateMarker(ctx, x, y, r = 7, { highlight = false, alpha = 1 } = {}) {
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, TAU);
-  ctx.lineWidth = highlight ? 4.5 : 2;
-  ctx.strokeStyle = highlight ? '#F43F5E' : '#9F1239';
-  ctx.stroke();
-  ctx.fillStyle = '#E11D48';
-  ctx.fill();
-
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = `700 ${Math.round(r * 1.05)}px system-ui, -apple-system, sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('🚪', x, y + 0.5);
+  ctx.fillText('C', x, y + 0.5);
   ctx.restore();
 }
 

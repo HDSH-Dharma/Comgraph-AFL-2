@@ -36,7 +36,6 @@ export class MapViewModel {
       listings: true,
       osmBuildings: true,
       osmCafes: true,
-      gates: false, // Gerbang kampus: default OFF (lapisan opsional)
     };
     this.institutions = new Map(); // code → { code, label, enabled, campusCount, candidateCount }
     this.statusEnabled = new Map(LAND_STATUSES.map((s) => [s.key, true]));
@@ -203,11 +202,6 @@ export class MapViewModel {
       osmCafes:
         this.layers.osmCafes && osmCafes?.items
           ? osmCafes.items
-          : [],
-      // Gerbang kampus (lapisan opsional)
-      gates:
-        this.layers.gates && this.data.gates?.items
-          ? this.data.gates.items.filter((g) => !g.institution || this.institutionEnabled(g.institution))
           : [],
     };
   }

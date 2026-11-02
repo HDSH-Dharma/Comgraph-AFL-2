@@ -1314,7 +1314,7 @@ export class PlannerUI {
         p.land?.data_kind === 'synthetic_scenario'
       );
       const scenarioTag = isScenarioPlan
-        ? `<span class="tag-scenario">${p.land?.is_random_placement ? '🎲 Acak' : '🧪 Skenario'}</span>`
+        ? `<span class="tag-scenario">${p.land?.is_random_placement ? 'Acak' : 'Skenario'}</span>`
         : '';
 
       li.innerHTML = `

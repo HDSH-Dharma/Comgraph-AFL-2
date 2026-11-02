@@ -20,7 +20,6 @@ import {
   drawCampusMarker,
   drawListingMarker,
   drawOsmCafeMarker,
-  drawGateMarker,
 } from './symbols.js';
 import { buildLandData } from './data.js';
 import { calculateFeasibilityPoints } from './planner.js';
@@ -260,8 +259,6 @@ export class MapUI {
     }, 26);
     const osmCafeCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
     paintSwatch(osmCafeCanvas, (ctx, x, y) => drawOsmCafeMarker(ctx, x, y, 7), 26);
-    const gateCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
-    paintSwatch(gateCanvas, (ctx, x, y) => drawGateMarker(ctx, x, y, 7), 26);
     const listingCanvas = h('canvas', { class: 'swatch', 'aria-hidden': 'true' });
     paintSwatch(listingCanvas, (ctx, x, y) => drawListingMarker(ctx, x, y, 7), 26);
     this.els.listingLegendText = h('span', { id: 'legend-listing-text', text: 'Listing sewa riil publik (L)' });
@@ -271,7 +268,6 @@ export class MapUI {
       h('li', { class: 'legend-sep' }, outCanvas, h('span', { text: 'Pudar = di luar buffer 500 m (baseline)' })),
       h('li', {}, campusCanvas, h('span', { text: 'Titik kampus (pin)' })),
       h('li', {}, osmBuildingCanvas, h('span', { text: 'Perimeter kampus (OSM faktual)' })),
-      h('li', {}, gateCanvas, h('span', { text: 'Gerbang kampus (status: belum diobservasi / unobserved)' })),
       h('li', {}, buffer500Canvas, h('span', { text: 'Buffer 500 m (baseline)' })),
       h('li', {}, buffer1kmCanvas, h('span', { text: 'Skenario buffer 1 km (opsional)' })),
       h('li', {}, osmCafeCanvas, h('span', { text: 'Kafe eksisting (OSM faktual; 4 tanpa nama)' })),
@@ -305,17 +301,6 @@ export class MapUI {
       }
     }
 
-    const gateInput = document.querySelector('input[data-layer="gates"]');
-    const gateLabel = document.getElementById('layer-gates-label') || gateInput?.nextElementSibling;
-    const gateCount = this.vm.data.gates?.items?.length || 0;
-    if (gateLabel) {
-      if (gateCount === 0) {
-        gateLabel.textContent = '🚪 Gerbang kampus (status: belum diobservasi / unobserved)';
-      } else {
-        gateLabel.textContent = `🚪 Gerbang kampus (${gateCount} lokasi; unobserved)`;
-      }
-    }
-
     const cafeInput = document.querySelector('input[data-layer="osmCafes"]');
     const cafeLabel = document.getElementById('layer-osm-cafes-label') || cafeInput?.nextElementSibling;
     const cafeCount = this.vm.data.osmCafes?.items?.length || 0;
@@ -343,9 +328,9 @@ export class MapUI {
     const scenarioCount = this.vm.data.scenarios?.items?.length || 0;
     if (scenarioLabel) {
       if (scenarioCount === 0) {
-        scenarioLabel.textContent = '🧪 Skenario sintetis (simulasi acak)';
+        scenarioLabel.textContent = 'Skenario sintetis (simulasi acak)';
       } else {
-        scenarioLabel.textContent = `🧪 Skenario sintetis (${scenarioCount} simulasi acak)`;
+        scenarioLabel.textContent = `Skenario sintetis (${scenarioCount} simulasi acak)`;
       }
     }
     if (this.els.listingLegendItem && this.els.listingLegendText) {
@@ -580,7 +565,7 @@ export class MapUI {
         h(
           'li',
           { class: 'muted candidate-hidden-notice' },
-          h('strong', { text: '👁️ Lapisan Kandidat Lahan Dinonaktifkan: ' }),
+          h('strong', { text: 'Lapisan Kandidat Lahan Dinonaktifkan: ' }),
           `Lapisan kandidat lahan sedang disembunyikan (${factualCount} lokasi observasi Street View faktual${extraText} dinonaktifkan). Centang opsi "Kandidat lahan observasi (Street View faktual)" pada kontrol lapisan untuk menampilkan seluruh titik kandidat di peta.`
         )
       );
@@ -608,7 +593,7 @@ export class MapUI {
         h(
           'li',
           { class: 'callout callout-warn candidate-demo-list-banner', role: 'note' },
-          h('strong', { text: '⚠️ Simulasi Akademik Demo & Skenario: ' }),
+          h('strong', { text: 'Simulasi Akademik Demo & Skenario: ' }),
           `Menampilkan ${visible.length} titik simulasi (0 data survei faktual). Angka sewa & luas adalah parameter skenario/asumsi, bukan harga pasar nyata.`
         )
       );
@@ -640,7 +625,7 @@ export class MapUI {
                 'span',
                 { class: 'candidate-name' },
                 c.name,
-                c.isScenario ? h('span', { class: 'tag-scenario', text: c.isRandomPlacement ? '🎲 Acak' : '🧪 Skenario' }) : null
+                c.isScenario ? h('span', { class: 'tag-scenario', text: c.isRandomPlacement ? 'Acak' : 'Skenario' }) : null
               ),
               h('span', {
                 class: 'candidate-meta',
@@ -971,7 +956,7 @@ export class MapUI {
         if (c.priceSourceUrl || c.properties?.price_source_url) {
           rows.push([
             'Bukti harga sewa',
-            h('a', { href: c.priceSourceUrl || c.properties.price_source_url, target: '_blank', rel: 'noopener noreferrer' }, 'Tautan Bukti Sewa ↗'),
+            h('a', { href: c.priceSourceUrl || c.properties.price_source_url, target: '_blank', rel: 'noopener noreferrer' }, 'Tautan Bukti Sewa'),
           ]);
         }
       } else {
@@ -987,7 +972,7 @@ export class MapUI {
       if (c.evidenceUrl || c.properties?.evidence_url) {
         rows.push([
           'Bukti observasi',
-          h('a', { href: c.evidenceUrl || c.properties.evidence_url, target: '_blank', rel: 'noopener noreferrer' }, 'Tautan Bukti Observasi ↗'),
+          h('a', { href: c.evidenceUrl || c.properties.evidence_url, target: '_blank', rel: 'noopener noreferrer' }, 'Tautan Bukti Observasi'),
         ]);
       }
       const pano = c.panoId || c.properties?.pano_id;
@@ -1039,7 +1024,7 @@ export class MapUI {
       ]);
     }
 
-    // Tipe jalan, alasan ketidaktersediaan, indikator mahasiswa, dan gerbang kampus (dengan teks null jujur):
+    // Tipe jalan, alasan ketidaktersediaan, dan indikator mahasiswa (dengan teks null jujur):
     const roadType = c.roadType || c.properties?.road_type;
     rows.push(['Tipe jalan akses', roadType || 'null (Tipe jalan belum diobservasi / tidak ada data OSM highway)']);
 
@@ -1052,14 +1037,6 @@ export class MapUI {
 
     const studentInd = c.studentIndicators || c.properties?.student_indicators;
     rows.push(['Indikator mobilitas mahasiswa', studentInd || 'null (Indikator mobilitas mahasiswa belum disurvei lapangan)']);
-
-    const gateDist = c.distanceToNearestGateM ?? c.properties?.distance_to_nearest_gate_meters;
-    const gateStatus = c.gateObservationStatus || c.properties?.gate_observation_status || 'UNOBSERVED';
-    rows.push([
-      'Jarak ke gerbang kampus',
-      gateDist != null ? formatMeters(gateDist) : `null (${gateStatus} - koordinat gerbang belum diobservasi empiris)`,
-    ]);
-    rows.push(['Status observasi gerbang', String(gateStatus)]);
 
     rows.push([
       'Atribusi observasi',
@@ -1085,7 +1062,7 @@ export class MapUI {
               }
             },
           },
-          `☕ ${nearCafeInfo.cafe.name}${nearCafeInfo.distanceM != null ? ` (~${formatMeters(nearCafeInfo.distanceM)})` : ''} ↗`
+          `${nearCafeInfo.cafe.name}${nearCafeInfo.distanceM != null ? ` (~${formatMeters(nearCafeInfo.distanceM)})` : ''}`
         ),
       ]);
     }
@@ -1096,7 +1073,7 @@ export class MapUI {
     if (c.properties?.listing_url) {
       rows.push([
         'Tautan Listing',
-        h('a', { href: c.properties.listing_url, target: '_blank', rel: 'noopener noreferrer' }, 'Buka Listing ↗'),
+        h('a', { href: c.properties.listing_url, target: '_blank', rel: 'noopener noreferrer' }, 'Buka Listing'),
       ]);
     }
 
@@ -1123,10 +1100,10 @@ export class MapUI {
     }[handlerStatus];
 
     const planBtnText = isScenario
-      ? '☕ Rencanakan Modal Kafe (Skenario Sintetis)'
+      ? 'Rencanakan Modal Kafe (Skenario Sintetis)'
       : isDemo
-        ? '☕ Rencanakan Modal Kafe (Simulasi Demo)'
-        : '☕ Rencanakan Modal Kafe';
+        ? 'Rencanakan Modal Kafe (Simulasi Demo)'
+        : 'Rencanakan Modal Kafe';
 
     const planBtn = evaluation.isEligible
       ? h(
@@ -1165,7 +1142,7 @@ export class MapUI {
         h(
           'div',
           { class: 'callout callout-warn scenario-inspector-callout', role: 'alert' },
-          h('strong', { text: isRandomPlacement ? '🎲 Skenario Sintetis (Penempatan Acak): ' : '🧪 Skenario Sintetis (Simulasi Hipotetis): ' }),
+          h('strong', { text: isRandomPlacement ? 'Skenario Sintetis (Penempatan Acak): ' : 'Skenario Sintetis (Simulasi Hipotetis): ' }),
           `Lokasi ini merupakan titik simulasi skenario ${isRandomPlacement ? 'dengan penempatan spasial acak (random placement)' : ''}. Bukan merupakan listing properti faktual maupun hasil survei riil. Seluruh harga dan luas adalah parameter simulasi murni.`
         )
       );
@@ -1174,7 +1151,7 @@ export class MapUI {
         h(
           'div',
           { class: 'callout callout-warn', role: 'status' },
-          h('strong', { text: '⚠️ Simulasi Akademik Demo (Tanpa Provenans Faktual). ' }),
+          h('strong', { text: 'Simulasi Akademik Demo (Tanpa Provenans Faktual). ' }),
           'Kandidat lahan ini adalah data sintetis demo akademik dan tidak memiliki verifikasi survei empiris di lapangan. Angka sewa dan luas adalah estimasi asumsi simulasi, bukan data pasar riil.'
         )
       );
@@ -1183,7 +1160,7 @@ export class MapUI {
         h(
           'div',
           { class: 'callout callout-ok', role: 'status' },
-          h('strong', { text: '📍 Observasi Street View (Bukan Survei Fisik Lapangan). ' }),
+          h('strong', { text: 'Observasi Street View (Bukan Survei Fisik Lapangan). ' }),
           `Diobservasi via Street View (1-2 Nov 2026); peninjauan langsung tim masih tertunda (observasi Street View, bukan survei fisik lapangan). Dilihat ${c.observedAt || '-'} pada gambar Street View ${c.imageryDate || '(tanggal gambar tidak dicatat)'}. Titik = posisi kamera (selisih ±10–30 m). Ketersediaan sewa belum dicek kecuali ada papan yang terbaca; status bisa berubah sejak tanggal gambar.`
         )
       );
@@ -1201,7 +1178,7 @@ export class MapUI {
             target: '_blank',
             rel: 'noopener noreferrer',
           },
-          '🔗 Buka Panorama Google Street View ↗'
+          'Buka Panorama Google Street View'
         )
       );
     }
@@ -1254,7 +1231,7 @@ export class MapUI {
     if (l.sourceUrl) {
       rows.push([
         'Tautan listing',
-        h('a', { href: l.sourceUrl, target: '_blank', rel: 'noopener noreferrer' }, `Buka di ${l.sourcePortal || 'Portal'} ↗`),
+        h('a', { href: l.sourceUrl, target: '_blank', rel: 'noopener noreferrer' }, `Buka di ${l.sourcePortal || 'Portal'}`),
       ]);
     }
     rows.push(['Jenis data', 'Listing sewa riil publik (terverifikasi)']);
@@ -1262,7 +1239,7 @@ export class MapUI {
     const callout = h(
       'div',
       { class: 'callout callout-ok', role: 'status' },
-      h('strong', { text: '🏢 Data Listing Sewa Riil Publik. ' }),
+      h('strong', { text: 'Data Listing Sewa Riil Publik. ' }),
       'Informasi ini merupakan data pembanding pasar sewa terverifikasi dari portal properti publik Surabaya, terpisah dari simulasi kandidat lahan demo.'
     );
 
@@ -1298,7 +1275,7 @@ export class MapUI {
               }
             },
           },
-          '☕ Rencanakan Modal Kafe (Listing Terverifikasi)'
+          'Rencanakan Modal Kafe (Listing Terverifikasi)'
         )
       : h(
           'button',
@@ -1316,6 +1293,23 @@ export class MapUI {
     this.openInspector();
   }
 
+<<<<<<< Updated upstream
+=======
+  // ALUR PANEL KAFE OSM (contoh: "Warkop Mbak Mar"):
+  //   osm_cafes.geojson (dibuat gis_pipeline.py: process_osm_cafes, sumber OpenStreetMap Overpass)
+  //     → data.js parseOsmCafes()        : properti GeoJSON → objek kafe c
+  //     → renderer.js drawOsmCafes()     : marker C kafe di peta
+  //     → klik peta: interaction.js → renderer.hitTest() mengembalikan { kind: 'osm_cafe' }
+  //     → main.js onTap → selectOsmCafe(id) → fungsi ini.
+  //   Asal setiap baris:
+  //     Nama Kafe          ← properti name (tanpa nama → "Kafe tanpa nama (OSM)")
+  //     Koordinat          ← geometri titik (lat, lon) dengan 6 angka desimal
+  //     Sumber             ← properti source ("OpenStreetMap contributors (ODbL 1.0)")
+  //     Jam Buka           ← properti opening_hours (hanya tampil kalau ada di OSM)
+  //     Tanggal Verifikasi ← properti verified_at
+  //   Tombol "Non-Planner" sengaja nonaktif: kafe yang sudah beroperasi adalah pesaing,
+  //   bukan lahan yang bisa direncanakan.
+>>>>>>> Stashed changes
   showOsmCafeInspector(c) {
     const rows = [
       ['Nama Kafe', c.name || 'Kafe Eksisting'],
@@ -1332,7 +1326,7 @@ export class MapUI {
     const callout = h(
       'div',
       { class: 'callout callout-ok', role: 'status' },
-      h('strong', { text: '☕ Kafe Eksisting (Faktual OSM). ' }),
+      h('strong', { text: 'Kafe Eksisting (Faktual OSM). ' }),
       'Titik ini merupakan data faktual kafe yang telah beroperasi di sekitar kawasan kampus. Menjadi acuan peta kompetisi usaha kafe (bukan lahan untuk disewa).'
     );
 
@@ -1361,14 +1355,14 @@ export class MapUI {
     if (b.campusAreaHa) rows.push(['Perkiraan Luas Area', `${decimalID.format(b.campusAreaHa)} hektar`]);
     if (b.verifiedAt) rows.push(['Tanggal Verifikasi', b.verifiedAt]);
     const sourceLink = /^https?:\/\//.test(b.source)
-      ? h('a', { href: b.source, target: '_blank', rel: 'noopener noreferrer', text: 'Buka di OpenStreetMap ↗' })
+      ? h('a', { href: b.source, target: '_blank', rel: 'noopener noreferrer', text: 'Buka di OpenStreetMap' })
       : b.source || 'OpenStreetMap';
     rows.push(['Sumber', sourceLink]);
 
     const callout = h(
       'div',
       { class: 'callout callout-ok', role: 'status' },
-      h('strong', { text: '🏛️ Perimeter Bangunan Kampus OSM (Faktual). ' }),
+      h('strong', { text: 'Perimeter Bangunan Kampus OSM (Faktual). ' }),
       'Geometri poligon batas fisik kampus resmi yang diambil langsung dari OSM ways.'
     );
 
