@@ -1,4 +1,4 @@
-peringkat,id_lahan,name,id_kampus,jarak_kampus_m,status,road_type,kafe_osm_500m,layak_500m,layak_1000m,skor_500m,cakupan_data_pct
+peringkat,id_lahan,name,id_kampus,jarak_kampus_m,status,road_type,kafe_osm_500m,layak_baseline,layak_skenario,skor_500m,cakupan_data_pct
 1,SV-UBAYA-TENGGILIS-01,Lahan berpagar ditumbuhi semak Jl. Raya Kalirungkut,UBAYA-TENGGILIS,238.66,Lahan kosong,utama,1,True,True,78.0,50.0
 2,SV-UKWMS-PAKUWON-01,Lahan terbuka bertembok barat UKWMS Pakuwon City,UKWMS-PAKUWON,258.58,Lahan kosong,,0,True,True,57.5,40.0
 3,SV-UKWMS-PAKUWON-02,Lahan terbuka berumput barat laut UKWMS Pakuwon City,UKWMS-PAKUWON,474.43,Lahan kosong,,0,True,True,42.5,40.0

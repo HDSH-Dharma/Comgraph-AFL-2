@@ -1,4 +1,4 @@
-id,campus_name,kafe_osm_500m,kafe_osm_1000m,kandidat,kandidat_500m,kandidat_1000m,layak_500m,layak_1000m
+id,campus_name,kafe_baseline,kafe_skenario,kandidat,kandidat_baseline,kandidat_skenario,layak_baseline,layak_skenario
 UNAIR-KAMPUS-A,Kampus A Universitas Airlangga,2,20,2,2,2,0,0
 UNAIR-KAMPUS-B,Kampus B Universitas Airlangga,8,21,3,3,3,0,0
 UNAIR-KAMPUS-C,Kampus C Universitas Airlangga,0,0,3,2,3,1,1
