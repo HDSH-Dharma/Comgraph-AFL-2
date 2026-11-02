@@ -29,9 +29,9 @@
         "Lahan kosong"
       ],
       "non_rentable_or_sale_statuses": [
+        "Rumah atau bangunan tempat tinggal",
         "Bangunan yang telah digunakan untuk fungsi lain",
-        "Lahan yang statusnya belum terverifikasi",
-        "Rumah atau bangunan tempat tinggal"
+        "Lahan yang statusnya belum terverifikasi"
       ]
     },
     "scoring_assumptions": {
@@ -368,7 +368,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 3,
         "road_type": "gang",
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -382,15 +382,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
-        "feasibility_score": 60.0,
-        "feasibility_score_normalized": 60.0,
-        "coverage": 35.0,
-        "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 72.0,
+        "feasibility_score_normalized": 72.0,
+        "coverage": 50.0,
+        "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "student_indicators",
           "rent",
           "area"
@@ -409,10 +408,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 3,
+            "points": 15.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": "gang",
@@ -440,16 +439,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 60.0,
-          "score_normalized": 60.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 72.0,
+          "score_normalized": 72.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -468,10 +466,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 3,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -498,36 +496,35 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 21.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 36.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 42.86,
-          "score_normalized": 42.86,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 60.0,
+          "score_normalized": 60.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -546,10 +543,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 3,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -576,24 +573,24 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 15.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 30.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -645,7 +642,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 7,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -659,15 +656,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "feasibility_score": 72.0,
-        "feasibility_score_normalized": 72.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 65.0,
+        "feasibility_score_normalized": 65.0,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -687,10 +683,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 7,
+            "points": 8.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -718,16 +714,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 65.0,
+          "score_normalized": 65.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -747,10 +742,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 7,
+              "points": 8.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -777,16 +772,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 26.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -794,19 +789,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 48.0,
-          "score_normalized": 48.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 50.0,
+          "score_normalized": 50.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -826,10 +820,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 7,
+              "points": 8.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -856,16 +850,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 12.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -873,7 +867,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -925,7 +919,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 2,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -941,13 +935,12 @@
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
         "feasibility_score": 100.0,
         "feasibility_score_normalized": 100.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -967,10 +960,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 2,
+            "points": 15.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -1000,14 +993,13 @@
         "feasibility_scoring": {
           "feasibility_score": 100.0,
           "score_normalized": 100.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -1027,10 +1019,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 2,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -1057,16 +1049,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 25.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -1074,19 +1066,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -1106,10 +1097,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 2,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -1136,16 +1127,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -1153,7 +1144,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -1205,7 +1196,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": "gang",
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -1219,15 +1210,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
-        "feasibility_score": 60.0,
-        "feasibility_score_normalized": 60.0,
-        "coverage": 35.0,
-        "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 52.0,
+        "feasibility_score_normalized": 52.0,
+        "coverage": 50.0,
+        "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "student_indicators",
           "rent",
           "area"
@@ -1246,10 +1236,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": "gang",
@@ -1277,16 +1267,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 60.0,
-          "score_normalized": 60.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 52.0,
+          "score_normalized": 52.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -1305,10 +1294,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -1335,36 +1324,35 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 21.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 26.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 8.57,
-          "score_normalized": 8.57,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 16.0,
+          "score_normalized": 16.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -1383,10 +1371,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -1413,24 +1401,24 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 3.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 8.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -1482,7 +1470,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": "gang",
         "student_indicators": null,
         "hard_gate_passed": true,
@@ -1496,15 +1484,14 @@
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
-        "feasibility_score": 60.0,
-        "feasibility_score_normalized": 60.0,
-        "coverage": 35.0,
-        "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 52.0,
+        "feasibility_score_normalized": 52.0,
+        "coverage": 50.0,
+        "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "student_indicators",
           "rent",
           "area"
@@ -1523,10 +1510,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": "gang",
@@ -1554,16 +1541,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 60.0,
-          "score_normalized": 60.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 52.0,
+          "score_normalized": 52.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -1582,10 +1568,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -1612,36 +1598,35 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 21.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 26.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 42.86,
-          "score_normalized": 42.86,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 40.0,
+          "score_normalized": 40.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -1660,10 +1645,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -1690,24 +1675,24 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 15.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 20.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "rentable_or_usable",
@@ -1759,7 +1744,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": true,
@@ -1773,15 +1758,14 @@
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
-        "feasibility_score": 100.0,
-        "feasibility_score_normalized": 100.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 75.0,
+        "feasibility_score_normalized": 75.0,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -1801,10 +1785,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -1832,16 +1816,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 100.0,
-          "score_normalized": 100.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 75.0,
+          "score_normalized": 75.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -1861,10 +1844,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -1891,16 +1874,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 25.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 30.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -1908,19 +1891,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 57.5,
+          "score_normalized": 57.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -1940,10 +1922,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -1970,16 +1952,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 23.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -1987,7 +1969,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "rentable_or_usable",
@@ -2039,7 +2021,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": true,
@@ -2053,15 +2035,14 @@
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
-        "feasibility_score": 72.0,
-        "feasibility_score_normalized": 72.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 57.5,
+        "feasibility_score_normalized": 57.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -2081,10 +2062,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -2112,16 +2093,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 57.5,
+          "score_normalized": 57.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -2141,10 +2121,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -2171,16 +2151,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 23.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -2188,19 +2168,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 48.0,
-          "score_normalized": 48.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 42.5,
+          "score_normalized": 42.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -2220,10 +2199,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -2250,16 +2229,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 12.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 17.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -2267,7 +2246,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "rentable_or_usable",
@@ -2319,7 +2298,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 1,
         "road_type": "utama",
         "student_indicators": null,
         "hard_gate_passed": true,
@@ -2333,15 +2312,14 @@
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
-        "feasibility_score": 100.0,
-        "feasibility_score_normalized": 100.0,
-        "coverage": 35.0,
-        "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 92.0,
+        "feasibility_score_normalized": 92.0,
+        "coverage": 50.0,
+        "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "student_indicators",
           "rent",
           "area"
@@ -2360,10 +2338,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 1,
+            "points": 11.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": "utama",
@@ -2391,16 +2369,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 100.0,
-          "score_normalized": 100.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 92.0,
+          "score_normalized": 92.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -2419,10 +2396,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 1,
+              "points": 11.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "utama",
@@ -2449,36 +2426,35 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 35.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 46.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 80.0,
-          "score_normalized": 80.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 78.0,
+          "score_normalized": 78.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -2497,10 +2473,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 1,
+              "points": 11.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "utama",
@@ -2527,24 +2503,24 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 28.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 39.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "rentable_or_usable",
@@ -2596,7 +2572,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": "utama",
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -2610,15 +2586,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "feasibility_score": 80.0,
-        "feasibility_score_normalized": 80.0,
-        "coverage": 35.0,
-        "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 66.0,
+        "feasibility_score_normalized": 66.0,
+        "coverage": 50.0,
+        "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "student_indicators",
           "rent",
           "area"
@@ -2637,10 +2612,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": "utama",
@@ -2668,16 +2643,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 80.0,
-          "score_normalized": 80.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 66.0,
+          "score_normalized": 66.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -2696,10 +2670,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "utama",
@@ -2726,36 +2700,35 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 28.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 62.86,
-          "score_normalized": 62.86,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 54.0,
+          "score_normalized": 54.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -2774,10 +2747,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "utama",
@@ -2804,24 +2777,24 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 22.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 27.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -2873,7 +2846,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 2,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -2889,13 +2862,12 @@
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
         "feasibility_score": 100.0,
         "feasibility_score_normalized": 100.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -2915,10 +2887,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 2,
+            "points": 15.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -2948,14 +2920,13 @@
         "feasibility_scoring": {
           "feasibility_score": 100.0,
           "score_normalized": 100.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -2975,10 +2946,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 2,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -3005,16 +2976,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 25.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3022,19 +2993,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3054,10 +3024,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 2,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -3084,16 +3054,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3101,7 +3071,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -3153,7 +3123,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 2,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -3169,13 +3139,12 @@
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
         "feasibility_score": 100.0,
         "feasibility_score_normalized": 100.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -3195,10 +3164,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 2,
+            "points": 15.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -3228,14 +3197,13 @@
         "feasibility_scoring": {
           "feasibility_score": 100.0,
           "score_normalized": 100.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3255,10 +3223,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 2,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -3285,16 +3253,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 25.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3302,19 +3270,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3334,10 +3301,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 2,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -3364,16 +3331,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3381,7 +3348,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -3433,7 +3400,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 2,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -3447,15 +3414,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status lahan belum terverifikasi ketersediaannya (keterbatasan open data publik).",
-        "feasibility_score": 72.0,
-        "feasibility_score_normalized": 72.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 82.5,
+        "feasibility_score_normalized": 82.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -3475,10 +3441,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 2,
+            "points": 15.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -3506,16 +3472,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3535,10 +3500,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 2,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -3565,16 +3530,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3582,19 +3547,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 48.0,
-          "score_normalized": 48.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 67.5,
+          "score_normalized": 67.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3614,10 +3578,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 2,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -3644,16 +3608,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 12.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 27.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3661,7 +3625,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -3713,7 +3677,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 9,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -3727,15 +3691,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "feasibility_score": 72.0,
-        "feasibility_score_normalized": 72.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 65.0,
+        "feasibility_score_normalized": 65.0,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -3755,10 +3718,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 9,
+            "points": 8.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -3786,16 +3749,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 65.0,
+          "score_normalized": 65.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3815,10 +3777,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 9,
+              "points": 8.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -3845,16 +3807,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 26.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3862,19 +3824,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 48.0,
-          "score_normalized": 48.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 50.0,
+          "score_normalized": 50.0,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3894,10 +3855,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 9,
+              "points": 8.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -3924,16 +3885,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 12.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 20.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -3941,7 +3902,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -3993,7 +3954,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 4,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -4007,15 +3968,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
-        "feasibility_score": 72.0,
-        "feasibility_score_normalized": 72.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 82.5,
+        "feasibility_score_normalized": 82.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -4035,10 +3995,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 4,
+            "points": 15.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -4066,16 +4026,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -4095,10 +4054,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 4,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -4125,16 +4084,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -4142,19 +4101,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 48.0,
-          "score_normalized": 48.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 67.5,
+          "score_normalized": 67.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -4174,10 +4132,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 4,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -4204,16 +4162,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 12.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 27.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -4221,7 +4179,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -4273,7 +4231,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 3,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -4289,13 +4247,12 @@
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
         "feasibility_score": 100.0,
         "feasibility_score_normalized": 100.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -4315,10 +4272,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 3,
+            "points": 15.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -4348,14 +4305,13 @@
         "feasibility_scoring": {
           "feasibility_score": 100.0,
           "score_normalized": 100.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -4375,10 +4331,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 3,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -4405,16 +4361,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 25.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -4422,19 +4378,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -4454,10 +4409,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 3,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -4484,16 +4439,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -4501,7 +4456,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -4553,7 +4508,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": "gang",
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -4567,15 +4522,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
-        "feasibility_score": 80.0,
-        "feasibility_score_normalized": 80.0,
-        "coverage": 35.0,
-        "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 66.0,
+        "feasibility_score_normalized": 66.0,
+        "coverage": 50.0,
+        "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "student_indicators",
           "rent",
           "area"
@@ -4594,10 +4548,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": "gang",
@@ -4625,16 +4579,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 80.0,
-          "score_normalized": 80.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 66.0,
+          "score_normalized": 66.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -4653,10 +4606,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -4683,36 +4636,35 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 28.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 80.0,
-          "score_normalized": 80.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 66.0,
+          "score_normalized": 66.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -4731,10 +4683,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -4761,24 +4713,24 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 28.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -4830,7 +4782,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 8,
         "road_type": "utama",
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -4844,15 +4796,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "feasibility_score": 100.0,
-        "feasibility_score_normalized": 100.0,
-        "coverage": 35.0,
-        "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 86.0,
+        "feasibility_score_normalized": 86.0,
+        "coverage": 50.0,
+        "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "student_indicators",
           "rent",
           "area"
@@ -4871,10 +4822,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 8,
+            "points": 8.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": "utama",
@@ -4902,16 +4853,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 100.0,
-          "score_normalized": 100.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 86.0,
+          "score_normalized": 86.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -4930,10 +4880,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 8,
+              "points": 8.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "utama",
@@ -4960,36 +4910,35 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 35.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 43.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 80.0,
-          "score_normalized": 80.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 72.0,
+          "score_normalized": 72.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -5008,10 +4957,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 8,
+              "points": 8.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "utama",
@@ -5038,24 +4987,24 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 28.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 36.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -5107,7 +5056,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -5121,15 +5070,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
-        "feasibility_score": 72.0,
-        "feasibility_score_normalized": 72.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 57.5,
+        "feasibility_score_normalized": 57.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -5149,10 +5097,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -5180,16 +5128,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 57.5,
+          "score_normalized": 57.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -5209,10 +5156,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -5239,16 +5186,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 23.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -5256,19 +5203,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 48.0,
-          "score_normalized": 48.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 42.5,
+          "score_normalized": 42.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -5288,10 +5234,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -5318,16 +5264,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 12.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 17.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -5335,7 +5281,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -5387,7 +5333,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -5401,15 +5347,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "feasibility_score": 72.0,
-        "feasibility_score_normalized": 72.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 57.5,
+        "feasibility_score_normalized": 57.5,
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -5429,10 +5374,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -5460,16 +5405,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 57.5,
+          "score_normalized": 57.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -5489,10 +5433,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -5519,16 +5463,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 23.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -5536,19 +5480,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 48.0,
-          "score_normalized": 48.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 42.5,
+          "score_normalized": 42.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -5568,10 +5511,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -5598,16 +5541,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 12.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 17.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -5615,7 +5558,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -5667,7 +5610,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": "utama",
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -5681,15 +5624,14 @@
         "is_clickable_for_planning": false,
         "planning_eligibility_status": "Tidak dapat dipilih",
         "unavailability_reason": "Bangunan telah aktif digunakan untuk fungsi fasilitas/komersial lain.",
-        "feasibility_score": 80.0,
-        "feasibility_score_normalized": 80.0,
-        "coverage": 35.0,
-        "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 66.0,
+        "feasibility_score_normalized": 66.0,
+        "coverage": 50.0,
+        "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "student_indicators",
           "rent",
           "area"
@@ -5708,10 +5650,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": "utama",
@@ -5739,16 +5681,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 80.0,
-          "score_normalized": 80.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 66.0,
+          "score_normalized": 66.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -5767,10 +5708,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "utama",
@@ -5797,36 +5738,35 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 28.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 62.86,
-          "score_normalized": 62.86,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 54.0,
+          "score_normalized": 54.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -5845,10 +5785,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "utama",
@@ -5875,24 +5815,24 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 22.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 27.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",
@@ -5944,7 +5884,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 0,
         "road_type": "gang",
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -5958,15 +5898,14 @@
         "is_clickable_for_planning": true,
         "planning_eligibility_status": "Dapat dipilih (Modal Perencanaan Kafe)",
         "unavailability_reason": null,
-        "feasibility_score": 60.0,
-        "feasibility_score_normalized": 60.0,
-        "coverage": 35.0,
-        "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+        "feasibility_score": 52.0,
+        "feasibility_score_normalized": 52.0,
+        "coverage": 50.0,
+        "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "student_indicators",
           "rent",
           "area"
@@ -5985,10 +5924,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 0,
+            "points": 5.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": "gang",
@@ -6016,16 +5955,15 @@
           }
         },
         "feasibility_scoring": {
-          "feasibility_score": 60.0,
-          "score_normalized": 60.0,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 52.0,
+          "score_normalized": 52.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -6044,10 +5982,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -6074,36 +6012,35 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 21.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 26.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 8.57,
-          "score_normalized": 8.57,
-          "coverage": 35.0,
-          "feasibility_grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (35% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 16.0,
+          "score_normalized": 16.0,
+          "coverage": 50.0,
+          "feasibility_grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (50% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
@@ -6122,10 +6059,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 0,
+              "points": 5.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": "gang",
@@ -6152,24 +6089,24 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 3.0,
-          "max_available_weight": 35.0,
+          "raw_earned_points": 8.0,
+          "max_available_weight": 50.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
             "campus_proximity",
+            "osm_cafe_competition",
             "road_type"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "student_indicators",
             "rent",
             "area"
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 35.0%, bobot tersedia 35.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'osm_cafe_competition', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 3 komponen yang diobservasi (cakupan 50.0%, bobot tersedia 50.0/100.0). Komponen yang belum diobservasi (4): ['gate_proximity', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "rentable_or_usable",
@@ -6221,7 +6158,7 @@
         "distance_to_nearest_gate_meters": null,
         "gate_observation_status": "UNOBSERVED",
         "gate_notes": "Jarak ke gerbang utama bernilai null karena titik koordinat gerbang kampus belum diobservasi secara empiris di lapangan.",
-        "nearby_cafes_count": null,
+        "nearby_cafes_count": 3,
         "road_type": null,
         "student_indicators": null,
         "hard_gate_passed": false,
@@ -6237,13 +6174,12 @@
         "unavailability_reason": "Status 'Rumah atau bangunan tempat tinggal' bukan peruntukan usaha kafe.",
         "feasibility_score": 100.0,
         "feasibility_score_normalized": 100.0,
-        "coverage": 25.0,
-        "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+        "coverage": 40.0,
+        "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
         "has_stars": false,
         "stars": "",
         "missing": [
           "gate_proximity",
-          "osm_cafe_competition",
           "road_type",
           "student_indicators",
           "rent",
@@ -6263,10 +6199,10 @@
             "status": "MISSING (Gate unobserved)"
           },
           "osm_cafe_competition": {
-            "raw": null,
-            "points": null,
+            "raw": 3,
+            "points": 15.0,
             "weight": 15.0,
-            "status": "MISSING (Nearby cafes unobserved)"
+            "status": "OBSERVED"
           },
           "road_type": {
             "raw": null,
@@ -6296,14 +6232,13 @@
         "feasibility_scoring": {
           "feasibility_score": 100.0,
           "score_normalized": 100.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -6323,10 +6258,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 3,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -6353,16 +6288,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 25.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 40.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -6370,19 +6305,18 @@
           ],
           "radius_mode": "scenario_1km",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "feasibility_scoring_baseline_500m": {
-          "feasibility_score": 72.0,
-          "score_normalized": 72.0,
-          "coverage": 25.0,
-          "feasibility_grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
-          "grade": "Data Terbatas (25% Cakupan - Tanpa Bintang)",
+          "feasibility_score": 82.5,
+          "score_normalized": 82.5,
+          "coverage": 40.0,
+          "feasibility_grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
+          "grade": "Data Terbatas (40% Cakupan - Tanpa Bintang)",
           "has_stars": false,
           "stars": "",
           "missing": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -6402,10 +6336,10 @@
               "status": "MISSING (Gate unobserved)"
             },
             "osm_cafe_competition": {
-              "raw": null,
-              "points": null,
+              "raw": 3,
+              "points": 15.0,
               "weight": 15.0,
-              "status": "MISSING (Nearby cafes unobserved)"
+              "status": "OBSERVED"
             },
             "road_type": {
               "raw": null,
@@ -6432,16 +6366,16 @@
               "status": "MISSING (Unmeasured area)"
             }
           },
-          "raw_earned_points": 18.0,
-          "max_available_weight": 25.0,
+          "raw_earned_points": 33.0,
+          "max_available_weight": 40.0,
           "theoretical_max_weight": 100.0,
           "is_renormalized": true,
           "observed_components": [
-            "campus_proximity"
+            "campus_proximity",
+            "osm_cafe_competition"
           ],
           "null_components": [
             "gate_proximity",
-            "osm_cafe_competition",
             "road_type",
             "student_indicators",
             "rent",
@@ -6449,7 +6383,7 @@
           ],
           "radius_mode": "baseline_500m",
           "assumptions_version": "2.0.0",
-          "formula_note": "Skor dinormalisasi dari 1 komponen yang diobservasi (cakupan 25.0%, bobot tersedia 25.0/100.0). Komponen yang belum diobservasi (6): ['gate_proximity', 'osm_cafe_competition', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
+          "formula_note": "Skor dinormalisasi dari 2 komponen yang diobservasi (cakupan 40.0%, bobot tersedia 40.0/100.0). Komponen yang belum diobservasi (5): ['gate_proximity', 'road_type', 'student_indicators', 'rent', 'area']. Bintang dinonaktifkan karena cakupan data di bawah ambang 60%."
         },
         "status_classification": {
           "category": "non_rentable_or_sale",

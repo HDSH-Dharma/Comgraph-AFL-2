@@ -16,11 +16,11 @@ Baseline 500 m vs skenario 1 km
 - Kandidat layak (lahan kosong/disewakan): 4 (500 m) vs 5 (1 km).
 
 Kandidat layak (urut skor baseline 500 m):
-- SV-UBAYA-TENGGILIS-01 Lahan berpagar ditumbuhi semak Jl. Raya Kalirungkut (UBAYA-TENGGILIS, 238.7 m, jalan: utama, skor 500 m: 80.0, cakupan 35.0%)
-- SV-UKWMS-PAKUWON-01 Lahan terbuka bertembok barat UKWMS Pakuwon City (UKWMS-PAKUWON, 258.6 m, jalan: belum diamati, skor 500 m: 72.0, cakupan 25.0%)
-- SV-UKWMS-PAKUWON-02 Lahan terbuka berumput barat laut UKWMS Pakuwon City (UKWMS-PAKUWON, 474.4 m, jalan: belum diamati, skor 500 m: 48.0, cakupan 25.0%)
-- SV-UNAIR-C-02 Lahan berpagar disewakan Jl. Mulyorejo Utara 221 (UNAIR-KAMPUS-C, 465.8 m, jalan: gang, skor 500 m: 42.86, cakupan 35.0%)
-- SV-UBAYA-TENGGILIS-05 Lahan kosong berpagar di jalan samping Raya Kalirungkut (UBAYA-TENGGILIS, 502.6 m, jalan: gang, skor 500 m: 8.57, cakupan 35.0%)
+- SV-UBAYA-TENGGILIS-01 Lahan berpagar ditumbuhi semak Jl. Raya Kalirungkut (UBAYA-TENGGILIS, 238.7 m, jalan: utama, skor 500 m: 78.0, cakupan 50.0%)
+- SV-UKWMS-PAKUWON-01 Lahan terbuka bertembok barat UKWMS Pakuwon City (UKWMS-PAKUWON, 258.6 m, jalan: belum diamati, skor 500 m: 57.5, cakupan 40.0%)
+- SV-UKWMS-PAKUWON-02 Lahan terbuka berumput barat laut UKWMS Pakuwon City (UKWMS-PAKUWON, 474.4 m, jalan: belum diamati, skor 500 m: 42.5, cakupan 40.0%)
+- SV-UNAIR-C-02 Lahan berpagar disewakan Jl. Mulyorejo Utara 221 (UNAIR-KAMPUS-C, 465.8 m, jalan: gang, skor 500 m: 40.0, cakupan 50.0%)
+- SV-UBAYA-TENGGILIS-05 Lahan kosong berpagar di jalan samping Raya Kalirungkut (UBAYA-TENGGILIS, 502.6 m, jalan: gang, skor 500 m: 16.0, cakupan 50.0%)
 
 Keterbatasan
 - Observasi lahan memakai Google Street View; tanggal citra bervariasi (2024-2026) sehingga kondisi terkini bisa berbeda.

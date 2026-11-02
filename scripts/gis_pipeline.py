@@ -73,6 +73,17 @@ VALID_SURVEY_DATA_KINDS = {"survey_google_maps", "survey_lapangan"}
 # Radius spasial terpusat untuk analisis jangkauan kawasan sekitar kampus:
 # - BASELINE (500.0 m): Batas pejalan kaki standar proposal Bab 1.1 & Bab 3.
 # - SCENARIO (1000.0 m / 1 km): Batas skenario jangkauan strategis Bab 2.2 untuk eksplorasi modal kafe.
+# Path data relatif selalu diselesaikan dari root repositori, sehingga hasil
+# pipeline sama saja baik dijalankan dari root maupun dari folder notebooks/.
+REPO_ROOT_DIR: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def repo_path(path: str) -> str:
+    if os.path.isabs(path) or os.path.exists(path):
+        return path
+    return os.path.join(REPO_ROOT_DIR, path)
+
+
 BASELINE_RADIUS_METERS: float = 500.0
 SCENARIO_RADIUS_METERS: float = 1000.0
 SUPPORTED_RADII_METERS: List[float] = [500.0, 1000.0]
@@ -1463,7 +1474,7 @@ class GISPipeline:
         validated_gates, gates_load_status = load_and_validate_campus_gates(campus_gates_path)
 
         # Muat koordinat awal kafe OSM mentah untuk evaluasi aglomerasi/kompetisi kandidat
-        raw_cafes_path = "data/raw/osm/overpass_cafes_raw.json"
+        raw_cafes_path = repo_path("data/raw/osm/overpass_cafes_raw.json")
         osm_cafes_utm: List[Tuple[float, float]] = []
         if os.path.exists(raw_cafes_path):
             try:
@@ -1687,7 +1698,7 @@ class GISPipeline:
 
         # Fallback ke dataset kandidat demo jika berkas survei masih kosong (0 fitur)
         if len(cand_features) == 0 and is_survey_dataset:
-            fallback_candidates_path = "data/raw/land_candidates.geojson"
+            fallback_candidates_path = repo_path("data/raw/land_candidates.geojson")
             if os.path.exists(fallback_candidates_path):
                 print(f"[INFO] Berkas survei '{candidates_path}' memuat 0 fitur (menunggu observasi tim). "
                       f"Menggunakan kandidat demo fallback '{fallback_candidates_path}'.")
@@ -2188,7 +2199,7 @@ class GISPipeline:
             json.dump(exported_candidates, f, indent=2, ensure_ascii=False, allow_nan=False)
 
         # 8. Export Processed OSM Existing Cafes (ODbL Context Layer)
-        raw_cafes_path = "data/raw/osm/overpass_cafes_raw.json"
+        raw_cafes_path = repo_path("data/raw/osm/overpass_cafes_raw.json")
         cafes_res = self.process_osm_cafes(raw_cafes_path, output_dir, processed_campuses)
 
         outputs = {
@@ -2355,6 +2366,7 @@ class GISPipeline:
         }
 
         if raw_geojson_path:
+            raw_geojson_path = repo_path(raw_geojson_path)
             os.makedirs(os.path.dirname(raw_geojson_path), exist_ok=True)
             with open(raw_geojson_path, "w", encoding="utf-8") as f:
                 json.dump(fc, f, indent=2, ensure_ascii=False, allow_nan=False)
