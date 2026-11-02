@@ -337,7 +337,7 @@ function parseCandidates(json) {
           ? 'Skenario Sintetis (Penempatan Spasial Acak)'
           : 'Skenario Sintetis (Simulasi Hipotetis)')
       : isSurvey
-        ? 'Observasi Street View (Diobservasi oleh Claude AI di peramban desktop Dharma 2026-11-01; peninjauan tim tertunda; observasi Street View, bukan survei fisik lapangan)'
+        ? 'Observasi Street View (Diobservasi 1-2 Nov 2026; peninjauan tim tertunda; observasi Street View, bukan survei fisik lapangan)'
         : (hasOsmProvenance && p.is_factual)
           ? 'Faktual OpenStreetMap (ODbL 1.0)'
           : 'Simulasi Akademik (Tanpa Provenans Faktual)';

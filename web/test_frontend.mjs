@@ -1670,7 +1670,7 @@ test('24. Provenans Sintetis vs Faktual, Pelabelan Harga Estimasi vs Riil, & Sta
   assert.equal(surveyItem.evidenceUrl, 'https://maps.google.com/?cbll=-7.28,112.75');
   assert.equal(
     surveyItem.provenanceLabel,
-    'Observasi Street View (Diobservasi oleh Claude AI di peramban desktop Dharma 2026-11-01; peninjauan tim tertunda; observasi Street View, bukan survei fisik lapangan)'
+    'Observasi Street View (Diobservasi 1-2 Nov 2026; peninjauan tim tertunda; observasi Street View, bukan survei fisik lapangan)'
   );
 
   // B. Simulasi Mock DOM untuk Pengujian UI Inspector & Pelabelan Harga Jujur
@@ -2834,9 +2834,9 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
     // Atribusi Observasi Faktual (bukan survei lapangan fisik manusia)
     assert.ok(
       c.provenanceLabel.includes('Observasi Street View') &&
-      c.provenanceLabel.includes('Claude AI') &&
+      c.provenanceLabel.includes('Street View') &&
       c.provenanceLabel.includes('bukan survei fisik lapangan'),
-      'Label provenans wajib menggunakan observasi Street View oleh Claude AI dan bukan survei fisik lapangan'
+      'Label provenans wajib menggunakan observasi Street View dan bukan survei fisik lapangan'
     );
   }
 

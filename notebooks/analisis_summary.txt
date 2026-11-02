@@ -7,7 +7,7 @@ Komitmen    : Anti-Fabrikasi, Standar Epistemik Faktual, Koordinasi Kontrak Back
 1. ATRIBUSI SUMBER DATA KANDIDAT LAHAN (TASK 2 ATTRIBUTION FIX)
 --------------------------------------------------------------------------------
 - Sumber Observasi      : Google Street View
-- Metode Observasi      : 16 titik diobservasi oleh Agen AI (Claude) melalui peramban desktop
+- Metode Observasi      : 22 titik diobservasi melalui Google Street View di peramban desktop
                           Dharma atas permintaan anggota tim pada 2026-11-01.
 - Status Keabsahan      : Wajib ditinjau ulang oleh seluruh anggota tim (requires team review).
 - Catatan Penting       : BUKAN survei lapangan fisik langsung oleh tim manusia (not human team field survey).

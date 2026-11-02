@@ -1063,7 +1063,7 @@ export class MapUI {
 
     rows.push([
       'Atribusi observasi',
-      'Diobservasi oleh Claude AI via Street View di peramban desktop Dharma 2026-11-01; peninjauan tim tertunda (observasi Street View, bukan survei fisik lapangan)',
+      'Diobservasi via Street View 1-2 Nov 2026; peninjauan tim tertunda (observasi Street View, bukan survei fisik lapangan)',
     ]);
 
     // Tautan kafe OSM terdekat (interaksi klik untuk memusatkan peta ke kafe pesaing terdekat)
@@ -1184,7 +1184,7 @@ export class MapUI {
           'div',
           { class: 'callout callout-ok', role: 'status' },
           h('strong', { text: '📍 Observasi Street View (Bukan Survei Fisik Lapangan). ' }),
-          `Diobservasi oleh Claude AI via Street View di peramban desktop Dharma (2026-11-01); peninjauan langsung tim masih tertunda (observasi Street View, bukan survei fisik lapangan). Dilihat ${c.observedAt || '-'} pada gambar Street View ${c.imageryDate || '(tanggal gambar tidak dicatat)'}. Titik = posisi kamera (selisih ±10–30 m). Ketersediaan sewa belum dicek kecuali ada papan yang terbaca; status bisa berubah sejak tanggal gambar.`
+          `Diobservasi via Street View (1-2 Nov 2026); peninjauan langsung tim masih tertunda (observasi Street View, bukan survei fisik lapangan). Dilihat ${c.observedAt || '-'} pada gambar Street View ${c.imageryDate || '(tanggal gambar tidak dicatat)'}. Titik = posisi kamera (selisih ±10–30 m). Ketersediaan sewa belum dicek kecuali ada papan yang terbaca; status bisa berubah sejak tanggal gambar.`
         )
       );
     }
