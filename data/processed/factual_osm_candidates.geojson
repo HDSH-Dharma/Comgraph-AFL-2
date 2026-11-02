@@ -39,7 +39,8 @@
         "Bangunan yang telah digunakan untuk fungsi lain": 22,
         "Lahan yang statusnya belum terverifikasi": 9
       }
-    }
+    },
+    "source": "OpenStreetMap contributors (Overpass API), diolah pipeline"
   },
   "features": [
     {

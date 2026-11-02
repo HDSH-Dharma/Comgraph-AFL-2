@@ -2,9 +2,9 @@
   "type": "FeatureCollection",
   "metadata": {
     "title": "Dataset Observasi Street View Lahan Kandidat Buka Kafe Surabaya",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "status": "SURVEY_COMPLETED",
-    "description": "Observasi nyata lewat Google Street View oleh agen AI (Claude) atas permintaan anggota tim (Dharma), dilakukan 1 Nov 2026. Setiap titik dibuka dan dilihat langsung; status dicatat sesuai yang terlihat di gambar. Menggantikan 50 titik versi 1.0.0 yang dibuat agen tanpa observasi (masih ada di riwayat git).",
+    "description": "Observasi nyata lewat Google Street View oleh agen AI (Claude) atas permintaan anggota tim (Dharma), dilakukan 1 Nov 2026. Setiap titik dibuka dan dilihat langsung; status dicatat sesuai yang terlihat di gambar. Menggantikan 50 titik versi 1.0.0 yang dibuat agen tanpa observasi (masih ada di riwayat git). Tambahan 2 Nov 2026: 6 titik di/dekat jalan besar dan field road_type/road_type_reason (hanya diisi bila jenis jalan terlihat jelas). Gerbang kampus belum berhasil diamati sehingga jarak ke gerbang tetap null; indikator mahasiswa belum dicatat (null).",
     "protocol_guidelines": {
       "collection_rule": "Catat titik yang benar-benar diobservasi langsung via Google Street View dan Google Maps. Dilarang mengarang koordinat atau alamat.",
       "null_field_rule": "Jika harga sewa tidak tertera pada papan sewa terverifikasi, wajib diisi null (bukan 0 atau estimasi).",
@@ -48,7 +48,13 @@
       "Cakupan terbatas: 16 titik; titik tanpa gambar Street View atau yang tidak jelas tidak dicatat.",
       "Wajib ditinjau anggota tim dengan membuka evidence_url sebelum dipakai di laporan."
     ],
-    "observed_on": "2026-11-01"
+    "observed_on": [
+      "2026-11-01",
+      "2026-11-02"
+    ],
+    "crs": "EPSG:4326",
+    "computation_crs": "EPSG:32749",
+    "source": "Observasi Google Street View oleh agen AI (Claude) atas permintaan Dharma"
   },
   "features": [
     {
@@ -78,7 +84,9 @@
         "area_sqm": null,
         "rental_price_yr": null,
         "price_source_url": null,
-        "data_kind": "survey_google_maps"
+        "data_kind": "survey_google_maps",
+        "road_type": "gang",
+        "road_type_reason": "Gang sempit permukiman; papan nama Jl. Kedung Tarukan Baru I terlihat di panorama."
       }
     },
     {
@@ -168,7 +176,9 @@
         "area_sqm": null,
         "rental_price_yr": null,
         "price_source_url": null,
-        "data_kind": "survey_google_maps"
+        "data_kind": "survey_google_maps",
+        "road_type": "gang",
+        "road_type_reason": "Jalan permukiman sempit berpaving di antara rumah."
       }
     },
     {
@@ -198,7 +208,9 @@
         "area_sqm": null,
         "rental_price_yr": null,
         "price_source_url": null,
-        "data_kind": "survey_google_maps"
+        "data_kind": "survey_google_maps",
+        "road_type": "gang",
+        "road_type_reason": "Jalan sempit di depan gerbang (tampilan panorama; dikonfirmasi Dharma sebagai gang)."
       }
     },
     {
@@ -288,7 +300,9 @@
         "area_sqm": null,
         "rental_price_yr": null,
         "price_source_url": null,
-        "data_kind": "survey_google_maps"
+        "data_kind": "survey_google_maps",
+        "road_type": "utama",
+        "road_type_reason": "Jl. Raya Kalirungkut: ruas yang sama terlihat multi-lajur bermarka dengan angkot/minibus (pano cNyPN6p2FXe2k3LvHGTI-g, ~180 m ke utara)."
       }
     },
     {
@@ -318,7 +332,9 @@
         "area_sqm": null,
         "rental_price_yr": null,
         "price_source_url": null,
-        "data_kind": "survey_google_maps"
+        "data_kind": "survey_google_maps",
+        "road_type": "utama",
+        "road_type_reason": "Jl. Raya Kalirungkut: beberapa lajur kendaraan terlihat di depan deretan ruko."
       }
     },
     {
@@ -525,6 +541,194 @@
         "location_method": "posisi kamera Street View (pano)",
         "near_campus_id": "UKWMS-KALIJUDAN",
         "notes": "Rumah tinggal bertingkat berpagar hijau di gang permukiman; tidak ada tanda disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps",
+        "road_type": "gang",
+        "road_type_reason": "Gang permukiman sempit berpaving."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7584725,
+          -7.2705826
+        ]
+      },
+      "properties": {
+        "id": "SV-UNAIR-B-02",
+        "name": "Gerbang RSUD Dr. Soetomo di sisi utara Jl. Airlangga",
+        "address": "Jl. Airlangga, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2705826,112.7584725,3a,75y,0h,90t/data=!3m6!1e1!3m4!1sFjW_l2iYHMUq_UPzGm3P7A!2e0!7i16384!8i8192",
+        "pano_id": "FjW_l2iYHMUq_UPzGm3P7A",
+        "heading_deg": 0,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-02",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UNAIR-KAMPUS-B",
+        "notes": "Sisi utara jalan adalah gerbang lengkung RSUD Dr. Soetomo (fungsi rumah sakit), bukan lahan usaha. Sisi selatan adalah gedung Kampus B Unair.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps",
+        "road_type": "utama",
+        "road_type_reason": "Jalan lebar dengan marka lajur, trotoar lebar, dan jalur hijau."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7846273,
+          -7.2629866
+        ]
+      },
+      "properties": {
+        "id": "SV-UNAIR-C-03",
+        "name": "Rumah berpagar besi Jl. Mulyorejo",
+        "address": "Jl. Mulyorejo, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2629866,112.7846273,3a,75y,180h,90t/data=!3m6!1e1!3m4!1s6IZeMgimLdzVJCUwF8_rmQ!2e0!7i16384!8i8192",
+        "pano_id": "6IZeMgimLdzVJCUwF8_rmQ",
+        "heading_deg": 180,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-02",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UNAIR-KAMPUS-C",
+        "notes": "Rumah tinggal berpagar besi; di sebelahnya ada usaha kecil. Tidak ada papan disewakan.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8096407,
+          -7.2730706
+        ]
+      },
+      "properties": {
+        "id": "SV-UKWMS-PAKUWON-03",
+        "name": "Sekolah SMA Kristen Gloria 2",
+        "address": "Jl. Raya Kalisari Dharma, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2730706,112.8096407,3a,75y,0h,90t/data=!3m6!1e1!3m4!1slwq50L1Nd0jBHXAwH2yJbw!2e0!7i16384!8i8192",
+        "pano_id": "lwq50L1Nd0jBHXAwH2yJbw",
+        "heading_deg": 0,
+        "imagery_date": "2026-01",
+        "observed_at": "2026-11-02",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UKWMS-PAKUWON",
+        "notes": "Papan nama sekolah SMA Kristen Gloria 2 terlihat di pagar; bukan lahan usaha.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7694158,
+          -7.316819
+        ]
+      },
+      "properties": {
+        "id": "SV-UBAYA-TENGGILIS-04",
+        "name": "Halaman parkir minibus Jl. Raya Kalirungkut",
+        "address": "Jl. Raya Kalirungkut, Surabaya",
+        "status": "Bangunan yang telah digunakan untuk fungsi lain",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.316819,112.7694158,3a,75y,270h,90t/data=!3m6!1e1!3m4!1scNyPN6p2FXe2k3LvHGTI-g!2e0!7i16384!8i8192",
+        "pano_id": "cNyPN6p2FXe2k3LvHGTI-g",
+        "heading_deg": 270,
+        "imagery_date": "2026-03",
+        "observed_at": "2026-11-02",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UBAYA-TENGGILIS",
+        "notes": "Halaman berpagar dipakai parkir minibus/angkot dan mobil; ada bangunan rendah di belakang. Tidak ada papan disewakan yang terbaca.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps",
+        "road_type": "utama",
+        "road_type_reason": "Jalan multi-lajur dengan marka dan kerb pembatas; angkot/minibus terlihat."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7695813,
+          -7.3161937
+        ]
+      },
+      "properties": {
+        "id": "SV-UBAYA-TENGGILIS-05",
+        "name": "Lahan kosong berpagar di jalan samping Raya Kalirungkut",
+        "address": "Jalan samping timur Jl. Raya Kalirungkut, Surabaya",
+        "status": "Lahan kosong",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.3161937,112.7695813,3a,75y,90h,90t/data=!3m6!1e1!3m4!1sNpjHES9YueqEVCsOmzvHPg!2e0!7i16384!8i8192",
+        "pano_id": "NpjHES9YueqEVCsOmzvHPg",
+        "heading_deg": 90,
+        "imagery_date": "2024-03",
+        "observed_at": "2026-11-02",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UBAYA-TENGGILIS",
+        "notes": "Petak tanah kosong berumput dan berpuing di balik pagar besi, di jalan beton sempit antar-gudang. Ketersediaan sewa tidak diketahui.",
+        "area_sqm": null,
+        "rental_price_yr": null,
+        "price_source_url": null,
+        "data_kind": "survey_google_maps",
+        "road_type": "gang",
+        "road_type_reason": "Jalan beton sempit satu jalur di antara gudang."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.7594378,
+          -7.2924962
+        ]
+      },
+      "properties": {
+        "id": "SV-UBAYA-NGAGEL-03",
+        "name": "Rumah bertingkat Jl. Ngagel Madya V",
+        "address": "Jl. Ngagel Madya V, Surabaya",
+        "status": "Rumah atau bangunan tempat tinggal",
+        "survey_method": "street_view",
+        "evidence_url": "https://www.google.com/maps/@-7.2924962,112.7594378,3a,75y,90h,90t/data=!3m6!1e1!3m4!1sM-y6ceHGqjxxkVezJxtp2Q!2e0!7i16384!8i8192",
+        "pano_id": "M-y6ceHGqjxxkVezJxtp2Q",
+        "heading_deg": 90,
+        "imagery_date": "2024-04",
+        "observed_at": "2026-11-02",
+        "surveyed_by": "Agen AI (Claude) via Google Street View, atas permintaan Dharma - wajib ditinjau tim",
+        "location_method": "posisi kamera Street View (pano)",
+        "near_campus_id": "UBAYA-NGAGEL",
+        "notes": "Deretan rumah tinggal bertingkat berpagar; tidak ada papan disewakan.",
         "area_sqm": null,
         "rental_price_yr": null,
         "price_source_url": null,

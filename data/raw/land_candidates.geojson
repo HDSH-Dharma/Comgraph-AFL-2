@@ -48,7 +48,9 @@
       "Cakupan terbatas: 16 titik; titik tanpa gambar Street View atau yang tidak jelas tidak dicatat.",
       "Wajib ditinjau anggota tim dengan membuka evidence_url sebelum dipakai di laporan."
     ],
-    "observed_on": "2026-11-01"
+    "observed_on": "2026-11-01",
+    "crs": "EPSG:4326",
+    "source": "Kandidat lahan input pipeline (lihat survey_land_candidates.geojson untuk observasi Street View)"
   },
   "features": [
     {

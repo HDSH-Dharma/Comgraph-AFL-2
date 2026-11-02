@@ -2988,7 +2988,10 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
     assert.equal(rankButtons.length, 1);
     const expectedScore = sampleCandidate.feasibilityScoring500m.score_normalized;
     assert.ok(rankButtons[0].textContent.includes(`${expectedScore} poin`), 'Ranking item wajib menampilkan skor poin langsung dari skor backend');
-    assert.ok(rankButtons[0].textContent.includes('Cakupan 40%'), 'Ranking item wajib menampilkan cakupan data 40%');
+    const sc500 = sampleCandidate.feasibilityScoring500m || {};
+    const expectedCov = sc500.coverage ?? sc500.coverage_pct;
+    assert.ok(expectedCov < 60, 'Kandidat Street View tanpa sewa/luas wajib cakupan < 60%');
+    assert.ok(rankButtons[0].textContent.includes(`Cakupan ${expectedCov}%`), `Ranking item wajib menampilkan cakupan data ${expectedCov}% dari backend`);
     assert.ok(rankButtons[0].textContent.includes('Kedekatan: 12 pt') || rankButtons[0].textContent.includes('Kedekatan: 20 pt'), 'Ranking item wajib merinci komponen kedekatan');
 
     // 4.3 Inspector: Menampilkan Skor MCDA, Komponen Null, Tipe Jalan Jujur, Alasan, Indikator Siswa, & Gerbang Null
@@ -2997,8 +3000,13 @@ test('28. Perbaikan 1 + 4 Web: Skor Backend Langsung, Supresi Bintang <60%, Lapi
     assert.ok(inspBody.textContent.includes(`${expectedScore} / 100 poin`), 'Inspector wajib memuat skor normalisasi');
     assert.ok(inspBody.textContent.includes('Tanpa Bintang') || inspBody.textContent.includes('bintang ditangguhkan'), 'Bintang wajib disupresi');
     assert.ok(inspBody.textContent.includes('Cakupan data skoring'));
-    assert.ok(inspBody.textContent.includes('40%'));
-    assert.ok(inspBody.textContent.includes('null (Tipe jalan belum diobservasi / tidak ada data OSM highway)'), 'Tipe jalan wajib jujur null');
+    assert.ok(inspBody.textContent.includes(`${expectedCov}%`));
+    const sampleRoadType = sampleCandidate.properties?.road_type ?? sampleCandidate.roadType ?? null;
+    if (sampleRoadType) {
+      assert.ok(inspBody.textContent.includes(sampleRoadType), 'Tipe jalan hasil observasi Street View wajib ditampilkan');
+    } else {
+      assert.ok(inspBody.textContent.includes('null (Tipe jalan belum diobservasi / tidak ada data OSM highway)'), 'Tipe jalan wajib jujur null');
+    }
     assert.ok(inspBody.textContent.includes('null (Indikator mobilitas mahasiswa belum disurvei lapangan)'), 'Indikator mahasiswa wajib jujur null');
     assert.ok(inspBody.textContent.includes('null (UNOBSERVED - koordinat gerbang belum diobservasi empiris)'), 'Jarak gerbang wajib jujur null');
     assert.ok(inspBody.textContent.includes('Observasi Street View (Bukan Survei Fisik Lapangan)'), 'Callout wajib menyatakan bukan survei fisik lapangan');

@@ -6,7 +6,8 @@
     "source": "OpenStreetMap (Nominatim & API v0.6)",
     "licence": "ODbL 1.0 (OpenStreetMap contributors)",
     "total_features": 33,
-    "methodology": "Empirical spatial query of real buildings, cafes, shops, and residences in Surabaya campus buffer zones. Strictly factual; zero synthetic fixtures or fabricated claims."
+    "methodology": "Empirical spatial query of real buildings, cafes, shops, and residences in Surabaya campus buffer zones. Strictly factual; zero synthetic fixtures or fabricated claims.",
+    "crs": "EPSG:4326"
   },
   "features": [
     {

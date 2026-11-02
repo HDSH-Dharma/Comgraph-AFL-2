@@ -3,6 +3,8 @@
   "metadata": {
     "title": "Kafe Eksisting Faktual Sekitar Kampus Surabaya (OpenStreetMap)",
     "source": "OpenStreetMap contributors via Overpass API (ODbL 1.0)",
+    "crs": "EPSG:4326",
+    "computation_crs": "EPSG:32749",
     "licence": "ODbL 1.0 (OpenStreetMap contributors)",
     "captured_date": "2026-11-01",
     "generated_date": "2026-11-01",

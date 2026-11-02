@@ -11,7 +11,9 @@
     "computation_crs": "EPSG:32749",
     "verified_at": "2026-10-31",
     "total_features": 8,
-    "methodology": "Empirical extraction from OpenStreetMap API v0.6 way payloads; exact node sequences and cadastral areas."
+    "methodology": "Empirical extraction from OpenStreetMap API v0.6 way payloads; exact node sequences and cadastral areas.",
+    "crs": "EPSG:4326",
+    "source": "Koordinat kampus diverifikasi tim dari Google Maps / OpenStreetMap"
   },
   "features": [
     {

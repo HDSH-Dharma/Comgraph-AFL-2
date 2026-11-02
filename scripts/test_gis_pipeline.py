@@ -1977,6 +1977,18 @@ class TestGISPipeline(unittest.TestCase):
             self.assertEqual(meta["captured_date"], "2026-11-01")
             self.assertEqual(meta["generated_date"], "2026-11-01")
 
+    def test_32_all_geojson_have_crs_and_source(self):
+        """Setiap GeoJSON di data/ wajib mencantumkan metadata.crs dan metadata.source (checklist a)."""
+        import glob
+        root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+        files = glob.glob(os.path.join(root, "data", "**", "*.geojson"), recursive=True)
+        self.assertGreater(len(files), 0)
+        for fp in files:
+            with open(fp, "r", encoding="utf-8") as f:
+                meta = json.load(f).get("metadata", {})
+            self.assertEqual(meta.get("crs"), "EPSG:4326", f"{fp}: metadata.crs wajib EPSG:4326")
+            self.assertTrue(meta.get("source"), f"{fp}: metadata.source wajib diisi")
+
 
 if __name__ == "__main__":
     unittest.main()

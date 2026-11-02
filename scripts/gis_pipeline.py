@@ -71,7 +71,7 @@ VALID_SURVEY_DATA_KINDS = {"survey_google_maps", "survey_lapangan"}
 # KONFIGURASI RADIUS TERPUSAT (GIS TASK 2: BASELINE 500M & SCENARIO 1KM)
 # ==============================================================================
 # Radius spasial terpusat untuk analisis jangkauan kawasan sekitar kampus:
-# - BASELINE (500.0 m): Batas pejalan kaki standar proposal Bab 1.1 & Bab 3 (~5-7 menit jalan kaki).
+# - BASELINE (500.0 m): Batas pejalan kaki standar proposal Bab 1.1 & Bab 3.
 # - SCENARIO (1000.0 m / 1 km): Batas skenario jangkauan strategis Bab 2.2 untuk eksplorasi modal kafe.
 BASELINE_RADIUS_METERS: float = 500.0
 SCENARIO_RADIUS_METERS: float = 1000.0
@@ -2338,6 +2338,8 @@ class GISPipeline:
             "metadata": {
                 "title": "Kafe Eksisting Faktual Sekitar Kampus Surabaya (OpenStreetMap)",
                 "source": "OpenStreetMap contributors via Overpass API (ODbL 1.0)",
+                "crs": "EPSG:4326",
+                "computation_crs": "EPSG:32749",
                 "licence": "ODbL 1.0 (OpenStreetMap contributors)",
                 "captured_date": "2026-11-01",
                 "generated_date": "2026-11-01",

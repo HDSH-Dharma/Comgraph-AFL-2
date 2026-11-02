@@ -11,7 +11,8 @@
       "Bangunan yang telah digunakan untuk fungsi lain",
       "Lahan yang statusnya belum terverifikasi"
     ],
-    "note": "Dataset sintetis eksplisit untuk pengujian grafika komputer AFL 2; bukan data kepemilikan riil."
+    "note": "Dataset sintetis eksplisit untuk pengujian grafika komputer AFL 2; bukan data kepemilikan riil.",
+    "source": "Data sintetis buatan tim (fixture uji, bukan data lapangan)"
   },
   "features": [
     {

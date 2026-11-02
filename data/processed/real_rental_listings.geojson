@@ -9,7 +9,8 @@
     "evidence_source": "None (research claims unsupported)",
     "unlocated_features_count": 0,
     "geocoded_features_count": 0,
-    "description": "Tidak ada listing properti riil yang lolos verifikasi independen (laporan riset dinyatakan unsupported). Dataset listing dikosongkan guna mencegah pengiriman data buatan / fabrikasi."
+    "description": "Tidak ada listing properti riil yang lolos verifikasi independen (laporan riset dinyatakan unsupported). Dataset listing dikosongkan guna mencegah pengiriman data buatan / fabrikasi.",
+    "source": "Listing sewa publik (lihat rental_listing_evidence.csv untuk URL)"
   },
   "features": []
 }

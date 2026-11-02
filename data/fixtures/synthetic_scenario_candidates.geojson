@@ -23,7 +23,8 @@
     ],
     "buffer_threshold_m": 1000.0,
     "research_evidence_source": "reports/research.md",
-    "disclaimer": "Seluruh fitur di dalam berkas ini merupakan situs hipotesis yang dibangkitkan secara deterministik (pseudo-random fixed seed). Angka harga sewa berakar pada rentang iklan sewa publik yang terdokumentasi pada reports/research.md, namun titik lokasi dan ketersediaan bersifat simulasi skenario (synthetic scenario)."
+    "disclaimer": "Seluruh fitur di dalam berkas ini merupakan situs hipotesis yang dibangkitkan secara deterministik (pseudo-random fixed seed). Angka harga sewa berakar pada rentang iklan sewa publik yang terdokumentasi pada reports/research.md, namun titik lokasi dan ketersediaan bersifat simulasi skenario (synthetic scenario).",
+    "crs": "EPSG:4326"
   },
   "features": [
     {
