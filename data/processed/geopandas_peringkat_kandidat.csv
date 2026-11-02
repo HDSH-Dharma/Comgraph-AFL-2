@@ -1,0 +1,23 @@
+peringkat,id_lahan,name,id_kampus,jarak_kampus_m,status,road_type,kafe_osm_500m,layak_500m,layak_1000m,skor_500m,cakupan_data_%
+1,SV-UBAYA-TENGGILIS-01,Lahan berpagar ditumbuhi semak Jl. Raya Kalirungkut,UBAYA-TENGGILIS,238.66,Lahan kosong,utama,1,True,True,78.0,50.0
+2,SV-UKWMS-PAKUWON-01,Lahan terbuka bertembok barat UKWMS Pakuwon City,UKWMS-PAKUWON,258.58,Lahan kosong,,0,True,True,57.5,40.0
+3,SV-UKWMS-PAKUWON-02,Lahan terbuka berumput barat laut UKWMS Pakuwon City,UKWMS-PAKUWON,474.43,Lahan kosong,,0,True,True,42.5,40.0
+4,SV-UNAIR-C-02,Lahan berpagar disewakan Jl. Mulyorejo Utara 221,UNAIR-KAMPUS-C,465.77,Lahan yang tersedia untuk disewakan,gang,0,True,True,40.0,50.0
+5,SV-UBAYA-TENGGILIS-05,Lahan kosong berpagar di jalan samping Raya Kalirungkut,UBAYA-TENGGILIS,502.63,Lahan kosong,gang,0,False,True,16.0,50.0
+6,SV-UNAIR-A-03,Gedung aktif Jl. Prof. Dr. Moestopo,UNAIR-KAMPUS-A,178.2,Bangunan yang telah digunakan untuk fungsi lain,,2,False,False,82.5,40.0
+7,SV-UBAYA-TENGGILIS-03,Rumah berpagar Jl. Tenggilis Mejoyo,UBAYA-TENGGILIS,169.59,Rumah atau bangunan tempat tinggal,,2,False,False,82.5,40.0
+8,SV-UBAYA-NGAGEL-01,Deretan toko aktif ujung Jl. Pumpungan I,UBAYA-NGAGEL,241.48,Bangunan yang telah digunakan untuk fungsi lain,,2,False,False,82.5,40.0
+9,SV-UNAIR-B-01,Hotel aktif Jl. Bunga Lou,UNAIR-KAMPUS-B,273.4,Bangunan yang telah digunakan untuk fungsi lain,,3,False,False,82.5,40.0
+10,SV-UBAYA-NGAGEL-03,Rumah bertingkat Jl. Ngagel Madya V,UBAYA-NGAGEL,219.9,Rumah atau bangunan tempat tinggal,,3,False,False,82.5,40.0
+11,SV-UNAIR-B-02,Gerbang RSUD Dr. Soetomo di sisi utara Jl. Airlangga,UNAIR-KAMPUS-B,188.78,Bangunan yang telah digunakan untuk fungsi lain,utama,8,False,False,72.0,50.0
+12,SV-UBAYA-NGAGEL-02,Bangunan berpintu harmonika tertutup Jl. Krukah Timur,UBAYA-NGAGEL,471.87,Lahan yang statusnya belum terverifikasi,,2,False,False,67.5,40.0
+13,SV-UKWMS-DINOYO-02,Rumah berpagar Jl. Bawean,UKWMS-DINOYO,476.55,Rumah atau bangunan tempat tinggal,,4,False,False,67.5,40.0
+14,SV-UKWMS-KALIJUDAN-01,Rumah bertingkat Jl. Bronggalan 2 H,UKWMS-KALIJUDAN,145.68,Rumah atau bangunan tempat tinggal,gang,0,False,False,66.0,50.0
+15,SV-UNAIR-A-01,Rumah tinggal Jl. Kedung Tarukan Baru I,UNAIR-KAMPUS-A,370.82,Rumah atau bangunan tempat tinggal,gang,3,False,False,60.0,50.0
+16,SV-UBAYA-TENGGILIS-02,Deretan ruko aktif Jl. Raya Kalirungkut,UBAYA-TENGGILIS,330.12,Bangunan yang telah digunakan untuk fungsi lain,utama,0,False,False,54.0,50.0
+17,SV-UBAYA-TENGGILIS-04,Halaman parkir minibus Jl. Raya Kalirungkut,UBAYA-TENGGILIS,431.82,Bangunan yang telah digunakan untuk fungsi lain,utama,0,False,False,54.0,50.0
+18,SV-UNAIR-A-02,Lapangan olahraga berpagar Jl. Dharmawangsa,UNAIR-KAMPUS-B,426.88,Bangunan yang telah digunakan untuk fungsi lain,,7,False,False,50.0,40.0
+19,SV-UKWMS-DINOYO-01,Lapak pasar/kios aktif Jl. Dinoyo,UKWMS-DINOYO,374.08,Bangunan yang telah digunakan untuk fungsi lain,,9,False,False,50.0,40.0
+20,SV-UNAIR-C-03,Rumah berpagar besi Jl. Mulyorejo,UNAIR-KAMPUS-C,394.65,Rumah atau bangunan tempat tinggal,,0,False,False,42.5,40.0
+21,SV-UKWMS-PAKUWON-03,Sekolah SMA Kristen Gloria 2,UKWMS-PAKUWON,361.55,Bangunan yang telah digunakan untuk fungsi lain,,0,False,False,42.5,40.0
+22,SV-UNAIR-C-01,Permukiman Jl. Sutorejo Timur IV,UNAIR-KAMPUS-C,540.97,Rumah atau bangunan tempat tinggal,gang,0,False,False,16.0,50.0
