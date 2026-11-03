@@ -1293,8 +1293,6 @@ export class MapUI {
     this.openInspector();
   }
 
-<<<<<<< Updated upstream
-=======
   // ALUR PANEL KAFE OSM (contoh: "Warkop Mbak Mar"):
   //   osm_cafes.geojson (dibuat gis_pipeline.py: process_osm_cafes, sumber OpenStreetMap Overpass)
   //     → data.js parseOsmCafes()        : properti GeoJSON → objek kafe c
@@ -1309,7 +1307,6 @@ export class MapUI {
   //     Tanggal Verifikasi ← properti verified_at
   //   Tombol "Non-Planner" sengaja nonaktif: kafe yang sudah beroperasi adalah pesaing,
   //   bukan lahan yang bisa direncanakan.
->>>>>>> Stashed changes
   showOsmCafeInspector(c) {
     const rows = [
       ['Nama Kafe', c.name || 'Kafe Eksisting'],
